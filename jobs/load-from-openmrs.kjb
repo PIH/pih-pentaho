@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>Test Job</name>
+  <name>load-from-openmrs</name>
     <description/>
     <extended_description/>
     <job_version/>
@@ -8,11 +8,11 @@
   <created_user>-</created_user>
   <created_date>2016&#x2f;10&#x2f;06 15&#x3a;47&#x3a;48.654</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;06 15&#x3a;47&#x3a;48.654</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;19 12&#x3a;23&#x3a;43.399</modified_date>
     <parameters>
     </parameters>
   <connection>
-    <name>Pentaho Test DB</name>
+    <name>Warehouse</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
@@ -77,7 +77,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>32</xloc>
+      <xloc>64</xloc>
       <yloc>224</yloc>
       </entry>
     <entry>
@@ -86,11 +86,11 @@
       <type>TABLE_EXISTS</type>
       <tablename>omrs_patient</tablename>
       <schemaname/>
-      <connection>Pentaho Test DB</connection>
+      <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>144</xloc>
+      <xloc>352</xloc>
       <yloc>224</yloc>
       </entry>
     <entry>
@@ -102,31 +102,31 @@
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
       <sendOneStatement>T</sendOneStatement>
-      <connection>Pentaho Test DB</connection>
+      <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>96</yloc>
+      <xloc>512</xloc>
+      <yloc>80</yloc>
       </entry>
     <entry>
-      <name>Truncate Patient Table</name>
+      <name>Drop Patient Table</name>
       <description/>
       <type>SQL</type>
-      <sql>truncate omrs_patient&#x3b;</sql>
+      <sql>drop table omrs_patient&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
       <sendOneStatement>T</sendOneStatement>
-      <connection>Pentaho Test DB</connection>
+      <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>272</xloc>
+      <xloc>528</xloc>
       <yloc>336</yloc>
       </entry>
     <entry>
-      <name>Transformation</name>
+      <name>Load Patient Table</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -155,20 +155,26 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>416</xloc>
+      <xloc>672</xloc>
       <yloc>208</yloc>
+      </entry>
+    <entry>
+      <name>Load variables</name>
+      <description/>
+      <type>SET_VARIABLES</type>
+      <replacevars>Y</replacevars>
+      <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.pih-pentaho&#x2f;config.properties</filename>
+      <file_variable_type>CURRENT_JOB</file_variable_type>
+      <fields>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>208</xloc>
+      <yloc>224</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>START</from>
-      <to>Patient Table Exists</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
     <hop>
       <from>Patient Table Exists</from>
       <to>Create Patient Table</to>
@@ -180,7 +186,7 @@
     </hop>
     <hop>
       <from>Patient Table Exists</from>
-      <to>Truncate Patient Table</to>
+      <to>Drop Patient Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -189,7 +195,7 @@
     </hop>
     <hop>
       <from>Create Patient Table</from>
-      <to>Transformation</to>
+      <to>Load Patient Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -197,8 +203,26 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Truncate Patient Table</from>
-      <to>Transformation</to>
+      <from>Drop Patient Table</from>
+      <to>Create Patient Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Load variables</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Load variables</from>
+      <to>Patient Table Exists</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

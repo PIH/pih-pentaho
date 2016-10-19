@@ -75,14 +75,14 @@
   <notepads>
   </notepads>
   <connection>
-    <name>OpenMRS Neno</name>
-    <server>localhost</server>
+    <name>OpenMRS</name>
+    <server>&#x24;&#x7b;openmrs.db.host&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>openmrs_neno</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <database>&#x24;&#x7b;openmrs.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;openmrs.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -92,7 +92,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;openmrs.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -102,7 +102,7 @@
     </attributes>
   </connection>
   <connection>
-    <name>Pentaho Test</name>
+    <name>Warehouse</name>
     <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
@@ -129,41 +129,89 @@
     </attributes>
   </connection>
   <order>
+  <hop> <from>Import Patient</from><to>Patient Merge 1</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Person Name</from><to>Patient Merge 1</to><enabled>Y</enabled> </hop>
+  <hop> <from>Patient Merge 1</from><to>Patient Merge 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Person Address</from><to>Patient Merge 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Patient Merge 2</from><to>Data Conversion</to><enabled>Y</enabled> </hop>
+  <hop> <from>Data Conversion</from><to>Replace Cause of Death</to><enabled>Y</enabled> </hop>
   <hop> <from>Replace Cause of Death</from><to>Write Patient Table</to><enabled>Y</enabled> </hop>
-  <hop> <from>Update Data Types</from><to>Replace Cause of Death</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import From Patient</from><to>Patient Table Merges</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import From Person Address</from><to>Patient Table Merges</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import From Person Name</from><to>Patient Table Merges</to><enabled>Y</enabled> </hop>
-  <hop> <from>Patient Table Merges</from><to>Update Data Types</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import From Patient</name>
-    <type>TableInput</type>
+    <name>Data Conversion</name>
+    <type>SelectValues</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OpenMRS Neno</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa; &#x2a;&#x2f;&#xa;select      n.uuid as uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.birthtime,&#xa;            n.dead,&#xa;            n.death_date,&#xa;            n.cause_of_death&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
+    <fields>      <field>        <name>state_province</name>
+        <rename>district</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>county_district</name>
+        <rename>traditional_authority</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>city_village</name>
+        <rename>village</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>given_name</name>
+        <rename>first_name</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>family_name</name>
+        <rename>last_name</rename>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>Y</select_unspecified>
+      <remove>        <name>patient_uuid</name>
+      </remove>      <remove>        <name>prefix</name>
+      </remove>      <remove>        <name>middle_name</name>
+      </remove>      <remove>        <name>family_name_prefix</name>
+      </remove>      <remove>        <name>family_name2</name>
+      </remove>      <remove>        <name>family_name_suffix</name>
+      </remove>      <remove>        <name>degree</name>
+      </remove>      <remove>        <name>patient_uuid_1</name>
+      </remove>      <remove>        <name>country</name>
+      </remove>      <remove>        <name>postal_code</name>
+      </remove>      <remove>        <name>address1</name>
+      </remove>      <remove>        <name>address2</name>
+      </remove>      <remove>        <name>address3</name>
+      </remove>      <remove>        <name>address4</name>
+      </remove>      <remove>        <name>address5</name>
+      </remove>      <remove>        <name>address6</name>
+      </remove>      <remove>        <name>latitude</name>
+      </remove>      <remove>        <name>longitude</name>
+      </remove>      <meta>        <name>cause_of_death</name>
+        <rename>cause_of_death</rename>
+        <type>String</type>
+        <length>100</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>96</xloc>
-      <yloc>64</yloc>
+      <xloc>544</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import From Person Name</name>
+    <name>Import Patient</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -173,8 +221,8 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OpenMRS Neno</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts at most one name for each person, favoring those marked as preferred, followed by those most recently created&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as uuid,&#xa;            n.given_name as first_name,&#xa;            n.family_name as last_name&#xa;from        person p&#xa;left join   person_name n on p.person_id &#x3d; n.person_id&#xa;where       n.person_name_id &#x3d; &#x28;&#xa;              select    n.person_name_id&#xa;              from      person_name n&#xa;              where     n.voided &#x3d; 0&#xa;              and       n.person_id &#x3d; p.person_id&#xa;              order by  n.preferred desc, n.date_created desc limit 1&#xa;            &#x29;&#xa;order by 	p.uuid</sql>
+    <connection>OpenMRS</connection>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa; &#x2a;&#x2f;&#xa;select      n.uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.birthtime,&#xa;            n.dead,&#xa;            n.death_date,&#xa;            n.cause_of_death&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -182,8 +230,116 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>96</xloc>
-      <yloc>240</yloc>
+      <xloc>192</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Person Address</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OpenMRS</connection>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts at most one address for each person, favoring those marked as preferred, followed by those most recently created&#xa;  TODO&#x3a; Consider whether start_date and end_date should factor in&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as patient_uuid,&#xa;            a.country,&#xa;            a.postal_code,&#xa;            a.state_province,&#xa;            a.county_district,&#xa;            a.city_village,&#xa;            a.address1,&#xa;            a.address2,&#xa;            a.address3,&#xa;            a.address4,&#xa;            a.address5,&#xa;            a.address6,&#xa;            a.latitude,&#xa;            a.longitude&#xa;from        person p&#xa;left join   person_address a on p.person_id &#x3d; a.person_id&#xa;where       a.person_address_id &#x3d; &#x28;&#xa;              select        a.person_address_id&#xa;              from          person_address a&#xa;              where         a.voided &#x3d; 0&#xa;              and           a.person_id &#x3d; p.person_id&#xa;              order by      a.preferred desc, a.date_created desc limit 1&#xa;            &#x29;&#xa;order by 	p.uuid</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>192</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Person Name</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OpenMRS</connection>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts at most one name for each person, favoring those marked as preferred, followed by those most recently created&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as patient_uuid,&#xa;            n.prefix,&#xa;            n.given_name,&#xa;            n.middle_name,&#xa;            n.family_name_prefix,&#xa;            n.family_name,&#xa;            n.family_name2,&#xa;            n.family_name_suffix,&#xa;            n.degree&#xa;from        person p&#xa;left join   person_name n on p.person_id &#x3d; n.person_id&#xa;where       n.person_name_id &#x3d; &#x28;&#xa;              select    n.person_name_id&#xa;              from      person_name n&#xa;              where     n.voided &#x3d; 0&#xa;              and       n.person_id &#x3d; p.person_id&#xa;              order by  n.preferred desc, n.date_created desc limit 1&#xa;            &#x29;&#xa;order by 	p.uuid</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>192</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Patient Merge 1</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Patient</step1>
+<step2>Import Person Name</step2>
+    <keys_1>
+      <key>uuid</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_uuid</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Patient Merge 2</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Patient Merge 1</step1>
+<step2>Import Person Address</step2>
+    <keys_1>
+      <key>uuid</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_uuid</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -214,45 +370,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>816</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Update Data Types</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>        <select_unspecified>N</select_unspecified>
-      <remove>        <name>uuid_1</name>
-      </remove>      <remove>        <name>uuid_2</name>
-      </remove>      <meta>        <name>cause_of_death</name>
-        <rename>cause_of_death</rename>
-        <type>String</type>
-        <length>100</length>
-        <precision>-2</precision>
-        <conversion_mask/>
-        <date_format_lenient>false</date_format_lenient>
-        <date_format_locale/>
-        <date_format_timezone/>
-        <lenient_string_to_number>false</lenient_string_to_number>
-        <encoding/>
-        <decimal_symbol/>
-        <grouping_symbol/>
-        <currency_symbol/>
-        <storage_type/>
-      </meta>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>304</yloc>
+      <xloc>736</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -268,7 +387,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Pentaho Test</connection>
+    <connection>Warehouse</connection>
     <schema/>
     <table>omrs_patient</table>
     <commit>1000</commit>
@@ -289,63 +408,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1024</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import From Person Address</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OpenMRS Neno</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts at most one address for each person, favoring those marked as preferred, followed by those most recently created&#xa;  TODO&#x3a; Consider whether start_date and end_date should factor in&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as uuid,&#xa;            a.state_province as district,&#xa;            a.county_district as traditional_authority,&#xa;            a.city_village as village&#xa;from        person p&#xa;left join   person_address a on p.person_id &#x3d; a.person_id&#xa;where       a.person_address_id &#x3d; &#x28;&#xa;              select        a.person_address_id&#xa;              from          person_address a&#xa;              where         a.voided &#x3d; 0&#xa;              and           a.person_id &#x3d; p.person_id&#xa;              order by      a.preferred desc, a.date_created desc limit 1&#xa;            &#x29;&#xa;order by 	p.uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>432</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Patient Table Merges</name>
-    <type>MultiwayMergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <join_type>INNER</join_type>
-    <step0>Import From Patient</step0>
-    <step1>Import From Person Address</step1>
-    <step2>Import From Person Name</step2>
-    <number_input>3</number_input>
-    <keys>
-      <key>uuid</key>
-      <key>uuid</key>
-      <key>uuid</key>
-    </keys>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>304</xloc>
-      <yloc>256</yloc>
+      <xloc>944</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
