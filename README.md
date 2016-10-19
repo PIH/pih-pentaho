@@ -8,6 +8,18 @@ Repository hosting PIH data warehousing scripts built on the Pentaho product sui
 
 =====================
 
+Necessary environmental variables:
+
+PIH_PENTAHO_HOME  -- points to the top-level directory where the jobs and transforms subfolders should be found
+
+=====================
+
+Setup steps (should be puppet or ansiblized at some point):
+
+
+
+=====================
+
 Possible organizational approach (from https://github.com/nagkumar/kettle-franchise):
 
 
