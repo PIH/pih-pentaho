@@ -73,27 +73,6 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>We should exclude test patients</note>
-      <xloc>96</xloc>
-      <yloc>32</yloc>
-      <width>228</width>
-      <heigth>27</heigth>
-      <fontname>Ubuntu</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>OpenMRS</name>
@@ -154,14 +133,14 @@
   <hop> <from>Patient Merge 1</from><to>Patient Merge 2</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Person Address</from><to>Patient Merge 2</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Patient</from><to>Lookup Cause of Death</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Cause of Death</from><to>Patient Merge 1</to><enabled>Y</enabled> </hop>
   <hop> <from>Patient Merge 2</from><to>Write Patient Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Cause of Death</from><to>Patient Merge 1</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Lookup Cause of Death</name>
     <type>DBLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -211,7 +190,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa; &#x2a;&#x2f;&#xa;select      n.uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.birthtime,&#xa;            n.dead,&#xa;            n.death_date,&#xa;            n.cause_of_death as cause_of_death_id&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa; &#x2a;&#x2f;&#xa;select      n.uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;			TIMESTAMPDIFF&#x28;YEAR, birthdate, CURDATE&#x28;&#x29;&#x29; as age_years,&#xa;            n.birthdate_estimated,&#xa;            n.birthtime,&#xa;            n.dead,&#xa;            n.death_date,&#xa;			if&#x28;death_date is null, null, TIMESTAMPDIFF&#x28;YEAR, birthdate, death_date&#x29;&#x29; as age_at_death,&#xa;            n.cause_of_death as cause_of_death_id&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -375,6 +354,10 @@
           <stream_name>birthdate</stream_name>
         </field>
         <field>
+          <column_name>age_years</column_name>
+          <stream_name>age_years</stream_name>
+        </field>
+        <field>
           <column_name>birthdate_estimated</column_name>
           <stream_name>birthdate_estimated</stream_name>
         </field>
@@ -389,6 +372,10 @@
         <field>
           <column_name>death_date</column_name>
           <stream_name>death_date</stream_name>
+        </field>
+        <field>
+          <column_name>age_at_death</column_name>
+          <stream_name>age_at_death</stream_name>
         </field>
         <field>
           <column_name>cause_of_death</column_name>
