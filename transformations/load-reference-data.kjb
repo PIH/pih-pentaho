@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>load-from-openmrs</name>
+  <name>load-reference-data</name>
     <description/>
     <extended_description/>
     <job_version/>
   <directory>&#x2f;</directory>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;06 15&#x3a;47&#x3a;48.654</created_date>
+  <created_date>2016&#x2f;10&#x2f;19 17&#x3a;57&#x3a;14.971</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;19 12&#x3a;23&#x3a;43.399</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;19 17&#x3a;57&#x3a;14.971</modified_date>
     <parameters>
     </parameters>
   <connection>
@@ -77,61 +77,76 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>224</yloc>
+      <xloc>96</xloc>
+      <yloc>336</yloc>
       </entry>
     <entry>
-      <name>Patient Table Exists</name>
+      <name>Table Exists</name>
       <description/>
       <type>TABLE_EXISTS</type>
-      <tablename>omrs_patient</tablename>
+      <tablename>reference_data</tablename>
       <schemaname/>
       <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>224</yloc>
-      </entry>
-    <entry>
-      <name>Create Patient Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>CREATE TABLE omrs_patient &#x28;&#xa;	uuid CHAR&#x28;38&#x29; not null primary key,&#xa;	first_name VARCHAR&#x28;100&#x29;,&#xa;	last_name VARCHAR&#x28;100&#x29;,&#xa;	gender CHAR&#x28;1&#x29;,&#xa;	birthdate DATE,&#xa;	birthdate_estimated BOOLEAN,&#xa;	birthtime TIME,&#xa;	district VARCHAR&#x28;100&#x29;,&#xa;	traditional_authority VARCHAR&#x28;100&#x29;,&#xa;	village VARCHAR&#x28;100&#x29;,&#xa;	dead BOOLEAN,&#xa;	death_date DATE,&#xa;	cause_of_death VARCHAR&#x28;100&#x29;&#xa;&#x29;&#x3b;&#xa;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>T</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>80</yloc>
-      </entry>
-    <entry>
-      <name>Drop Patient Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table omrs_patient&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>T</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>720</xloc>
+      <xloc>352</xloc>
       <yloc>336</yloc>
       </entry>
     <entry>
-      <name>Load Patient Table</name>
+      <name>Create Table</name>
+      <description/>
+      <type>SQL</type>
+      <sql>CREATE TABLE reference_data &#x28;&#xa;	source_type VARCHAR&#x28;50&#x29;,&#xa;	source_key  INT,&#xa;	target_value VARCHAR&#x28;1000&#x29;&#xa;&#x29;&#x3b;&#xa;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>T</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>480</xloc>
+      <yloc>240</yloc>
+      </entry>
+    <entry>
+      <name>Drop Table</name>
+      <description/>
+      <type>SQL</type>
+      <sql>drop table reference_data&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>T</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>480</xloc>
+      <yloc>400</yloc>
+      </entry>
+    <entry>
+      <name>Load variables</name>
+      <description/>
+      <type>SET_VARIABLES</type>
+      <replacevars>Y</replacevars>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;config.properties</filename>
+      <file_variable_type>CURRENT_JOB</file_variable_type>
+      <fields>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>192</xloc>
+      <yloc>336</yloc>
+      </entry>
+    <entry>
+      <name>Load Table</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transformations&#x2f;import-into-omrs-patient.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transformations&#x2f;import-into-reference-data.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -155,62 +170,11 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>864</xloc>
-      <yloc>208</yloc>
-      </entry>
-    <entry>
-      <name>Load variables</name>
-      <description/>
-      <type>SET_VARIABLES</type>
-      <replacevars>Y</replacevars>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;config.properties</filename>
-      <file_variable_type>CURRENT_JOB</file_variable_type>
-      <fields>
-      </fields>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>208</xloc>
-      <yloc>224</yloc>
+      <xloc>608</xloc>
+      <yloc>320</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>Patient Table Exists</from>
-      <to>Create Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Patient Table Exists</from>
-      <to>Drop Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Patient Table</from>
-      <to>Load Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Drop Patient Table</from>
-      <to>Create Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>START</from>
       <to>Load variables</to>
@@ -222,7 +186,43 @@
     </hop>
     <hop>
       <from>Load variables</from>
-      <to>Patient Table Exists</to>
+      <to>Table Exists</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Table Exists</from>
+      <to>Drop Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Table Exists</from>
+      <to>Create Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Drop Table</from>
+      <to>Create Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create Table</from>
+      <to>Load Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
