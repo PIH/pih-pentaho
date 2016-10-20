@@ -8,7 +8,7 @@ Repository hosting PIH data warehousing scripts built on the Pentaho product sui
 
 =====================
 
-Necessary environmental variables:
+Necessary Kettle variables:
 
 PIH_PENTAHO_HOME  -- points to the top-level directory where the jobs and transforms subfolders should be found
 
@@ -16,6 +16,10 @@ PIH_PENTAHO_HOME  -- points to the top-level directory where the jobs and transf
 
 Setup steps (should be puppet or ansiblized at some point):
 
+* Download Pentaho Kettle from here: http://community.pentaho.com/projects/data-integration/  (we are currently using version 6.1, for what it's worth)
+* Unzip and copy into your preferred executable directory
+* Run "spoon.sh" to start
+* Add a new kettle variable (via Edit->Edit the kettle.propreties file), "PIH_PENATAHO_HOME" to point to the top-level directory for your Pentaho project (ie, the top-level directory of this proiect)
 
 
 =====================
