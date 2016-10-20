@@ -81,51 +81,6 @@
       <yloc>336</yloc>
       </entry>
     <entry>
-      <name>Table Exists</name>
-      <description/>
-      <type>TABLE_EXISTS</type>
-      <tablename>reference_data</tablename>
-      <schemaname/>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>352</xloc>
-      <yloc>336</yloc>
-      </entry>
-    <entry>
-      <name>Create Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>CREATE TABLE reference_data &#x28;&#xa;	source_type VARCHAR&#x28;50&#x29;,&#xa;	source_key  INT,&#xa;	target_value VARCHAR&#x28;1000&#x29;&#xa;&#x29;&#x3b;&#xa;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>T</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>240</yloc>
-      </entry>
-    <entry>
-      <name>Drop Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table reference_data&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>T</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>400</yloc>
-      </entry>
-    <entry>
       <name>Load variables</name>
       <description/>
       <type>SET_VARIABLES</type>
@@ -137,16 +92,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
+      <xloc>208</xloc>
       <yloc>336</yloc>
       </entry>
     <entry>
-      <name>Load Table</name>
+      <name>Load Concept Lookup Table</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transformations&#x2f;import-into-reference-data.ktr</filename>
+      <filename>&#x2f;home&#x2f;mseaton&#x2f;code&#x2f;pih-pentaho&#x2f;transforms&#x2f;setup-reference-concepts.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -170,8 +125,24 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
-      <yloc>320</yloc>
+      <xloc>672</xloc>
+      <yloc>128</yloc>
+      </entry>
+    <entry>
+      <name>Create Concept Lookup Table</name>
+      <description/>
+      <type>SQL</type>
+      <sql>drop table if exists lookup_concept&#x3b;&#xa;&#xa;create table lookup_concept &#x28;&#xa;	source_key int,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>432</xloc>
+      <yloc>128</yloc>
       </entry>
   </entries>
   <hops>
@@ -186,7 +157,7 @@
     </hop>
     <hop>
       <from>Load variables</from>
-      <to>Table Exists</to>
+      <to>Create Concept Lookup Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -194,35 +165,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Table Exists</from>
-      <to>Drop Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Table Exists</from>
-      <to>Create Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Drop Table</from>
-      <to>Create Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Table</from>
-      <to>Load Table</to>
+      <from>Create Concept Lookup Table</from>
+      <to>Load Concept Lookup Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

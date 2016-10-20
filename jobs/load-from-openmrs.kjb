@@ -81,49 +81,20 @@
       <yloc>224</yloc>
       </entry>
     <entry>
-      <name>Patient Table Exists</name>
-      <description/>
-      <type>TABLE_EXISTS</type>
-      <tablename>omrs_patient</tablename>
-      <schemaname/>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>448</xloc>
-      <yloc>224</yloc>
-      </entry>
-    <entry>
       <name>Create Patient Table</name>
       <description/>
       <type>SQL</type>
-      <sql>CREATE TABLE omrs_patient &#x28;&#xa;	uuid CHAR&#x28;38&#x29; not null primary key,&#xa;	first_name VARCHAR&#x28;100&#x29;,&#xa;	last_name VARCHAR&#x28;100&#x29;,&#xa;	gender CHAR&#x28;1&#x29;,&#xa;	birthdate DATE,&#xa;	birthdate_estimated BOOLEAN,&#xa;	birthtime TIME,&#xa;	district VARCHAR&#x28;100&#x29;,&#xa;	traditional_authority VARCHAR&#x28;100&#x29;,&#xa;	village VARCHAR&#x28;100&#x29;,&#xa;	dead BOOLEAN,&#xa;	death_date DATE,&#xa;	cause_of_death VARCHAR&#x28;100&#x29;&#xa;&#x29;&#x3b;&#xa;</sql>
+      <sql>drop table if exists omrs_patient&#x3b;&#xa;&#xa;CREATE TABLE omrs_patient &#x28;&#xa;	uuid CHAR&#x28;38&#x29; not null primary key,&#xa;	first_name VARCHAR&#x28;50&#x29;,&#xa;	middle_name VARCHAR&#x28;50&#x29;,&#xa;	last_name VARCHAR&#x28;50&#x29;,&#xa;	gender CHAR&#x28;1&#x29;,&#xa;	birthdate DATE,&#xa;	birthdate_estimated BOOLEAN,&#xa;	birthtime TIME,&#xa;	country VARCHAR&#x28;50&#x29;,&#xa;	state_province VARCHAR&#x28;255&#x29;,&#xa;	county_district VARCHAR&#x28;255&#x29;,&#xa;	city_village VARCHAR&#x28;255&#x29;,&#xa;	postal_code VARCHAR&#x28;50&#x29;,&#xa;    address1 VARCHAR&#x28;255&#x29;,&#xa;    address2 VARCHAR&#x28;255&#x29;,&#xa;    address3 VARCHAR&#x28;255&#x29;,&#xa;    address4 VARCHAR&#x28;255&#x29;,&#xa;    address5 VARCHAR&#x28;255&#x29;,&#xa;    address6 VARCHAR&#x28;255&#x29;,&#xa;    latitude VARCHAR&#x28;50&#x29;,&#xa;    longitude VARCHAR&#x28;50&#x29;,&#xa;	dead BOOLEAN,&#xa;	death_date DATE,&#xa;	cause_of_death VARCHAR&#x28;100&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
-      <sendOneStatement>T</sendOneStatement>
+      <sendOneStatement>F</sendOneStatement>
       <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>80</yloc>
-      </entry>
-    <entry>
-      <name>Drop Patient Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table omrs_patient&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>T</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>720</xloc>
-      <yloc>336</yloc>
+      <xloc>432</xloc>
+      <yloc>112</yloc>
       </entry>
     <entry>
       <name>Load Patient Table</name>
@@ -131,7 +102,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transformations&#x2f;import-into-omrs-patient.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;import-into-omrs-patient.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -155,8 +126,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>864</xloc>
-      <yloc>208</yloc>
+      <xloc>656</xloc>
+      <yloc>112</yloc>
       </entry>
     <entry>
       <name>Load variables</name>
@@ -173,38 +144,42 @@
       <xloc>208</xloc>
       <yloc>224</yloc>
       </entry>
+    <entry>
+      <name>Load Reference Data</name>
+      <description/>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;load-reference-data.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <expand_remote_job>N</expand_remote_job>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>208</xloc>
+      <yloc>112</yloc>
+      </entry>
   </entries>
   <hops>
     <hop>
-      <from>Patient Table Exists</from>
-      <to>Create Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Patient Table Exists</from>
-      <to>Drop Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Create Patient Table</from>
       <to>Load Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Drop Patient Table</from>
-      <to>Create Patient Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -222,7 +197,16 @@
     </hop>
     <hop>
       <from>Load variables</from>
-      <to>Patient Table Exists</to>
+      <to>Load Reference Data</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Create Patient Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
