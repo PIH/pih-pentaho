@@ -101,7 +101,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x2f;home&#x2f;mseaton&#x2f;code&#x2f;pih-pentaho&#x2f;transforms&#x2f;setup-reference-concepts.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;setup-reference-concepts.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -150,7 +150,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x2f;home&#x2f;mseaton&#x2f;code&#x2f;pih-pentaho&#x2f;transforms&#x2f;setup-reference-locations.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;setup-reference-locations.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -215,7 +215,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x2f;home&#x2f;mseaton&#x2f;code&#x2f;pih-pentaho&#x2f;transforms&#x2f;setup-reference-identifier-types.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;setup-reference-identifier-types.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
