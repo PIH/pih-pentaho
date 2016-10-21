@@ -461,6 +461,20 @@
           </field>
         <field>
           <field_name>value</field_name>
+          <key_value>&#x24;&#x7b;patient.attributeType.fathersName&#x7d;</key_value>
+          <target_name>fathers_name</target_name>
+          <target_type>String</target_type>
+          <target_format/>
+          <target_length>-1</target_length>
+          <target_precision>-1</target_precision>
+          <target_decimal_symbol/>
+          <target_grouping_symbol/>
+          <target_currency_symbol/>
+          <target_null_string/>
+          <target_aggregation_type>-</target_aggregation_type>
+          </field>
+        <field>
+          <field_name>value</field_name>
           <key_value>&#x24;&#x7b;patient.attributeType.healthCenter&#x7d;</key_value>
           <target_name>health_center_id</target_name>
           <target_type>Integer</target_type>
@@ -502,6 +516,10 @@
         <length>-2</length>
         <precision>-2</precision>
       </field>      <field>        <name>mothers_name</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>fathers_name</name>
         <rename/>
         <length>-2</length>
         <precision>-2</precision>
@@ -650,6 +668,10 @@
         <field>
           <column_name>mothers_name</column_name>
           <stream_name>mothers_name</stream_name>
+        </field>
+        <field>
+          <column_name>fathers_name</column_name>
+          <stream_name>fathers_name</stream_name>
         </field>
         <field>
           <column_name>health_center</column_name>
