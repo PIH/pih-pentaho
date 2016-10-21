@@ -9,49 +9,37 @@ order by count(*) desc;
 
 Neno:
 
-11986		Cell Phone Number
-6139		Health Center
 4763		Occupation
-9		Mother's Name
-9		Mother's Maiden Name
-7		Health District
-3		Birthplace
-3		Citizenship
-2		Civil Status
-2		Race
-
+9			Mother's Maiden Name
+7			Health District
+3			Birthplace
+3			Citizenship
+2			Civil Status
+2			Race
 
 Mirebalais:
 
-235617		Telephone Number
-61772		First Name of Mother
-174		Unknown patient
-3		Test Patient
-
+174			Unknown patient
+3			Test Patient
 
 Rwink:
 
-51172		Health Center
-14093		Mother's Name
 13663		Father's name
 3011		Citizenship
 3002		Health District
 1282		Civil Status
-789		Birthplace
-257		Race
-4		Boarding School
-
+789			Birthplace
+257			Race
+4			Boarding School
 
 Lesotho:
 
-16703	Health Center
-2715	Health District
-2580	Citizenship
-2516	Race
-2509	Birthplace
-2315	Mother's Name
-1802	Treatment Supporter
-1757	Civil Status
+2715		Health District
+2580		Citizenship
+2516		Race
+2509		Birthplace
+1802		Treatment Supporter
+1757		Civil Status
 
 
 =====
