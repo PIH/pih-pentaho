@@ -19,6 +19,7 @@ Setup steps (should be puppet or ansiblized at some point):
 
 * Download Pentaho Kettle from here: http://community.pentaho.com/projects/data-integration/  (we are currently using version 6.1, for what it's worth)
 * Unzip and copy into your preferred executable directory
+* Install the dependencies listed in README_LINUX.txt in the top-level Kettle directory (sudo apt-get install libwebkitgtk-1.0.0)
 * Download the latest mysql connector jar from here: https://dev.mysql.com/downloads/file/?id=465644
 * Extract the mysql connector jar out of the above zip file and copy it into the data-integration/lib
 * Run "spoon.sh" to start
