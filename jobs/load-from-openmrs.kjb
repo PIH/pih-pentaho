@@ -130,21 +130,6 @@
       <yloc>112</yloc>
       </entry>
     <entry>
-      <name>Load variables</name>
-      <description/>
-      <type>SET_VARIABLES</type>
-      <replacevars>Y</replacevars>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;config.properties</filename>
-      <file_variable_type>CURRENT_JOB</file_variable_type>
-      <fields>
-      </fields>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>208</xloc>
-      <yloc>224</yloc>
-      </entry>
-    <entry>
       <name>Load Reference Data</name>
       <description/>
       <type>JOB</type>
@@ -172,32 +157,14 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>208</xloc>
-      <yloc>112</yloc>
+      <xloc>224</xloc>
+      <yloc>224</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>Create Patient Table</from>
       <to>Load Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>START</from>
-      <to>Load variables</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Load variables</from>
-      <to>Load Reference Data</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -212,6 +179,15 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Load Reference Data</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>
