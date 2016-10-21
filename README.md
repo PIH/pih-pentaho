@@ -19,6 +19,8 @@ Setup steps (should be puppet or ansiblized at some point):
 
 * Download Pentaho Kettle from here: http://community.pentaho.com/projects/data-integration/  (we are currently using version 6.1, for what it's worth)
 * Unzip and copy into your preferred executable directory
+* Download the latest mysql connector jar from here: https://dev.mysql.com/downloads/file/?id=465644
+* Extract the mysql connector jar out of the above zip file and copy it into the data-integration/lib
 * Run "spoon.sh" to start
 * Add a new kettle variable (via Edit->Edit the kettle.propreties file), "PIH_PENATAHO_HOME" to point to the top-level directory for your Pentaho project (ie, the top-level directory of this proiect)
 
