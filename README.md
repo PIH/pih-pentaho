@@ -11,6 +11,7 @@ Repository hosting PIH data warehousing scripts built on the Pentaho product sui
 Necessary Kettle variables:
 
 PIH_PENTAHO_HOME  -- points to the top-level directory where the jobs and transforms subfolders should be found
+PIH_PENTAHO_COUNTRY  -- [malawi,haiti] -- controls which config file is loaded at config/[country].properties
 
 =====================
 
