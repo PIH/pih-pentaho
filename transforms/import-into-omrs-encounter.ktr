@@ -146,7 +146,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.encounter_datetime,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where	e.voided &#x3d; 0</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.encounter_datetime,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29; as age_at_enc&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where	e.voided &#x3d; 0</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -288,6 +288,10 @@
         <field>
           <column_name>encounter_datetime</column_name>
           <stream_name>encounter_datetime</stream_name>
+        </field>
+        <field>
+          <column_name>age_at_enc</column_name>
+          <stream_name>age_at_enc</stream_name>
         </field>
         <field>
           <column_name>patient_uuid</column_name>
