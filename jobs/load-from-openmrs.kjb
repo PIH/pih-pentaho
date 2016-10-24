@@ -219,7 +219,7 @@
       <name>Create Encounter Table</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists omrs_encounter&#x3b;&#xa;&#xa;CREATE TABLE omrs_encounter &#x28;&#xa;	uuid CHAR&#x28;38&#x29; not null primary key,&#xa;	&#x23; patient_uuid CHAR&#x28;38&#x29; not null,&#xa;	encounter_type VARCHAR&#x28;255&#x29; not null,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	encounter_datetime datetime	&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists omrs_encounter&#x3b;&#xa;&#xa;CREATE TABLE omrs_encounter &#x28;&#xa;	uuid CHAR&#x28;38&#x29; not null primary key,&#xa;	patient_uuid CHAR&#x28;38&#x29; not null,&#xa;	encounter_type VARCHAR&#x28;255&#x29; not null,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	encounter_datetime datetime	&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
