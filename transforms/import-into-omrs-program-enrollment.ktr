@@ -146,7 +146,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient programs&#xa;  This excludes any that have a null enrollment date.&#xa; &#x2a;&#x2f;&#xa;select      pp.uuid, &#xa;			p.uuid as patient_uuid,&#xa;            pg.concept_id as program_concept_id, &#xa;            pp.date_enrolled,&#xa;			pp.location_id,&#xa;			pp.date_completed,&#xa;			pp.outcome_concept_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient programs&#xa;  This excludes any that have a null enrollment date.&#xa; &#x2a;&#x2f;&#xa;select      pp.uuid, &#xa;			p.uuid as patient_uuid,&#xa;            pg.concept_id as program_concept_id, &#xa;            pp.date_enrolled,&#xa;			if&#x28;pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, pp.date_enrolled&#x29;&#x29; as age_at_enrollment,&#xa;			pp.location_id,&#xa;			pp.date_completed,&#xa;			if&#x28;pp.date_completed is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, pp.date_completed&#x29;&#x29; as age_at_completion,&#xa;			pp.outcome_concept_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -155,48 +155,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>144</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Program Concept</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>program_concept_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>program</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
@@ -245,6 +203,90 @@
     </step>
 
   <step>
+    <name>Lookup Outcome Concept</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_concept</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>outcome_concept_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>outcome</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>720</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Program Concept</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_concept</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>program_concept_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>program</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>496</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Write Program Enrollment Table</name>
     <type>TableOutput</type>
     <description/>
@@ -282,12 +324,20 @@
           <stream_name>patient_uuid</stream_name>
         </field>
         <field>
-          <column_name>enrollment_date</column_name>
+          <column_name>date_enrolled</column_name>
           <stream_name>date_enrolled</stream_name>
         </field>
         <field>
-          <column_name>completion_date</column_name>
+          <column_name>age_at_enrollment</column_name>
+          <stream_name>age_at_enrollment</stream_name>
+        </field>
+        <field>
+          <column_name>date_completed</column_name>
           <stream_name>date_completed</stream_name>
+        </field>
+        <field>
+          <column_name>age_at_completion</column_name>
+          <stream_name>age_at_completion</stream_name>
         </field>
         <field>
           <column_name>location</column_name>
@@ -305,48 +355,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>976</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Outcome Concept</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>outcome_concept_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>outcome</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>720</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
