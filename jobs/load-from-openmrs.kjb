@@ -379,7 +379,7 @@
       <yloc>368</yloc>
       </entry>
     <entry>
-      <name>Load Encounter Provider TAble</name>
+      <name>Load Encounter Provider Table</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -514,7 +514,7 @@
     </hop>
     <hop>
       <from>Create Encounter Provider Table</from>
-      <to>Load Encounter Provider TAble</to>
+      <to>Load Encounter Provider Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -522,7 +522,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Encounter Provider TAble</from>
+      <from>Load Encounter Provider Table</from>
       <to>Create Encounter Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
