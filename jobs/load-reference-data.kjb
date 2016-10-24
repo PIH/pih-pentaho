@@ -4,6 +4,7 @@
     <description/>
     <extended_description/>
     <job_version/>
+    <job_status>0</job_status>
   <directory>&#x2f;</directory>
   <created_user>-</created_user>
   <created_date>2016&#x2f;10&#x2f;19 17&#x3a;57&#x3a;14.971</created_date>
@@ -344,7 +345,7 @@
       <name>Create Person Name Lookup</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists lookup_person_name&#x3b;&#xa;&#xa;create table lookup_person_name &#x28;&#xa;	source_key int,&#xa;	last_name VARCHAR&#x28;50&#x29;,&#xa;	first_name VARCHAR&#x28;50&#x29;,&#xa;	middle_name VARCHAR&#x28;50&#x29;&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists lookup_person_name&#x3b;&#xa;&#xa;create table lookup_person_name &#x28;&#xa;	uuid VARCHAR&#x28;38&#x29;,&#xa;	last_name VARCHAR&#x28;50&#x29;,&#xa;	first_name VARCHAR&#x28;50&#x29;,&#xa;	middle_name VARCHAR&#x28;50&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
