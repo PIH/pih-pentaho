@@ -235,7 +235,7 @@
       <name>Create Program Enrollment Table</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists omrs_program_enrollment&#x3b;&#xa;&#xa;CREATE TABLE omrs_program_enrollment &#x28;&#xa;	uuid CHAR&#x28;38&#x29; not null primary key,&#xa;	patient_uuid CHAR&#x28;38&#x29; not null,&#xa;	program VARCHAR&#x28;100&#x29; not null,&#xa;	enrollment_date date not null,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	completion_date date,&#xa;	outcome varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists omrs_program_enrollment&#x3b;&#xa;&#xa;CREATE TABLE omrs_program_enrollment &#x28;&#xa;	uuid CHAR&#x28;38&#x29; not null primary key,&#xa;	patient_uuid CHAR&#x28;38&#x29; not null,&#xa;	program VARCHAR&#x28;100&#x29; not null,&#xa;	enrollment_date date not null,&#xa;	age_at_enrollment int,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	completion_date date,&#xa;	age_at_completion int,&#xa;	outcome varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
