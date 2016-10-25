@@ -324,7 +324,7 @@
           <stream_name>patient_uuid</stream_name>
         </field>
         <field>
-          <column_name>date_enrolled</column_name>
+          <column_name>enrollment_date</column_name>
           <stream_name>date_enrolled</stream_name>
         </field>
         <field>
@@ -332,7 +332,7 @@
           <stream_name>age_at_enrollment</stream_name>
         </field>
         <field>
-          <column_name>date_completed</column_name>
+          <column_name>completion_date</column_name>
           <stream_name>date_completed</stream_name>
         </field>
         <field>
