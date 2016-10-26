@@ -228,8 +228,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>912</xloc>
-      <yloc>416</yloc>
+      <xloc>928</xloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Create Program Enrollment Table</name>
@@ -311,7 +311,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>1104</xloc>
-      <yloc>416</yloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Create Program State Table</name>
@@ -505,7 +505,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>976</xloc>
+      <xloc>928</xloc>
       <yloc>352</yloc>
       </entry>
     <entry>
@@ -538,7 +538,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>1280</xloc>
-      <yloc>416</yloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Add Obs Indexes</name>
@@ -561,15 +561,6 @@
     <hop>
       <from>Create Encounter Provider Table</from>
       <to>Load Encounter Provider Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Encounter Provider Table</from>
-      <to>Create Encounter Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -741,6 +732,15 @@
     <hop>
       <from>Load Obs Table</from>
       <to>Add Obs Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Add Encounter Provider Indexes</from>
+      <to>Create Encounter Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
