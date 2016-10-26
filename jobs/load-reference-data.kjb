@@ -133,7 +133,7 @@
       <name>Create Concept Lookup Table</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists lookup_concept&#x3b;&#xa;&#xa;create table lookup_concept &#x28;&#xa;	source_key int,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists lookup_concept&#x3b;&#xa;&#xa;create table lookup_concept &#x28;&#xa;	source_key int primary key,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -182,7 +182,7 @@
       <name>Create Location Lookup Table</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists lookup_location&#x3b;&#xa;&#xa;create table lookup_location &#x28;&#xa;	source_key int,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists lookup_location&#x3b;&#xa;&#xa;create table lookup_location &#x28;&#xa;	source_key int primary key,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -198,7 +198,7 @@
       <name>Create Identifier Type Lookup</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists lookup_identifier_type&#x3b;&#xa;&#xa;create table lookup_identifier_type &#x28;&#xa;	source_key int,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists lookup_identifier_type&#x3b;&#xa;&#xa;create table lookup_identifier_type &#x28;&#xa;	source_key int primary key,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -247,7 +247,7 @@
       <name>Create Encounter Type Lookup</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists lookup_encounter_type&#x3b;&#xa;&#xa;create table lookup_encounter_type &#x28;&#xa;	source_key int,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists lookup_encounter_type&#x3b;&#xa;&#xa;create table lookup_encounter_type &#x28;&#xa;	source_key int primary key,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -296,7 +296,7 @@
       <name>Create User Lookup</name>
       <description/>
       <type>SQL</type>
-      <sql>drop table if exists lookup_user&#x3b;&#xa;&#xa;create table lookup_user &#x28;&#xa;	source_key int,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <sql>drop table if exists lookup_user&#x3b;&#xa;&#xa;create table lookup_user &#x28;&#xa;	source_key int primary key,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -403,8 +403,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>912</xloc>
-      <yloc>624</yloc>
+      <xloc>688</xloc>
+      <yloc>768</yloc>
       </entry>
     <entry>
       <name>Load Provider Name Lookup Table</name>
@@ -436,8 +436,40 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1136</xloc>
+      <xloc>928</xloc>
+      <yloc>768</yloc>
+      </entry>
+    <entry>
+      <name>Add Person Name Index</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table lookup_person_name add primary key&#x28;uuid&#x29;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>912</xloc>
       <yloc>624</yloc>
+      </entry>
+    <entry>
+      <name>Add Provider Name Index</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table lookup_provider_name add primary key&#x28;uuid&#x29;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1152</xloc>
+      <yloc>768</yloc>
       </entry>
   </entries>
   <hops>
@@ -559,7 +591,25 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>Create Provider Name Lookup</from>
+      <to>Load Provider Name Lookup Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>Load Person Name Lookup Table</from>
+      <to>Add Person Name Index</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Add Person Name Index</from>
       <to>Create Provider Name Lookup</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -568,8 +618,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Provider Name Lookup</from>
-      <to>Load Provider Name Lookup Table</to>
+      <from>Load Provider Name Lookup Table</from>
+      <to>Add Provider Name Index</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
