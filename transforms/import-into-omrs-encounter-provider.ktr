@@ -130,9 +130,8 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Encounter Provider</from><to>Merge Person Name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Provider Name Lookup </from><to>Merge Person Name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Merge Person Name</from><to>Write Encounter Provider Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Encounter Provider</from><to>Lookup Provider Name</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Provider Name</from><to>Write Encounter Provider Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Import Encounter Provider</name>
@@ -146,7 +145,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a; NOTE&#x3a; we order by person here so that the merge works probably &#x2a;&#x2f;&#xa;&#xa;select 		er.name as provider_role,&#xa;			e.uuid as encounter_uuid,&#xa;			ep.uuid,&#xa;			p.uuid as person_uuid&#xa;from 		encounter e&#xa;left join	encounter_provider ep on e.encounter_id &#x3d; ep.encounter_id&#xa;left join	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;left join	person p on p.person_id &#x3d; pr.person_id&#xa;left join 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;where 		e.voided &#x3d; 0&#xa;order by 	p.uuid</sql>
+    <sql>&#xa;select 		er.name as provider_role,&#xa;			e.uuid as encounter_uuid,&#xa;			ep.uuid,&#xa;			p.uuid as person_uuid&#xa;from 		encounter e&#xa;left join	encounter_provider ep on e.encounter_id &#x3d; ep.encounter_id&#xa;left join	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;left join	person p on p.person_id &#x3d; pr.person_id&#xa;left join 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;where 		e.voided &#x3d; 0&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -161,8 +160,8 @@
     </step>
 
   <step>
-    <name>Import Provider Name Lookup </name>
-    <type>TableInput</type>
+    <name>Lookup Provider Name</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -172,44 +171,32 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select &#x2a; &#xa;from lookup_provider_name&#xa;order by uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_provider_name</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>person_uuid</name>
+        <field>uuid</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>provider_name</name>
+        <rename>provider_name</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Merge Person Name</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Import Encounter Provider</step1>
-<step2>Import Provider Name Lookup </step2>
-    <keys_1>
-      <key>person_uuid</key>
-    </keys_1>
-    <keys_2>
-      <key>uuid</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>272</yloc>
+      <xloc>560</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -262,8 +249,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>576</xloc>
-      <yloc>272</yloc>
+      <xloc>768</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
