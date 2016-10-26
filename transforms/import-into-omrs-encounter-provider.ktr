@@ -131,7 +131,7 @@
   </connection>
   <order>
   <hop> <from>Import Encounter Provider</from><to>Merge Person Name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Person Name Lookup </from><to>Merge Person Name</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Provider Name Lookup </from><to>Merge Person Name</to><enabled>Y</enabled> </hop>
   <hop> <from>Merge Person Name</from><to>Write Encounter Provider Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
@@ -161,7 +161,7 @@
     </step>
 
   <step>
-    <name>Import Person Name Lookup </name>
+    <name>Import Provider Name Lookup </name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -172,7 +172,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select &#x2a; &#xa;from lookup_person_name&#xa;order by uuid</sql>
+    <sql>select &#x2a; &#xa;from lookup_provider_name&#xa;order by uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -199,7 +199,7 @@
            </partitioning>
 <join_type>LEFT OUTER</join_type>
 <step1>Import Encounter Provider</step1>
-<step2>Import Person Name Lookup </step2>
+<step2>Import Provider Name Lookup </step2>
     <keys_1>
       <key>person_uuid</key>
     </keys_1>
@@ -253,7 +253,7 @@
         </field>
         <field>
           <column_name>provider</column_name>
-          <stream_name>full_name</stream_name>
+          <stream_name>provider_name</stream_name>
         </field>
         <field>
           <column_name>provider_role</column_name>
