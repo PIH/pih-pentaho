@@ -146,7 +146,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs&#xa;&#x2a;   TODO&#x3a; add value drug, add groupins&#xa;&#x2a;&#x2f;&#xa;select		o.uuid,&#xa;			o.concept_id as concept_id,&#xa;			o.obs_datetime,&#xa;			e.uuid as encounter_uuid,&#xa;			p.uuid as patient_uuid,&#xa;			o.value_coded as value_coded_id,&#xa;			o.value_numeric,&#xa;			o.value_boolean,&#xa;			o.value_datetime,&#xa;			o.value_text,&#xa;			o.comments as comments,&#xa;			og.uuid as grouping_obs_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.obs_datetime&#x29; as age_at_obs&#xa;from 		obs o&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	obs og on o.obs_grouping_id &#x3d; og.obs_id&#xa;where		o.voided &#x3d; 0&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs&#xa;&#x2a;   TODO&#x3a; add value drug, add groupins&#xa;&#x2a;&#x2f;&#xa;select		o.uuid,&#xa;			o.concept_id as concept_id,&#xa;			o.obs_datetime,&#xa;			e.uuid as encounter_uuid,&#xa;			p.uuid as patient_uuid,&#xa;			o.value_coded as value_coded_id,&#xa;			o.value_numeric,&#xa;			o.value_boolean,&#xa;			o.value_datetime,&#xa;			o.value_text,&#xa;			o.comments as comments,&#xa;			og.uuid as obs_group_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.obs_datetime&#x29; as age_at_obs&#xa;from 		obs o&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	obs og on o.obs_group_id &#x3d; og.obs_id&#xa;where		o.voided &#x3d; 0&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -322,8 +322,8 @@
           <stream_name>comments</stream_name>
         </field>
         <field>
-          <column_name>grouping_obs_uuid</column_name>
-          <stream_name>grouping_obs_uuid</stream_name>
+          <column_name>obs_group_uuid</column_name>
+          <stream_name>obs_group_uuid</stream_name>
         </field>
     </fields>
      <cluster_schema/>
