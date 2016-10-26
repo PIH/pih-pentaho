@@ -99,7 +99,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
+      <xloc>480</xloc>
       <yloc>176</yloc>
       </entry>
     <entry>
@@ -132,7 +132,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
+      <xloc>704</xloc>
       <yloc>176</yloc>
       </entry>
     <entry>
@@ -160,10 +160,10 @@
       <pass_export>N</pass_export>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
       </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
+      <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
+      <xloc>240</xloc>
       <yloc>80</yloc>
       </entry>
     <entry>
@@ -179,7 +179,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
+      <xloc>480</xloc>
       <yloc>272</yloc>
       </entry>
     <entry>
@@ -212,7 +212,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
+      <xloc>704</xloc>
       <yloc>272</yloc>
       </entry>
     <entry>
@@ -228,8 +228,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>480</yloc>
+      <xloc>912</xloc>
+      <yloc>352</yloc>
       </entry>
     <entry>
       <name>Create Program Enrollment Table</name>
@@ -244,8 +244,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>592</yloc>
+      <xloc>480</xloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Load Program Enrollment Table</name>
@@ -277,8 +277,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
-      <yloc>592</yloc>
+      <xloc>704</xloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Load Encounter Table</name>
@@ -310,8 +310,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
-      <yloc>480</yloc>
+      <xloc>1088</xloc>
+      <yloc>352</yloc>
       </entry>
     <entry>
       <name>Create Program State Table</name>
@@ -326,8 +326,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>688</yloc>
+      <xloc>480</xloc>
+      <yloc>544</yloc>
       </entry>
     <entry>
       <name>Load Program State Table</name>
@@ -359,8 +359,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
-      <yloc>688</yloc>
+      <xloc>704</xloc>
+      <yloc>544</yloc>
       </entry>
     <entry>
       <name>Create Encounter Provider Table</name>
@@ -375,8 +375,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>368</yloc>
+      <xloc>480</xloc>
+      <yloc>352</yloc>
       </entry>
     <entry>
       <name>Load Encounter Provider Table</name>
@@ -408,8 +408,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
-      <yloc>368</yloc>
+      <xloc>704</xloc>
+      <yloc>352</yloc>
       </entry>
     <entry>
       <name>Create Obs Table</name>
@@ -424,8 +424,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>784</yloc>
+      <xloc>480</xloc>
+      <yloc>656</yloc>
       </entry>
     <entry>
       <name>Load Obs Table</name>
@@ -457,23 +457,14 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>368</xloc>
-      <yloc>784</yloc>
+      <xloc>704</xloc>
+      <yloc>656</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>Create Patient Table</from>
       <to>Load Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Patient Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -488,15 +479,6 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Load Patient Table</from>
-      <to>Create Patient Identifier Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Create Patient Identifier Table</from>
@@ -526,35 +508,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Encounter Table</from>
-      <to>Create Program Enrollment Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Program Enrollment Table</from>
-      <to>Create Program State Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Create Program State Table</from>
       <to>Load Program State Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Patient Identifier Table</from>
-      <to>Create Encounter Provider Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -580,8 +535,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Program State Table</from>
-      <to>Create Obs Table</to>
+      <from>Create Obs Table</from>
+      <to>Load Obs Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -589,8 +544,53 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Obs Table</from>
-      <to>Load Obs Table</to>
+      <from>Load Reference Data</from>
+      <to>Create Patient Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Create Patient Identifier Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Create Encounter Provider Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Create Program Enrollment Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Create Program State Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Create Obs Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

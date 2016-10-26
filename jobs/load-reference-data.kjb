@@ -90,7 +90,7 @@
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
-      <parallel>N</parallel>
+      <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>112</xloc>
