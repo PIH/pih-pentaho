@@ -74,8 +74,8 @@ RUN mkdir ${PENTAHO_HOME}/.kettle && \
 # CMD ["carte.sh", "carte.config.xml"]
 
 
-#./kitchen.sh -file="/home/pih-pentaho/jobs/load-from-openmrs.kjb"  -param:PIH_PENTAHO_COUNTRY=
+#/home/pentaho/data-integration/kitchen.sh -file="/home/pih-pentaho/jobs/load-from-openmrs.kjb"  -param:PIH_PENTAHO_COUNTRY=
 # docker build -t pih:pdi .
 #docker run -it --rm --name pentahoContainer --net="host" -v /home/mgoodrich/pih-pentaho:/home/pih-pentaho pih:pdi
-#docker run -it --rm --name pentahoContainer --net="host" -v /home/pih-pentaho:/home/pih-pentaho pih:pdi
+#sudo docker run -it --rm --name pentahoContainer --net="host" -v /home/pih-pentaho:/home/pih-pentaho pih:pdi
 #https://docs.docker.com/engine/installation/linux/ubuntulinux/
