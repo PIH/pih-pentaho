@@ -473,8 +473,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>256</yloc>
+      <xloc>384</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
       <name>Add Patient Indexes</name>
@@ -569,19 +569,10 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>64</xloc>
-      <yloc>144</yloc>
+      <yloc>176</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>Turn off autocommit</from>
-      <to>Load Reference Data</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>Create Encounter Provider Table</from>
       <to>Load Encounter Provider Table</to>
@@ -764,7 +755,7 @@
     </hop>
     <hop>
       <from>Load country configuration</from>
-      <to>Turn off autocommit</to>
+      <to>Load Reference Data</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
