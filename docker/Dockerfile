@@ -11,9 +11,6 @@ ENV PDI_RELEASE=6.1 \
     PIH_PENTAHO_HOME=/home/pih-pentaho \
     MYSQL_CONNECTOR_VERSION=5.1.28
 
-# temporary
-RUN apt-get install nano
-
 ## Create user
  RUN mkdir ${PENTAHO_HOME} && \
      mkdir ${PIH_PENTAHO_HOME} && \
@@ -77,7 +74,7 @@ RUN mkdir ${PENTAHO_HOME}/.kettle && \
 # CMD ["carte.sh", "carte.config.xml"]
 
 
-#./kitchen.sh -file="/home/pih-pentaho/jobs/load-from-openmrs.kjb"  -param:PIH_PENTAHO_COUNTRY=malawi
+#./kitchen.sh -file="/home/pih-pentaho/jobs/load-from-openmrs.kjb"  -param:PIH_PENTAHO_COUNTRY=
 # docker build -t pih:pdi .
 #docker run -it --rm --name pentahoContainer --net="host" -v /home/mgoodrich/pih-pentaho:/home/pih-pentaho pih:pdi
 #docker run -it --rm --name pentahoContainer --net="host" -v /home/pih-pentaho:/home/pih-pentaho pih:pdi
