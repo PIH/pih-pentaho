@@ -461,22 +461,6 @@
       <yloc>720</yloc>
       </entry>
     <entry>
-      <name>Turn off autocommit</name>
-      <description/>
-      <type>SQL</type>
-      <sql>SET autocommit&#x3d;&#x27;off&#x27;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>64</yloc>
-      </entry>
-    <entry>
       <name>Add Patient Indexes</name>
       <description/>
       <type>SQL</type>
