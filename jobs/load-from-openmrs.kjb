@@ -25,7 +25,7 @@
     <database>pentaho_test</database>
     <port>3306</port>
     <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;openmrs.db.host&#x7d;</password>
+    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
