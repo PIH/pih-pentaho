@@ -84,7 +84,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>64</xloc>
-      <yloc>80</yloc>
+      <yloc>48</yloc>
       </entry>
     <entry>
       <name>Create Patient Table</name>
@@ -474,7 +474,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>64</xloc>
-      <yloc>208</yloc>
+      <yloc>256</yloc>
       </entry>
     <entry>
       <name>Add Patient Indexes</name>
@@ -556,8 +556,32 @@
       <xloc>960</xloc>
       <yloc>720</yloc>
       </entry>
+    <entry>
+      <name>Load country configuration</name>
+      <description/>
+      <type>SET_VARIABLES</type>
+      <replacevars>Y</replacevars>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;config&#x2f;&#x24;&#x7b;PIH_PENTAHO_COUNTRY&#x7d;.properties</filename>
+      <file_variable_type>JVM</file_variable_type>
+      <fields>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>64</xloc>
+      <yloc>144</yloc>
+      </entry>
   </entries>
   <hops>
+    <hop>
+      <from>Turn off autocommit</from>
+      <to>Load Reference Data</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
     <hop>
       <from>Create Encounter Provider Table</from>
       <to>Load Encounter Provider Table</to>
@@ -676,24 +700,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>START</from>
-      <to>Turn off autocommit</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Turn off autocommit</from>
-      <to>Load Reference Data</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Patient Table</from>
       <to>Add Patient Indexes</to>
       <from_nr>0</from_nr>
@@ -741,6 +747,24 @@
     <hop>
       <from>Add Encounter Provider Indexes</from>
       <to>Create Encounter Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Load country configuration</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Load country configuration</from>
+      <to>Turn off autocommit</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
