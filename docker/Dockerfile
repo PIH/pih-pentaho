@@ -11,6 +11,9 @@ ENV PDI_RELEASE=6.1 \
     PIH_PENTAHO_HOME=/home/pih-pentaho \
     MYSQL_CONNECTOR_VERSION=5.1.28
 
+# temporary
+RUN apt-get install nano
+
 ## Create user
  RUN mkdir ${PENTAHO_HOME} && \
      mkdir ${PIH_PENTAHO_HOME} && \
