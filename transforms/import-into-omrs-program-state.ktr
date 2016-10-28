@@ -109,8 +109,8 @@
     <access>Native</access>
     <database>pentaho_test</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -205,6 +205,48 @@
     </step>
 
   <step>
+    <name>Lookup Program Concept</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_concept</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>program_concept_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>program</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>496</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Lookup State Concept</name>
     <type>DBLookup</type>
     <description/>
@@ -247,7 +289,7 @@
     </step>
 
   <step>
-    <name>Lookup Program Concept</name>
+    <name>Lookup Workflow Concept</name>
     <type>DBLookup</type>
     <description/>
     <distribute>N</distribute>
@@ -268,21 +310,21 @@
       <fail_on_multiple>Y</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>program_concept_id</name>
+        <name>workflow_concept_id</name>
         <field>source_key</field>
         <condition>&#x3d;</condition>
         <name2/>
       </key>
       <value>
         <name>target_value</name>
-        <rename>program</rename>
+        <rename>workflow</rename>
         <default/>
         <type>String</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
+      <xloc>704</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
@@ -353,48 +395,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>1088</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Workflow Concept</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>workflow_concept_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>workflow</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>704</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>

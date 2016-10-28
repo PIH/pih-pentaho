@@ -108,8 +108,8 @@
     <access>Native</access>
     <database>pentaho_test</database>
     <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
