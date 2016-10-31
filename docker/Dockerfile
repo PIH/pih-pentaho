@@ -12,7 +12,7 @@ ENV PDI_RELEASE=6.1 \
     MYSQL_CONNECTOR_VERSION=5.1.28
 
 ## Create user
- RUN mkdir ${PENTAHO_HOME} && \
+RUN mkdir ${PENTAHO_HOME} && \
      mkdir ${PIH_PENTAHO_HOME} && \
      groupadd -r pentaho && \
      useradd -s /bin/bash -d ${PENTAHO_HOME} -r -g pentaho pentaho && \
@@ -79,3 +79,5 @@ RUN mkdir ${PENTAHO_HOME}/.kettle && \
 #docker run -it --rm --name pentahoContainer --net="host" -v /home/mgoodrich/pih-pentaho:/home/pih-pentaho pih:pdi
 #sudo docker run -it --rm --name pentahoContainer --net="host" -v /home/pih-pentaho:/home/pih-pentaho pih:pdi
 #https://docs.docker.com/engine/installation/linux/ubuntulinux/
+
+#sudo docker run --net="host" -v /home/pih-pentaho:/home/pih-pentaho pih:pdi /home/pentaho/data-integration/kitchen.sh -file="/home/pih-pentaho/jobs/load-from-openmrs.kjb"  -param:PIH_PENTAHO_COUNTRY=malawi
