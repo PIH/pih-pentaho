@@ -14,13 +14,13 @@
     </parameters>
   <connection>
     <name>Warehouse</name>
-    <server>localhost</server>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>pentaho_test</database>
-    <port>3306</port>
-    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -30,7 +30,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>

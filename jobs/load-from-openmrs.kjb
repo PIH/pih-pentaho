@@ -19,13 +19,13 @@
     </parameters>
   <connection>
     <name>Warehouse</name>
-    <server>localhost</server>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>pentaho_test</database>
-    <port>3306</port>
-    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -35,7 +35,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -164,7 +164,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>64</xloc>
-      <yloc>352</yloc>
+      <yloc>416</yloc>
       </entry>
     <entry>
       <name>Create Patient Identifier Table</name>
@@ -541,11 +541,11 @@
       <yloc>720</yloc>
       </entry>
     <entry>
-      <name>Load country configuration</name>
+      <name>Load configuration</name>
       <description/>
       <type>SET_VARIABLES</type>
       <replacevars>Y</replacevars>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;config&#x2f;&#x24;&#x7b;PIH_PENTAHO_COUNTRY&#x7d;.properties</filename>
+      <filename>&#x2f;home&#x2f;pih-pentaho&#x2f;.kettle&#x2f;kettle.properties</filename>
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
@@ -553,7 +553,22 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>64</xloc>
-      <yloc>176</yloc>
+      <yloc>160</yloc>
+      </entry>
+    <entry>
+      <name>Load country configuration</name>
+      <description/>
+      <type>SET_VARIABLES</type>
+      <replacevars>Y</replacevars>
+      <filename>&#x2f;home&#x2f;pih-pentaho&#x2f;config&#x2f;&#x24;&#x7b;pih.country&#x7d;.properties</filename>
+      <file_variable_type>JVM</file_variable_type>
+      <fields>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>64</xloc>
+      <yloc>288</yloc>
       </entry>
   </entries>
   <hops>
@@ -730,12 +745,21 @@
     </hop>
     <hop>
       <from>START</from>
-      <to>Load country configuration</to>
+      <to>Load configuration</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Load configuration</from>
+      <to>Load country configuration</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Load country configuration</from>
