@@ -8,10 +8,9 @@ Repository hosting PIH data warehousing scripts built on the Pentaho product sui
 
 =====================
 
-Necessary Kettle variables:
+Parameter(s) to set:
 
-PIH_PENTAHO_HOME  -- points to the top-level directory where the jobs and transforms subfolders should be found
-PIH_PENTAHO_COUNTRY  -- [malawi,haiti] -- controls which config file is loaded at config/[country].properties
+PIH_PENTAHO_HOME  -- points to the top-level directory where the pih-pentaho project can be found
 
 =====================
 
@@ -23,7 +22,7 @@ Setup steps (should be puppet or ansiblized at some point):
 * Download the latest mysql connector jar from here: https://dev.mysql.com/downloads/file/?id=465644
 * Extract the mysql connector jar out of the above zip file and copy it into the data-integration/lib
 * Run "spoon.sh" to start
-* Add a new kettle variable (via Edit->Edit the kettle.properties file), "PIH_PENTAHO_HOME" to point to the top-level directory for your Pentaho project (ie, the top-level directory of this proiect)
+* When running a job, set the "PIH_PENTAHO_HOME" parameter point to the top-level directory for your Pentaho project (ie, the top-level directory of this proiect)
 
 
 =====================
