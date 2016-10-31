@@ -14,7 +14,7 @@
         <parameter>
             <name>PIH_PENTAHO_HOME</name>
             <default_value>&#x2f;home&#x2f;pih-pentaho&#x2f;</default_value>
-            <description/>
+            <description>The top-level directory where the &#x22;pih-pentaho&#x22; directory can be found on the target system</description>
         </parameter>
     </parameters>
   <connection>
