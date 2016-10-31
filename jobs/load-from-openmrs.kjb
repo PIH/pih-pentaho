@@ -12,8 +12,8 @@
   <modified_date>2016&#x2f;10&#x2f;19 12&#x3a;23&#x3a;43.399</modified_date>
     <parameters>
         <parameter>
-            <name>PIH_PENTAHO_COUNTRY</name>
-            <default_value>haiti</default_value>
+            <name>PIH_PENTAHO_HOME</name>
+            <default_value>&#x2f;home&#x2f;pih-pentaho&#x2f;</default_value>
             <description/>
         </parameter>
     </parameters>
@@ -545,7 +545,7 @@
       <description/>
       <type>SET_VARIABLES</type>
       <replacevars>Y</replacevars>
-      <filename>&#x2f;home&#x2f;pih-pentaho&#x2f;.kettle&#x2f;kettle.properties</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;.kettle&#x2f;kettle.properties</filename>
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
@@ -560,7 +560,7 @@
       <description/>
       <type>SET_VARIABLES</type>
       <replacevars>Y</replacevars>
-      <filename>&#x2f;home&#x2f;pih-pentaho&#x2f;config&#x2f;&#x24;&#x7b;pih.country&#x7d;.properties</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;config&#x2f;&#x24;&#x7b;pih.country&#x7d;.properties</filename>
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
