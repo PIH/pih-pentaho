@@ -8,7 +8,7 @@ Repository hosting PIH data warehousing scripts built on the Pentaho product sui
 
 =====================
 
-Parameter(s) to set:
+Enviromental variables to set:
 
 PIH_PENTAHO_HOME  -- points to the top-level directory where the pih-pentaho project can be found
 
