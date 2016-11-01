@@ -11,11 +11,6 @@
   <modified_user>-</modified_user>
   <modified_date>2016&#x2f;10&#x2f;19 12&#x3a;23&#x3a;43.399</modified_date>
     <parameters>
-        <parameter>
-            <name>PIH_PENTAHO_HOME</name>
-            <default_value>&#x2f;home&#x2f;pih-pentaho&#x2f;</default_value>
-            <description>The top-level directory where the &#x22;pih-pentaho&#x22; directory can be found on the target system</description>
-        </parameter>
     </parameters>
   <connection>
     <name>Warehouse</name>
@@ -83,8 +78,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>48</yloc>
+      <xloc>112</xloc>
+      <yloc>16</yloc>
       </entry>
     <entry>
       <name>Create Patient Table</name>
@@ -163,8 +158,8 @@
       <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>416</yloc>
+      <xloc>240</xloc>
+      <yloc>432</yloc>
       </entry>
     <entry>
       <name>Create Patient Identifier Table</name>
@@ -541,11 +536,11 @@
       <yloc>720</yloc>
       </entry>
     <entry>
-      <name>Load configuration</name>
+      <name>Load custom configuration</name>
       <description/>
       <type>SET_VARIABLES</type>
       <replacevars>Y</replacevars>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;.kettle&#x2f;kettle.properties</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;.kettle&#x2f;pih-kettle.properties</filename>
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
@@ -553,7 +548,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>64</xloc>
-      <yloc>160</yloc>
+      <yloc>208</yloc>
       </entry>
     <entry>
       <name>Load country configuration</name>
@@ -567,8 +562,39 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>288</yloc>
+      <xloc>112</xloc>
+      <yloc>448</yloc>
+      </entry>
+    <entry>
+      <name>Load default configuration</name>
+      <description/>
+      <type>SET_VARIABLES</type>
+      <replacevars>Y</replacevars>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;config&#x2f;pih-kettle-default.properties</filename>
+      <file_variable_type>JVM</file_variable_type>
+      <fields>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>176</xloc>
+      <yloc>272</yloc>
+      </entry>
+    <entry>
+      <name>Custom Configuration Exists</name>
+      <description/>
+      <type>FILES_EXIST</type>
+      <filename/>
+      <fields>
+        <field>
+          <name>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;.kettle&#x2f;pih-kettle.properties</name>
+        </field>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>112</xloc>
+      <yloc>112</yloc>
       </entry>
   </entries>
   <hops>
@@ -744,16 +770,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>START</from>
-      <to>Load configuration</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Load configuration</from>
+      <from>Load custom configuration</from>
       <to>Load country configuration</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -768,6 +785,51 @@
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load custom configuration</from>
+      <to>Load default configuration</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load default configuration</from>
+      <to>Load country configuration</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Custom Configuration Exists</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Custom Configuration Exists</from>
+      <to>Load custom configuration</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Custom Configuration Exists</from>
+      <to>Load default configuration</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
       <unconditional>N</unconditional>
     </hop>
   </hops>
