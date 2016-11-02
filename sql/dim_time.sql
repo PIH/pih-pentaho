@@ -18,3 +18,6 @@ insert into dim_time (hour, minute)
      SELECT value_datetime FROM omrs_obs
     ) d
 ;
+
+ALTER TABLE dim_time ADD INDEX dim_time_hour_idx (hour);
+ALTER TABLE dim_time ADD INDEX dim_time_minute_idx (minute);

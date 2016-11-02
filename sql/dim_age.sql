@@ -31,5 +31,5 @@ insert into dim_age (birthdate, age_date, full_years, full_months)
   ) d
 ;
 
-ALTER TABLE dim_date ADD INDEX dim_age_birthdate_idx (birthdate);
-ALTER TABLE dim_date ADD INDEX dim_age_agedate_idx (age_date);
+ALTER TABLE dim_age ADD INDEX dim_age_birthdate_idx (birthdate);
+ALTER TABLE dim_age ADD INDEX dim_age_agedate_idx (age_date);
