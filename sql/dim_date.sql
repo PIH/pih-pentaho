@@ -11,7 +11,7 @@ create table dim_date (
   day INT
 );
 
-insert into dim_date (full_date, month, year, day)
+insert into dim_date (full_date, year, month, day)
   select distinct d.selected_date, year(d.selected_date), month(d.selected_date), day(d.selected_date) from
   (SELECT DISTINCT birthdate as selected_date FROM omrs_patient
    UNION
