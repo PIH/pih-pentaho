@@ -25,11 +25,11 @@ insert into dim_date (full_date, month, year, day)
    UNION
    SELECT DISTINCT end_date FROM omrs_program_state
    UNION
-   SELECT DISTINCT date(encounter_datetime) FROM omrs_encounter
+   SELECT DISTINCT encounter_date FROM omrs_encounter
    UNION
-   SELECT DISTINCT date(obs_datetime) FROM omrs_obs
+   SELECT DISTINCT obs_date FROM omrs_obs
    UNION
-   SELECT DISTINCT date(value_datetime) FROM omrs_obs
+   SELECT DISTINCT value_date FROM omrs_obs
   ) d
 ;
 

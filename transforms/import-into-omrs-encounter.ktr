@@ -103,14 +103,14 @@
     </attributes>
   </connection>
   <connection>
-      <name>Warehouse</name>
-      <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
-      <type>MYSQL</type>
-      <access>Native</access>
-      <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-      <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-      <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-      <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <name>Warehouse</name>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -120,7 +120,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -176,7 +176,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.encounter_datetime,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29; as age_at_enc&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0&#xa;order by	e.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29; as age_at_enc&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0&#xa;order by	e.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -334,24 +334,28 @@
           <stream_name>uuid</stream_name>
         </field>
         <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
+          <column_name>encounter_date</column_name>
+          <stream_name>encounter_date</stream_name>
         </field>
         <field>
-          <column_name>encounter_type</column_name>
-          <stream_name>encounter_type</stream_name>
+          <column_name>encounter_time</column_name>
+          <stream_name>encounter_time</stream_name>
         </field>
         <field>
-          <column_name>encounter_datetime</column_name>
-          <stream_name>encounter_datetime</stream_name>
+          <column_name>patient_uuid</column_name>
+          <stream_name>patient_uuid</stream_name>
         </field>
         <field>
           <column_name>age_at_enc</column_name>
           <stream_name>age_at_enc</stream_name>
         </field>
         <field>
-          <column_name>patient_uuid</column_name>
-          <stream_name>patient_uuid</stream_name>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_type</column_name>
+          <stream_name>encounter_type</stream_name>
         </field>
         <field>
           <column_name>provider</column_name>

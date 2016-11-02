@@ -23,11 +23,11 @@ insert into dim_age (birthdate, age_date, full_years, full_months)
    UNION
    SELECT p.birthdate, e.end_date FROM omrs_patient p inner join omrs_program_state e on p.uuid = e.patient_uuid where p.birthdate is not null
    UNION
-   SELECT p.birthdate, date(e.encounter_datetime) FROM omrs_patient p inner join omrs_encounter e on p.uuid = e.patient_uuid where p.birthdate is not null
+   SELECT p.birthdate, e.encounter_date FROM omrs_patient p inner join omrs_encounter e on p.uuid = e.patient_uuid where p.birthdate is not null
    UNION
-   SELECT p.birthdate, date(obs_datetime) FROM omrs_patient p inner join omrs_obs e on p.uuid = e.patient_uuid where p.birthdate is not null
+   SELECT p.birthdate, e.obs_date FROM omrs_patient p inner join omrs_obs e on p.uuid = e.patient_uuid where p.birthdate is not null
    UNION
-   SELECT p.birthdate, date(value_datetime) FROM omrs_patient p inner join omrs_obs e on p.uuid = e.patient_uuid where p.birthdate is not null
+   SELECT p.birthdate, e.value_date FROM omrs_patient p inner join omrs_obs e on p.uuid = e.patient_uuid where p.birthdate is not null
   ) d
 ;
 

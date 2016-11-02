@@ -148,7 +148,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs&#xa;&#x2a;   TODO&#x3a; add value drug, add groupins&#xa;&#x2a;&#x2f;&#xa;select		o.uuid,&#xa;			o.concept_id as concept_id,&#xa;			o.obs_datetime,&#xa;			e.uuid as encounter_uuid,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.location_id,&#xa;			p.uuid as patient_uuid,&#xa;			o.value_coded as value_coded_id,&#xa;			o.value_numeric,&#xa;			o.value_boolean,&#xa;			o.value_datetime,&#xa;			o.value_text,&#xa;			o.comments as comments,&#xa;			og.uuid as obs_group_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.obs_datetime&#x29; as age_at_obs&#xa;from 		obs o&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	obs og on o.obs_group_id &#x3d; og.obs_id&#xa;where		o.voided &#x3d; 0&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs&#xa;&#x2a;   TODO&#x3a; add value drug, add groupins&#xa;&#x2a;&#x2f;&#xa;select		o.uuid,&#xa;			o.concept_id as concept_id,&#xa;			date&#x28;o.obs_datetime&#x29; as obs_date,&#xa;			time&#x28;o.obs_datetime&#x29; as obs_time,&#xa;			e.uuid as encounter_uuid,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.location_id,&#xa;			p.uuid as patient_uuid,&#xa;			o.value_coded as value_coded_id,&#xa;			o.value_numeric,&#xa;			o.value_boolean,&#xa;			date&#x28;o.value_datetime&#x29; as value_date,&#xa;			o.value_text,&#xa;			o.comments as comments,&#xa;			og.uuid as obs_group_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.obs_datetime&#x29; as age_at_obs&#xa;from 		obs o&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	obs og on o.obs_group_id &#x3d; og.obs_id&#xa;where		o.voided &#x3d; 0&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -199,146 +199,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>272</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Value Coded</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>value_coded_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>value_coded</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>448</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write Obs Table</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <schema/>
-    <table>omrs_obs</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
-        <field>
-          <column_name>obs_datetime</column_name>
-          <stream_name>obs_datetime</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_uuid</column_name>
-          <stream_name>encounter_uuid</stream_name>
-        </field>
-        <field>
-          <column_name>patient_uuid</column_name>
-          <stream_name>patient_uuid</stream_name>
-        </field>
-        <field>
-          <column_name>value_numeric</column_name>
-          <stream_name>value_numeric</stream_name>
-        </field>
-        <field>
-          <column_name>value_boolean</column_name>
-          <stream_name>value_boolean</stream_name>
-        </field>
-        <field>
-          <column_name>value_datetime</column_name>
-          <stream_name>value_datetime</stream_name>
-        </field>
-        <field>
-          <column_name>value_text</column_name>
-          <stream_name>value_text</stream_name>
-        </field>
-        <field>
-          <column_name>comments</column_name>
-          <stream_name>comments</stream_name>
-        </field>
-        <field>
-          <column_name>obs_group_uuid</column_name>
-          <stream_name>obs_group_uuid</stream_name>
-        </field>
-        <field>
-          <column_name>age_at_obs</column_name>
-          <stream_name>age_at_obs</stream_name>
-        </field>
-        <field>
-          <column_name>concept</column_name>
-          <stream_name>concept</stream_name>
-        </field>
-        <field>
-          <column_name>value_coded</column_name>
-          <stream_name>value_coded</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_type</column_name>
-          <stream_name>encounter_type</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1008</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>
@@ -423,6 +283,150 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>624</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Value Coded</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_concept</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>value_coded_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>value_coded</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>448</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write Obs Table</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <schema/>
+    <table>omrs_obs</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
+        </field>
+        <field>
+          <column_name>obs_date</column_name>
+          <stream_name>obs_date</stream_name>
+        </field>
+        <field>
+          <column_name>obs_time</column_name>
+          <stream_name>obs_time</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_uuid</column_name>
+          <stream_name>encounter_uuid</stream_name>
+        </field>
+        <field>
+          <column_name>patient_uuid</column_name>
+          <stream_name>patient_uuid</stream_name>
+        </field>
+        <field>
+          <column_name>value_numeric</column_name>
+          <stream_name>value_numeric</stream_name>
+        </field>
+        <field>
+          <column_name>value_boolean</column_name>
+          <stream_name>value_boolean</stream_name>
+        </field>
+        <field>
+          <column_name>value_date</column_name>
+          <stream_name>value_date</stream_name>
+        </field>
+        <field>
+          <column_name>value_text</column_name>
+          <stream_name>value_text</stream_name>
+        </field>
+        <field>
+          <column_name>comments</column_name>
+          <stream_name>comments</stream_name>
+        </field>
+        <field>
+          <column_name>obs_group_uuid</column_name>
+          <stream_name>obs_group_uuid</stream_name>
+        </field>
+        <field>
+          <column_name>age_at_obs</column_name>
+          <stream_name>age_at_obs</stream_name>
+        </field>
+        <field>
+          <column_name>concept</column_name>
+          <stream_name>concept</stream_name>
+        </field>
+        <field>
+          <column_name>value_coded</column_name>
+          <stream_name>value_coded</stream_name>
+        </field>
+        <field>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_type</column_name>
+          <stream_name>encounter_type</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1008</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>

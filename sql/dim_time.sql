@@ -5,19 +5,18 @@ DROP TABLE IF EXISTS dim_time;
 
 create table dim_time (
   time_id INT AUTO_INCREMENT PRIMARY KEY,
+  full_time TIME,
   hour INT,
-  minute INT
+  minute INT,
+  second INT
 );
 
-insert into dim_time (hour, minute)
-  SELECT DISTINCT hour(d.selected_date), minute(d.selected_date) FROM
-    (SELECT encounter_datetime as selected_date FROM omrs_encounter
+insert into dim_time (full_time, hour, minute, second)
+  SELECT DISTINCT d.selected_time, hour(d.selected_time), minute(d.selected_time), second(d.selected_time) FROM
+    (SELECT encounter_time as selected_time FROM omrs_encounter
      UNION
-     SELECT obs_datetime FROM omrs_obs
-     UNION
-     SELECT value_datetime FROM omrs_obs
+     SELECT obs_time FROM omrs_obs
     ) d
 ;
 
-ALTER TABLE dim_time ADD INDEX dim_time_hour_idx (hour);
-ALTER TABLE dim_time ADD INDEX dim_time_minute_idx (minute);
+ALTER TABLE dim_time ADD INDEX dim_full_time_idx (full_time);
