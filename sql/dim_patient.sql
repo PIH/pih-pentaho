@@ -19,3 +19,6 @@ INSERT INTO dim_patient (uuid, gender, birthdate, birthdate_id, death_date, deat
   FROM        omrs_patient p
   LEFT JOIN   dim_date d1 ON p.birthdate = d1.full_date
   LEFT JOIN   dim_date d2 ON p.death_date = d2.full_date;
+
+ALTER TABLE dim_patient ADD INDEX dim_patient_uuid_idx (uuid);
+ALTER TABLE dim_patient ADD INDEX dim_patient_birthdate_idx (birthdate);

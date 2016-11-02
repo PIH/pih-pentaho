@@ -103,14 +103,14 @@
     </attributes>
   </connection>
   <connection>
-      <name>Warehouse</name>
-      <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
-      <type>MYSQL</type>
-      <access>Native</access>
-      <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-      <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-      <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-      <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <name>Warehouse</name>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -120,7 +120,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -132,7 +132,9 @@
   <order>
   <hop> <from>Import Obs</from><to>Lookup Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Concept</from><to>Lookup Value Coded</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Value Coded</from><to>Write Obs Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Location</from><to>Lookup Encounter Type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Value Coded</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Encounter Type</from><to>Write Obs Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Import Obs</name>
@@ -146,7 +148,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs&#xa;&#x2a;   TODO&#x3a; add value drug, add groupins&#xa;&#x2a;&#x2f;&#xa;select		o.uuid,&#xa;			o.concept_id as concept_id,&#xa;			o.obs_datetime,&#xa;			e.uuid as encounter_uuid,&#xa;			p.uuid as patient_uuid,&#xa;			o.value_coded as value_coded_id,&#xa;			o.value_numeric,&#xa;			o.value_boolean,&#xa;			o.value_datetime,&#xa;			o.value_text,&#xa;			o.comments as comments,&#xa;			og.uuid as obs_group_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.obs_datetime&#x29; as age_at_obs&#xa;from 		obs o&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	obs og on o.obs_group_id &#x3d; og.obs_id&#xa;where		o.voided &#x3d; 0&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs&#xa;&#x2a;   TODO&#x3a; add value drug, add groupins&#xa;&#x2a;&#x2f;&#xa;select		o.uuid,&#xa;			o.concept_id as concept_id,&#xa;			o.obs_datetime,&#xa;			e.uuid as encounter_uuid,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.location_id,&#xa;			p.uuid as patient_uuid,&#xa;			o.value_coded as value_coded_id,&#xa;			o.value_numeric,&#xa;			o.value_boolean,&#xa;			o.value_datetime,&#xa;			o.value_text,&#xa;			o.comments as comments,&#xa;			og.uuid as obs_group_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.obs_datetime&#x29; as age_at_obs&#xa;from 		obs o&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	obs og on o.obs_group_id &#x3d; og.obs_id&#xa;where		o.voided &#x3d; 0&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -154,7 +156,7 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>224</xloc>
+      <xloc>96</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>
@@ -196,7 +198,7 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>416</xloc>
+      <xloc>272</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>
@@ -238,7 +240,7 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>576</xloc>
+      <xloc>448</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>
@@ -278,20 +280,16 @@
           <stream_name>uuid</stream_name>
         </field>
         <field>
+          <column_name>obs_datetime</column_name>
+          <stream_name>obs_datetime</stream_name>
+        </field>
+        <field>
           <column_name>encounter_uuid</column_name>
           <stream_name>encounter_uuid</stream_name>
         </field>
         <field>
           <column_name>patient_uuid</column_name>
           <stream_name>patient_uuid</stream_name>
-        </field>
-        <field>
-          <column_name>concept</column_name>
-          <stream_name>concept</stream_name>
-        </field>
-        <field>
-          <column_name>value_coded</column_name>
-          <stream_name>value_coded</stream_name>
         </field>
         <field>
           <column_name>value_numeric</column_name>
@@ -302,20 +300,12 @@
           <stream_name>value_boolean</stream_name>
         </field>
         <field>
-          <column_name>value_text</column_name>
-          <stream_name>value_text</stream_name>
-        </field>
-        <field>
           <column_name>value_datetime</column_name>
           <stream_name>value_datetime</stream_name>
         </field>
         <field>
-          <column_name>obs_datetime</column_name>
-          <stream_name>obs_datetime</stream_name>
-        </field>
-        <field>
-          <column_name>age_at_obs</column_name>
-          <stream_name>age_at_obs</stream_name>
+          <column_name>value_text</column_name>
+          <stream_name>value_text</stream_name>
         </field>
         <field>
           <column_name>comments</column_name>
@@ -325,10 +315,114 @@
           <column_name>obs_group_uuid</column_name>
           <stream_name>obs_group_uuid</stream_name>
         </field>
+        <field>
+          <column_name>age_at_obs</column_name>
+          <stream_name>age_at_obs</stream_name>
+        </field>
+        <field>
+          <column_name>concept</column_name>
+          <stream_name>concept</stream_name>
+        </field>
+        <field>
+          <column_name>value_coded</column_name>
+          <stream_name>value_coded</stream_name>
+        </field>
+        <field>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_type</column_name>
+          <stream_name>encounter_type</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>784</xloc>
+      <xloc>1008</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Encounter Type</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_encounter_type</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>encounter_type_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>encounter_type</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>800</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Location</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_location</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>location_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>location</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>624</xloc>
       <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>

@@ -1,16 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>load-star-schema</name>
+  <name>load-star-schema-facts</name>
     <description/>
     <extended_description/>
     <job_version/>
   <directory>&#x2f;</directory>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;26 17&#x3a;25&#x3a;42.921</created_date>
+  <created_date>2016&#x2f;11&#x2f;02 14&#x3a;58&#x3a;04.496</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;26 17&#x3a;25&#x3a;42.921</modified_date>
+  <modified_date>2016&#x2f;11&#x2f;02 14&#x3a;58&#x3a;04.496</modified_date>
     <parameters>
     </parameters>
+  <connection>
+    <name>Warehouse</name>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
     <slaveservers>
     </slaveservers>
 <job-log-table><connection/>
@@ -50,8 +77,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>96</xloc>
-      <yloc>64</yloc>
+      <xloc>112</xloc>
+      <yloc>48</yloc>
       </entry>
     <entry>
       <name>Load Configuration</name>
@@ -81,70 +108,24 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>256</xloc>
-      <yloc>64</yloc>
+      <xloc>112</xloc>
+      <yloc>176</yloc>
       </entry>
     <entry>
-      <name>Load Dimensions</name>
+      <name>Create Patient Event Fact Table</name>
       <description/>
-      <type>JOB</type>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;jobs&#x2f;load-star-schema-dimensions.kjb</filename>
-      <jobname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;fact_patient_event.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>416</xloc>
-      <yloc>64</yloc>
-      </entry>
-    <entry>
-      <name>Load Facts</name>
-      <description/>
-      <type>JOB</type>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;jobs&#x2f;load-star-schema-facts.kjb</filename>
-      <jobname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>576</xloc>
-      <yloc>64</yloc>
+      <xloc>112</xloc>
+      <yloc>304</yloc>
       </entry>
   </entries>
   <hops>
@@ -159,16 +140,7 @@
     </hop>
     <hop>
       <from>Load Configuration</from>
-      <to>Load Dimensions</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Dimensions</from>
-      <to>Load Facts</to>
+      <to>Create Patient Event Fact Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
