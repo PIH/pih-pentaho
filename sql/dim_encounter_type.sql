@@ -1,4 +1,4 @@
--- Create program dimension
+-- Create encounter type dimension
 
 DROP TABLE IF EXISTS dim_encounter_type;
 
