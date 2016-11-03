@@ -160,6 +160,22 @@
       <xloc>752</xloc>
       <yloc>112</yloc>
       </entry>
+    <entry>
+      <name>Add Indexes to Patient Event Fact Table</name>
+      <description/>
+      <type>SQL</type>
+      <sql>ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_patient_id_idx &#x28;patient_id&#x29;&#x3b;&#xa;ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_age_id_idx &#x28;age_id&#x29;&#x3b;&#xa;ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_date_id_idx &#x28;date_id&#x29;&#x3b;&#xa;ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_time_id_idx &#x28;time_id&#x29;&#x3b;&#xa;ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_location_id_idx &#x28;location_id&#x29;&#x3b;&#xa;ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_program_id_idx &#x28;program_id&#x29;&#x3b;&#xa;ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_encounter_type_id_idx &#x28;encounter_type_id&#x29;&#x3b;&#xa;ALTER TABLE fact_patient_event ADD INDEX fact_patient_event_metric_id_idx &#x28;metric_id&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>992</xloc>
+      <yloc>112</yloc>
+      </entry>
   </entries>
   <hops>
     <hop>
@@ -183,6 +199,15 @@
     <hop>
       <from>Create Patient Event Fact Table</from>
       <to>Load Patient Events</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Patient Events</from>
+      <to>Add Indexes to Patient Event Fact Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
