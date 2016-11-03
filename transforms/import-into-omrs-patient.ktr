@@ -103,14 +103,14 @@
     </attributes>
   </connection>
   <connection>
-      <name>Warehouse</name>
-      <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
-      <type>MYSQL</type>
-      <access>Native</access>
-      <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-      <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-      <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-      <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <name>Warehouse</name>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -120,7 +120,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -156,7 +156,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa;  Currently we are excluding birthtime since it is not collected directly, and not available on all system data models yet&#xa; &#x2a;&#x2f;&#xa;select      n.person_id,&#xa;			n.uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.dead,&#xa;            n.death_date,&#xa;			if&#x28;death_date is null, null, TIMESTAMPDIFF&#x28;YEAR, birthdate, death_date&#x29;&#x29; as age_at_death,&#xa;            n.cause_of_death as cause_of_death_id&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa;  Currently we are excluding birthtime since it is not collected directly, and not available on all system data models yet&#xa; &#x2a;&#x2f;&#xa;select      n.person_id,&#xa;			n.uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.dead,&#xa;            n.death_date,&#xa;			if&#x28;death_date is null, null, TIMESTAMPDIFF&#x28;YEAR, birthdate, death_date&#x29;&#x29; as age_years_at_death,&#xa;			if&#x28;death_date is null, null, TIMESTAMPDIFF&#x28;MONTH, birthdate, death_date&#x29;&#x29; as age_months_at_death,&#xa;            n.cause_of_death as cause_of_death_id&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -647,8 +647,8 @@
           <stream_name>death_date</stream_name>
         </field>
         <field>
-          <column_name>age_at_death</column_name>
-          <stream_name>age_at_death</stream_name>
+          <column_name>age_years_at_death</column_name>
+          <stream_name>age_years_at_death</stream_name>
         </field>
         <field>
           <column_name>cause_of_death</column_name>
@@ -737,6 +737,10 @@
         <field>
           <column_name>health_center</column_name>
           <stream_name>health_center</stream_name>
+        </field>
+        <field>
+          <column_name>age_months_at_death</column_name>
+          <stream_name>age_months_at_death</stream_name>
         </field>
     </fields>
      <cluster_schema/>

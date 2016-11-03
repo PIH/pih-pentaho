@@ -103,14 +103,14 @@
     </attributes>
   </connection>
   <connection>
-      <name>Warehouse</name>
-      <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
-      <type>MYSQL</type>
-      <access>Native</access>
-      <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-      <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-      <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-      <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <name>Warehouse</name>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -120,7 +120,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -148,7 +148,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient states&#xa;  This excludes any that have a null enrollment date or a null state start date&#xa; &#x2a;&#x2f;&#xa;select      pp.uuid as program_enrollment_uuid,&#xa;			p.uuid as patient_uuid,&#xa;            pg.concept_id as program_concept_id,&#xa;			pw.concept_id as workflow_concept_id,&#xa;			pws.concept_id as state_concept_id,&#xa;            ps.start_date,&#xa;			ps.end_date,&#xa;			pp.location_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  patient_state ps on ps.patient_program_id &#x3d; pp.patient_program_id&#xa;inner join  program_workflow_state pws on ps.state &#x3d; pws.program_workflow_state_id&#xa;inner join	program_workflow pw on pws.program_workflow_id &#x3d; pw.program_workflow_id &#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;and			ps.start_date is not null&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient states&#xa;  This excludes any that have a null enrollment date or a null state start date&#xa; &#x2a;&#x2f;&#xa;select      pp.uuid as program_enrollment_uuid,&#xa;			p.uuid as patient_uuid,&#xa;            pg.concept_id as program_concept_id,&#xa;			pw.concept_id as workflow_concept_id,&#xa;			pws.concept_id as state_concept_id,&#xa;            ps.start_date,&#xa;			if&#x28;ps.start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, ps.start_date&#x29;&#x29; as age_years_at_start,&#xa;			if&#x28;ps.start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, ps.start_date&#x29;&#x29; as age_months_at_start,&#xa;			ps.end_date,&#xa;			if&#x28;ps.end_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, ps.end_date&#x29;&#x29; as age_years_at_end,&#xa;			if&#x28;ps.end_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, ps.end_date&#x29;&#x29; as age_months_at_end,&#xa;			pp.location_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  patient_state ps on ps.patient_program_id &#x3d; pp.patient_program_id&#xa;inner join  program_workflow_state pws on ps.state &#x3d; pws.program_workflow_state_id&#xa;inner join	program_workflow pw on pws.program_workflow_id &#x3d; pw.program_workflow_id &#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;and			ps.start_date is not null&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -372,8 +372,24 @@
           <stream_name>start_date</stream_name>
         </field>
         <field>
+          <column_name>age_years_at_start</column_name>
+          <stream_name>age_years_at_start</stream_name>
+        </field>
+        <field>
+          <column_name>age_months_at_start</column_name>
+          <stream_name>age_months_at_start</stream_name>
+        </field>
+        <field>
           <column_name>end_date</column_name>
           <stream_name>end_date</stream_name>
+        </field>
+        <field>
+          <column_name>age_years_at_end</column_name>
+          <stream_name>age_years_at_end</stream_name>
+        </field>
+        <field>
+          <column_name>age_months_at_end</column_name>
+          <stream_name>age_months_at_end</stream_name>
         </field>
         <field>
           <column_name>location</column_name>

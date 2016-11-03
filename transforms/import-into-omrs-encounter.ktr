@@ -176,7 +176,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29; as age_at_enc&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0&#xa;order by	e.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid,&#xa;			TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29; as age_years_at_encounter,&#xa;			TIMESTAMPDIFF&#x28;MONTH, p.birthdate, e.encounter_datetime&#x29; as age_months_at_encounter&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0&#xa;order by	e.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -346,8 +346,8 @@
           <stream_name>patient_uuid</stream_name>
         </field>
         <field>
-          <column_name>age_at_enc</column_name>
-          <stream_name>age_at_enc</stream_name>
+          <column_name>age_years_at_encounter</column_name>
+          <stream_name>age_years_at_encounter</stream_name>
         </field>
         <field>
           <column_name>location</column_name>
@@ -364,6 +364,10 @@
         <field>
           <column_name>provider_role</column_name>
           <stream_name>provider_role</stream_name>
+        </field>
+        <field>
+          <column_name>age_months_at_encounter</column_name>
+          <stream_name>age_months_at_encounter</stream_name>
         </field>
     </fields>
      <cluster_schema/>
