@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>load-fact-patient-event</name>
+    <name>load-fact-numeric-values</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
     </parameters>
@@ -102,12 +103,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Encounters</from><to>Write Encounter Events</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Program Enrollments</from><to>Write Enrollment Events</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Program Completions</from><to>Write Enrollment Completions</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Numeric Obs</from><to>Write Numeric Obs</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import Encounters</name>
+    <name>Import Numeric Obs</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -118,7 +117,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, t.time_id, l.location_id, et.encounter_type_id, v.event_id&#xa;FROM        omrs_encounter e&#xa;INNER JOIN  dim_patient p on e.patient_uuid &#x3d; p.uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Encounter&#x27;&#xa;INNER JOIN  dim_encounter_type et on et.name &#x3d; e.encounter_type&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_encounter and a.full_months &#x3d; e.age_months_at_encounter&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.encounter_date&#xa;LEFT JOIN   dim_time t on t.full_time &#x3d; e.encounter_time&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location</sql>
+    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, t.time_id, l.location_id, e.encounter_type_id, m.metric_id, o.value_numeric&#xa;FROM        omrs_obs o&#xa;INNER JOIN  dim_patient p on o.patient_uuid &#x3d; p.uuid&#xa;INNER JOIN  dim_metric m on m.name &#x3d; o.concept&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; o.age_years_at_obs and a.full_months &#x3d; o.age_months_at_obs&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; o.obs_date&#xa;LEFT JOIN   dim_time t on t.full_time &#x3d; o.obs_time&#xa;LEFT JOIN   dim_location l on l.name &#x3d; o.location&#xa;LEFT JOIN   dim_encounter_type e on e.name &#x3d; o.encounter_type&#xa;WHERE       o.value_numeric is not NULL</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -127,13 +126,13 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>176</xloc>
-      <yloc>112</yloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write Encounter Events</name>
+    <name>Write Numeric Obs</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -145,7 +144,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>fact_patient_event</table>
+    <table>fact_patient_numeric_value</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -190,198 +189,18 @@
           <stream_name>encounter_type_id</stream_name>
         </field>
         <field>
-          <column_name>event_id</column_name>
-          <stream_name>event_id</stream_name>
+          <column_name>metric_id</column_name>
+          <stream_name>metric_id</stream_name>
+        </field>
+        <field>
+          <column_name>value</column_name>
+          <stream_name>value_numeric</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>400</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Program Enrollments</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, l.location_id, pg.program_id, v.event_id&#xa;FROM        omrs_program_enrollment e&#xa;INNER JOIN  dim_patient p on e.patient_uuid &#x3d; p.uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Program Enrollment&#x27;&#xa;INNER JOIN  dim_program pg on pg.name &#x3d; e.program&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_enrollment and a.full_months &#x3d; e.age_months_at_enrollment&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.enrollment_date&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write Enrollment Events</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <schema/>
-    <table>fact_patient_event</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>gender_id</column_name>
-          <stream_name>gender_id</stream_name>
-        </field>
-        <field>
-          <column_name>age_id</column_name>
-          <stream_name>age_id</stream_name>
-        </field>
-        <field>
-          <column_name>date_id</column_name>
-          <stream_name>date_id</stream_name>
-        </field>
-        <field>
-          <column_name>location_id</column_name>
-          <stream_name>location_id</stream_name>
-        </field>
-        <field>
-          <column_name>program_id</column_name>
-          <stream_name>program_id</stream_name>
-        </field>
-        <field>
-          <column_name>event_id</column_name>
-          <stream_name>event_id</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Program Completions</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, l.location_id, pg.program_id, v.event_id&#xa;FROM        omrs_program_enrollment e&#xa;INNER JOIN  dim_patient p on e.patient_uuid &#x3d; p.uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Program Completion&#x27;&#xa;INNER JOIN  dim_program pg on pg.name &#x3d; e.program&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_completion and a.full_months &#x3d; e.age_months_at_completion&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.completion_date&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write Enrollment Completions</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <schema/>
-    <table>fact_patient_event</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>gender_id</column_name>
-          <stream_name>gender_id</stream_name>
-        </field>
-        <field>
-          <column_name>age_id</column_name>
-          <stream_name>age_id</stream_name>
-        </field>
-        <field>
-          <column_name>date_id</column_name>
-          <stream_name>date_id</stream_name>
-        </field>
-        <field>
-          <column_name>location_id</column_name>
-          <stream_name>location_id</stream_name>
-        </field>
-        <field>
-          <column_name>program_id</column_name>
-          <stream_name>program_id</stream_name>
-        </field>
-        <field>
-          <column_name>event_id</column_name>
-          <stream_name>event_id</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>336</yloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

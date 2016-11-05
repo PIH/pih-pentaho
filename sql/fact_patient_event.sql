@@ -11,7 +11,5 @@ CREATE TABLE fact_patient_event (
   location_id INT,
   program_id INT,
   encounter_type_id INT,
-  metric_id INT,
-  value DOUBLE
+  event_id INT
 );
-

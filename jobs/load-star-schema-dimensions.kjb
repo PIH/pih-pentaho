@@ -78,8 +78,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>80</xloc>
-      <yloc>64</yloc>
+      <xloc>656</xloc>
+      <yloc>112</yloc>
       </entry>
     <entry>
       <name>Load Configuration</name>
@@ -109,8 +109,8 @@
       <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>80</xloc>
-      <yloc>256</yloc>
+      <xloc>656</xloc>
+      <yloc>304</yloc>
       </entry>
     <entry>
       <name>Build Date Dimension</name>
@@ -125,8 +125,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>96</yloc>
+      <xloc>1040</xloc>
+      <yloc>128</yloc>
       </entry>
     <entry>
       <name>Build Location Dimension</name>
@@ -141,8 +141,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>256</yloc>
+      <xloc>1040</xloc>
+      <yloc>304</yloc>
       </entry>
     <entry>
       <name>Build Encounter Type Dimension</name>
@@ -157,8 +157,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>336</yloc>
+      <xloc>1040</xloc>
+      <yloc>400</yloc>
       </entry>
     <entry>
       <name>Build Program Dimension</name>
@@ -173,8 +173,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>416</yloc>
+      <xloc>1040</xloc>
+      <yloc>480</yloc>
       </entry>
     <entry>
       <name>Build Patient Dimension</name>
@@ -189,8 +189,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
+      <xloc>1232</xloc>
+      <yloc>128</yloc>
       </entry>
     <entry>
       <name>Build Time Dimension</name>
@@ -205,8 +205,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>176</yloc>
+      <xloc>1040</xloc>
+      <yloc>224</yloc>
       </entry>
     <entry>
       <name>Build Metric Dimension</name>
@@ -221,8 +221,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>496</yloc>
+      <xloc>352</xloc>
+      <yloc>176</yloc>
       </entry>
     <entry>
       <name>Build Age Dimension</name>
@@ -237,7 +237,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
+      <xloc>1040</xloc>
       <yloc>576</yloc>
       </entry>
     <entry>
@@ -253,8 +253,24 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>656</yloc>
+      <xloc>1040</xloc>
+      <yloc>672</yloc>
+      </entry>
+    <entry>
+      <name>Build Event Dimension</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;dim_event.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>352</xloc>
+      <yloc>272</yloc>
       </entry>
   </entries>
   <hops>
@@ -342,6 +358,15 @@
     <hop>
       <from>Load Configuration</from>
       <to>Build Gender Dimension</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Configuration</from>
+      <to>Build Event Dimension</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
