@@ -11,7 +11,7 @@ CREATE TABLE fact_patient_numeric_value (
   location_id INT,
   program_id INT,
   encounter_type_id INT,
-  metric_id INT,
-  value DOUBLE
+  numeric_question_id INT,
+  numeric_value DOUBLE
 );
 
