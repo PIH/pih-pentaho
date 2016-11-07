@@ -10,6 +10,5 @@ create table dim_gender (
 
 insert into dim_gender (code, name_en) values ('M', 'Male');
 insert into dim_gender (code, name_en) values ('F', 'Female');
-insert into dim_gender (code, name_en) values ('U', 'Unknown');
 
 ALTER TABLE dim_gender ADD INDEX dim_gender_code_idx (code);

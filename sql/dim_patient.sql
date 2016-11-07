@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS dim_patient;
 
 CREATE TABLE dim_patient (
   patient_id INT AUTO_INCREMENT PRIMARY KEY,
-  uuid CHAR(38),
+  patient_uuid CHAR(38),
   gender CHAR(1),
   birthdate DATE,
   birthdate_id INT,
@@ -14,11 +14,11 @@ CREATE TABLE dim_patient (
   death_date_id INT
 );
 
-INSERT INTO dim_patient (uuid, gender, birthdate, birthdate_id, death_date, death_date_id)
-  SELECT      p.uuid, p.gender, p.birthdate, d1.date_id, p.death_date, d2.date_id
+INSERT INTO dim_patient (patient_uuid, gender, birthdate, birthdate_id, death_date, death_date_id)
+  SELECT      p.patient_uuid, p.gender, p.birthdate, d1.date_id, p.death_date, d2.date_id
   FROM        omrs_patient p
   LEFT JOIN   dim_date d1 ON p.birthdate = d1.full_date
   LEFT JOIN   dim_date d2 ON p.death_date = d2.full_date;
 
-ALTER TABLE dim_patient ADD INDEX dim_patient_uuid_idx (uuid);
+ALTER TABLE dim_patient ADD INDEX dim_patient_uuid_idx (patient_uuid);
 ALTER TABLE dim_patient ADD INDEX dim_patient_birthdate_idx (birthdate);
