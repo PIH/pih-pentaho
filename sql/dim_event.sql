@@ -10,7 +10,9 @@ create table dim_event (
 insert into dim_event (name) VALUES
   ('Program Enrollment'),
   ('Program Completion'),
-  ('Encounter')
+  ('Patient Encounter'),
+  ('Patient Born'),
+  ('Patient Died')
 ;
 
 ALTER TABLE dim_event ADD INDEX dim_event_name_idx (name);
