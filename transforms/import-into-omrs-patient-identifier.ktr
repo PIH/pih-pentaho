@@ -102,14 +102,14 @@
     </attributes>
   </connection>
   <connection>
-      <name>Warehouse</name>
-      <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
-      <type>MYSQL</type>
-      <access>Native</access>
-      <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-      <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-      <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-      <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <name>Warehouse</name>
+    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -119,7 +119,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -131,8 +131,7 @@
   <order>
   <hop> <from>Import Patient Identifier</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Location</from><to>Lookup Identifier Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Identifier Type</from><to>Select Included Values</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select Included Values</from><to>Write Patient Identifier Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Identifier Type</from><to>Write Patient Identifier Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Import Patient Identifier</name>
@@ -146,7 +145,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient identifiers&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as patient_uuid,&#xa;            i.identifier_type,&#xa;            i.identifier,&#xa;            i.location_id&#xa;from        person p&#xa;left join   patient_identifier i on p.person_id &#x3d; i.patient_id&#xa;where       i.voided &#x3d; 0&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient identifiers&#xa; &#x2a;&#x2f;&#xa;select      i.uuid as patient_identifier_uuid,&#xa;			p.uuid as patient_uuid,&#xa;            i.identifier_type,&#xa;            i.identifier,&#xa;            i.location_id&#xa;from        person p&#xa;left join   patient_identifier i on p.person_id &#x3d; i.patient_id&#xa;where       i.voided &#x3d; 0&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -245,42 +244,6 @@
     </step>
 
   <step>
-    <name>Select Included Values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>      <field>        <name>patient_uuid</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>identifier</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>location</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>type</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>720</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Write Patient Identifier Table</name>
     <type>TableOutput</type>
     <description/>
@@ -310,6 +273,10 @@
     <return_field/>
     <fields>
         <field>
+          <column_name>patient_identifier_uuid</column_name>
+          <stream_name>patient_identifier_uuid</stream_name>
+        </field>
+        <field>
           <column_name>patient_uuid</column_name>
           <stream_name>patient_uuid</stream_name>
         </field>
@@ -328,7 +295,7 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>928</xloc>
+      <xloc>768</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>

@@ -151,7 +151,7 @@
 <step1>Lookup Encounter Type</step1>
 <step2>Import OMRS Encounter Provider</step2>
     <keys_1>
-      <key>uuid</key>
+      <key>encounter_uuid</key>
     </keys_1>
     <keys_2>
       <key>encounter_uuid</key>
@@ -176,7 +176,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_years_at_encounter,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_months_at_encounter&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0&#xa;order by	e.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.uuid as encounter_uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			p.uuid as patient_uuid,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_years_at_encounter,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_months_at_encounter&#xa;from 		encounter e&#xa;left join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0&#xa;order by	e.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -330,8 +330,8 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
+          <column_name>encounter_uuid</column_name>
+          <stream_name>encounter_uuid</stream_name>
         </field>
         <field>
           <column_name>encounter_date</column_name>

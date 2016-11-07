@@ -623,7 +623,7 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>uuid</column_name>
+          <column_name>patient_uuid</column_name>
           <stream_name>uuid</stream_name>
         </field>
         <field>

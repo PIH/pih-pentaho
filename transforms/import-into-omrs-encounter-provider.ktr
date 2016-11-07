@@ -120,7 +120,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -145,7 +145,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#xa;select 		er.name as provider_role,&#xa;			e.uuid as encounter_uuid,&#xa;			ep.uuid,&#xa;			p.uuid as person_uuid&#xa;from 		encounter e&#xa;left join	encounter_provider ep on e.encounter_id &#x3d; ep.encounter_id&#xa;left join	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;left join	person p on p.person_id &#x3d; pr.person_id&#xa;left join 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;where 		e.voided &#x3d; 0&#xa;</sql>
+    <sql>&#xa;select 		er.name as provider_role,&#xa;			e.uuid as encounter_uuid,&#xa;			ep.uuid as encounter_provider_uuid,&#xa;			p.uuid as person_uuid&#xa;from 		encounter e&#xa;left join	encounter_provider ep on e.encounter_id &#x3d; ep.encounter_id&#xa;left join	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;left join	person p on p.person_id &#x3d; pr.person_id&#xa;left join 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;where 		e.voided &#x3d; 0&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -231,20 +231,20 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
+          <column_name>provider_role</column_name>
+          <stream_name>provider_role</stream_name>
         </field>
         <field>
           <column_name>encounter_uuid</column_name>
           <stream_name>encounter_uuid</stream_name>
         </field>
         <field>
-          <column_name>provider</column_name>
-          <stream_name>provider_name</stream_name>
+          <column_name>encounter_provider_uuid</column_name>
+          <stream_name>encounter_provider_uuid</stream_name>
         </field>
         <field>
-          <column_name>provider_role</column_name>
-          <stream_name>provider_role</stream_name>
+          <column_name>provider</column_name>
+          <stream_name>provider_name</stream_name>
         </field>
     </fields>
      <cluster_schema/>
