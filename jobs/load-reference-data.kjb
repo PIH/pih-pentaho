@@ -388,8 +388,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>688</xloc>
-      <yloc>768</yloc>
+      <xloc>432</xloc>
+      <yloc>720</yloc>
       </entry>
     <entry>
       <name>Load Provider Name Lookup Table</name>
@@ -421,8 +421,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>928</xloc>
-      <yloc>768</yloc>
+      <xloc>672</xloc>
+      <yloc>720</yloc>
       </entry>
     <entry>
       <name>Add Person Name Index</name>
@@ -453,8 +453,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1152</xloc>
-      <yloc>768</yloc>
+      <xloc>896</xloc>
+      <yloc>720</yloc>
       </entry>
   </entries>
   <hops>
@@ -531,15 +531,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Add Person Name Index</from>
-      <to>Create Provider Name Lookup</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Provider Name Lookup Table</from>
       <to>Add Provider Name Index</to>
       <from_nr>0</from_nr>
@@ -596,6 +587,15 @@
     <hop>
       <from>START</from>
       <to>Create Person Name Lookup</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Create Provider Name Lookup</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

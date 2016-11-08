@@ -145,7 +145,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#xa;select 		er.name as provider_role,&#xa;			e.uuid as encounter_uuid,&#xa;			ep.uuid as encounter_provider_uuid,&#xa;			p.uuid as person_uuid&#xa;from 		encounter e&#xa;left join	encounter_provider ep on e.encounter_id &#x3d; ep.encounter_id&#xa;left join	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;left join	person p on p.person_id &#x3d; pr.person_id&#xa;left join 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;where 		e.voided &#x3d; 0&#xa;</sql>
+    <sql>SELECT 		ep.uuid as encounter_provider_uuid,&#xa;			e.uuid as encounter_uuid,&#xa;			pr.uuid as provider_uuid,&#xa;			er.name as provider_role&#xa;FROM 		encounter_provider ep&#xa;INNER JOIN	encounter e on e.encounter_id &#x3d; ep.encounter_id&#xa;LEFT JOIN	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;LEFT JOIN 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;WHERE 		ep.voided &#x3d; 0&#xa;AND			e.voided &#x3d; 0</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -181,7 +181,7 @@
       <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>person_uuid</name>
+        <name>provider_uuid</name>
         <field>uuid</field>
         <condition>&#x3d;</condition>
         <name2/>
@@ -231,16 +231,16 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>provider_role</column_name>
-          <stream_name>provider_role</stream_name>
+          <column_name>encounter_provider_uuid</column_name>
+          <stream_name>encounter_provider_uuid</stream_name>
         </field>
         <field>
           <column_name>encounter_uuid</column_name>
           <stream_name>encounter_uuid</stream_name>
         </field>
         <field>
-          <column_name>encounter_provider_uuid</column_name>
-          <stream_name>encounter_provider_uuid</stream_name>
+          <column_name>provider_role</column_name>
+          <stream_name>provider_role</stream_name>
         </field>
         <field>
           <column_name>provider</column_name>
