@@ -10,12 +10,13 @@ CREATE TABLE dim_patient (
   gender CHAR(1),
   birthdate DATE,
   birthdate_id INT,
+  dead BOOLEAN,
   death_date DATE,
   death_date_id INT
 );
 
-INSERT INTO dim_patient (patient_uuid, gender, birthdate, birthdate_id, death_date, death_date_id)
-  SELECT      p.patient_uuid, p.gender, p.birthdate, d1.date_id, p.death_date, d2.date_id
+INSERT INTO dim_patient (patient_uuid, gender, birthdate, birthdate_id, dead, death_date, death_date_id)
+  SELECT      p.patient_uuid, p.gender, p.birthdate, d1.date_id, p.dead, p.death_date, d2.date_id
   FROM        omrs_patient p
   LEFT JOIN   dim_date d1 ON p.birthdate = d1.full_date
   LEFT JOIN   dim_date d2 ON p.death_date = d2.full_date;
