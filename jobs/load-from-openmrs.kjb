@@ -507,7 +507,7 @@
       <name>Add Encounter Indexes</name>
       <description/>
       <type>SQL</type>
-      <sql>alter table omrs_encounter add primary key&#x28;encounter_uuid&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_patient_idx &#x28;patient_uuid&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_date_idx &#x28;encounter_date&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_time_idx &#x28;encounter_time&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_type_idx &#x28;encounter_type&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_location_idx &#x28;location&#x29;&#x3b;</sql>
+      <sql>alter table omrs_encounter add primary key omrs_encounter_idx &#x28;encounter_uuid&#x29;,&#xa;add index omrs_encounter_patient_idx &#x28;patient_uuid&#x29;,&#xa;add index omrs_encounter_date_idx &#x28;encounter_date&#x29;,&#xa;add index omrs_encounter_time_idx &#x28;encounter_time&#x29;,&#xa;add index omrs_encounter_type_idx &#x28;encounter_type&#x29;,&#xa;add index omrs_encounter_location_idx &#x28;location&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -523,7 +523,7 @@
       <name>Add Obs Indexes</name>
       <description/>
       <type>SQL</type>
-      <sql>alter table omrs_obs add primary key&#x28;obs_uuid&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_patient_idx &#x28;patient_uuid&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_date_idx &#x28;obs_date&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_time_idx &#x28;obs_time&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_concept_idx &#x28;concept&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_encounter_type_idx &#x28;encounter_type&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_location_idx &#x28;location&#x29;&#x3b;</sql>
+      <sql>alter table omrs_obs add index omrs_obs_obs_idx&#x28;obs_uuid&#x29;, add index omrs_obs_patient_idx &#x28;patient_uuid&#x29;, &#xa;add index omrs_obs_date_idx &#x28;obs_date&#x29;, add index omrs_obs_time_idx &#x28;obs_time&#x29;,&#xa;add index omrs_obs_concept_idx &#x28;concept&#x29;, add index omrs_obs_encounter_type_idx &#x28;encounter_type&#x29;,&#xa;add index omrs_obs_location_idx &#x28;location&#x29;&#x3b;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
