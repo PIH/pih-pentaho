@@ -742,6 +742,10 @@
           <column_name>age_months_at_death</column_name>
           <stream_name>age_months_at_death</stream_name>
         </field>
+        <field>
+          <column_name>source_internal_id</column_name>
+          <stream_name>person_id</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
