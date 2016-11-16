@@ -145,7 +145,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient identifiers&#xa; &#x2a;&#x2f;&#xa;select      i.uuid as patient_identifier_uuid,&#xa;			p.uuid as patient_uuid,&#xa;            i.identifier_type,&#xa;            i.identifier,&#xa;            i.location_id&#xa;from        person p&#xa;left join   patient_identifier i on p.person_id &#x3d; i.patient_id&#xa;where       i.voided &#x3d; 0&#xa;and			i.identifier is not null&#xa;and 		i.identifier &#x21;&#x3d; &#x27;&#x27;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient identifiers&#xa; &#x2a;&#x2f;&#xa;select      i.uuid as patient_identifier_uuid,&#xa;			p.uuid as patient_uuid,&#xa;            i.identifier_type,&#xa;            i.identifier,&#xa;            i.location_id&#xa;from        person p&#xa;left join   patient_identifier i on p.person_id &#x3d; i.patient_id&#xa;where       i.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			i.identifier is not null&#xa;and 		i.identifier &#x21;&#x3d; &#x27;&#x27;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
