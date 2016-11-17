@@ -215,6 +215,38 @@
       <xloc>704</xloc>
       <yloc>64</yloc>
       </entry>
+    <entry>
+      <name>Add Patient Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table mw_patient add primary key&#x28;patient_uuid&#x29;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>896</xloc>
+      <yloc>64</yloc>
+      </entry>
+    <entry>
+      <name>Add HIV Register Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table mw_hiv_register add index mw_hiv_register_enrollment_uuid_idx &#x28;enrollment_uuid&#x29;&#x3b;&#xa;alter table mw_hiv_register add index mw_hiv_register_patient_uuid_idx &#x28;patient_uuid&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>896</xloc>
+      <yloc>176</yloc>
+      </entry>
   </entries>
   <hops>
     <hop>
@@ -256,6 +288,24 @@
     <hop>
       <from>Create Malawi Patients</from>
       <to>Load Malawi Patient</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Malawi Patient</from>
+      <to>Add Patient Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load HIV Register</from>
+      <to>Add HIV Register Indexes</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
