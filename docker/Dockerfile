@@ -7,20 +7,20 @@ ENV PDI_RELEASE=6.1 \
     PDI_VERSION=6.1.0.1-196 \
     CARTE_PORT=8181 \
     PENTAHO_JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64 \
-    PENTAHO_HOME=/home/pentaho \
-    PIH_PENTAHO_HOME=/home/pih-pentaho \
+    PENTAHO_HOME=/opt/pentaho \
+    HOME=/home/reporting \
     MYSQL_CONNECTOR_VERSION=5.1.28
 
 # Create user
 RUN mkdir ${PENTAHO_HOME} && \
-     mkdir ${PIH_PENTAHO_HOME} && \
-     groupadd -r pentaho && \
-     useradd -s /bin/bash -d ${PENTAHO_HOME} -r -g pentaho pentaho && \
-     chown pentaho:pentaho ${PENTAHO_HOME} && \
-     chown pentaho:pentaho ${PIH_PENTAHO_HOME}
+     mkdir ${HOME} && \
+     groupadd -r reporting && \
+     useradd -s /bin/bash -d ${PENTAHO_HOME} -r -g reporting reporting && \
+     chown reporting:reporting ${PENTAHO_HOME} && \
+     chown reporting:reporting ${HOME}
 
- # Switch to the pentaho user
- USER pentaho
+ # Switch to the reporting user
+ USER reporting
 
  # Download PDI
  RUN /usr/bin/wget \
@@ -41,10 +41,10 @@ RUN /usr/bin/wget \
 
 # Set kettle properties
 RUN mkdir ${PENTAHO_HOME}/.kettle && \
-    echo "PIH_PENTAHO_HOME=${PIH_PENTAHO_HOME}" > ${PENTAHO_HOME}/.kettle/kettle.properties
+    echo "PIH_PENTAHO_HOME=${HOME}/pih-pentaho" > ${PENTAHO_HOME}/.kettle/kettle.properties
 
-ENV KETTLE_HOME=$PENTAHO_HOME \
+ENV  KETTLE_HOME=$PENTAHO_HOME \
      PATH=$KETTLE_HOME:$PATH
 
-WORKDIR $PENTAHO_HOME
+WORKDIR $HOME
 

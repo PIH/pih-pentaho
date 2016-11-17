@@ -32,23 +32,24 @@ Running via docker
 Usage:
 
 * Make sure docker is installed and running on the target machine:
+    Use our docker ansible playbook, or:
     https://docs.docker.com/engine/installation/linux/ubuntulinux/
     
-* Clone this repo into /home/pih-pentaho on the target machine
+* Clone this repo into /home/reporting on the target machine
 
 * Build the image locally on the target machine:
-    **cd /home/pih-pentaho/docker**
-    **sudo docker build -t pih:pdi .**
+    cd /home/reporting/pih-pentaho/docker
+    sudo docker build -t pih:pdi .
     
-* Create a custom "pih-kettle.properties" file in "/home/pih-pentaho/.kettle" based on pih-kettle-default.properties, but customized for this install
+* Create a custom "pih-kettle.properties" file in "/home/reporting/.kettle" based on pih-kettle-default.properties, but customized for this install
 
 * Create the warehouse database in mysql: "create database <warehouse_db_name> default charset utf-8", where <warehouse_db_name> is set to the warehouse.db.name as specified in pih-kettle.properties
     
 * To run the "load-from-opennmrs" job on the target machine using kitchen:
-    **sudo docker run --net="host" --rm -v /home/pih-pentaho:/home/pih-pentaho -v /home/pih-pentaho/.kettle/pih-kettle.properties:/home/pentaho/.kettle/pih-kettle.properties pih:pdi data-integration/kitchen.sh -file="/home/pih-pentaho/jobs/load-from-openmrs.kjb"**
+    sudo docker run --net="host" --rm -v /home/reporting:/home/reporting -v /home/reporting/.kettle/pih-kettle.properties:/opt/pentaho/.kettle/pih-kettle.properties pih:pdi /opt/pentaho/data-integration/kitchen.sh -file="/home/reporting/pih-pentaho/jobs/load-from-openmrs-and-star-schema.kjb"
 
     --net="host" : allows the container to connect to mysql on the host machine via 127.0.0.1
-     /home/pih-pentaho:/home/pih-pentaho: mounts the /home/pih-pentaho directory on the host machine to /home/pih-pentaho in the container
+     /home/reporting:/home/reporting: mounts the /home/reporting directory on the host machine to /home/reporting in the container
 
 
 =====================
