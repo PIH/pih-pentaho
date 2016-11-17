@@ -412,7 +412,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV program enrollments&#xa;&#x2a;&#x2f;&#xa;select      e.program_enrollment_uuid as enrollment_uuid,&#xa;			e.patient_uuid,&#xa;			e.location,&#xa;			e.enrollment_date,&#xa;			e.age_years_at_enrollment,&#xa;			e.age_months_at_enrollment,&#xa;			e.completion_date,&#xa;			e.age_years_at_completion,&#xa;			e.age_months_at_completion&#xa;from        omrs_program_enrollment e&#xa;order by	e.patient_uuid, e.location</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV program enrollments&#xa;&#x2a;&#x2f;&#xa;select      e.program_enrollment_uuid as enrollment_uuid,&#xa;			e.patient_uuid,&#xa;			e.location,&#xa;			e.enrollment_date,&#xa;			e.age_years_at_enrollment,&#xa;			e.age_months_at_enrollment,&#xa;			e.completion_date,&#xa;			e.age_years_at_completion,&#xa;			e.age_months_at_completion&#xa;from        omrs_program_enrollment e&#xa;where 		e.program &#x3d; &#x27;HIV Program&#x27;&#xa;order by	e.patient_uuid, e.location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -535,6 +535,40 @@
     </step>
 
   <step>
+    <name>Sort by enrollment uuid</name>
+    <type>SortRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>enrollment_uuid</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <presorted>N</presorted>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>560</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Write HIV Register Table</name>
     <type>TableOutput</type>
     <description/>
@@ -652,40 +686,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>880</xloc>
       <yloc>704</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Sort by enrollment uuid</name>
-    <type>SortRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>out</prefix>
-      <sort_size>1000000</sort_size>
-      <free_memory/>
-      <compress>N</compress>
-      <compress_variable/>
-      <unique_rows>N</unique_rows>
-    <fields>
-      <field>
-        <name>enrollment_uuid</name>
-        <ascending>Y</ascending>
-        <case_sensitive>N</case_sensitive>
-        <presorted>N</presorted>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>560</xloc>
-      <yloc>368</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
