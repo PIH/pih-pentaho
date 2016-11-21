@@ -132,7 +132,9 @@
   <hop> <from>Import Patient Program</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Location</from><to>Lookup Program Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Program Concept</from><to>Lookup Outcome Concept</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Outcome Concept</from><to>Write Program Enrollment Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Outcome Concept</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Program Enrollment Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Import Patient Program</name>
@@ -146,7 +148,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient programs&#xa;  This excludes any that have a null enrollment date.&#xa; &#x2a;&#x2f;&#xa;select      pp.uuid as program_enrollment_uuid, &#xa;			p.uuid as patient_uuid,&#xa;            pg.concept_id as program_concept_id, &#xa;            pp.date_enrolled,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, pp.date_enrolled&#x29;&#x29; as age_years_at_enrollment,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, pp.date_enrolled&#x29;&#x29; as age_months_at_enrollment,&#xa;			pp.location_id,&#xa;			pp.date_completed,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, pp.date_completed&#x29;&#x29; as age_years_at_completion,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, pp.date_completed&#x29;&#x29; as age_months_at_completion,&#xa;			pp.outcome_concept_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient programs&#xa;  This excludes any that have a null enrollment date.&#xa; &#x2a;&#x2f;&#xa;select      pp.patient_program_id as program_enrollment_id,&#xa;			pp.uuid, &#xa;			p.person_id as patient_id,&#xa;            pg.concept_id as program_concept_id, &#xa;            pp.date_enrolled as enrollment_date,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, pp.date_enrolled&#x29;&#x29; as age_years_at_enrollment,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, pp.date_enrolled&#x29;&#x29; as age_months_at_enrollment,&#xa;			pp.location_id,&#xa;			pp.date_completed as completion_date,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, pp.date_completed&#x29;&#x29; as age_years_at_completion,&#xa;			if &#x28;p.birthdate is null or pp.date_enrolled is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, pp.date_completed&#x29;&#x29; as age_months_at_completion,&#xa;			pp.outcome_concept_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -316,16 +318,20 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>program_enrollment_uuid</column_name>
-          <stream_name>program_enrollment_uuid</stream_name>
+          <column_name>program_enrollment_id</column_name>
+          <stream_name>program_enrollment_id</stream_name>
         </field>
         <field>
-          <column_name>patient_uuid</column_name>
-          <stream_name>patient_uuid</stream_name>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
+        </field>
+        <field>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
         </field>
         <field>
           <column_name>enrollment_date</column_name>
-          <stream_name>date_enrolled</stream_name>
+          <stream_name>enrollment_date</stream_name>
         </field>
         <field>
           <column_name>age_years_at_enrollment</column_name>
@@ -337,7 +343,7 @@
         </field>
         <field>
           <column_name>completion_date</column_name>
-          <stream_name>date_completed</stream_name>
+          <stream_name>completion_date</stream_name>
         </field>
         <field>
           <column_name>age_years_at_completion</column_name>
@@ -362,7 +368,76 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>976</xloc>
+      <xloc>1200</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get ID Prefix</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>id_prefix</name>
+        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>896</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Prefix IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var prefixed_enrollment_id &#x3d; id_prefix &#x2b; program_enrollment_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
+        <rename>patient_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_enrollment_id</name>
+        <rename>program_enrollment_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1024</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>

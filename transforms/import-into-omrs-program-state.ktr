@@ -132,9 +132,11 @@
   <order>
   <hop> <from>Import Patient State</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Location</from><to>Lookup Program Concept</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup State Concept</from><to>Write Program State Table</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Program Concept</from><to>Lookup Workflow Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Workflow Concept</from><to>Lookup State Concept</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Program State Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup State Concept</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Import Patient State</name>
@@ -148,7 +150,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient states&#xa;  This excludes any that have a null enrollment date or a null state start date&#xa; &#x2a;&#x2f;&#xa;select      ps.uuid as program_state_uuid,&#xa;			pp.uuid as program_enrollment_uuid,&#xa;			p.uuid as patient_uuid,&#xa;            pg.concept_id as program_concept_id,&#xa;			pw.concept_id as workflow_concept_id,&#xa;			pws.concept_id as state_concept_id,&#xa;            ps.start_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, start_date&#x29;&#x29; as age_years_at_start,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, start_date&#x29;&#x29; as age_months_at_start,&#xa;			ps.end_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, end_date&#x29;&#x29; as age_years_at_end,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, end_date&#x29;&#x29; as age_months_at_end,&#xa;			pp.location_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  patient_state ps on ps.patient_program_id &#x3d; pp.patient_program_id&#xa;inner join  program_workflow_state pws on ps.state &#x3d; pws.program_workflow_state_id&#xa;inner join	program_workflow pw on pws.program_workflow_id &#x3d; pw.program_workflow_id &#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;and			ps.start_date is not null&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient states&#xa;  This excludes any that have a null enrollment date or a null state start date&#xa; &#x2a;&#x2f;&#xa;select      ps.patient_state_id as program_state_id,&#xa;			ps.uuid as uuid,&#xa;			pp.patient_program_id as program_enrollment_id,&#xa;			p.person_id as patient_id,&#xa;            pg.concept_id as program_concept_id,&#xa;			pw.concept_id as workflow_concept_id,&#xa;			pws.concept_id as state_concept_id,&#xa;            ps.start_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, start_date&#x29;&#x29; as age_years_at_start,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, start_date&#x29;&#x29; as age_months_at_start,&#xa;			ps.end_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, end_date&#x29;&#x29; as age_years_at_end,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, end_date&#x29;&#x29; as age_months_at_end,&#xa;			pp.location_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  patient_state ps on ps.patient_program_id &#x3d; pp.patient_program_id&#xa;inner join  program_workflow_state pws on ps.state &#x3d; pws.program_workflow_state_id&#xa;inner join	program_workflow pw on pws.program_workflow_id &#x3d; pw.program_workflow_id &#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;and			ps.start_date is not null&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -360,12 +362,20 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>program_enrollment_uuid</column_name>
-          <stream_name>program_enrollment_uuid</stream_name>
+          <column_name>program_state_id</column_name>
+          <stream_name>program_state_id</stream_name>
         </field>
         <field>
-          <column_name>patient_uuid</column_name>
-          <stream_name>patient_uuid</stream_name>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
+        </field>
+        <field>
+          <column_name>program_enrollment_id</column_name>
+          <stream_name>program_enrollment_id</stream_name>
+        </field>
+        <field>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
         </field>
         <field>
           <column_name>start_date</column_name>
@@ -407,15 +417,86 @@
           <column_name>state</column_name>
           <stream_name>state</stream_name>
         </field>
-        <field>
-          <column_name>program_state_uuid</column_name>
-          <stream_name>program_state_uuid</stream_name>
-        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1088</xloc>
-      <yloc>112</yloc>
+      <xloc>688</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get ID Prefix</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>id_prefix</name>
+        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>288</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Prefix IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var prefixed_program_state_id &#x3d; id_prefix &#x2b; program_state_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;&#xa;var prefixed_enrollment_id &#x3d; id_prefix &#x2b; program_enrollment_id&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
+        <rename>patient_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_enrollment_id</name>
+        <rename>program_enrollment_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_program_state_id</name>
+        <rename>program_state_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>512</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

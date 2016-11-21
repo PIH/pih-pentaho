@@ -131,7 +131,9 @@
   </connection>
   <order>
   <hop> <from>Import Encounter Provider</from><to>Lookup Provider Name</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Provider Name</from><to>Write Encounter Provider Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Provider Name</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Encounter Provider Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Import Encounter Provider</name>
@@ -145,7 +147,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>SELECT 		ep.uuid as encounter_provider_uuid,&#xa;			e.uuid as encounter_uuid,&#xa;			pr.uuid as provider_uuid,&#xa;			er.name as provider_role&#xa;FROM 		encounter_provider ep&#xa;INNER JOIN	encounter e on e.encounter_id &#x3d; ep.encounter_id&#xa;LEFT JOIN	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;LEFT JOIN 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;WHERE 		ep.voided &#x3d; 0&#xa;AND			e.voided &#x3d; 0</sql>
+    <sql>SELECT 		ep.encounter_provider_id,&#xa;			ep.uuid,&#xa;			e.encounter_id,&#xa;			pr.uuid as provider_uuid,&#xa;			er.name as provider_role&#xa;FROM 		encounter_provider ep&#xa;INNER JOIN	encounter e on e.encounter_id &#x3d; ep.encounter_id&#xa;LEFT JOIN	provider pr on pr.provider_id &#x3d; ep.provider_id&#xa;LEFT JOIN 	encounter_role er on er.encounter_role_id &#x3d; ep.encounter_role_id&#xa;WHERE 		ep.voided &#x3d; 0&#xa;AND			e.voided &#x3d; 0</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -231,12 +233,16 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>encounter_provider_uuid</column_name>
-          <stream_name>encounter_provider_uuid</stream_name>
+          <column_name>encounter_provider_id</column_name>
+          <stream_name>encounter_provider_id</stream_name>
         </field>
         <field>
-          <column_name>encounter_uuid</column_name>
-          <stream_name>encounter_uuid</stream_name>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_id</column_name>
+          <stream_name>encounter_id</stream_name>
         </field>
         <field>
           <column_name>provider_role</column_name>
@@ -249,7 +255,76 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
+      <xloc>1008</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get ID Prefix</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>id_prefix</name>
+        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>704</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Prefix IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var prefixed_encounter_provider_id &#x3d; id_prefix &#x2b; encounter_provider_id&#x3b;&#xa;var prefixed_encounter_id &#x3d; id_prefix &#x2b; encounter_id&#x3b;&#xa;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_encounter_provider_id</name>
+        <rename>encounter_provider_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_encounter_id</name>
+        <rename>encounter_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>832</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
       </GUI>
