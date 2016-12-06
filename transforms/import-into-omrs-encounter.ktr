@@ -132,11 +132,12 @@
   <order>
   <hop> <from>Import Encounter</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Location</from><to>Lookup Encounter Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Encounter Type</from><to>Encounter Provider Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Import OMRS Encounter Provider</from><to>Encounter Provider Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
   <hop> <from>Encounter Provider Merge</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
   <hop> <from>Prefix IDs</from><to>Write Encounter Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Encounter Type</from><to>Lookup Form</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Form</from><to>Encounter Provider Merge</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Encounter Provider Merge</name>
@@ -150,7 +151,7 @@
            <schema_name/>
            </partitioning>
 <join_type>LEFT OUTER</join_type>
-<step1>Lookup Encounter Type</step1>
+<step1>Lookup Form</step1>
 <step2>Import OMRS Encounter Provider</step2>
     <keys_1>
       <key>encounter_id</key>
@@ -160,7 +161,40 @@
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>480</xloc>
+      <xloc>672</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get ID Prefix</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>id_prefix</name>
+        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>880</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
@@ -178,7 +212,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.encounter_id,&#xa;			e.uuid as uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_years_at_encounter,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_months_at_encounter&#xa;from 		encounter e&#xa;inner join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;order by	e.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.encounter_id,&#xa;			e.uuid as uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.form_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_years_at_encounter,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_months_at_encounter&#xa;from 		encounter e&#xa;inner join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;order by	e.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -303,6 +337,42 @@
     </step>
 
   <step>
+    <name>Prefix IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var prefixed_encounter_id &#x3d; id_prefix &#x2b; encounter_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
+        <rename>patient_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_encounter_id</name>
+        <rename>encounter_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1008</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Write Encounter Table</name>
     <type>TableOutput</type>
     <description/>
@@ -375,18 +445,22 @@
           <column_name>encounter_id</column_name>
           <stream_name>encounter_id</stream_name>
         </field>
+        <field>
+          <column_name>form</column_name>
+          <stream_name>form</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>976</xloc>
+      <xloc>1168</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Get ID Prefix</name>
-    <type>GetVariable</type>
+    <name>Lookup Form</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -395,60 +469,33 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>
-      <field>
-        <name>id_prefix</name>
-        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_form</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>form_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>form</rename>
+        <default/>
         <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>688</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Prefix IDs</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_encounter_id &#x3d; id_prefix &#x2b; encounter_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
-        <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>prefixed_encounter_id</name>
-        <rename>encounter_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>816</xloc>
-      <yloc>256</yloc>
+      <xloc>672</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

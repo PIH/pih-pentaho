@@ -112,7 +112,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>672</xloc>
-      <yloc>128</yloc>
+      <yloc>176</yloc>
       </entry>
     <entry>
       <name>Create Concept Lookup Table</name>
@@ -128,7 +128,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>432</xloc>
-      <yloc>128</yloc>
+      <yloc>176</yloc>
       </entry>
     <entry>
       <name>Load Location Lookup Table</name>
@@ -161,7 +161,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>672</xloc>
-      <yloc>240</yloc>
+      <yloc>256</yloc>
       </entry>
     <entry>
       <name>Create Location Lookup Table</name>
@@ -177,7 +177,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>432</xloc>
-      <yloc>240</yloc>
+      <yloc>256</yloc>
       </entry>
     <entry>
       <name>Create Identifier Type Lookup</name>
@@ -242,7 +242,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>432</xloc>
-      <yloc>448</yloc>
+      <yloc>496</yloc>
       </entry>
     <entry>
       <name>Load Encounter Type Lookup Table</name>
@@ -275,7 +275,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>672</xloc>
-      <yloc>448</yloc>
+      <yloc>496</yloc>
       </entry>
     <entry>
       <name>Create User Lookup</name>
@@ -291,7 +291,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>432</xloc>
-      <yloc>528</yloc>
+      <yloc>576</yloc>
       </entry>
     <entry>
       <name>Load User Lookup Table</name>
@@ -324,7 +324,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>672</xloc>
-      <yloc>528</yloc>
+      <yloc>576</yloc>
       </entry>
     <entry>
       <name>Create Person Name Lookup</name>
@@ -340,7 +340,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>432</xloc>
-      <yloc>624</yloc>
+      <yloc>672</yloc>
       </entry>
     <entry>
       <name>Load Person Name Lookup Table</name>
@@ -373,7 +373,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>672</xloc>
-      <yloc>624</yloc>
+      <yloc>672</yloc>
       </entry>
     <entry>
       <name>Create Provider Name Lookup</name>
@@ -389,7 +389,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>432</xloc>
-      <yloc>720</yloc>
+      <yloc>768</yloc>
       </entry>
     <entry>
       <name>Load Provider Name Lookup Table</name>
@@ -422,7 +422,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>672</xloc>
-      <yloc>720</yloc>
+      <yloc>768</yloc>
       </entry>
     <entry>
       <name>Add Person Name Index</name>
@@ -438,7 +438,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>912</xloc>
-      <yloc>624</yloc>
+      <yloc>672</yloc>
       </entry>
     <entry>
       <name>Add Provider Name Index</name>
@@ -454,7 +454,105 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>896</xloc>
-      <yloc>720</yloc>
+      <yloc>768</yloc>
+      </entry>
+    <entry>
+      <name>Create Form Lookup</name>
+      <description/>
+      <type>SQL</type>
+      <sql>drop table if exists lookup_form&#x3b;&#xa;&#xa;create table lookup_form &#x28;&#xa;	source_key int primary key,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>432</xloc>
+      <yloc>416</yloc>
+      </entry>
+    <entry>
+      <name>Load Form Lookup Table</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;setup-reference-forms.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>672</xloc>
+      <yloc>416</yloc>
+      </entry>
+    <entry>
+      <name>Create Drug Lookup Table</name>
+      <description/>
+      <type>SQL</type>
+      <sql>drop table if exists lookup_drug&#x3b;&#xa;&#xa;create table lookup_drug &#x28;&#xa;	source_key int primary key,&#xa;	target_value varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>432</xloc>
+      <yloc>96</yloc>
+      </entry>
+    <entry>
+      <name>Load Drug Lookup Table</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;setup-reference-drugs.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>672</xloc>
+      <yloc>96</yloc>
       </entry>
   </entries>
   <hops>
@@ -601,6 +699,42 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Create Form Lookup</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Create Form Lookup</from>
+      <to>Load Form Lookup Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Create Drug Lookup Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Create Drug Lookup Table</from>
+      <to>Load Drug Lookup Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>
