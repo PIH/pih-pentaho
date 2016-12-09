@@ -223,8 +223,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1120</xloc>
-      <yloc>352</yloc>
+      <xloc>1072</xloc>
+      <yloc>272</yloc>
       </entry>
     <entry>
       <name>Create Program Enrollment Table</name>
@@ -239,7 +239,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>480</xloc>
+      <xloc>400</xloc>
       <yloc>576</yloc>
       </entry>
     <entry>
@@ -272,7 +272,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>736</xloc>
+      <xloc>656</xloc>
       <yloc>576</yloc>
       </entry>
     <entry>
@@ -305,8 +305,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1296</xloc>
-      <yloc>352</yloc>
+      <xloc>1248</xloc>
+      <yloc>272</yloc>
       </entry>
     <entry>
       <name>Create Program State Table</name>
@@ -321,8 +321,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>704</yloc>
+      <xloc>400</xloc>
+      <yloc>688</yloc>
       </entry>
     <entry>
       <name>Load Program State Table</name>
@@ -354,8 +354,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>720</xloc>
-      <yloc>704</yloc>
+      <xloc>640</xloc>
+      <yloc>688</yloc>
       </entry>
     <entry>
       <name>Create Encounter Provider Table</name>
@@ -419,7 +419,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
+      <xloc>384</xloc>
       <yloc>800</yloc>
       </entry>
     <entry>
@@ -452,7 +452,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>704</xloc>
+      <xloc>624</xloc>
       <yloc>800</yloc>
       </entry>
     <entry>
@@ -500,7 +500,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1008</xloc>
+      <xloc>928</xloc>
       <yloc>576</yloc>
       </entry>
     <entry>
@@ -516,8 +516,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1456</xloc>
-      <yloc>352</yloc>
+      <xloc>1408</xloc>
+      <yloc>272</yloc>
       </entry>
     <entry>
       <name>Add Obs Indexes</name>
@@ -532,7 +532,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>944</xloc>
+      <xloc>864</xloc>
       <yloc>800</yloc>
       </entry>
     <entry>
@@ -579,8 +579,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>960</xloc>
-      <yloc>704</yloc>
+      <xloc>880</xloc>
+      <yloc>688</yloc>
       </entry>
     <entry>
       <name>Add Patient Identifier Indexes</name>
@@ -676,8 +676,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>512</yloc>
+      <xloc>400</xloc>
+      <yloc>464</yloc>
       </entry>
     <entry>
       <name>Load Obs Group Table</name>
@@ -709,8 +709,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
-      <yloc>512</yloc>
+      <xloc>640</xloc>
+      <yloc>464</yloc>
       </entry>
     <entry>
       <name>Add Obs Group Indexes</name>
@@ -726,7 +726,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>848</xloc>
-      <yloc>512</yloc>
+      <yloc>464</yloc>
       </entry>
     <entry>
       <name>Create Visit Table</name>
@@ -741,8 +741,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>448</yloc>
+      <xloc>400</xloc>
+      <yloc>368</yloc>
       </entry>
     <entry>
       <name>Load Visit Table</name>
@@ -774,8 +774,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>448</yloc>
+      <xloc>640</xloc>
+      <yloc>368</yloc>
       </entry>
     <entry>
       <name>Add Visit Indexes</name>
@@ -790,8 +790,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>912</xloc>
-      <yloc>448</yloc>
+      <xloc>848</xloc>
+      <yloc>368</yloc>
       </entry>
   </entries>
   <hops>
