@@ -120,7 +120,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT      dp.patient_id, g.gender_id, d.date_id, v.event_id&#xa;FROM        omrs_patient p&#xa;INNER JOIN  dim_patient dp on dp.patient_uuid &#x3d; p.patient_uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Patient Born&#x27;&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; p.birthdate&#xa;WHERE		p.birthdate is not null</sql>
+    <sql>SELECT      dp.patient_id, g.gender_id, d.date_id, v.event_id&#xa;FROM        omrs_patient p&#xa;INNER JOIN  dim_patient dp on dp.patient_id &#x3d; p.patient_id&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Patient Born&#x27;&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; p.birthdate&#xa;WHERE		p.birthdate is not null</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -146,7 +146,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT      dp.patient_id, g.gender_id, d.date_id, v.event_id&#xa;FROM        omrs_patient p&#xa;INNER JOIN  dim_patient dp on dp.patient_uuid &#x3d; p.patient_uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Patient Died&#x27;&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; p.death_date&#xa;WHERE		p.death_date is not null</sql>
+    <sql>SELECT      dp.patient_id, g.gender_id, d.date_id, v.event_id&#xa;FROM        omrs_patient p&#xa;INNER JOIN  dim_patient dp on dp.patient_id &#x3d; p.patient_id&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Patient Died&#x27;&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; p.death_date&#xa;WHERE		p.death_date is not null</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -172,7 +172,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, t.time_id, l.location_id, et.encounter_type_id, v.event_id&#xa;FROM        omrs_encounter e&#xa;INNER JOIN  dim_patient p on e.patient_uuid &#x3d; p.patient_uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Patient Encounter&#x27;&#xa;INNER JOIN  dim_encounter_type et on et.name &#x3d; e.encounter_type&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_encounter and a.full_months &#x3d; e.age_months_at_encounter&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.encounter_date&#xa;LEFT JOIN   dim_time t on t.full_time &#x3d; e.encounter_time&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location&#xa;WHERE		e.encounter_date is not null</sql>
+    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, t.time_id, l.location_id, et.encounter_type_id, v.event_id&#xa;FROM        omrs_encounter e&#xa;INNER JOIN  dim_patient p on e.patient_id &#x3d; p.patient_id&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Patient Encounter&#x27;&#xa;INNER JOIN  dim_encounter_type et on et.name &#x3d; e.encounter_type&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_encounter and a.full_months &#x3d; e.age_months_at_encounter&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.encounter_date&#xa;LEFT JOIN   dim_time t on t.full_time &#x3d; e.encounter_time&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location&#xa;WHERE		e.encounter_date is not null</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -198,7 +198,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, l.location_id, pg.program_id, v.event_id&#xa;FROM        omrs_program_enrollment e&#xa;INNER JOIN  dim_patient p on e.patient_uuid &#x3d; p.patient_uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Program Completion&#x27;&#xa;INNER JOIN  dim_program pg on pg.name &#x3d; e.program&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_completion and a.full_months &#x3d; e.age_months_at_completion&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.completion_date&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location&#xa;WHERE		e.completion_date is not null</sql>
+    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, l.location_id, pg.program_id, v.event_id&#xa;FROM        omrs_program_enrollment e&#xa;INNER JOIN  dim_patient p on e.patient_id &#x3d; p.patient_id&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Program Completion&#x27;&#xa;INNER JOIN  dim_program pg on pg.name &#x3d; e.program&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_completion and a.full_months &#x3d; e.age_months_at_completion&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.completion_date&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location&#xa;WHERE		e.completion_date is not null</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -224,7 +224,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, l.location_id, pg.program_id, v.event_id&#xa;FROM        omrs_program_enrollment e&#xa;INNER JOIN  dim_patient p on e.patient_uuid &#x3d; p.patient_uuid&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Program Enrollment&#x27;&#xa;INNER JOIN  dim_program pg on pg.name &#x3d; e.program&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_enrollment and a.full_months &#x3d; e.age_months_at_enrollment&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.enrollment_date&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location&#xa;WHERE		e.enrollment_date is not null</sql>
+    <sql>SELECT      p.patient_id, g.gender_id, a.age_id, d.date_id, l.location_id, pg.program_id, v.event_id&#xa;FROM        omrs_program_enrollment e&#xa;INNER JOIN  dim_patient p on e.patient_id &#x3d; p.patient_id&#xa;INNER JOIN	dim_event v on v.name &#x3d; &#x27;Program Enrollment&#x27;&#xa;INNER JOIN  dim_program pg on pg.name &#x3d; e.program&#xa;LEFT JOIN 	dim_gender g on g.code &#x3d; p.gender&#xa;LEFT JOIN   dim_age a on a.full_years &#x3d; e.age_years_at_enrollment and a.full_months &#x3d; e.age_months_at_enrollment&#xa;LEFT JOIN   dim_date d on d.full_date &#x3d; e.enrollment_date&#xa;LEFT JOIN   dim_location l on l.name &#x3d; e.location&#xa;WHERE		e.enrollment_date is not null</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
