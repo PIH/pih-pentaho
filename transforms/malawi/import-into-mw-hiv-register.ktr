@@ -117,8 +117,8 @@
   <hop> <from>Outcome Merge</from><to>Write HIV Register Table</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Exposed Child Start Date</from><to>Exposed Child Start Date Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Exposed Child Start Date Merge</from><to>Pre-ART Start Date Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>ARV Number Merge</from><to>Sort by enrollment uuid</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort by enrollment uuid</from><to>Exposed Child Start Date Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>ARV Number Merge</from><to>Sort by enrollment id</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort by enrollment id</from><to>Exposed Child Start Date Merge</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>ART Start Date Merge</name>
@@ -135,10 +135,10 @@
 <step1>Pre-ART Start Date Merge</step1>
 <step2>Import ART Start Date</step2>
     <keys_1>
-      <key>enrollment_uuid</key>
+      <key>enrollment_id</key>
     </keys_1>
     <keys_2>
-      <key>program_enrollment_uuid</key>
+      <key>program_enrollment_id</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -163,11 +163,11 @@
 <step1>HCC Number Merge</step1>
 <step2>Format ARV Number</step2>
     <keys_1>
-      <key>patient_uuid</key>
+      <key>patient_id</key>
       <key>location</key>
     </keys_1>
     <keys_2>
-      <key>patient_uuid</key>
+      <key>patient_id</key>
       <key>location</key>
     </keys_2>
      <cluster_schema/>
@@ -190,13 +190,13 @@
            <schema_name/>
            </partitioning>
 <join_type>LEFT OUTER</join_type>
-<step1>Sort by enrollment uuid</step1>
+<step1>Sort by enrollment id</step1>
 <step2>Import Exposed Child Start Date</step2>
     <keys_1>
-      <key>enrollment_uuid</key>
+      <key>enrollment_id</key>
     </keys_1>
     <keys_2>
-      <key>program_enrollment_uuid</key>
+      <key>program_enrollment_id</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -281,11 +281,11 @@
 <step1>Import HIV Program Enrollments</step1>
 <step2>Format HCC Number</step2>
     <keys_1>
-      <key>patient_uuid</key>
+      <key>patient_id</key>
       <key>location</key>
     </keys_1>
     <keys_2>
-      <key>patient_uuid</key>
+      <key>patient_id</key>
       <key>location</key>
     </keys_2>
      <cluster_schema/>
@@ -308,7 +308,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select      e.program_enrollment_uuid, s.start_date as art_start_date, s.age_years_at_start as age_years_at_art_start, s.age_months_at_start as age_months_at_art_start&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and         s.program_state_uuid &#x3d; &#x28;&#xa;    select    s.program_state_uuid&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;    and       s.state &#x3d; &#x27;On antiretrovirals&#x27;&#xa;    order by  s.start_date asc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_uuid&#x3b;</sql>
+    <sql>select      e.program_enrollment_id, s.start_date as art_start_date&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and         s.program_state_id &#x3d; &#x28;&#xa;    select    s.program_state_id&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;    and       s.state &#x3d; &#x27;On antiretrovirals&#x27;&#xa;    order by  s.start_date asc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -334,7 +334,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		i.patient_uuid, i.location, max&#x28;i.identifier&#x29; as identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.type &#x3d; &#x27;ARV Number&#x27;&#xa;group by	i.patient_uuid, i.location&#xa;order by	i.patient_uuid, i.location&#x3b;</sql>
+    <sql>select		i.patient_id, i.location, max&#x28;i.identifier&#x29; as identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.type &#x3d; &#x27;ARV Number&#x27;&#xa;group by	i.patient_id, i.location&#xa;order by	i.patient_id, i.location&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -360,7 +360,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select      e.program_enrollment_uuid, s.start_date as exposed_child_start_date, s.age_years_at_start as age_years_at_exposed_child_start, s.age_months_at_start as age_months_at_exposed_child_start&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and         s.program_state_uuid &#x3d; &#x28;&#xa;    select    s.program_state_uuid&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;    and       s.state &#x3d; &#x27;Exposed Child &#x28;Continue&#x29;&#x27;&#xa;    order by  s.start_date asc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_uuid&#x3b;</sql>
+    <sql>select      e.program_enrollment_id, s.start_date as exposed_child_start_date&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and         s.program_state_id &#x3d; &#x28;&#xa;    select    s.program_state_id&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;    and       s.state &#x3d; &#x27;Exposed Child &#x28;Continue&#x29;&#x27;&#xa;    order by  s.start_date asc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -386,7 +386,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		i.patient_uuid, i.location, max&#x28;i.identifier&#x29; as identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.type &#x3d; &#x27;HCC Number&#x27;&#xa;group by	i.patient_uuid, i.location&#xa;order by	i.patient_uuid, i.location&#x3b;</sql>
+    <sql>select		i.patient_id, i.location, max&#x28;i.identifier&#x29; as identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.type &#x3d; &#x27;HCC Number&#x27;&#xa;group by	i.patient_id, i.location&#xa;order by	i.patient_id, i.location&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -412,7 +412,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV program enrollments&#xa;&#x2a;&#x2f;&#xa;select      e.program_enrollment_uuid as enrollment_uuid,&#xa;			e.patient_uuid,&#xa;			e.location,&#xa;			e.enrollment_date,&#xa;			e.age_years_at_enrollment,&#xa;			e.age_months_at_enrollment,&#xa;			e.completion_date,&#xa;			e.age_years_at_completion,&#xa;			e.age_months_at_completion&#xa;from        omrs_program_enrollment e&#xa;where 		e.program &#x3d; &#x27;HIV Program&#x27;&#xa;order by	e.patient_uuid, e.location</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV program enrollments&#xa;&#x2a;&#x2f;&#xa;select      e.program_enrollment_id as enrollment_id,&#xa;			e.patient_id,&#xa;			e.location,&#xa;			e.enrollment_date,&#xa;			e.completion_date&#xa;from        omrs_program_enrollment e&#xa;where 		e.program &#x3d; &#x27;HIV Program&#x27;&#xa;order by	e.patient_id, e.location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -438,7 +438,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select      e.program_enrollment_uuid, s.state as outcome&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and 		e.completion_date is not null&#xa;and         s.program_state_uuid &#x3d; &#x28;&#xa;    select    s.program_state_uuid&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;    and       s.workflow &#x3d; &#x27;Treatment status&#x27;&#xa;    order by  s.start_date desc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_uuid&#x3b;</sql>
+    <sql>select      e.program_enrollment_id, s.state as outcome&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and 		e.completion_date is not null&#xa;and         s.program_state_id &#x3d; &#x28;&#xa;    select    s.program_state_id&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;    and       s.workflow &#x3d; &#x27;Treatment status&#x27;&#xa;    order by  s.start_date desc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -464,7 +464,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select      e.program_enrollment_uuid, s.start_date as pre_art_start_date, s.age_years_at_start as age_years_at_pre_art_start, s.age_months_at_start as age_months_at_pre_art_start&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and         s.program_state_uuid &#x3d; &#x28;&#xa;    select    s.program_state_uuid&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_uuid &#x3d; e.program_enrollment_uuid&#xa;    and       s.state &#x3d; &#x27;Pre-ART &#x28;Continue&#x29;&#x27;&#xa;    order by  s.start_date asc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_uuid&#x3b;</sql>
+    <sql>select      e.program_enrollment_id, s.start_date as pre_art_start_date&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and         s.program_state_id &#x3d; &#x28;&#xa;    select    s.program_state_id&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;    and       s.state &#x3d; &#x27;Pre-ART &#x28;Continue&#x29;&#x27;&#xa;    order by  s.start_date asc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -493,10 +493,10 @@
 <step1>ART Start Date Merge</step1>
 <step2>Import Outcome</step2>
     <keys_1>
-      <key>enrollment_uuid</key>
+      <key>enrollment_id</key>
     </keys_1>
     <keys_2>
-      <key>program_enrollment_uuid</key>
+      <key>program_enrollment_id</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -521,10 +521,10 @@
 <step1>Exposed Child Start Date Merge</step1>
 <step2>Import Pre-ART Start Date</step2>
     <keys_1>
-      <key>enrollment_uuid</key>
+      <key>enrollment_id</key>
     </keys_1>
     <keys_2>
-      <key>program_enrollment_uuid</key>
+      <key>program_enrollment_id</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -535,7 +535,7 @@
     </step>
 
   <step>
-    <name>Sort by enrollment uuid</name>
+    <name>Sort by enrollment id</name>
     <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
@@ -554,7 +554,7 @@
       <unique_rows>N</unique_rows>
     <fields>
       <field>
-        <name>enrollment_uuid</name>
+        <name>enrollment_id</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <presorted>N</presorted>
@@ -598,12 +598,12 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>enrollment_uuid</column_name>
-          <stream_name>enrollment_uuid</stream_name>
+          <column_name>enrollment_id</column_name>
+          <stream_name>enrollment_id</stream_name>
         </field>
         <field>
-          <column_name>patient_uuid</column_name>
-          <stream_name>patient_uuid</stream_name>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
         </field>
         <field>
           <column_name>location</column_name>
@@ -614,24 +614,8 @@
           <stream_name>enrollment_date</stream_name>
         </field>
         <field>
-          <column_name>age_years_at_enrollment</column_name>
-          <stream_name>age_years_at_enrollment</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_enrollment</column_name>
-          <stream_name>age_months_at_enrollment</stream_name>
-        </field>
-        <field>
           <column_name>completion_date</column_name>
           <stream_name>completion_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_completion</column_name>
-          <stream_name>age_years_at_completion</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_completion</column_name>
-          <stream_name>age_months_at_completion</stream_name>
         </field>
         <field>
           <column_name>hcc_number</column_name>
@@ -646,36 +630,12 @@
           <stream_name>exposed_child_start_date</stream_name>
         </field>
         <field>
-          <column_name>age_years_at_exposed_child_start</column_name>
-          <stream_name>age_years_at_exposed_child_start</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_exposed_child_start</column_name>
-          <stream_name>age_months_at_exposed_child_start</stream_name>
-        </field>
-        <field>
           <column_name>pre_art_start_date</column_name>
           <stream_name>pre_art_start_date</stream_name>
         </field>
         <field>
-          <column_name>age_years_at_pre_art_start</column_name>
-          <stream_name>age_years_at_pre_art_start</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_pre_art_start</column_name>
-          <stream_name>age_months_at_pre_art_start</stream_name>
-        </field>
-        <field>
           <column_name>art_start_date</column_name>
           <stream_name>art_start_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_art_start</column_name>
-          <stream_name>age_years_at_art_start</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_art_start</column_name>
-          <stream_name>age_months_at_art_start</stream_name>
         </field>
         <field>
           <column_name>outcome</column_name>
