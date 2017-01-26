@@ -438,7 +438,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select      e.program_enrollment_id, s.state as outcome&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and 		e.completion_date is not null&#xa;and         s.program_state_id &#x3d; &#x28;&#xa;    select    s.program_state_id&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;    and       s.workflow &#x3d; &#x27;Treatment status&#x27;&#xa;    order by  s.start_date desc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_id&#x3b;</sql>
+    <sql>select      e.program_enrollment_id, s.state as outcome&#xa;from        omrs_program_enrollment e&#xa;left join   omrs_program_state s on s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;where       e.program &#x3d; &#x27;HIV Program&#x27;&#xa;and 		e.completion_date is not null&#xa;and         s.program_state_id &#x3d; &#x28;&#xa;    select    s.program_state_id&#xa;    from      omrs_program_state s&#xa;    where     s.program_enrollment_id &#x3d; e.program_enrollment_id&#xa;    and       s.workflow &#x3d; &#x27;Treatment status&#x27;&#xa;    order by  s.start_date desc, if&#x28;s.end_date is null, 1, 0&#x29; desc, s.end_date desc&#xa;    limit     1&#xa;&#x29;&#xa;order by e.program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
