@@ -26,10 +26,7 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -85,22 +82,6 @@
       <yloc>32</yloc>
       </entry>
     <entry>
-      <name>Create Patient Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_patient&#x3b;&#xa;&#xa;CREATE TABLE omrs_patient &#x28;&#xa;	patient_id INT not null,&#xa;	patient_uuid CHAR&#x28;38&#x29; not null,&#xa;	identifier VARCHAR&#x28;50&#x29;,&#xa;	first_name VARCHAR&#x28;50&#x29;,&#xa;	middle_name VARCHAR&#x28;50&#x29;,&#xa;	last_name VARCHAR&#x28;50&#x29;,&#xa;	gender CHAR&#x28;1&#x29;,&#xa;	birthdate DATE,&#xa;	birthdate_estimated BOOLEAN,&#xa;	phone_number VARCHAR&#x28;50&#x29;,&#xa;	country VARCHAR&#x28;50&#x29;,&#xa;	state_province VARCHAR&#x28;255&#x29;,&#xa;	county_district VARCHAR&#x28;255&#x29;,&#xa;	city_village VARCHAR&#x28;255&#x29;,&#xa;	postal_code VARCHAR&#x28;50&#x29;,&#xa;    address1 VARCHAR&#x28;255&#x29;,&#xa;    address2 VARCHAR&#x28;255&#x29;,&#xa;    address3 VARCHAR&#x28;255&#x29;,&#xa;    address4 VARCHAR&#x28;255&#x29;,&#xa;    address5 VARCHAR&#x28;255&#x29;,&#xa;    address6 VARCHAR&#x28;255&#x29;,&#xa;    latitude VARCHAR&#x28;50&#x29;,&#xa;    longitude VARCHAR&#x28;50&#x29;,&#xa;	dead BOOLEAN,&#xa;	death_date DATE,&#xa;	age_years_at_death INT,&#xa;	age_months_at_death INT,&#xa;	cause_of_death VARCHAR&#x28;255&#x29;,&#xa;	mothers_name VARCHAR&#x28;50&#x29;,&#xa;	fathers_name VARCHAR&#x28;50&#x29;,&#xa;	health_center VARCHAR&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>32</yloc>
-      </entry>
-    <entry>
       <name>Load Patient Table</name>
       <description/>
       <type>TRANS</type>
@@ -130,7 +111,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
+      <xloc>560</xloc>
       <yloc>32</yloc>
       </entry>
     <entry>
@@ -162,23 +143,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>112</xloc>
-      <yloc>240</yloc>
-      </entry>
-    <entry>
-      <name>Create Patient Identifier Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_patient_identifier&#x3b;&#xa;&#xa;CREATE TABLE omrs_patient_identifier &#x28;&#xa;	patient_identifier_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	patient_id INT not null,&#xa;	type VARCHAR&#x28;50&#x29; not null,&#xa;	identifier VARCHAR&#x28;50&#x29; not null,&#xa;	location VARCHAR&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>112</yloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Load Patient Identifier Table</name>
@@ -210,7 +175,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
+      <xloc>560</xloc>
       <yloc>112</yloc>
       </entry>
     <entry>
@@ -226,24 +191,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1072</xloc>
+      <xloc>1024</xloc>
       <yloc>272</yloc>
-      </entry>
-    <entry>
-      <name>Create Program Enrollment Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_program_enrollment&#x3b;&#xa;&#xa;CREATE TABLE omrs_program_enrollment &#x28;&#xa;	program_enrollment_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	patient_id INT not null,&#xa;	program VARCHAR&#x28;100&#x29; not null,&#xa;	enrollment_date date not null,&#xa;	age_years_at_enrollment int,&#xa;	age_months_at_enrollment int,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	completion_date date,&#xa;	age_years_at_completion int,&#xa;	age_months_at_completion int,&#xa;	outcome varchar&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>400</xloc>
-      <yloc>576</yloc>
       </entry>
     <entry>
       <name>Load Program Enrollment Table</name>
@@ -275,8 +224,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>656</xloc>
-      <yloc>576</yloc>
+      <xloc>560</xloc>
+      <yloc>592</yloc>
       </entry>
     <entry>
       <name>Load Encounter Table</name>
@@ -308,24 +257,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1248</xloc>
+      <xloc>1200</xloc>
       <yloc>272</yloc>
-      </entry>
-    <entry>
-      <name>Create Program State Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_program_state&#x3b;&#xa;&#xa;CREATE TABLE omrs_program_state &#x28;&#xa;	program_state_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	program_enrollment_id INT not null,&#xa;	patient_id INT not null,&#xa;	program VARCHAR&#x28;100&#x29; not null,&#xa;	workflow VARCHAR&#x28;100&#x29; not null,&#xa;	state VARCHAR&#x28;100&#x29; not null,&#xa;	start_date date not null,&#xa;	age_years_at_start int,&#xa;	age_months_at_start int,&#xa;	end_date date,&#xa;	age_years_at_end int,&#xa;	age_months_at_end int,&#xa;	location VARCHAR&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>400</xloc>
-      <yloc>688</yloc>
       </entry>
     <entry>
       <name>Load Program State Table</name>
@@ -357,24 +290,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>688</yloc>
-      </entry>
-    <entry>
-      <name>Create Encounter Provider Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_encounter_provider&#x3b;&#xa;&#xa;CREATE TABLE omrs_encounter_provider &#x28;&#xa;	encounter_provider_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	encounter_id INT not null,&#xa;	provider VARCHAR&#x28;255&#x29;,&#xa;	provider_role VARCHAR&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>272</yloc>
+      <xloc>560</xloc>
+      <yloc>672</yloc>
       </entry>
     <entry>
       <name>Load Encounter Provider Table</name>
@@ -406,24 +323,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
+      <xloc>560</xloc>
       <yloc>272</yloc>
-      </entry>
-    <entry>
-      <name>Create Obs Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_obs&#x3b;&#xa;&#xa;CREATE TABLE omrs_obs &#x28;&#xa;	obs_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	patient_id INT not null,&#xa;	encounter_id INT,&#xa;	obs_date date,&#xa;	obs_time time,&#xa;	age_years_at_obs INT,&#xa;	age_months_at_obs INT,&#xa;	encounter_type VARCHAR&#x28;255&#x29;,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	concept VARCHAR&#x28;255&#x29; not null,&#xa;  	value_coded VARCHAR&#x28;255&#x29;,&#xa;    value_date DATE DEFAULT NULL,&#xa;    value_numeric DOUBLE DEFAULT NULL,&#xa;    value_text TEXT,&#xa;	comments VARCHAR&#x28;255&#x29;,&#xa;	obs_group_id INT&#xa;&#x29;&#x3b;&#xa;&#xa;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>800</yloc>
       </entry>
     <entry>
       <name>Load Obs Table</name>
@@ -455,8 +356,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>624</xloc>
-      <yloc>800</yloc>
+      <xloc>560</xloc>
+      <yloc>512</yloc>
       </entry>
     <entry>
       <name>Add Patient Indexes</name>
@@ -471,7 +372,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>848</xloc>
+      <xloc>800</xloc>
       <yloc>32</yloc>
       </entry>
     <entry>
@@ -487,7 +388,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>848</xloc>
+      <xloc>800</xloc>
       <yloc>272</yloc>
       </entry>
     <entry>
@@ -503,8 +404,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>928</xloc>
-      <yloc>576</yloc>
+      <xloc>800</xloc>
+      <yloc>592</yloc>
       </entry>
     <entry>
       <name>Add Encounter Indexes</name>
@@ -519,7 +420,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1408</xloc>
+      <xloc>1392</xloc>
       <yloc>272</yloc>
       </entry>
     <entry>
@@ -535,8 +436,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>864</xloc>
-      <yloc>800</yloc>
+      <xloc>800</xloc>
+      <yloc>512</yloc>
       </entry>
     <entry>
       <name>Load Configuration</name>
@@ -582,8 +483,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>880</xloc>
-      <yloc>688</yloc>
+      <xloc>800</xloc>
+      <yloc>672</yloc>
       </entry>
     <entry>
       <name>Add Patient Identifier Indexes</name>
@@ -598,24 +499,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>848</xloc>
+      <xloc>800</xloc>
       <yloc>112</yloc>
-      </entry>
-    <entry>
-      <name>Create Relationship Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_relationship&#x3b;&#xa;&#xa;CREATE TABLE omrs_relationship &#x28;&#xa;	relationship_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	patient_id INT not null,&#xa;	type VARCHAR&#x28;50&#x29; not null,&#xa;	person_name VARCHAR&#x28;255&#x29;&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>384</xloc>
-      <yloc>192</yloc>
       </entry>
     <entry>
       <name>Load Relationship Table</name>
@@ -647,7 +532,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>608</xloc>
+      <xloc>560</xloc>
       <yloc>192</yloc>
       </entry>
     <entry>
@@ -663,24 +548,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>848</xloc>
+      <xloc>800</xloc>
       <yloc>192</yloc>
-      </entry>
-    <entry>
-      <name>Create Obs Group Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_obs_group&#x3b;&#xa;&#xa;CREATE TABLE omrs_obs_group &#x28;&#xa;	obs_group_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	patient_id INT not null,&#xa;	encounter_id INT,&#xa;	obs_group_date date,&#xa;	obs_group_time time,&#xa;	encounter_type VARCHAR&#x28;255&#x29;,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	concept VARCHAR&#x28;255&#x29; not null&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>400</xloc>
-      <yloc>464</yloc>
       </entry>
     <entry>
       <name>Load Obs Group Table</name>
@@ -712,8 +581,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>464</yloc>
+      <xloc>560</xloc>
+      <yloc>432</yloc>
       </entry>
     <entry>
       <name>Add Obs Group Indexes</name>
@@ -728,24 +597,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>848</xloc>
-      <yloc>464</yloc>
-      </entry>
-    <entry>
-      <name>Create Visit Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists omrs_visit&#x3b;&#xa;&#xa;CREATE TABLE omrs_visit &#x28;&#xa;	visit_id INT not null,&#xa;	uuid CHAR&#x28;38&#x29; not null,&#xa;	patient_id INT not null,&#xa;	visit_type VARCHAR&#x28;255&#x29; not null,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	date_started date,&#xa;	date_stopped date&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>400</xloc>
-      <yloc>368</yloc>
+      <xloc>800</xloc>
+      <yloc>432</yloc>
       </entry>
     <entry>
       <name>Load Visit Table</name>
@@ -777,8 +630,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>368</yloc>
+      <xloc>560</xloc>
+      <yloc>352</yloc>
       </entry>
     <entry>
       <name>Add Visit Indexes</name>
@@ -793,8 +646,40 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>848</xloc>
-      <yloc>368</yloc>
+      <xloc>800</xloc>
+      <yloc>352</yloc>
+      </entry>
+    <entry>
+      <name>Create OMRS Schema</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;omrs_schema_create.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>112</xloc>
+      <yloc>352</yloc>
+      </entry>
+    <entry>
+      <name>Drop OMRS Schema</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;omrs_schema_drop.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>112</xloc>
+      <yloc>240</yloc>
       </entry>
   </entries>
   <hops>
@@ -808,116 +693,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Encounter Provider Table</from>
-      <to>Load Encounter Provider Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Patient Table</from>
-      <to>Load Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Patient Identifier Table</from>
-      <to>Load Patient Identifier Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Program Enrollment Table</from>
-      <to>Load Program Enrollment Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Create Encounter Table</from>
       <to>Load Encounter Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Program State Table</from>
-      <to>Load Program State Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Obs Table</from>
-      <to>Load Obs Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Patient Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Patient Identifier Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Encounter Provider Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Program Enrollment Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Program State Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Obs Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -979,15 +756,6 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Load Configuration</from>
-      <to>Load Reference Data</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Program State Table</from>
       <to>Add Program State Indexes</to>
       <from_nr>0</from_nr>
@@ -1006,44 +774,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Reference Data</from>
-      <to>Create Relationship Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Relationship Table</from>
-      <to>Load Relationship Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Relationship Table</from>
       <to>Add Relationship Indexes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
-      <to>Create Obs Group Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Obs Group Table</from>
-      <to>Load Obs Group Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -1060,8 +792,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Reference Data</from>
-      <to>Create Visit Table</to>
+      <from>Load Visit Table</from>
+      <to>Add Visit Indexes</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -1069,7 +801,70 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Visit Table</from>
+      <from>Load Configuration</from>
+      <to>Drop OMRS Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Drop OMRS Schema</from>
+      <to>Create OMRS Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Load Reference Data</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Patient Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Patient Identifier Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Relationship Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Encounter Provider Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
       <to>Load Visit Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -1078,8 +873,35 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Visit Table</from>
-      <to>Add Visit Indexes</to>
+      <from>Load Reference Data</from>
+      <to>Load Obs Group Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Obs Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Program Enrollment Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Program State Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
