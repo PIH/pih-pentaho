@@ -31,10 +31,7 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -86,23 +83,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>64</xloc>
-      <yloc>112</yloc>
-      </entry>
-    <entry>
-      <name>Create Malawi Patients</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists mw_patient&#x3b;&#xa;&#xa;CREATE TABLE mw_patient &#x28;&#xa;	patient_uuid CHAR&#x28;38&#x29; not null,&#xa;	source_internal_id INT,&#xa;	identifier VARCHAR&#x28;50&#x29;,&#xa;	first_name VARCHAR&#x28;50&#x29;,&#xa;	middle_name VARCHAR&#x28;50&#x29;,&#xa;	last_name VARCHAR&#x28;50&#x29;,&#xa;	gender CHAR&#x28;1&#x29;,&#xa;	birthdate DATE,&#xa;	birthdate_estimated BOOLEAN,&#xa;	phone_number VARCHAR&#x28;50&#x29;,&#xa;	district VARCHAR&#x28;255&#x29;,&#xa;	traditional_authority VARCHAR&#x28;255&#x29;,&#xa;	village VARCHAR&#x28;255&#x29;,&#xa;	vhw_or_guardian VARCHAR&#x28;100&#x29;,&#xa;	dead BOOLEAN,&#xa;	death_date DATE,&#xa;	age_years_at_death INT,&#xa;	age_months_at_death INT&#xa;&#x29;&#x3b;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>496</xloc>
+      <xloc>192</xloc>
       <yloc>64</yloc>
       </entry>
     <entry>
@@ -130,27 +111,11 @@
       <pass_export>N</pass_export>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
       </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>Y</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>240</xloc>
-      <yloc>112</yloc>
-      </entry>
-    <entry>
-      <name>Create HIV Register Table</name>
-      <description/>
-      <type>SQL</type>
-      <sql>drop table if exists mw_hiv_register&#x3b;&#xa;&#xa;CREATE TABLE mw_hiv_register &#x28;&#xa;	enrollment_uuid CHAR&#x28;38&#x29; not null,&#xa;	patient_uuid CHAR&#x28;38&#x29; not null,&#xa;	location VARCHAR&#x28;255&#x29;,&#xa;	hcc_number VARCHAR&#x28;50&#x29;,&#xa;	arv_number VARCHAR&#x28;50&#x29;,&#xa;	enrollment_date DATE,&#xa;	age_years_at_enrollment INT,&#xa;	age_months_at_enrollment INT,&#xa;	exposed_child_start_date DATE,&#xa;	age_years_at_exposed_child_start INT,&#xa;	age_months_at_exposed_child_start INT,&#xa;	pre_art_start_date DATE,&#xa;	age_years_at_pre_art_start INT,&#xa;	age_months_at_pre_art_start INT,&#xa;	art_start_date DATE,&#xa;	age_years_at_art_start INT,&#xa;	age_months_at_art_start INT,&#xa;	completion_date DATE,&#xa;	age_years_at_completion INT,&#xa;	age_months_at_completion INT,&#xa;	outcome VARCHAR&#x28;100&#x29;&#xa;&#x29;&#x3b;&#xa;</sql>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>F</sqlfromfile>
-      <sqlfilename/>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>496</xloc>
-      <yloc>176</yloc>
+      <xloc>192</xloc>
+      <yloc>192</yloc>
       </entry>
     <entry>
       <name>Load HIV Register</name>
@@ -222,7 +187,7 @@
       <name>Add Patient Indexes</name>
       <description/>
       <type>SQL</type>
-      <sql>alter table mw_patient add primary key&#x28;patient_uuid&#x29;</sql>
+      <sql>alter table mw_patient add index patient_id_idx &#x28;patient_id&#x29;</sql>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>F</sqlfromfile>
       <sqlfilename/>
@@ -250,6 +215,38 @@
       <xloc>896</xloc>
       <yloc>176</yloc>
       </entry>
+    <entry>
+      <name>Create MW Schema</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;mw_schema_create.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>Y</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>192</xloc>
+      <yloc>400</yloc>
+      </entry>
+    <entry>
+      <name>Drop MW Schema</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;mw_schema_drop.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>192</xloc>
+      <yloc>288</yloc>
+      </entry>
   </entries>
   <hops>
     <hop>
@@ -260,42 +257,6 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Load Configuration</from>
-      <to>Create Malawi Patients</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Configuration</from>
-      <to>Create HIV Register Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create HIV Register Table</from>
-      <to>Load HIV Register</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Malawi Patients</from>
-      <to>Load Malawi Patient</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Load Malawi Patient</from>
@@ -309,6 +270,33 @@
     <hop>
       <from>Load HIV Register</from>
       <to>Add HIV Register Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Configuration</from>
+      <to>Drop MW Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Drop MW Schema</from>
+      <to>Create MW Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create MW Schema</from>
+      <to>Load Malawi Patient</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

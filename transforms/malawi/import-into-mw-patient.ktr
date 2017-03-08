@@ -103,7 +103,7 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import VHW or Guardian</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import VHW</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Patients</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>VHW Merge</from><to>Write Malawi Patient Table</to><enabled>Y</enabled> </hop>
   </order>
@@ -119,7 +119,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	patient_id, &#xa;	identifier, &#xa;	first_name, &#xa;	middle_name, &#xa;	last_name, &#xa;	gender, &#xa;	birthdate, &#xa;	birthdate_estimated,&#xa;	phone_number, &#xa;	state_province as district, &#xa;	county_district as traditional_authority, &#xa;	city_village as village, &#xa;	dead, &#xa;	death_date&#xa;FROM&#xa;	omrs_patient&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
+    <sql>SELECT&#xa;	patient_id, &#xa;	identifier, &#xa;	first_name, &#xa;	last_name, &#xa;	gender, &#xa;	birthdate, &#xa;	birthdate_estimated,&#xa;	phone_number, &#xa;	state_province as district, &#xa;	county_district as traditional_authority, &#xa;	city_village as village, &#xa;	dead, &#xa;	death_date&#xa;FROM&#xa;	omrs_patient&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -134,7 +134,7 @@
     </step>
 
   <step>
-    <name>Import VHW or Guardian</name>
+    <name>Import VHW</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -145,7 +145,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select      p.patient_id, r.person_name as vhw_or_guardian&#xa;from        omrs_relationship r&#xa;inner join  omrs_patient p on p.patient_id &#x3d; r.patient_id&#xa;where       r.relationship_id &#x3d; &#x28;&#xa;    select    r.relationship_id&#xa;    from      omrs_relationship r&#xa;    where     r.patient_id &#x3d; p.patient_id&#xa;    and       r.type in &#x28;&#x27;Village Health Worker&#x27;, &#x27;Guardian&#x27;&#x29;&#xa;    order by  if&#x28;r.type &#x3d; &#x27;Village Health Worker&#x27;, 0, 1&#x29; asc&#xa;    limit     1&#xa;&#x29;&#xa;order by p.patient_id&#x3b;</sql>
+    <sql>select      p.patient_id, r.related_person as vhw&#xa;from        omrs_relationship r&#xa;inner join  omrs_patient p on p.patient_id &#x3d; r.patient_id&#xa;where       r.relationship_id &#x3d; &#x28;&#xa;    select    r.relationship_id&#xa;    from      omrs_relationship r&#xa;    where     r.patient_id &#x3d; p.patient_id&#xa;    and       r.related_person_role &#x3d; &#x27;Village Health Worker&#x27;&#xa;    order by  if&#x28;r.end_date is null, 1, 0&#x29; desc, if&#x28;r.start_date is null, 0, 1&#x29; desc, r.date_created desc&#xa;    limit     1&#xa;&#x29;&#xa;order by p.patient_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -172,7 +172,7 @@
            </partitioning>
 <join_type>LEFT OUTER</join_type>
 <step1>Import Patients</step1>
-<step2>Import VHW or Guardian</step2>
+<step2>Import VHW</step2>
     <keys_1>
       <key>patient_id</key>
     </keys_1>
@@ -229,10 +229,6 @@
           <stream_name>first_name</stream_name>
         </field>
         <field>
-          <column_name>middle_name</column_name>
-          <stream_name>middle_name</stream_name>
-        </field>
-        <field>
           <column_name>last_name</column_name>
           <stream_name>last_name</stream_name>
         </field>
@@ -273,8 +269,8 @@
           <stream_name>death_date</stream_name>
         </field>
         <field>
-          <column_name>vhw_or_guardian</column_name>
-          <stream_name>vhw_or_guardian</stream_name>
+          <column_name>vhw</column_name>
+          <stream_name>vhw</stream_name>
         </field>
     </fields>
      <cluster_schema/>
