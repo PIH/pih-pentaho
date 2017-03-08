@@ -32,7 +32,8 @@ CREATE TABLE omrs_patient (
   cause_of_death VARCHAR(255),
   mothers_name VARCHAR(50),
   fathers_name VARCHAR(50),
-  health_center VARCHAR(255)
+  health_center VARCHAR(255),
+  date_created DATE
 );
 
 CREATE TABLE omrs_patient_identifier (
@@ -41,7 +42,8 @@ CREATE TABLE omrs_patient_identifier (
   patient_id INT not null,
   type VARCHAR(50) not null,
   identifier VARCHAR(50) not null,
-  location VARCHAR(255)
+  location VARCHAR(255),
+  date_created DATE
 );
 
 CREATE TABLE omrs_relationship (
@@ -49,7 +51,8 @@ CREATE TABLE omrs_relationship (
   uuid CHAR(38) not null,
   patient_id INT not null,
   type VARCHAR(50) not null,
-  person_name VARCHAR(255)
+  person_name VARCHAR(255),
+  date_created DATE
 );
 
 CREATE TABLE omrs_encounter_provider (
@@ -72,7 +75,9 @@ CREATE TABLE omrs_encounter (
   provider VARCHAR(255),
   provider_role VARCHAR(255),
   age_years_at_encounter INT,
-  age_months_at_encounter INT
+  age_months_at_encounter INT,
+  date_created DATE,
+  created_by VARCHAR(100)
 );
 
 CREATE TABLE omrs_visit (
@@ -82,7 +87,8 @@ CREATE TABLE omrs_visit (
   visit_type VARCHAR(255) not null,
   location VARCHAR(255),
   date_started date,
-  date_stopped date
+  date_stopped date,
+  date_created DATE
 );
 
 CREATE TABLE omrs_obs_group (
@@ -94,7 +100,8 @@ CREATE TABLE omrs_obs_group (
   obs_group_time time,
   encounter_type VARCHAR(255),
   location VARCHAR(255),
-  concept VARCHAR(255) not null
+  concept VARCHAR(255) not null,
+  date_created DATE
 );
 
 CREATE TABLE omrs_obs (
@@ -114,7 +121,8 @@ CREATE TABLE omrs_obs (
   value_numeric DOUBLE DEFAULT NULL,
   value_text TEXT,
   comments VARCHAR(255),
-  obs_group_id INT
+  obs_group_id INT,
+  date_created DATE
 );
 
 CREATE TABLE omrs_program_enrollment (

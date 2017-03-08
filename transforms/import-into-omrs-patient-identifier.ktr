@@ -88,7 +88,6 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
@@ -116,10 +115,7 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -184,7 +180,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient identifiers&#xa; &#x2a;&#x2f;&#xa;select      i.patient_identifier_id,&#xa;			i.uuid as uuid,&#xa;			p.patient_id,&#xa;            i.identifier_type,&#xa;            i.identifier,&#xa;            i.location_id&#xa;from        patient p&#xa;left join   patient_identifier i on i.patient_id &#x3d; p.patient_id&#xa;where       i.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			i.identifier is not null&#xa;and 		i.identifier &#x21;&#x3d; &#x27;&#x27;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient identifiers&#xa; &#x2a;&#x2f;&#xa;select      i.patient_identifier_id,&#xa;			i.uuid as uuid,&#xa;			p.patient_id,&#xa;            i.identifier_type,&#xa;            i.identifier,&#xa;            i.location_id,&#xa;			i.date_created&#xa;from        patient p&#xa;left join   patient_identifier i on i.patient_id &#x3d; p.patient_id&#xa;where       i.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			i.identifier is not null&#xa;and 		i.identifier &#x21;&#x3d; &#x27;&#x27;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -370,6 +366,10 @@
         <field>
           <column_name>type</column_name>
           <stream_name>type</stream_name>
+        </field>
+        <field>
+          <column_name>date_created</column_name>
+          <stream_name>date_created</stream_name>
         </field>
     </fields>
      <cluster_schema/>

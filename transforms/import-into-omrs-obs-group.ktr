@@ -89,7 +89,6 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
@@ -117,10 +116,7 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -186,7 +182,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs that are groups&#xa;&#x2a;&#x2f;&#xa;select		o.obs_id as obs_group_id,&#xa;			o.uuid as uuid,&#xa;			o.concept_id as concept_id,&#xa;			date&#x28;o.obs_datetime&#x29; as obs_group_date,&#xa;			time&#x28;o.obs_datetime&#x29; as obs_group_time,&#xa;			e.encounter_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.location_id,&#xa;			p.person_id as patient_id&#xa;from 		obs o&#xa;inner join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;where		o.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			o.obs_id in &#x28; select distinct obs_group_id from obs &#x29;&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs that are groups&#xa;&#x2a;&#x2f;&#xa;select		o.obs_id as obs_group_id,&#xa;			o.uuid as uuid,&#xa;			o.concept_id as concept_id,&#xa;			date&#x28;o.obs_datetime&#x29; as obs_group_date,&#xa;			time&#x28;o.obs_datetime&#x29; as obs_group_time,&#xa;			e.encounter_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.location_id,&#xa;			p.person_id as patient_id,&#xa;			o.date_created&#xa;from 		obs o&#xa;inner join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;where		o.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;and			o.obs_id in &#x28; select distinct obs_group_id from obs &#x29;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -432,6 +428,10 @@
         <field>
           <column_name>encounter_type</column_name>
           <stream_name>encounter_type</stream_name>
+        </field>
+        <field>
+          <column_name>date_created</column_name>
+          <stream_name>date_created</stream_name>
         </field>
     </fields>
      <cluster_schema/>
