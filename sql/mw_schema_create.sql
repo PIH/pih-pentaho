@@ -18,6 +18,14 @@ CREATE TABLE mw_patient (
   death_date            DATE
 );
 
+CREATE TABLE mw_eid_visits (
+  patient_id            INT NOT NULL,
+  visit_date            DATE,
+  location              VARCHAR(255),
+  breastfeeding_status  VARCHAR(100),
+  next_appointment_date DATE
+);
+
 CREATE TABLE mw_eid_register (
   enrollment_id                  INT NOT NULL,
   patient_id                     INT NOT NULL,
