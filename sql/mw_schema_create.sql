@@ -18,7 +18,18 @@ CREATE TABLE mw_patient (
   death_date            DATE
 );
 
+CREATE TABLE mw_hiv_tests (
+  hiv_result_id        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  patient_id           INT NOT NULL,
+  date_collected       DATE,
+  test_type            VARCHAR(100),
+  date_result_received DATE,
+  date_result_entered  DATE,
+  result               VARCHAR(100)
+);
+
 CREATE TABLE mw_eid_visits (
+  eid_visit_id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   patient_id            INT NOT NULL,
   visit_date            DATE,
   location              VARCHAR(255),
@@ -27,20 +38,17 @@ CREATE TABLE mw_eid_visits (
 );
 
 CREATE TABLE mw_eid_register (
-  enrollment_id                  INT NOT NULL,
-  patient_id                     INT NOT NULL,
-  location                       VARCHAR(255),
-  eid_number                     VARCHAR(50),
-  start_date                     DATE,
-  end_date                       DATE,
-  outcome                        VARCHAR(100),
-  last_visit_date                DATE,
-  next_appointment_date          DATE,
-  last_breastfeeding_status      INT,
-  last_breastfeeding_status_date DATE,
-  last_pcr_test_result           INT,
-  last_pcr_test_result_date      DATE,
-  second_to_last_pcr_test_result INT
+  enrollment_id                    INT NOT NULL,
+  patient_id                       INT NOT NULL,
+  location                         VARCHAR(255),
+  eid_number                       VARCHAR(50),
+  start_date                       DATE,
+  end_date                         DATE,
+  outcome                          VARCHAR(100),
+  last_eid_visit_id                INT,
+  last_breastfeeding_obs_id        INT,
+  last_pcr_result_obs_id           INT,
+  second_to_last_pcr_result_obs_id INT
 );
 
 CREATE TABLE mw_art_register (
@@ -77,16 +85,16 @@ create table mw_ncd_visits (
 );
 
 create table mw_ncd_register (
-  patient_id            INT NOT NULL,
-  location              INT NOT NULL,
-  ncd_start_date        DATE,
-  outcome_date          DATE,
-  ncd_number            VARCHAR(100),
-  last_visit_date       DATE,
-  next_appointment_date DATE,
-  diagnoses             VARCHAR(255),
-  ever_high_bp          BOOLEAN,
-  ever_on_insulin BOOLEAN,
-  last_asthma_severity VARCHAR(100),
+  patient_id                  INT NOT NULL,
+  location                    INT NOT NULL,
+  ncd_start_date              DATE,
+  outcome_date                DATE,
+  ncd_number                  VARCHAR(100),
+  last_visit_date             DATE,
+  next_appointment_date       DATE,
+  diagnoses                   VARCHAR(255),
+  ever_high_bp                BOOLEAN,
+  ever_on_insulin             BOOLEAN,
+  last_asthma_severity        VARCHAR(100),
   last_num_seizures_per_month DOUBLE
 );
