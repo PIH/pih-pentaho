@@ -45,10 +45,21 @@ CREATE TABLE mw_eid_register (
   start_date                       DATE,
   end_date                         DATE,
   outcome                          VARCHAR(100),
-  last_eid_visit_id                INT,
-  last_breastfeeding_obs_id        INT,
-  last_pcr_result_obs_id           INT,
-  second_to_last_pcr_result_obs_id INT
+  last_eid_visit_id                INT
+);
+
+CREATE TABLE mw_eid_trace (
+  patient_id                              INT NOT NULL,
+  location                                VARCHAR(255),
+  eid_number                              VARCHAR(50),
+  last_visit_date                         DATE,
+  next_appointment_date                   DATE,
+  birthdate                               DATE,
+  breastfeeding_stopped_over_6_weeks_date DATE,
+  last_pcr_result                         VARCHAR(100),
+  last_pcr_result_date                    DATE,
+  second_to_last_pcr_result               VARCHAR(100),
+  trace_category                          VARCHAR(100)
 );
 
 CREATE TABLE mw_art_register (
