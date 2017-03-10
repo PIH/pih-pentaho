@@ -77,7 +77,7 @@
     <notepad>
       <note>mw_eid_register &#x28;&#xa;  enrollment_id                  INT NOT NULL,&#xa;  patient_id                     INT NOT NULL,&#xa;  location                       VARCHAR&#x28;255&#x29;,&#xa;  eid_number                     VARCHAR&#x28;50&#x29;,&#xa;  start_date                     DATE,&#xa;  end_date                       DATE,&#xa;  outcome                        VARCHAR&#x28;100&#x29;,&#xa;  last_eid_visit_id                  INT&#xa;&#x29;</note>
       <xloc>880</xloc>
-      <yloc>32</yloc>
+      <yloc>80</yloc>
       <width>267</width>
       <heigth>180</heigth>
       <fontname>Ubuntu</fontname>
@@ -255,7 +255,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV Program &#x2f; EID State data&#xa;&#x2a;&#x2f;&#xa;select      s.program_state_id,&#xa;			s.program_enrollment_id,&#xa;			s.patient_id,&#xa;			s.location,&#xa;			s.start_date as start_date,&#xa;			s.end_date as end_date,&#xa;			ifnull&#x28;next_state.state, p.outcome&#x29; as outcome&#xa;from 		omrs_program_state s&#xa;inner join	omrs_program_enrollment p on p.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;left join 	omrs_program_state next_state on next_state.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;where 		s.program &#x3d; &#x27;HIV program&#x27; and s.workflow &#x3d; &#x27;Treatment status&#x27; and s.state &#x3d; &#x27;Exposed Child &#x28;Continue&#x29;&#x27;&#xa;and 		next_state.program_state_id &#x3d; &#x28;&#xa;            	select		 s1.program_state_id&#xa;            	from		 omrs_program_state s1&#xa;            	where		 s1.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;                and			 s1.program &#x3d; s.program&#xa;                and			 s1.workflow &#x3d; s.workflow&#xa;				and 		&#x28;s.end_date is null or s1.start_date &#x3e;&#x3d; s.end_date&#x29;&#xa;            	order by	s1.start_date asc&#xa;            	limit 1&#xa;			&#x29;&#xa;order by 	patient_id, location</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV Program &#x2f; EID State data&#xa;&#x2a;&#x2f;&#xa;select      s.program_state_id,&#xa;			s.program_enrollment_id,&#xa;			s.patient_id,&#xa;			s.location,&#xa;			s.start_date as start_date,&#xa;			ifnull&#x28;s.end_date, p.completion_date&#x29; as end_date,&#xa;			ifnull&#x28;next_state.state, p.outcome&#x29; as outcome&#xa;from 		omrs_program_state s&#xa;inner join	omrs_program_enrollment p on p.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;left join 	omrs_program_state next_state on next_state.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;where 		s.program &#x3d; &#x27;HIV program&#x27; and s.workflow &#x3d; &#x27;Treatment status&#x27; and s.state &#x3d; &#x27;Exposed Child &#x28;Continue&#x29;&#x27;&#xa;and 		next_state.program_state_id &#x3d; &#x28;&#xa;            	select		 s1.program_state_id&#xa;            	from		 omrs_program_state s1&#xa;            	where		 s1.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;                and			 s1.program &#x3d; s.program&#xa;                and			 s1.workflow &#x3d; s.workflow&#xa;				and 		&#x28;s.end_date is null or s1.start_date &#x3e;&#x3d; s.end_date&#x29;&#xa;            	order by	s1.start_date asc&#xa;            	limit 1&#xa;			&#x29;&#xa;order by 	patient_id, location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
