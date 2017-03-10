@@ -61,18 +61,23 @@ CREATE TABLE mw_eid_trace (
   second_to_last_pcr_result               VARCHAR(100)
 );
 
+CREATE TABLE mw_art_visits (
+  art_visit_id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  patient_id            INT NOT NULL,
+  visit_date            DATE,
+  location              VARCHAR(255),
+  next_appointment_date DATE
+);
+
 CREATE TABLE mw_art_register (
-  enrollment_id              INT NOT NULL,
-  patient_id                 INT NOT NULL,
-  location                   VARCHAR(255),
-  art_number                 VARCHAR(50),
-  start_date                 DATE,
-  end_date                   DATE,
-  outcome                    VARCHAR(100),
-  last_visit_date            DATE,
-  next_appointment_date      DATE,
-  last_viral_load_result     DOUBLE,
-  last_viral_load_entry_date DATE
+  enrollment_id     INT NOT NULL,
+  patient_id        INT NOT NULL,
+  location          VARCHAR(255),
+  art_number        VARCHAR(50),
+  start_date        DATE,
+  end_date          DATE,
+  outcome           VARCHAR(100),
+  last_art_visit_id INT
 );
 
 create table mw_ncd_visits (
