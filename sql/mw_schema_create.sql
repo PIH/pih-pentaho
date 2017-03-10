@@ -58,8 +58,7 @@ CREATE TABLE mw_eid_trace (
   breastfeeding_stopped_over_6_weeks_date DATE,
   last_pcr_result                         VARCHAR(100),
   last_pcr_result_date                    DATE,
-  second_to_last_pcr_result               VARCHAR(100),
-  trace_category                          VARCHAR(100)
+  second_to_last_pcr_result               VARCHAR(100)
 );
 
 CREATE TABLE mw_art_register (

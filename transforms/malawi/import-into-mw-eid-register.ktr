@@ -229,7 +229,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		v.patient_id, v.location, v.eid_visit_id as last_eid_visit_id&#xa;from 		mw_eid_visits v&#xa;where		v.eid_visit_id &#x3d; &#x28;&#xa;	select		v1.eid_visit_id&#xa;	from 		mw_eid_visits v1&#xa;	where		v1.patient_id &#x3d; v.patient_id&#xa;	and			v1.location &#x3d; v.location&#xa;	order by 	v.visit_date desc&#xa;	limit		1&#xa;&#x29;</sql>
+    <sql>&#x2f;&#x2a;&#x2a;&#xa;	Get the last visit for each patient.  Intentionally do not filter by location&#xa;&#x2a;&#x2f;&#xa;select		v.patient_id, v.eid_visit_id as last_eid_visit_id&#xa;from 		mw_eid_visits v&#xa;where		v.eid_visit_id &#x3d; &#x28;&#xa;	select		v1.eid_visit_id&#xa;	from 		mw_eid_visits v1&#xa;	where		v1.patient_id &#x3d; v.patient_id&#xa;	order by 	v1.visit_date desc&#xa;	limit		1&#xa;&#x29;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -285,11 +285,9 @@
 <step2>Import Last Visit</step2>
     <keys_1>
       <key>patient_id</key>
-      <key>location</key>
     </keys_1>
     <keys_2>
       <key>patient_id</key>
-      <key>location</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
