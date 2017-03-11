@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-hiv-tests</name>
+    <name>import-viral-loads</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -124,53 +124,19 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import HIV Results</from><to>Result and Collection Date Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Collection Dates</from><to>Result and Collection Date Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Collection Date</from><to>Result and Collection Date Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Viral Load</from><to>Result and Collection Date Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Result and Collection Date Merge</from><to>Merge IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Test Type</from><to>Merge Test Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Merge IDs</from><to>Sort rows</to><enabled>Y</enabled> </hop>
-  <hop> <from>Sort rows</from><to>Merge Test Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Merge Test Type</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Date Result Received</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
-  <hop> <from>Merge Date Received</from><to>Default Test Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Default Test Type</from><to>Write HIV Test Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import LDL</from><to>LDL Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort rows</from><to>LDL Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>LDL Merge</from><to>Merge LDL IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Merge LDL IDs</from><to>Add constants</to><enabled>Y</enabled> </hop>
+  <hop> <from>Add constants</from><to>Write HIV Test Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Merge IDs</from><to>Select values 1</to><enabled>Y</enabled> </hop>
+  <hop> <from>Select values 1</from><to>Sort rows</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Default Test Type</name>
-    <type>IfNull</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <replaceAllByValue/>
-      <replaceAllMask/>
-      <selectFields>Y</selectFields>
-      <selectValuesType>N</selectValuesType>
-      <setEmptyStringAll>N</setEmptyStringAll>
-    <valuetypes>
-      </valuetypes>
-    <fields>
-      <field>
-        <name>test_type</name>
-        <value>HIV test</value>
-        <mask/>
-        <set_empty_string>N</set_empty_string>
-        </field>
-      </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1072</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Collection Dates</name>
+    <name>Import Viral Load</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -181,7 +147,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		o.patient_id, o.obs_group_id, o.value_date as date_collected&#xa;from		omrs_obs o&#xa;inner join	omrs_obs_group g on o.obs_group_id &#x3d; g.obs_group_id&#xa;where		o.concept &#x3d; &#x27;Date of blood sample&#x27;&#xa;and 		g.concept &#x3d; &#x27;Child HIV serology construct&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract Viral Load&#xa;&#x2a;&#x2f;&#xa;select      o.patient_id,&#xa;			o.encounter_id,&#xa;			o.obs_date as date_collected,&#xa;			o.date_created as date_result_entered,&#xa;			o.value_numeric as result_numeric&#xa;from        omrs_obs o&#xa;where 		o.concept &#x3d; &#x27;HIV viral load&#x27;&#xa;order by 	o.patient_id, o.encounter_id&#xa;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -196,33 +162,7 @@
     </step>
 
   <step>
-    <name>Import Date Result Received</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		o.patient_id, o.obs_group_id, o.value_date as date_result_received&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;Date of returned result&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import HIV Results</name>
+    <name>Import Collection Date</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -233,7 +173,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract all HIV Test Results&#xa;&#x2a;&#x2f;&#xa;select      o.patient_id,&#xa;			o.value_coded as result,&#xa;			o.date_created as date_result_entered,&#xa;			o.obs_group_id&#xa;from        omrs_obs o&#xa;where 		o.concept &#x3d; &#x27;Result of HIV test&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract Viral Load Sample Taken&#xa;&#x2a;&#x2f;&#xa;select      o.patient_id,&#xa;			o.encounter_id,&#xa;			o.obs_date as date_collected&#xa;from        omrs_obs o&#xa;where 		o.concept &#x3d; &#x27;Sample taken for Viral Load&#x27;&#xa;and			o.value_coded &#x3d; &#x27;True&#x27;&#xa;order by 	o.patient_id, o.encounter_id&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -248,7 +188,7 @@
     </step>
 
   <step>
-    <name>Import Test Type</name>
+    <name>Import LDL</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -259,7 +199,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		o.patient_id, o.obs_group_id, o.value_coded as test_type&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;HIV test type&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract Viral Load LDL&#xa;&#x2a;&#x2f;&#xa;select      o.patient_id,&#xa;			o.encounter_id,&#xa;			o.obs_date as date_collected,&#xa;			o.date_created as date_result_entered,&#xa;			o.concept as result_exception&#xa;from        omrs_obs o&#xa;where 		o.concept &#x3d; &#x27;Lower than Detection Limit&#x27;&#xa;and			o.value_coded &#x3d; &#x27;True&#x27;&#xa;order by 	o.patient_id, o.encounter_id</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -269,36 +209,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>176</xloc>
       <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Merge Date Received</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Merge Test Type</step1>
-<step2>Import Date Result Received</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>848</xloc>
-      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -318,53 +228,29 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>if &#x28;&#x21;patient_id&#x29; &#x7b;&#xa;	patient_id &#x3d; patient_id_1&#x3b;&#xa;&#x7d;&#xa;if &#x28;&#x21;obs_group_id&#x29; &#x7b;&#xa;	obs_group_id &#x3d; obs_group_id_1&#xa;&#x7d;</jsScript_script>
+        <jsScript_script>if &#x28;&#x21;patient_id&#x29; &#x7b;&#xa;	patient_id &#x3d; patient_id_1&#x3b;&#xa;&#x7d;&#xa;if &#x28;&#x21;encounter_id&#x29; &#x7b;&#xa;	encounter_id &#x3d; encounter_id_1&#x3b;&#xa;&#x7d;&#xa;if &#x28;&#x21;date_collected&#x29; &#x7b;&#xa;	date_collected &#x3d; date_collected_1&#x3b;&#xa;&#x7d;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>patient_id</name>
         <rename>patient_id</rename>
         <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
-      </field>      <field>        <name>obs_group_id</name>
-        <rename>obs_group_id</rename>
+      </field>      <field>        <name>encounter_id</name>
+        <rename>encounter_id</rename>
         <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>date_collected</name>
+        <rename>date_collected</rename>
+        <type>Date</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>672</xloc>
+      <xloc>640</xloc>
       <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Merge Test Type</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Sort rows</step1>
-<step2>Import Test Type</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>848</xloc>
-      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -381,15 +267,15 @@
            <schema_name/>
            </partitioning>
 <join_type>FULL OUTER</join_type>
-<step1>Import HIV Results</step1>
-<step2>Import Collection Dates</step2>
+<step1>Import Collection Date</step1>
+<step2>Import Viral Load</step2>
     <keys_1>
       <key>patient_id</key>
-      <key>obs_group_id</key>
+      <key>encounter_id</key>
     </keys_1>
     <keys_2>
       <key>patient_id</key>
-      <key>obs_group_id</key>
+      <key>encounter_id</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -425,7 +311,7 @@
         <presorted>N</presorted>
       </field>
       <field>
-        <name>obs_group_id</name>
+        <name>encounter_id</name>
         <ascending>Y</ascending>
         <case_sensitive>N</case_sensitive>
         <presorted>N</presorted>
@@ -473,30 +359,181 @@
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>result_coded</column_name>
-          <stream_name>result</stream_name>
+          <column_name>date_collected</column_name>
+          <stream_name>date_collected</stream_name>
         </field>
         <field>
           <column_name>date_result_entered</column_name>
           <stream_name>date_result_entered</stream_name>
         </field>
         <field>
-          <column_name>date_collected</column_name>
-          <stream_name>date_collected</stream_name>
+          <column_name>result_numeric</column_name>
+          <stream_name>result_numeric</stream_name>
+        </field>
+        <field>
+          <column_name>result_exception</column_name>
+          <stream_name>result_exception</stream_name>
         </field>
         <field>
           <column_name>test_type</column_name>
           <stream_name>test_type</stream_name>
         </field>
-        <field>
-          <column_name>date_result_received</column_name>
-          <stream_name>date_result_received</stream_name>
-        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1264</xloc>
+      <xloc>1040</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>LDL Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>FULL OUTER</join_type>
+<step1>Sort rows</step1>
+<step2>Import LDL</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>encounter_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>encounter_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>848</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Merge LDL IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>if &#x28;&#x21;patient_id&#x29; &#x7b;&#xa;	patient_id &#x3d; patient_id_1&#x3b;&#xa;&#x7d;&#xa;if &#x28;&#x21;encounter_id&#x29; &#x7b;&#xa;	encounter_id &#x3d; encounter_id_1&#x3b;&#xa;&#x7d;&#xa;if &#x28;&#x21;date_collected&#x29; &#x7b;&#xa;	date_collected &#x3d; date_collected_1&#x3b;&#xa;&#x7d;&#xa;if &#x28;&#x21;date_result_entered&#x29; &#x7b;&#xa;	date_result_entered &#x3d; date_result_entered_1&#x3b;&#xa;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>patient_id</name>
+        <rename>patient_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>encounter_id</name>
+        <rename>encounter_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>date_collected</name>
+        <rename>date_collected</rename>
+        <type>Date</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>date_result_entered</name>
+        <rename>date_result_entered</rename>
+        <type>Date</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>848</xloc>
       <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Add constants</name>
+    <type>Constant</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>test_type</name>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <nullif>Viral Load</nullif>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>848</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Select values 1</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>      <field>        <name>patient_id</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>encounter_id</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>date_collected</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>date_result_entered</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>      <field>        <name>result_numeric</name>
+        <rename/>
+        <length>-2</length>
+        <precision>-2</precision>
+      </field>        <select_unspecified>N</select_unspecified>
+    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>752</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
