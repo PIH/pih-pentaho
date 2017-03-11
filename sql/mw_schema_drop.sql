@@ -3,7 +3,7 @@
 
 drop table if exists mw_patient;
 
-drop table if exists mw_hiv_tests;
+drop table if exists mw_lab_tests;
 
 drop table if exists mw_eid_visits;
 drop table if exists mw_eid_register;

@@ -83,7 +83,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
+      <xloc>128</xloc>
       <yloc>64</yloc>
       </entry>
     <entry>
@@ -114,7 +114,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
+      <xloc>128</xloc>
       <yloc>192</yloc>
       </entry>
     <entry>
@@ -147,8 +147,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>64</yloc>
+      <xloc>288</xloc>
+      <yloc>272</yloc>
       </entry>
     <entry>
       <name>Create MW Indexes</name>
@@ -163,7 +163,7 @@
       <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
+      <xloc>128</xloc>
       <yloc>512</yloc>
       </entry>
     <entry>
@@ -179,7 +179,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
+      <xloc>128</xloc>
       <yloc>400</yloc>
       </entry>
     <entry>
@@ -195,7 +195,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
+      <xloc>128</xloc>
       <yloc>288</yloc>
       </entry>
     <entry>
@@ -228,8 +228,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>864</xloc>
-      <yloc>128</yloc>
+      <xloc>592</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
       <name>Load EID Register</name>
@@ -261,8 +261,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1008</xloc>
-      <yloc>128</yloc>
+      <xloc>736</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
       <name>Load HIV Tests</name>
@@ -291,11 +291,11 @@
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>Y</parallel>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>192</yloc>
+      <xloc>464</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
       <name>Load EID Trace</name>
@@ -327,8 +327,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>1152</xloc>
-      <yloc>128</yloc>
+      <xloc>880</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
       <name>Load ART Visits</name>
@@ -360,8 +360,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>864</xloc>
-      <yloc>208</yloc>
+      <xloc>912</xloc>
+      <yloc>192</yloc>
       </entry>
   </entries>
   <hops>
@@ -402,35 +402,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create MW Indexes</from>
-      <to>Load Patients</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load EID Visits</from>
       <to>Load EID Register</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create MW Indexes</from>
-      <to>Load HIV Tests</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load HIV Tests</from>
-      <to>Load EID Visits</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -447,8 +420,26 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
+      <from>Create MW Indexes</from>
+      <to>Load Patients</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Patients</from>
+      <to>Load HIV Tests</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
       <from>Load HIV Tests</from>
-      <to>Load ART Visits</to>
+      <to>Load EID Visits</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

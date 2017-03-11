@@ -75,11 +75,11 @@
   </info>
   <notepads>
     <notepad>
-      <note>mw_hiv_tests &#x28;&#xa;  hiv_result_id        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,&#xa;  patient_id           INT NOT NULL,&#xa;  date_collected       DATE,&#xa;  test_type            VARCHAR&#x28;100&#x29;,&#xa;  date_result_received DATE,&#xa;  date_result_entered  DATE,&#xa;  result               VARCHAR&#x28;100&#x29;&#xa;&#x29;</note>
+      <note>mw_lab_tests &#x28;&#xa;  lab_test_id          INT NOT NULL&#xa;  patient_id           INT NOT NULL,&#xa;  date_collected       DATE,&#xa;  test_type            VARCHAR&#x28;100&#x29;,&#xa;  date_result_received DATE,&#xa;  date_result_entered  DATE,&#xa;  result_coded         VARCHAR&#x28;100&#x29;,&#xa;  result_numeric       DOUBLE,&#xa;  result_exception     VARCHAR&#x28;100&#x29;&#xa;&#x29;</note>
       <xloc>1024</xloc>
       <yloc>80</yloc>
-      <width>457</width>
-      <heigth>163</heigth>
+      <width>247</width>
+      <heigth>197</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
       <fontbold>N</fontbold>
@@ -132,34 +132,39 @@
   <hop> <from>Sort rows</from><to>Merge Test Type</to><enabled>Y</enabled> </hop>
   <hop> <from>Merge Test Type</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Date Result Received</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
-  <hop> <from>Merge Date Received</from><to>Write HIV Test Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Merge Date Received</from><to>Default Test Type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Default Test Type</from><to>Write HIV Test Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Result and Collection Date Merge</name>
-    <type>MergeJoin</type>
+    <name>Default Test Type</name>
+    <type>IfNull</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import HIV Results</step1>
-<step2>Import Collection Dates</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_2>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+      <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>test_type</name>
+        <value>HIV test</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+        </field>
+      </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>464</xloc>
-      <yloc>112</yloc>
+      <xloc>1072</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -191,6 +196,32 @@
     </step>
 
   <step>
+    <name>Import Date Result Received</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		o.patient_id, o.obs_group_id, o.value_date as date_result_received&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;Date of returned result&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Import HIV Results</name>
     <type>TableInput</type>
     <description/>
@@ -217,8 +248,8 @@
     </step>
 
   <step>
-    <name>Write HIV Test Table</name>
-    <type>TableOutput</type>
+    <name>Import Test Type</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -228,51 +259,45 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <schema/>
-    <table>mw_hiv_tests</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>result</column_name>
-          <stream_name>result</stream_name>
-        </field>
-        <field>
-          <column_name>date_result_entered</column_name>
-          <stream_name>date_result_entered</stream_name>
-        </field>
-        <field>
-          <column_name>date_collected</column_name>
-          <stream_name>date_collected</stream_name>
-        </field>
-        <field>
-          <column_name>test_type</column_name>
-          <stream_name>test_type</stream_name>
-        </field>
-        <field>
-          <column_name>date_result_received</column_name>
-          <stream_name>date_result_received</stream_name>
-        </field>
-    </fields>
+    <sql>select		o.patient_id, o.obs_group_id, o.value_coded as test_type&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;HIV test type&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1120</xloc>
+      <xloc>176</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Merge Date Received</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Merge Test Type</step1>
+<step2>Import Date Result Received</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>848</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
@@ -315,32 +340,6 @@
     </step>
 
   <step>
-    <name>Import Test Type</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		o.patient_id, o.obs_group_id, o.value_coded as test_type&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;HIV test type&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Merge Test Type</name>
     <type>MergeJoin</type>
     <description/>
@@ -371,27 +370,31 @@
     </step>
 
   <step>
-    <name>Import Date Result Received</name>
-    <type>TableInput</type>
+    <name>Result and Collection Date Merge</name>
+    <type>MergeJoin</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		o.patient_id, o.obs_group_id, o.value_date as date_result_received&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;Date of returned result&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+<join_type>FULL OUTER</join_type>
+<step1>Import HIV Results</step1>
+<step2>Import Collection Dates</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>320</yloc>
+      <xloc>464</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -437,30 +440,62 @@
     </step>
 
   <step>
-    <name>Merge Date Received</name>
-    <type>MergeJoin</type>
+    <name>Write HIV Test Table</name>
+    <type>TableOutput</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Merge Test Type</step1>
-<step2>Import Date Result Received</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_2>
+    <connection>Warehouse</connection>
+    <schema/>
+    <table>mw_lab_tests</table>
+    <commit>1000</commit>
+    <truncate>Y</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
+        </field>
+        <field>
+          <column_name>result_coded</column_name>
+          <stream_name>result</stream_name>
+        </field>
+        <field>
+          <column_name>date_result_entered</column_name>
+          <stream_name>date_result_entered</stream_name>
+        </field>
+        <field>
+          <column_name>date_collected</column_name>
+          <stream_name>date_collected</stream_name>
+        </field>
+        <field>
+          <column_name>test_type</column_name>
+          <stream_name>test_type</stream_name>
+        </field>
+        <field>
+          <column_name>date_result_received</column_name>
+          <stream_name>date_result_received</stream_name>
+        </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>848</xloc>
+      <xloc>1264</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>

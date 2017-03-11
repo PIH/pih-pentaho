@@ -18,14 +18,16 @@ CREATE TABLE mw_patient (
   death_date            DATE
 );
 
-CREATE TABLE mw_hiv_tests (
-  hiv_result_id        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE mw_lab_tests (
+  lab_test_id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   patient_id           INT NOT NULL,
   date_collected       DATE,
   test_type            VARCHAR(100),
   date_result_received DATE,
   date_result_entered  DATE,
-  result               VARCHAR(100)
+  result_coded         VARCHAR(100),
+  result_numeric       DOUBLE,
+  result_exception     VARCHAR(100)
 );
 
 CREATE TABLE mw_eid_visits (

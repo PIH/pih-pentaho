@@ -133,32 +133,6 @@
   <hop> <from>Second to Last PCR Merge</from><to>Write EID Trace Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import Active EID Patients</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all Active EID patients&#xa;&#x2a;&#x2f;&#xa;select      r.patient_id,&#xa;			r.location,&#xa;			r.eid_number,&#xa;			v.visit_date as last_visit_date,&#xa;			v.next_appointment_date as next_appointment_date,&#xa;			p.birthdate&#xa;from 		mw_eid_register r&#xa;inner join	mw_patient p on r.patient_id &#x3d; p.patient_id&#xa;left join	mw_eid_visits v on v.eid_visit_id &#x3d; r.last_eid_visit_id&#xa;where 		r.end_date is null&#xa;order by 	patient_id, location&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>80</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Breastfeeding Date</name>
     <type>TableInput</type>
     <description/>
@@ -208,6 +182,140 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>400</xloc>
       <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Active EID Patients</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all Active EID patients&#xa;&#x2a;&#x2f;&#xa;select      r.patient_id,&#xa;			r.location,&#xa;			r.eid_number,&#xa;			v.visit_date as last_visit_date,&#xa;			v.next_appointment_date as next_appointment_date,&#xa;			p.birthdate&#xa;from 		mw_eid_register r&#xa;inner join	mw_patient p on r.patient_id &#x3d; p.patient_id&#xa;left join	mw_eid_visits v on v.eid_visit_id &#x3d; r.last_eid_visit_id&#xa;where 		r.end_date is null&#xa;order by 	patient_id, location&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Last PCR</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>&#x2f;&#x2a;&#xa;	Extract last PCR date and result&#xa;&#x2a;&#x2f;&#xa;SELECT 		t.patient_id,&#xa;			t.result_coded as last_pcr_result, &#xa;			coalesce&#x28;t.date_collected, t.date_result_received, t.date_result_entered&#x29; as last_pcr_result_date&#xa;FROM		mw_lab_tests t&#xa;&#xa;WHERE		t.lab_test_id &#x3d; &#x28;&#xa;	SELECT		t1.lab_test_id&#xa;	FROM		mw_lab_tests t1&#xa;	WHERE		t.patient_id &#x3d; t1.patient_id&#xa;	AND			t1.test_type &#x3d; &#x27;HIV DNA polymerase chain reaction&#x27;&#xa;	AND			t1.result_coded is not null&#xa;	ORDER BY 	coalesce&#x28;t1.date_collected, t1.date_result_received, t1.date_result_entered&#x29; desc&#xa;	LIMIT		1&#xa;&#x29;&#xa;ORDER BY t.patient_id&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Last PCR Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Breastfeeding Merge</step1>
+<step2>Last PCR</step2>
+    <keys_1>
+      <key>patient_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>400</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Second to Last PCR</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>&#x2f;&#x2a;&#xa;	Extract second to last PCR date and result&#xa;&#x2a;&#x2f;&#xa;SELECT 		t.patient_id,&#xa;			t.result_coded as second_to_last_pcr_result, &#xa;			coalesce&#x28;t.date_collected, t.date_result_received, t.date_result_entered&#x29; as second_to_last_pcr_result_date&#xa;FROM		mw_lab_tests t&#xa;&#xa;WHERE		t.lab_test_id &#x3d; &#x28;&#xa;	SELECT		t1.lab_test_id&#xa;	FROM		mw_lab_tests t1&#xa;	WHERE		t.patient_id &#x3d; t1.patient_id&#xa;	AND			t1.test_type &#x3d; &#x27;HIV DNA polymerase chain reaction&#x27;&#xa;	AND			t1.result_coded is not null&#xa;	ORDER BY 	coalesce&#x28;t1.date_collected, t1.date_result_received, t1.date_result_entered&#x29; desc&#xa;	LIMIT		1&#xa;	OFFSET 		1&#xa;&#x29;&#xa;ORDER BY t.patient_id&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Second to Last PCR Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Last PCR Merge</step1>
+<step2>Second to Last PCR</step2>
+    <keys_1>
+      <key>patient_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>400</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -285,114 +393,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>672</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Last PCR</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract last PCR date and result&#xa;&#x2a;&#x2f;&#xa;SELECT 		t.patient_id,&#xa;			t.result as last_pcr_result, &#xa;			coalesce&#x28;t.date_collected, t.date_result_received, t.date_result_entered&#x29; as last_pcr_result_date&#xa;FROM		mw_hiv_tests t&#xa;&#xa;WHERE		t.hiv_result_id &#x3d; &#x28;&#xa;	SELECT		t1.hiv_result_id&#xa;	FROM		mw_hiv_tests t1&#xa;	WHERE		t.patient_id &#x3d; t1.patient_id&#xa;	AND			t1.test_type &#x3d; &#x27;HIV DNA polymerase chain reaction&#x27;&#xa;	AND			t1.result is not null&#xa;	ORDER BY 	coalesce&#x28;t1.date_collected, t1.date_result_received, t1.date_result_entered&#x29; desc&#xa;	LIMIT		1&#xa;&#x29;&#xa;ORDER BY t.patient_id&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Last PCR Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Breastfeeding Merge</step1>
-<step2>Last PCR</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>240</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Second to Last PCR</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract second to last PCR date and result&#xa;&#x2a;&#x2f;&#xa;SELECT 		t.patient_id,&#xa;			t.result as second_to_last_pcr_result, &#xa;			coalesce&#x28;t.date_collected, t.date_result_received, t.date_result_entered&#x29; as second_to_last_pcr_result_date&#xa;FROM		mw_hiv_tests t&#xa;&#xa;WHERE		t.hiv_result_id &#x3d; &#x28;&#xa;	SELECT		t1.hiv_result_id&#xa;	FROM		mw_hiv_tests t1&#xa;	WHERE		t.patient_id &#x3d; t1.patient_id&#xa;	AND			t1.test_type &#x3d; &#x27;HIV DNA polymerase chain reaction&#x27;&#xa;	AND			t1.result is not null&#xa;	ORDER BY 	coalesce&#x28;t1.date_collected, t1.date_result_received, t1.date_result_entered&#x29; desc&#xa;	LIMIT		1&#xa;	OFFSET 		1&#xa;&#x29;&#xa;ORDER BY t.patient_id&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>320</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Second to Last PCR Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Last PCR Merge</step1>
-<step2>Second to Last PCR</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
       <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
