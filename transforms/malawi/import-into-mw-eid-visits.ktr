@@ -206,7 +206,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_date as next_appointment_date&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Appointment date&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_date as next_appointment_date&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Appointment date&#x27;&#xa;and 		e.encounter_type in &#x28;&#x27;EXPOSED_CHILD_INITIAL&#x27;, &#x27;EXPOSED_CHILD_FOLLOWUP&#x27;&#x29;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

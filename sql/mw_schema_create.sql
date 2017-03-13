@@ -18,14 +18,16 @@ CREATE TABLE mw_patient (
   death_date            DATE
 );
 
-CREATE TABLE mw_hiv_tests (
-  hiv_result_id        INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE mw_lab_tests (
+  lab_test_id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   patient_id           INT NOT NULL,
   date_collected       DATE,
   test_type            VARCHAR(100),
   date_result_received DATE,
   date_result_entered  DATE,
-  result               VARCHAR(100)
+  result_coded         VARCHAR(100),
+  result_numeric       DOUBLE,
+  result_exception     VARCHAR(100)
 );
 
 CREATE TABLE mw_eid_visits (
@@ -58,22 +60,26 @@ CREATE TABLE mw_eid_trace (
   breastfeeding_stopped_over_6_weeks_date DATE,
   last_pcr_result                         VARCHAR(100),
   last_pcr_result_date                    DATE,
-  second_to_last_pcr_result               VARCHAR(100),
-  trace_category                          VARCHAR(100)
+  second_to_last_pcr_result               VARCHAR(100)
+);
+
+CREATE TABLE mw_art_visits (
+  art_visit_id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  patient_id            INT NOT NULL,
+  visit_date            DATE,
+  location              VARCHAR(255),
+  next_appointment_date DATE
 );
 
 CREATE TABLE mw_art_register (
-  enrollment_id              INT NOT NULL,
-  patient_id                 INT NOT NULL,
-  location                   VARCHAR(255),
-  art_number                 VARCHAR(50),
-  start_date                 DATE,
-  end_date                   DATE,
-  outcome                    VARCHAR(100),
-  last_visit_date            DATE,
-  next_appointment_date      DATE,
-  last_viral_load_result     DOUBLE,
-  last_viral_load_entry_date DATE
+  enrollment_id     INT NOT NULL,
+  patient_id        INT NOT NULL,
+  location          VARCHAR(255),
+  art_number        VARCHAR(50),
+  start_date        DATE,
+  end_date          DATE,
+  outcome           VARCHAR(100),
+  last_art_visit_id INT
 );
 
 create table mw_ncd_visits (
