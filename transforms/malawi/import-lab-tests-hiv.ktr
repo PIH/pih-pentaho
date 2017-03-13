@@ -133,7 +133,7 @@
   <hop> <from>Merge Test Type</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Date Result Received</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
   <hop> <from>Merge Date Received</from><to>Default Test Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Default Test Type</from><to>Write HIV Test Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Default Test Type</from><to>Write to Lab Test Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Default Test Type</name>
@@ -440,7 +440,7 @@
     </step>
 
   <step>
-    <name>Write HIV Test Table</name>
+    <name>Write to Lab Test Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
