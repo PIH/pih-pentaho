@@ -159,10 +159,10 @@
 <step1>Lookup Creator</step1>
 <step2>Import OMRS Encounter Provider</step2>
     <keys_1>
-      <key>encounter_id</key>
+      <key>uuid</key>
     </keys_1>
     <keys_2>
-      <key>encounter_id</key>
+      <key>encounter_uuid</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -243,7 +243,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Load in the previously-calculated encounter providers, grouping by encounter so we end up with only&#xa;&#x2a;   one provider per encounter--note that the way we determine this provider is arbitrary, we probably&#xa;&#x2a;  	want to figoure out a more &#x22;intelligent&#x22; way to do this&#xa;&#x2a;&#x2f;&#xa;&#xa;select &#x2a; &#xa;from omrs_encounter_provider&#xa;group by encounter_id&#xa;order by encounter_id</sql>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Load in the previously-calculated encounter providers, grouping by encounter so we end up with only&#xa;&#x2a;   one provider per encounter--note that the way we determine this provider is arbitrary, we probably&#xa;&#x2a;  	want to figoure out a more &#x22;intelligent&#x22; way to do this&#xa;&#x2a;&#x2f;&#xa;&#xa;select &#x2a; &#xa;from omrs_encounter_provider&#xa;group by encounter_uuid&#xa;order by encounter_uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
