@@ -8,13 +8,9 @@ Repository hosting PIH data warehousing scripts built on the Pentaho product sui
 
 =====================
 
-Enviromental variables to set:
+DEV ENVIRONMENT SETUP (TODO: confirm that these steps are correct next time someone sets up a new enviromnent)
 
-PIH_PENTAHO_HOME  -- points to the top-level directory where the pih-pentaho project can be found
-
-=====================
-
-Setup steps (should be puppet or ansiblized at some point):
+Install kettle (for deploying to a server, look at Pentaho playbook and roles in the deployment project in Bitbucket):
 
 * Download Pentaho Kettle from here: http://community.pentaho.com/projects/data-integration/  (we are currently using version 6.1, for what it's worth)
 * Unzip and copy into your preferred executable directory
@@ -22,11 +18,35 @@ Setup steps (should be puppet or ansiblized at some point):
 * Download the latest mysql connector jar from here: https://dev.mysql.com/downloads/file/?id=465644
 * Extract the mysql connector jar out of the above zip file and copy it into the data-integration/lib
 * Run "spoon.sh" to start
-* When running a job, set the "PIH_PENTAHO_HOME" parameter point to the top-level directory for your Pentaho project (ie, the top-level directory of this proiect)
+* When running a job, set the "PIH_PENTAHO_HOME" parameter point to the top-level directory for your Pentaho project (ie, the top-level directory of this proiect) (this parameter is stored in $HOME/.kettle/kettle.properties)
+
+Link your shared.xml to the shared file used by the project:
+* Go to $HOME/.kettle/shared.xml and delete this file if it exists
+* Create a new shared.xml that is a symbolic link to to "shared/shared-connections.xml" in this project.
+
+Create a pih-kettle.properties file in the .kettle with the following variables set to your preferred values:
+
+```
+pih.country  = haiti
+
+openmrs.db.host = localhost
+openmrs.db.port = 3306
+openmrs.db.name = openmrs
+openmrs.db.user = root
+openmrs.db.password = 
+
+warehouse.db.host = localhost
+warehouse.db.port = 3306
+warehouse.db.name = openmrs_warehouse
+warehouse.db.user = root
+warehouse.db.password = 
+warehouse.db.key_prefix = 10
+```
+
 
 =======================
 
-Running via docker
+RUNNING VIA DOCKER
 
 
 Usage:
@@ -50,6 +70,7 @@ Usage:
 
     --net="host" : allows the container to connect to mysql on the host machine via 127.0.0.1
      /home/reporting:/home/reporting: mounts the /home/reporting directory on the host machine to /home/reporting in the container
+
 
 
 =====================
