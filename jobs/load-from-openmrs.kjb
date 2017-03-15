@@ -212,7 +212,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>560</xloc>
-      <yloc>592</yloc>
+      <yloc>544</yloc>
       </entry>
     <entry>
       <name>Load Encounter Table</name>
@@ -278,7 +278,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>560</xloc>
-      <yloc>672</yloc>
+      <yloc>640</yloc>
       </entry>
     <entry>
       <name>Load Encounter Provider Table</name>
@@ -344,7 +344,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>560</xloc>
-      <yloc>512</yloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Add Patient Indexes</name>
@@ -392,7 +392,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>800</xloc>
-      <yloc>592</yloc>
+      <yloc>544</yloc>
       </entry>
     <entry>
       <name>Add Encounter Indexes</name>
@@ -424,7 +424,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>800</xloc>
-      <yloc>512</yloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Load Configuration</name>
@@ -471,7 +471,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>800</xloc>
-      <yloc>672</yloc>
+      <yloc>640</yloc>
       </entry>
     <entry>
       <name>Add Patient Identifier Indexes</name>
@@ -539,39 +539,6 @@
       <yloc>192</yloc>
       </entry>
     <entry>
-      <name>Load Obs Group Table</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;import-into-omrs-obs-group.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>560</xloc>
-      <yloc>432</yloc>
-      </entry>
-    <entry>
       <name>Add Obs Group Indexes</name>
       <description/>
       <type>SQL</type>
@@ -584,8 +551,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>800</xloc>
-      <yloc>432</yloc>
+      <xloc>960</xloc>
+      <yloc>448</yloc>
       </entry>
     <entry>
       <name>Load Visit Table</name>
@@ -752,15 +719,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Obs Group Table</from>
-      <to>Add Obs Group Indexes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Visit Table</from>
       <to>Add Visit Indexes</to>
       <from_nr>0</from_nr>
@@ -843,15 +801,6 @@
     </hop>
     <hop>
       <from>Load Reference Data</from>
-      <to>Load Obs Group Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Reference Data</from>
       <to>Load Obs Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -880,6 +829,15 @@
     <hop>
       <from>Add Encounter Provider Indexes</from>
       <to>Load Encounter Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Add Obs Indexes</from>
+      <to>Add Obs Group Indexes</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
