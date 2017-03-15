@@ -314,7 +314,7 @@
       <yloc>272</yloc>
       </entry>
     <entry>
-      <name>Load Obs Table</name>
+      <name>Load Obs Tables</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -674,7 +674,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Obs Table</from>
+      <from>Load Obs Tables</from>
       <to>Add Obs Indexes</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -801,7 +801,7 @@
     </hop>
     <hop>
       <from>Load Reference Data</from>
-      <to>Load Obs Table</to>
+      <to>Load Obs Tables</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
