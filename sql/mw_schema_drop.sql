@@ -11,6 +11,7 @@ drop table if exists mw_eid_trace;
 
 drop table if exists mw_art_visits;
 drop table if exists mw_art_register;
+drop table if exists mw_art_trace;
 
 drop table if exists mw_ncd_visits;
 drop table if exists mw_ncd_register;

@@ -72,14 +72,28 @@ CREATE TABLE mw_art_visits (
 );
 
 CREATE TABLE mw_art_register (
-  enrollment_id     INT NOT NULL,
-  patient_id        INT NOT NULL,
-  location          VARCHAR(255),
-  art_number        VARCHAR(50),
-  start_date        DATE,
-  end_date          DATE,
-  outcome           VARCHAR(100),
-  last_art_visit_id INT
+  enrollment_id             INT NOT NULL,
+  patient_id                INT NOT NULL,
+  location                  VARCHAR(255),
+  art_number                VARCHAR(50),
+  start_date                DATE,
+  end_date                  DATE,
+  outcome                   VARCHAR(100),
+  last_art_visit_id         INT,
+  last_viral_load_test_id   INT,
+  last_viral_load_result_id INT
+);
+
+CREATE TABLE mw_art_trace (
+  patient_id                       INT NOT NULL,
+  location                         VARCHAR(255),
+  art_number                       VARCHAR(50),
+  last_visit_date                  DATE,
+  next_appointment_date            DATE,
+  last_viral_load_result_numeric   DOUBLE,
+  last_viral_load_result_exception VARCHAR(100),
+  last_viral_load_result_date      DATE,
+  last_viral_load_test_date        DATE
 );
 
 create table mw_ncd_visits (
