@@ -96,6 +96,12 @@ CREATE TABLE mw_art_trace (
   last_viral_load_test_date        DATE
 );
 
+create table mw_ncd_diagnoses (
+  patient_id     INT          NOT NULL,
+  diagnosis      VARCHAR(100) NOT NULL,
+  diagnosis_date DATE         NOT NULL
+);
+
 create table mw_ncd_visits (
   patient_id                          INT NOT NULL,
   encounter_date                      DATE NOT NULL,
