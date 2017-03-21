@@ -77,7 +77,7 @@
     <notepad>
       <note>mw_ncd_diagnoses &#x28;&#xa;  patient_id INT NOT NULL,&#xa;  diagnosis   VARCHAR&#x28;100&#x29; NOT NULL,&#xa;  diagnosis_date  DATE&#xa;&#x29;</note>
       <xloc>1056</xloc>
-      <yloc>144</yloc>
+      <yloc>192</yloc>
       <width>270</width>
       <heigth>95</heigth>
       <fontname>Ubuntu</fontname>
@@ -127,8 +127,8 @@
   <hop> <from>Import Diagnosis Obs</from><to>Merge Dates</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Diagnosis Date Obs</from><to>Merge Dates</to><enabled>Y</enabled> </hop>
   <hop> <from>Merge Dates</from><to>Choose Date</to><enabled>Y</enabled> </hop>
-  <hop> <from>Choose Date</from><to>Earliest Diagnosis for Patient</to><enabled>Y</enabled> </hop>
-  <hop> <from>Earliest Diagnosis for Patient</from><to>Write Diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Choose Date</from><to>Earliest Diagnosis</to><enabled>Y</enabled> </hop>
+  <hop> <from>Earliest Diagnosis</from><to>Write Diagnosis Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Import Diagnosis Obs</name>
@@ -200,8 +200,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>928</xloc>
-      <yloc>240</yloc>
+      <xloc>752</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -286,15 +286,15 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>240</yloc>
+      <xloc>416</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Earliest Diagnosis for Patient</name>
-    <type>GroupBy</type>
+    <name>Earliest Diagnosis</name>
+    <type>MemoryGroupBy</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -303,13 +303,6 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <all_rows>N</all_rows>
-      <ignore_aggregate>N</ignore_aggregate>
-      <field_ignore/>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>grp</prefix>
-      <add_linenr>N</add_linenr>
-      <linenr_fieldname/>
       <give_back_row>N</give_back_row>
       <group>
         <field>
@@ -329,8 +322,8 @@
       </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>720</xloc>
-      <yloc>240</yloc>
+      <xloc>576</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
