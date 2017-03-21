@@ -146,7 +146,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>112</xloc>
-      <yloc>448</yloc>
+      <yloc>368</yloc>
       </entry>
     <entry>
       <name>Load Patient Identifier Table</name>
@@ -455,7 +455,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>112</xloc>
-      <yloc>128</yloc>
+      <yloc>144</yloc>
       </entry>
     <entry>
       <name>Add Program State Indexes</name>
@@ -604,36 +604,35 @@
       <yloc>352</yloc>
       </entry>
     <entry>
-      <name>Create OMRS Schema</name>
+      <name>Drop and Create Schema</name>
       <description/>
-      <type>SQL</type>
-      <sql/>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;omrs_schema_create.sql</sqlfilename>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
+      <type>JOB</type>
+      <specification_method>filename</specification_method>
+      <job_object_id/>
+      <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;create-schema.kjb</filename>
+      <jobname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Nothing</loglevel>
+      <slave_server_name/>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <expand_remote_job>N</expand_remote_job>
+      <create_parent_folder>N</create_parent_folder>
+      <pass_export>N</pass_export>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>112</xloc>
-      <yloc>352</yloc>
-      </entry>
-    <entry>
-      <name>Drop OMRS Schema</name>
-      <description/>
-      <type>SQL</type>
-      <sql/>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;omrs_schema_drop.sql</sqlfilename>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>240</yloc>
+      <yloc>256</yloc>
       </entry>
   </entries>
   <hops>
@@ -728,33 +727,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Configuration</from>
-      <to>Drop OMRS Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Drop OMRS Schema</from>
-      <to>Create OMRS Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create OMRS Schema</from>
-      <to>Load Reference Data</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Reference Data</from>
       <to>Load Patient Table</to>
       <from_nr>0</from_nr>
@@ -801,7 +773,16 @@
     </hop>
     <hop>
       <from>Load Reference Data</from>
-      <to>Load Obs Tables</to>
+      <to>Load Obs Group Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Reference Data</from>
+      <to>Load Obs Table</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -836,8 +817,17 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Add Obs Indexes</from>
-      <to>Add Obs Group Indexes</to>
+      <from>Load Configuration</from>
+      <to>Drop and Create Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Drop and Create Schema</from>
+      <to>Load Reference Data</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

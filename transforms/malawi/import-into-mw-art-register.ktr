@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-eid-register</name>
+    <name>import-into-mw-art-register</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -75,10 +75,10 @@
   </info>
   <notepads>
     <notepad>
-      <note>mw_eid_register &#x28;&#xa;  enrollment_id                  INT NOT NULL,&#xa;  patient_id                     INT NOT NULL,&#xa;  location                       VARCHAR&#x28;255&#x29;,&#xa;  eid_number                     VARCHAR&#x28;50&#x29;,&#xa;  start_date                     DATE,&#xa;  end_date                       DATE,&#xa;  outcome                        VARCHAR&#x28;100&#x29;,&#xa;  last_eid_visit_id                  INT&#xa;&#x29;</note>
+      <note>mw_art_register &#x28;&#xa;  enrollment_id     INT NOT NULL,&#xa;  patient_id        INT NOT NULL,&#xa;  location          VARCHAR&#x28;255&#x29;,&#xa;  art_number        VARCHAR&#x28;50&#x29;,&#xa;  start_date        DATE,&#xa;  end_date          DATE,&#xa;  outcome           VARCHAR&#x28;100&#x29;,&#xa;  last_art_visit_id INT&#xa;&#x29;</note>
       <xloc>880</xloc>
       <yloc>80</yloc>
-      <width>267</width>
+      <width>228</width>
       <heigth>180</heigth>
       <fontname>Ubuntu</fontname>
       <fontsize>11</fontsize>
@@ -124,15 +124,15 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Format EID Number</from><to>EID Number Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import EID Number</from><to>Format EID Number</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Program and State</from><to>EID Number Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>EID Number Merge</from><to>Last Visit Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Format ART Number</from><to>ART Number Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import ART Number</from><to>Format ART Number</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Program and State</from><to>ART Number Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>ART Number Merge</from><to>Last Visit Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Last Visit</from><to>Last Visit Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Last Visit Merge</from><to>Write EID Register Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Last Visit Merge</from><to>Write ART Register Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>EID Number Merge</name>
+    <name>ART Number Merge</name>
     <type>MergeJoin</type>
     <description/>
     <distribute>N</distribute>
@@ -144,7 +144,7 @@
            </partitioning>
 <join_type>LEFT OUTER</join_type>
 <step1>Import Program and State</step1>
-<step2>Format EID Number</step2>
+<step2>Format ART Number</step2>
     <keys_1>
       <key>patient_id</key>
       <key>location</key>
@@ -162,7 +162,7 @@
     </step>
 
   <step>
-    <name>Format EID Number</name>
+    <name>Format ART Number</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -178,7 +178,7 @@
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>var formatted_identifier &#x3d; identifier&#x3b;&#xa;if &#x28;formatted_identifier&#x29; &#x7b;&#xa;	var newId &#x3d; &#x27;&#x27;&#x3b;&#xa;	var pad &#x3d; &#x22;0000&#x22;&#xa;	var idarr &#x3d; formatted_identifier.split&#x28;&#x27; &#x27;&#x29;&#x3b;&#xa;	for &#x28;var i&#x3d;0&#x3b; i&#x3c;idarr.length&#x3b; i&#x2b;&#x2b;&#x29; &#x7b;&#xa;		var idElement &#x3d; idarr&#x5b;i&#x5d;&#xa;		if &#x28;newId &#x21;&#x3d; &#x27;&#x27;&#x29; &#x7b;&#xa;			newId &#x2b;&#x3d; &#x27;-&#x27;&#x3b;&#xa;		&#x7d;&#xa;		var idElementAsNum &#x3d; parseInt&#x28;idElement&#x29;&#x3b;&#xa;		if &#x28;&#x21;isNaN&#x28;idElementAsNum&#x29;&#x29; &#x7b;&#xa;			idElement &#x3d; pad.substring&#x28;0, pad.length - idElement.length&#x29; &#x2b; idElement&#xa;		&#x7d;&#xa;		newId &#x2b;&#x3d; idElement&#x3b;&#xa;	&#x7d;&#xa;	formatted_identifier &#x3d; newId&#x3b;&#xa;&#x7d;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>formatted_identifier</name>
-        <rename>eid_number</rename>
+        <rename>art_number</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -192,7 +192,7 @@
     </step>
 
   <step>
-    <name>Import EID Number</name>
+    <name>Import ART Number</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -203,7 +203,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		i.patient_id, i.location, i.identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.patient_identifier_id &#x3d; &#x28;&#xa;	select 		i1.patient_identifier_id&#xa;	from		omrs_patient_identifier i1&#xa;	where		i1.patient_id &#x3d; i.patient_id&#xa;	and			i1.location &#x3d; i.location&#xa;	and 		i1.type &#x3d; &#x27;HCC Number&#x27;&#xa;	order by 	i1.date_created desc&#xa;	limit 		1&#xa;&#x29;&#xa;and 		i.type &#x3d; &#x27;HCC Number&#x27;&#xa;order by 	i.patient_id, i.location</sql>
+    <sql>select		i.patient_id, i.location, i.identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.patient_identifier_id &#x3d; &#x28;&#xa;	select 		i1.patient_identifier_id&#xa;	from		omrs_patient_identifier i1&#xa;	where		i1.patient_id &#x3d; i.patient_id&#xa;	and			i1.location &#x3d; i.location&#xa;	and 		i1.type &#x3d; &#x27;ARV Number&#x27;&#xa;	order by 	i1.date_created desc&#xa;	limit 		1&#xa;&#x29;&#xa;order by 	i.patient_id, i.location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -229,7 +229,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#x2a;&#xa;	Get the last visit for each patient.  Intentionally do not filter by location&#xa;&#x2a;&#x2f;&#xa;select		v.patient_id, v.eid_visit_id as last_eid_visit_id&#xa;from 		mw_eid_visits v&#xa;where		v.eid_visit_id &#x3d; &#x28;&#xa;	select		v1.eid_visit_id&#xa;	from 		mw_eid_visits v1&#xa;	where		v1.patient_id &#x3d; v.patient_id&#xa;	order by 	v1.visit_date desc&#xa;	limit		1&#xa;&#x29;</sql>
+    <sql>&#x2f;&#x2a;&#x2a;&#xa;	Get the last visit for each patient.  Intentionally do not filter by location&#xa;&#x2a;&#x2f;&#xa;select		v.patient_id, v.art_visit_id as last_art_visit_id&#xa;from 		mw_art_visits v&#xa;where		v.art_visit_id &#x3d; &#x28;&#xa;	select		v1.art_visit_id&#xa;	from 		mw_art_visits v1&#xa;	where		v1.patient_id &#x3d; v.patient_id&#xa;	order by 	v1.visit_date desc&#xa;	limit		1&#xa;&#x29;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -255,7 +255,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV Program &#x2f; EID State data&#xa;&#x2a;&#x2f;&#xa;select      s.program_state_id,&#xa;			s.program_enrollment_id,&#xa;			s.patient_id,&#xa;			s.location,&#xa;			s.start_date as start_date,&#xa;			ifnull&#x28;s.end_date, p.completion_date&#x29; as end_date,&#xa;			ifnull&#x28;nextStateForEnrollment&#x28;s.program_enrollment_id, s.end_date&#x29;, p.outcome&#x29; as outcome&#xa;from 		omrs_program_state s&#xa;inner join	omrs_program_enrollment p on p.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;where 		s.program &#x3d; &#x27;HIV program&#x27; and s.workflow &#x3d; &#x27;Treatment status&#x27; and s.state &#x3d; &#x27;Exposed Child &#x28;Continue&#x29;&#x27;&#xa;order by 	patient_id, location</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV Program &#x2f; ART State data&#xa;&#x2a;&#x2f;&#xa;select      s.program_state_id,&#xa;			s.program_enrollment_id,&#xa;			s.patient_id,&#xa;			s.location,&#xa;			s.start_date as start_date,&#xa;			ifnull&#x28;s.end_date, p.completion_date&#x29; as end_date,&#xa;			ifnull&#x28;nextStateForEnrollment&#x28;s.program_enrollment_id, s.end_date&#x29;, p.outcome&#x29; as outcome&#xa;from 		omrs_program_state s&#xa;inner join	omrs_program_enrollment p on p.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;where 		s.program &#x3d; &#x27;HIV program&#x27; and s.workflow &#x3d; &#x27;Treatment status&#x27; and s.state &#x3d; &#x27;On antiretrovirals&#x27;&#xa;order by 	patient_id, location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -281,7 +281,7 @@
            <schema_name/>
            </partitioning>
 <join_type>LEFT OUTER</join_type>
-<step1>EID Number Merge</step1>
+<step1>ART Number Merge</step1>
 <step2>Import Last Visit</step2>
     <keys_1>
       <key>patient_id</key>
@@ -298,7 +298,7 @@
     </step>
 
   <step>
-    <name>Write EID Register Table</name>
+    <name>Write ART Register Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -310,7 +310,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>mw_eid_register</table>
+    <table>mw_art_register</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -351,12 +351,12 @@
           <stream_name>outcome</stream_name>
         </field>
         <field>
-          <column_name>eid_number</column_name>
-          <stream_name>eid_number</stream_name>
+          <column_name>art_number</column_name>
+          <stream_name>art_number</stream_name>
         </field>
         <field>
-          <column_name>last_eid_visit_id</column_name>
-          <stream_name>last_eid_visit_id</stream_name>
+          <column_name>last_art_visit_id</column_name>
+          <stream_name>last_art_visit_id</stream_name>
         </field>
     </fields>
      <cluster_schema/>

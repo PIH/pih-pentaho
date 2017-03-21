@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-eid-register</name>
+    <name>setup-functions</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,34 +67,13 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</created_date>
+  <created_date>2016&#x2f;12&#x2f;09 13&#x3a;48&#x3a;47.041</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</modified_date>
+  <modified_date>2016&#x2f;12&#x2f;09 13&#x3a;48&#x3a;47.041</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>mw_eid_register &#x28;&#xa;  enrollment_id                  INT NOT NULL,&#xa;  patient_id                     INT NOT NULL,&#xa;  location                       VARCHAR&#x28;255&#x29;,&#xa;  eid_number                     VARCHAR&#x28;50&#x29;,&#xa;  start_date                     DATE,&#xa;  end_date                       DATE,&#xa;  outcome                        VARCHAR&#x28;100&#x29;,&#xa;  last_eid_visit_id                  INT&#xa;&#x29;</note>
-      <xloc>880</xloc>
-      <yloc>80</yloc>
-      <width>267</width>
-      <heigth>180</heigth>
-      <fontname>Ubuntu</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>Warehouse</name>
@@ -124,45 +103,112 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Format EID Number</from><to>EID Number Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import EID Number</from><to>Format EID Number</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Program and State</from><to>EID Number Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>EID Number Merge</from><to>Last Visit Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Last Visit</from><to>Last Visit Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Last Visit Merge</from><to>Write EID Register Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Function File Names</from><to>Get Function Name</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Function Name</from><to>Execute Drop Function Statement</to><enabled>Y</enabled> </hop>
+  <hop> <from>Execute Drop Function Statement</from><to>Create Function</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>EID Number Merge</name>
-    <type>MergeJoin</type>
+    <name>Create Function</name>
+    <type>ExecSQLRow</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Import Program and State</step1>
-<step2>Format EID Number</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>location</key>
-    </keys_2>
+    <commit>1</commit>
+    <connection>Warehouse</connection>
+    <sql_field>filename</sql_field>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <sqlFromfile>Y</sqlFromfile>
+    <sendOneStatement>Y</sendOneStatement>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>176</yloc>
+      <xloc>208</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Format EID Number</name>
+    <name>Get Function File Names</name>
+    <type>GetFileNames</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <filter>
+      <filterfiletype>all_files</filterfiletype>
+    </filter>
+    <doNotFailIfNoFile>N</doNotFailIfNoFile>
+    <rownum>N</rownum>
+    <isaddresult>Y</isaddresult>
+    <filefield>N</filefield>
+    <rownum_field/>
+    <filename_Field/>
+    <wildcard_Field/>
+    <exclude_wildcard_Field/>
+    <dynamic_include_subfolders>N</dynamic_include_subfolders>
+    <limit>0</limit>
+    <file>
+      <name>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;functions</name>
+      <filemask>.&#x2a;&#x5c;.sql</filemask>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>208</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Execute Drop Function Statement</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>DROP FUNCTION if EXISTS &#x3f;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+       <argument><name>functionName</name></argument>
+    </arguments>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>208</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Function Name</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -176,193 +222,17 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var formatted_identifier &#x3d; identifier&#x3b;&#xa;if &#x28;formatted_identifier&#x29; &#x7b;&#xa;	var newId &#x3d; &#x27;&#x27;&#x3b;&#xa;	var pad &#x3d; &#x22;0000&#x22;&#xa;	var idarr &#x3d; formatted_identifier.split&#x28;&#x27; &#x27;&#x29;&#x3b;&#xa;	for &#x28;var i&#x3d;0&#x3b; i&#x3c;idarr.length&#x3b; i&#x2b;&#x2b;&#x29; &#x7b;&#xa;		var idElement &#x3d; idarr&#x5b;i&#x5d;&#xa;		if &#x28;newId &#x21;&#x3d; &#x27;&#x27;&#x29; &#x7b;&#xa;			newId &#x2b;&#x3d; &#x27;-&#x27;&#x3b;&#xa;		&#x7d;&#xa;		var idElementAsNum &#x3d; parseInt&#x28;idElement&#x29;&#x3b;&#xa;		if &#x28;&#x21;isNaN&#x28;idElementAsNum&#x29;&#x29; &#x7b;&#xa;			idElement &#x3d; pad.substring&#x28;0, pad.length - idElement.length&#x29; &#x2b; idElement&#xa;		&#x7d;&#xa;		newId &#x2b;&#x3d; idElement&#x3b;&#xa;	&#x7d;&#xa;	formatted_identifier &#x3d; newId&#x3b;&#xa;&#x7d;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>formatted_identifier</name>
-        <rename>eid_number</rename>
+        <jsScript_script>var functionName &#x3d; short_filename.substring&#x28;0, short_filename.length-4&#x29;&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>functionName</name>
+        <rename>functionName</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>320</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import EID Number</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		i.patient_id, i.location, i.identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.patient_identifier_id &#x3d; &#x28;&#xa;	select 		i1.patient_identifier_id&#xa;	from		omrs_patient_identifier i1&#xa;	where		i1.patient_id &#x3d; i.patient_id&#xa;	and			i1.location &#x3d; i.location&#xa;	and 		i1.type &#x3d; &#x27;HCC Number&#x27;&#xa;	order by 	i1.date_created desc&#xa;	limit 		1&#xa;&#x29;&#xa;and 		i.type &#x3d; &#x27;HCC Number&#x27;&#xa;order by 	i.patient_id, i.location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Last Visit</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#x2a;&#xa;	Get the last visit for each patient.  Intentionally do not filter by location&#xa;&#x2a;&#x2f;&#xa;select		v.patient_id, v.eid_visit_id as last_eid_visit_id&#xa;from 		mw_eid_visits v&#xa;where		v.eid_visit_id &#x3d; &#x28;&#xa;	select		v1.eid_visit_id&#xa;	from 		mw_eid_visits v1&#xa;	where		v1.patient_id &#x3d; v.patient_id&#xa;	order by 	v1.visit_date desc&#xa;	limit		1&#xa;&#x29;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Program and State</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV Program &#x2f; EID State data&#xa;&#x2a;&#x2f;&#xa;select      s.program_state_id,&#xa;			s.program_enrollment_id,&#xa;			s.patient_id,&#xa;			s.location,&#xa;			s.start_date as start_date,&#xa;			ifnull&#x28;s.end_date, p.completion_date&#x29; as end_date,&#xa;			ifnull&#x28;nextStateForEnrollment&#x28;s.program_enrollment_id, s.end_date&#x29;, p.outcome&#x29; as outcome&#xa;from 		omrs_program_state s&#xa;inner join	omrs_program_enrollment p on p.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;where 		s.program &#x3d; &#x27;HIV program&#x27; and s.workflow &#x3d; &#x27;Treatment status&#x27; and s.state &#x3d; &#x27;Exposed Child &#x28;Continue&#x29;&#x27;&#xa;order by 	patient_id, location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Last Visit Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>EID Number Merge</step1>
-<step2>Import Last Visit</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>256</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write EID Register Table</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <schema/>
-    <table>mw_eid_register</table>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>enrollment_id</column_name>
-          <stream_name>program_enrollment_id</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
-        </field>
-        <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
-        </field>
-        <field>
-          <column_name>outcome</column_name>
-          <stream_name>outcome</stream_name>
-        </field>
-        <field>
-          <column_name>eid_number</column_name>
-          <stream_name>eid_number</stream_name>
-        </field>
-        <field>
-          <column_name>last_eid_visit_id</column_name>
-          <stream_name>last_eid_visit_id</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>720</xloc>
-      <yloc>256</yloc>
+      <xloc>208</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

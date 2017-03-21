@@ -147,8 +147,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>288</xloc>
-      <yloc>144</yloc>
+      <xloc>368</xloc>
+      <yloc>224</yloc>
       </entry>
     <entry>
       <name>Create MW Indexes</name>
@@ -160,7 +160,7 @@
       <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;mw_index_create.sql</sqlfilename>
       <sendOneStatement>F</sendOneStatement>
       <connection>Warehouse</connection>
-      <parallel>Y</parallel>
+      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>128</xloc>
@@ -228,8 +228,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>592</xloc>
-      <yloc>64</yloc>
+      <xloc>672</xloc>
+      <yloc>144</yloc>
       </entry>
     <entry>
       <name>Load EID Register</name>
@@ -261,8 +261,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>736</xloc>
-      <yloc>64</yloc>
+      <xloc>816</xloc>
+      <yloc>144</yloc>
       </entry>
     <entry>
       <name>Load EID Trace</name>
@@ -294,8 +294,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>880</xloc>
-      <yloc>64</yloc>
+      <xloc>960</xloc>
+      <yloc>144</yloc>
       </entry>
     <entry>
       <name>Load ART Visits</name>
@@ -327,8 +327,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>912</xloc>
-      <yloc>192</yloc>
+      <xloc>672</xloc>
+      <yloc>240</yloc>
       </entry>
     <entry>
       <name>Load Lab Results</name>
@@ -355,14 +355,56 @@
       <pass_export>N</pass_export>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
       </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
+      <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>288</xloc>
-      <yloc>256</yloc>
+      <xloc>368</xloc>
+      <yloc>336</yloc>
+      </entry>
+    <entry>
+      <name>Load ART Register</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;malawi&#x2f;import-into-mw-art-register.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>816</xloc>
+      <yloc>240</yloc>
       </entry>
   </entries>
   <hops>
+    <hop>
+      <from>Create MW Schema</from>
+      <to>Create MW Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
     <hop>
       <from>START</from>
       <to>Load Configuration</to>
@@ -391,15 +433,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create MW Schema</from>
-      <to>Create MW Indexes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load EID Visits</from>
       <to>Load EID Register</to>
       <from_nr>0</from_nr>
@@ -418,15 +451,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create MW Indexes</from>
-      <to>Load Patients</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Patients</from>
       <to>Load Lab Results</to>
       <from_nr>0</from_nr>
@@ -438,6 +462,33 @@
     <hop>
       <from>Load Lab Results</from>
       <to>Load EID Visits</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Lab Results</from>
+      <to>Load ART Visits</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load ART Visits</from>
+      <to>Load ART Register</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create MW Indexes</from>
+      <to>Load Patients</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
