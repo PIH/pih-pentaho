@@ -9,6 +9,9 @@ drop table if exists mw_eid_visits;
 drop table if exists mw_eid_register;
 drop table if exists mw_eid_trace;
 
+drop table if exists mw_pre_art_visits;
+drop table if exists mw_pre_art_register;
+
 drop table if exists mw_art_visits;
 drop table if exists mw_art_register;
 drop table if exists mw_art_trace;
