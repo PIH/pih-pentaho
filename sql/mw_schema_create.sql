@@ -50,19 +50,6 @@ CREATE TABLE mw_eid_register (
   last_eid_visit_id                INT
 );
 
-CREATE TABLE mw_eid_trace (
-  patient_id                              INT NOT NULL,
-  location                                VARCHAR(255),
-  eid_number                              VARCHAR(50),
-  last_visit_date                         DATE,
-  next_appointment_date                   DATE,
-  birthdate                               DATE,
-  breastfeeding_stopped_over_6_weeks_date DATE,
-  last_pcr_result                         VARCHAR(100),
-  last_pcr_result_date                    DATE,
-  second_to_last_pcr_result               VARCHAR(100)
-);
-
 CREATE TABLE mw_pre_art_visits (
   pre_art_visit_id          INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
   patient_id            INT NOT NULL,
@@ -102,18 +89,6 @@ CREATE TABLE mw_art_register (
   last_viral_load_result_id INT
 );
 
-CREATE TABLE mw_art_trace (
-  patient_id                       INT NOT NULL,
-  location                         VARCHAR(255),
-  art_number                       VARCHAR(50),
-  last_visit_date                  DATE,
-  next_appointment_date            DATE,
-  last_viral_load_result_numeric   DOUBLE,
-  last_viral_load_result_exception VARCHAR(100),
-  last_viral_load_result_date      DATE,
-  last_viral_load_test_date        DATE
-);
-
 create table mw_ncd_diagnoses (
   patient_id     INT          NOT NULL,
   diagnosis      VARCHAR(100) NOT NULL,
@@ -121,21 +96,35 @@ create table mw_ncd_diagnoses (
 );
 
 create table mw_ncd_visits (
-  patient_id                          INT NOT NULL,
-  encounter_date                      DATE NOT NULL,
-  encounter_location                  INT,
-  systolic_bp                         DOUBLE,
-  diastolic_bp                        DOUBLE,
-  on_insulin                          BOOLEAN,
-  asthma_severity                     VARCHAR(100),
-  num_seizures_per_month              DOUBLE
+  ncd_visit_id           INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  patient_id             INT NOT NULL,
+  visit_date             DATE,
+  location               VARCHAR(255),
+  visit_types            VARCHAR(255),
+  cc_initial             BOOLEAN,
+  cc_followup            BOOLEAN,
+  diabetes_htn_initial   BOOLEAN,
+  diabetes_htn_followup  BOOLEAN,
+  asthma_initial         BOOLEAN,
+  asthma_followup        BOOLEAN,
+  epilepsy_initial       BOOLEAN,
+  epilepsy_followup      BOOLEAN,
+  mental_health_initial  BOOLEAN,
+  mental_health_followup BOOLEAN,
+  next_appointment_date  DATE,
+  systolic_bp            DOUBLE,
+  diastolic_bp           DOUBLE,
+  on_insulin             BOOLEAN,
+  asthma_classification  VARCHAR(100),
+  num_seizures           DOUBLE
 );
 
 create table mw_ncd_register (
-  patient_id                  INT NOT NULL,
-  location                    INT NOT NULL,
-  ncd_number                  VARCHAR(100),
-  start_date                DATE,
-  end_date                  DATE,
-  outcome                   VARCHAR(100)
+  enrollment_id INT NOT NULL,
+  patient_id    INT NOT NULL,
+  location      VARCHAR(255),
+  ncd_number    VARCHAR(50),
+  start_date    DATE,
+  end_date      DATE,
+  outcome       VARCHAR(100)
 );
