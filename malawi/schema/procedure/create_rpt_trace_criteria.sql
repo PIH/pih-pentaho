@@ -162,6 +162,11 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       WHERE   days_late_appt IS NOT NULL
       AND     days_late_appt >= (_minWks*7)
       AND     (_maxWks IS NULL OR days_late_appt < (_maxWks*7))
+      AND     (
+                _minWks = 2
+                OR
+                ( _minWks = 6 AND patient_id in ( select DISTINCT patient_id from rpt_priority_patients ) )
+              )
     ;
 
   END IF;
