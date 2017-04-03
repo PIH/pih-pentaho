@@ -82,7 +82,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
 
     -- REPEAT_VIRAL_LOAD
     --  Active HIV
-    --  Has viral load > 1000, it was entered [84, 168) days ago, patient hasn't visited since, and patient has appointment 2-4 weeks in the future
+    --  Has viral load > 1000, it was entered [84, 168) days ago, patient _has_ visited since, and patient has appointment 2-4 weeks in the future
     INSERT INTO   rpt_trace_criteria(patient_id, criteria)
       SELECT      r.patient_id, 'REPEAT_VIRAL_LOAD'
       FROM        rpt_active_art r
@@ -91,7 +91,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       AND         t.result_numeric > 1000
       AND         datediff(_endDate, t.date_result_entered) >= 84
       AND         datediff(_endDate, t.date_result_entered) < 168
-      AND         t.date_result_entered > r.last_visit_date
+      AND         r.last_visit_date > t.date_result_entered
       AND         r.days_to_next_appt >= 14
       AND         r.days_to_next_appt < 28
     ;
@@ -108,7 +108,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       INNER JOIN  mw_patient p on r.patient_id = p.patient_id
       INNER JOIN  mw_lab_tests t on r.patient_id = t.patient_id
       WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
-      AND         date_add(p.birthdate, INTERVAL 12 MONTH) >= _endDate
+      AND         date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate
       AND         t.date_result_entered < date_add(p.birthdate, INTERVAL 12 MONTH)
       AND         r.days_to_next_appt >= 14
       AND         r.days_to_next_appt < 28
@@ -127,7 +127,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       INNER JOIN  mw_patient p on r.patient_id = p.patient_id
       INNER JOIN  mw_lab_tests t on r.patient_id = t.patient_id
       WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
-      AND         date_add(p.birthdate, INTERVAL 12 MONTH) >= _endDate
+      AND         date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate
       AND         t.date_result_entered < first_date_no_breastfeeding(r.patient_id, _endDate)
       AND         r.days_to_next_appt >= 14
       AND         r.days_to_next_appt < 28
