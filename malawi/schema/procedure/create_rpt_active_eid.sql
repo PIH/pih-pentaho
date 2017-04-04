@@ -24,7 +24,7 @@ CREATE PROCEDURE create_rpt_active_eid(IN _endDate DATE, IN _location VARCHAR(25
   INNER JOIN (
                SELECT    patient_id, max(visit_date) as last_visit
                FROM      mw_eid_visits
-               WHERE     visit_date <= _endDate AND location = _location
+               WHERE     visit_date <= _endDate
                GROUP BY  patient_id
              ) v on t.patient_id = v.patient_id
   SET
@@ -33,7 +33,7 @@ CREATE PROCEDURE create_rpt_active_eid(IN _endDate DATE, IN _location VARCHAR(25
   ;
 
   UPDATE      rpt_active_eid t
-  INNER JOIN  mw_eid_visits v ON t.patient_id = v.patient_id and t.last_visit_date = v.visit_date and v.location = _location
+  INNER JOIN  mw_eid_visits v ON t.patient_id = v.patient_id and t.last_visit_date = v.visit_date
   SET         t.last_appt_date = v.next_appointment_date;
 
   UPDATE      rpt_active_eid
