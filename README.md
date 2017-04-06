@@ -77,14 +77,6 @@ Usage:
 
 Possible organizational approach (from https://github.com/nagkumar/kettle-franchise):
 
-
-* Organize jobs by:
-  * pre-processing (PRE): (load reference data, disable end-user access, etc)
-  * staging (STG):  (setting up of the staging area)
-  * operational (ODS):  (load operational data store)
-  * data warehouse (DWH):  (load multi-dimensional data warehouse)
-  * post-processing (PST):  (re-enable end-user access, run statistics, clean up, etc)
-
 * Organize configuration/jobs by:
   * site
   * environment (dev, test, prod)
