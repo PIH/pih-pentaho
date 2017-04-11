@@ -50,11 +50,11 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>80</xloc>
-      <yloc>96</yloc>
+      <xloc>160</xloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
-      <name>Load configuration</name>
+      <name>Load From User Home</name>
       <description/>
       <type>SET_VARIABLES</type>
       <replacevars>Y</replacevars>
@@ -65,8 +65,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>432</xloc>
-      <yloc>96</yloc>
+      <xloc>608</xloc>
+      <yloc>304</yloc>
       </entry>
     <entry>
       <name>Load country configuration</name>
@@ -80,8 +80,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
+      <xloc>864</xloc>
+      <yloc>304</yloc>
       </entry>
     <entry>
       <name>Ensure key prefix is defined</name>
@@ -102,8 +102,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>896</xloc>
-      <yloc>96</yloc>
+      <xloc>1120</xloc>
+      <yloc>304</yloc>
       </entry>
     <entry>
       <name>Load defaults</name>
@@ -117,13 +117,72 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>240</xloc>
-      <yloc>96</yloc>
+      <xloc>160</xloc>
+      <yloc>176</yloc>
+      </entry>
+    <entry>
+      <name>Kettle Home Is Defined</name>
+      <description/>
+      <type>SIMPLE_EVAL</type>
+      <valuetype>variable</valuetype>
+      <fieldname/>
+      <variablename>&#x24;&#x7b;KETTLE_HOME&#x7d;</variablename>
+      <fieldtype>string</fieldtype>
+      <mask/>
+      <comparevalue/>
+      <minvalue/>
+      <maxvalue/>
+      <successcondition>different</successcondition>
+      <successnumbercondition>equal</successnumbercondition>
+      <successbooleancondition>false</successbooleancondition>
+      <successwhenvarset>N</successwhenvarset>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>352</xloc>
+      <yloc>176</yloc>
+      </entry>
+    <entry>
+      <name>Load From Kettle Home</name>
+      <description/>
+      <type>SET_VARIABLES</type>
+      <replacevars>Y</replacevars>
+      <filename>&#x24;&#x7b;KETTLE_HOME&#x7d;&#x2f;.kettle&#x2f;pih-kettle.properties</filename>
+      <file_variable_type>JVM</file_variable_type>
+      <fields>
+      </fields>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>864</xloc>
+      <yloc>176</yloc>
+      </entry>
+    <entry>
+      <name>Properties Defined In Kettle Home</name>
+      <description/>
+      <type>FILE_EXISTS</type>
+      <filename>&#x24;&#x7b;KETTLE_HOME&#x7d;&#x2f;.kettle&#x2f;pih-kettle.properties</filename>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>608</xloc>
+      <yloc>176</yloc>
+      </entry>
+    <entry>
+      <name>Properties Defined In User Home</name>
+      <description/>
+      <type>FILE_EXISTS</type>
+      <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.kettle&#x2f;pih-kettle.properties</filename>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>352</xloc>
+      <yloc>304</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
-      <from>Load configuration</from>
+      <from>Load From User Home</from>
       <to>Load country configuration</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -151,7 +210,61 @@
     </hop>
     <hop>
       <from>Load defaults</from>
-      <to>Load configuration</to>
+      <to>Kettle Home Is Defined</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Kettle Home Is Defined</from>
+      <to>Properties Defined In Kettle Home</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Properties Defined In Kettle Home</from>
+      <to>Load From Kettle Home</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Kettle Home Is Defined</from>
+      <to>Properties Defined In User Home</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Properties Defined In Kettle Home</from>
+      <to>Properties Defined In User Home</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Properties Defined In User Home</from>
+      <to>Load From User Home</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load From Kettle Home</from>
+      <to>Load country configuration</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -160,6 +273,27 @@
     </hop>
   </hops>
   <notepads>
+    <notepad>
+      <note>1. Load default properties&#xa;2. Load properties if defined in KETTLE_HOME&#x2f;.kettle&#x2f;pih-kettle.properties&#xa;3. If no properties in step 2, load from user.home&#x2f;.kettle&#x2f;pih-kettle.properties&#xa;4. Load any country specific properties&#xa;5. Validate expected properties</note>
+      <xloc>320</xloc>
+      <yloc>432</yloc>
+      <width>538</width>
+      <heigth>95</heigth>
+      <fontname>Ubuntu</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
 
 </job>
