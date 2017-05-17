@@ -103,12 +103,12 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>VHW Merge</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import VHW</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Patients</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>VHW Merge</from><to>Write Malawi Patient Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import Diagnoses</name>
+    <name>Import Patients</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -119,7 +119,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
+    <sql>SELECT&#xa;	patient_id, &#xa;	identifier, &#xa;	first_name, &#xa;	last_name, &#xa;	gender, &#xa;	birthdate, &#xa;	birthdate_estimated,&#xa;	phone_number, &#xa;	state_province as district, &#xa;	county_district as traditional_authority, &#xa;	city_village as village, &#xa;	dead, &#xa;	death_date&#xa;FROM&#xa;	omrs_patient&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -134,7 +134,7 @@
     </step>
 
   <step>
-    <name>Import Diagnosis Statuses</name>
+    <name>Import VHW</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -145,7 +145,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnois_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_patient_id&#x3b;</sql>
+    <sql>select      p.patient_id, r.related_person as vhw&#xa;from        omrs_relationship r&#xa;inner join  omrs_patient p on p.patient_id &#x3d; r.patient_id&#xa;where       r.relationship_id &#x3d; &#x28;&#xa;    select    r.relationship_id&#xa;    from      omrs_relationship r&#xa;    where     r.patient_id &#x3d; p.patient_id&#xa;    and       r.related_person_role &#x3d; &#x27;Village Health Worker&#x27;&#xa;    order by  if&#x28;r.end_date is null, 1, 0&#x29; desc, if&#x28;r.start_date is null, 0, 1&#x29; desc, r.date_created desc&#xa;    limit     1&#xa;&#x29;&#xa;order by p.patient_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -170,14 +170,14 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Patients</step1>
+<step2>Import VHW</step2>
     <keys_1>
       <key>patient_id</key>
     </keys_1>
     <keys_2>
-      <key>diagnosis_status_patient_id</key>
+      <key>patient_id</key>
     </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -188,7 +188,7 @@
     </step>
 
   <step>
-    <name>Write rw_onc_diagnosis Table</name>
+    <name>Write Malawi Patient Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -200,7 +200,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_onc_diagnosis</table>
+    <table>mw_patient</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>

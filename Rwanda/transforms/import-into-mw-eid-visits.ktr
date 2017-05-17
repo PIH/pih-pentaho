@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-patient</name>
+    <name>import-into-mw-eid-visits</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -74,6 +74,27 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>mw_eid_visits &#x28;&#xa;  patient_id            INT NOT NULL,&#xa;  visit_date            DATE,&#xa;  location              VARCHAR&#x28;255&#x29;,&#xa;  breastfeeding_status  VARCHAR&#x28;100&#x29;,&#xa;  next_appointment_date DATE&#xa;&#x29;</note>
+      <xloc>816</xloc>
+      <yloc>144</yloc>
+      <width>274</width>
+      <heigth>129</heigth>
+      <fontname>Ubuntu</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>Warehouse</name>
@@ -103,12 +124,130 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>VHW Merge</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Encounters</from><to>Breastfeeding Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Breastfeeding</from><to>Breastfeeding Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Appointment Date</from><to>Appointment Date Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Breastfeeding Merge</from><to>Appointment Date Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Appointment Date Merge</from><to>Write EID Visit Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import Diagnoses</name>
+    <name>Appointment Date Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Breastfeeding Merge</step1>
+<step2>Import Appointment Date</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>384</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Breastfeeding Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Encounters</step1>
+<step2>Import Breastfeeding</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>384</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Appointment Date</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_date as next_appointment_date&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Appointment date&#x27;&#xa;and 		e.encounter_type in &#x28;&#x27;EXPOSED_CHILD_INITIAL&#x27;, &#x27;EXPOSED_CHILD_FOLLOWUP&#x27;&#x29;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Breastfeeding</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as breastfeeding_status&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Breast feeding&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Encounters</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -119,7 +258,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all EID encounter dates&#xa;&#x2a;&#x2f;&#xa;select      e.patient_id,&#xa;			e.encounter_date as visit_date,&#xa;			e.location&#xa;from        omrs_encounter e&#xa;where 		e.encounter_type in &#x28;&#x27;EXPOSED_CHILD_INITIAL&#x27;, &#x27;EXPOSED_CHILD_FOLLOWUP&#x27;&#x29;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -127,68 +266,14 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Diagnosis Statuses</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnois_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_patient_id&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>VHW Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>diagnosis_status_patient_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write rw_onc_diagnosis Table</name>
+    <name>Write EID Visit Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -200,7 +285,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_onc_diagnosis</table>
+    <table>mw_eid_visits</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -221,62 +306,26 @@
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>identifier</column_name>
-          <stream_name>identifier</stream_name>
+          <column_name>visit_date</column_name>
+          <stream_name>visit_date</stream_name>
         </field>
         <field>
-          <column_name>first_name</column_name>
-          <stream_name>first_name</stream_name>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
         </field>
         <field>
-          <column_name>last_name</column_name>
-          <stream_name>last_name</stream_name>
+          <column_name>breastfeeding_status</column_name>
+          <stream_name>breastfeeding_status</stream_name>
         </field>
         <field>
-          <column_name>gender</column_name>
-          <stream_name>gender</stream_name>
-        </field>
-        <field>
-          <column_name>birthdate</column_name>
-          <stream_name>birthdate</stream_name>
-        </field>
-        <field>
-          <column_name>birthdate_estimated</column_name>
-          <stream_name>birthdate_estimated</stream_name>
-        </field>
-        <field>
-          <column_name>phone_number</column_name>
-          <stream_name>phone_number</stream_name>
-        </field>
-        <field>
-          <column_name>district</column_name>
-          <stream_name>district</stream_name>
-        </field>
-        <field>
-          <column_name>traditional_authority</column_name>
-          <stream_name>traditional_authority</stream_name>
-        </field>
-        <field>
-          <column_name>village</column_name>
-          <stream_name>village</stream_name>
-        </field>
-        <field>
-          <column_name>dead</column_name>
-          <stream_name>dead</stream_name>
-        </field>
-        <field>
-          <column_name>death_date</column_name>
-          <stream_name>death_date</stream_name>
-        </field>
-        <field>
-          <column_name>vhw</column_name>
-          <stream_name>vhw</stream_name>
+          <column_name>next_appointment_date</column_name>
+          <stream_name>next_appointment_date</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>208</yloc>
+      <xloc>624</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

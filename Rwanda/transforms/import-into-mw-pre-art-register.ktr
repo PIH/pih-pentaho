@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-patient</name>
+    <name>import-into-mw-art-register</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -74,6 +74,27 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>mw_pre_art_register &#x28;&#xa;  enrollment_id             INT NOT NULL,&#xa;  patient_id                INT NOT NULL,&#xa;  location                  VARCHAR&#x28;255&#x29;,&#xa;  pre_art_number                VARCHAR&#x28;50&#x29;,&#xa;  start_date                DATE,&#xa;  end_date                  DATE,&#xa;  outcome                   VARCHAR&#x28;100&#x29;&#xa;&#x29;</note>
+      <xloc>880</xloc>
+      <yloc>80</yloc>
+      <width>272</width>
+      <heigth>163</heigth>
+      <fontname>Ubuntu</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>Warehouse</name>
@@ -103,12 +124,99 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>VHW Merge</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Format Pre-ART Number</from><to>Pre-ART Number Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Pre-ART Number</from><to>Format Pre-ART Number</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Program and State</from><to>Pre-ART Number Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Pre-ART Number Merge</from><to>Write Pre-ART Register Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import Diagnoses</name>
+    <name>Format Pre-ART Number</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var formatted_identifier &#x3d; identifier&#x3b;&#xa;if &#x28;formatted_identifier&#x29; &#x7b;&#xa;	var newId &#x3d; &#x27;&#x27;&#x3b;&#xa;	var pad &#x3d; &#x22;0000&#x22;&#xa;	var idarr &#x3d; formatted_identifier.split&#x28;&#x27; &#x27;&#x29;&#x3b;&#xa;	for &#x28;var i&#x3d;0&#x3b; i&#x3c;idarr.length&#x3b; i&#x2b;&#x2b;&#x29; &#x7b;&#xa;		var idElement &#x3d; idarr&#x5b;i&#x5d;&#xa;		if &#x28;newId &#x21;&#x3d; &#x27;&#x27;&#x29; &#x7b;&#xa;			newId &#x2b;&#x3d; &#x27;-&#x27;&#x3b;&#xa;		&#x7d;&#xa;		var idElementAsNum &#x3d; parseInt&#x28;idElement&#x29;&#x3b;&#xa;		if &#x28;&#x21;isNaN&#x28;idElementAsNum&#x29;&#x29; &#x7b;&#xa;			idElement &#x3d; pad.substring&#x28;0, pad.length - idElement.length&#x29; &#x2b; idElement&#xa;		&#x7d;&#xa;		newId &#x2b;&#x3d; idElement&#x3b;&#xa;	&#x7d;&#xa;	formatted_identifier &#x3d; newId&#x3b;&#xa;&#x7d;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>formatted_identifier</name>
+        <rename>pre_art_number</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>336</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Pre-ART Number Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Program and State</step1>
+<step2>Format Pre-ART Number</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>528</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Pre-ART Number</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		i.patient_id, i.location, i.identifier&#xa;from		omrs_patient_identifier i&#xa;where		i.patient_identifier_id &#x3d; &#x28;&#xa;	select 		i1.patient_identifier_id&#xa;	from		omrs_patient_identifier i1&#xa;	where		i1.patient_id &#x3d; i.patient_id&#xa;	and			i1.location &#x3d; i.location&#xa;	and 		i1.type &#x3d; &#x27;HCC Number&#x27;&#xa;	order by 	i1.date_created desc&#xa;	limit 		1&#xa;&#x29;&#xa;order by 	i.patient_id, i.location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>144</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Program and State</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -119,7 +227,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all HIV Program &#x2f; Pre-ART State data&#xa;&#x2a;&#x2f;&#xa;select      s.program_state_id,&#xa;			s.program_enrollment_id,&#xa;			s.patient_id,&#xa;			s.location,&#xa;			s.start_date as start_date,&#xa;			ifnull&#x28;s.end_date, p.completion_date&#x29; as end_date,&#xa;			ifnull&#x28;nextStateForEnrollment&#x28;s.program_enrollment_id, s.end_date&#x29;, p.outcome&#x29; as outcome&#xa;from 		omrs_program_state s&#xa;inner join	omrs_program_enrollment p on p.program_enrollment_id &#x3d; s.program_enrollment_id&#xa;where 		s.program &#x3d; &#x27;HIV program&#x27; and s.workflow &#x3d; &#x27;Treatment status&#x27; and s.state &#x3d; &#x27;Pre-ART &#x28;Continue&#x29;&#x27;&#xa;order by 	patient_id, location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -127,68 +235,14 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
+      <xloc>144</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Diagnosis Statuses</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnois_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_patient_id&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>VHW Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>diagnosis_status_patient_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write rw_onc_diagnosis Table</name>
+    <name>Write Pre-ART Register Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -200,7 +254,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_onc_diagnosis</table>
+    <table>mw_pre_art_register</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -217,66 +271,38 @@
     <return_field/>
     <fields>
         <field>
+          <column_name>enrollment_id</column_name>
+          <stream_name>program_enrollment_id</stream_name>
+        </field>
+        <field>
           <column_name>patient_id</column_name>
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>identifier</column_name>
-          <stream_name>identifier</stream_name>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
         </field>
         <field>
-          <column_name>first_name</column_name>
-          <stream_name>first_name</stream_name>
+          <column_name>start_date</column_name>
+          <stream_name>start_date</stream_name>
         </field>
         <field>
-          <column_name>last_name</column_name>
-          <stream_name>last_name</stream_name>
+          <column_name>end_date</column_name>
+          <stream_name>end_date</stream_name>
         </field>
         <field>
-          <column_name>gender</column_name>
-          <stream_name>gender</stream_name>
+          <column_name>outcome</column_name>
+          <stream_name>outcome</stream_name>
         </field>
         <field>
-          <column_name>birthdate</column_name>
-          <stream_name>birthdate</stream_name>
-        </field>
-        <field>
-          <column_name>birthdate_estimated</column_name>
-          <stream_name>birthdate_estimated</stream_name>
-        </field>
-        <field>
-          <column_name>phone_number</column_name>
-          <stream_name>phone_number</stream_name>
-        </field>
-        <field>
-          <column_name>district</column_name>
-          <stream_name>district</stream_name>
-        </field>
-        <field>
-          <column_name>traditional_authority</column_name>
-          <stream_name>traditional_authority</stream_name>
-        </field>
-        <field>
-          <column_name>village</column_name>
-          <stream_name>village</stream_name>
-        </field>
-        <field>
-          <column_name>dead</column_name>
-          <stream_name>dead</stream_name>
-        </field>
-        <field>
-          <column_name>death_date</column_name>
-          <stream_name>death_date</stream_name>
-        </field>
-        <field>
-          <column_name>vhw</column_name>
-          <stream_name>vhw</stream_name>
+          <column_name>pre_art_number</column_name>
+          <stream_name>pre_art_number</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>208</yloc>
+      <xloc>736</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

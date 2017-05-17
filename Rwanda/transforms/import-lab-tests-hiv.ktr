@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-patient</name>
+    <name>import-hiv-tests</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -74,6 +74,27 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>mw_lab_tests &#x28;&#xa;  lab_test_id          INT NOT NULL&#xa;  patient_id           INT NOT NULL,&#xa;  date_collected       DATE,&#xa;  test_type            VARCHAR&#x28;100&#x29;,&#xa;  date_result_received DATE,&#xa;  date_result_entered  DATE,&#xa;  result_coded         VARCHAR&#x28;100&#x29;,&#xa;  result_numeric       DOUBLE,&#xa;  result_exception     VARCHAR&#x28;100&#x29;&#xa;&#x29;</note>
+      <xloc>1024</xloc>
+      <yloc>80</yloc>
+      <width>247</width>
+      <heigth>197</heigth>
+      <fontname>Ubuntu</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>Warehouse</name>
@@ -103,12 +124,105 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>VHW Merge</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import HIV Results</from><to>Result and Collection Date Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Collection Dates</from><to>Result and Collection Date Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Result and Collection Date Merge</from><to>Merge IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Test Type</from><to>Merge Test Type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Merge IDs</from><to>Sort rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Sort rows</from><to>Merge Test Type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Merge Test Type</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Date Result Received</from><to>Merge Date Received</to><enabled>Y</enabled> </hop>
+  <hop> <from>Merge Date Received</from><to>Default Test Type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Default Test Type</from><to>Write to Lab Test Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import Diagnoses</name>
+    <name>Default Test Type</name>
+    <type>IfNull</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <replaceAllByValue/>
+      <replaceAllMask/>
+      <selectFields>Y</selectFields>
+      <selectValuesType>N</selectValuesType>
+      <setEmptyStringAll>N</setEmptyStringAll>
+    <valuetypes>
+      </valuetypes>
+    <fields>
+      <field>
+        <name>test_type</name>
+        <value>HIV test</value>
+        <mask/>
+        <set_empty_string>N</set_empty_string>
+        </field>
+      </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1072</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Collection Dates</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		o.patient_id, o.obs_group_id, o.value_date as date_collected&#xa;from		omrs_obs o&#xa;inner join	omrs_obs_group g on o.obs_group_id &#x3d; g.obs_group_id&#xa;where		o.concept &#x3d; &#x27;Date of blood sample&#x27;&#xa;and 		g.concept &#x3d; &#x27;Child HIV serology construct&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Date Result Received</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		o.patient_id, o.obs_group_id, o.value_date as date_result_received&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;Date of returned result&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import HIV Results</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -119,7 +233,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract all HIV Test Results&#xa;&#x2a;&#x2f;&#xa;select      o.patient_id,&#xa;			o.value_coded as result,&#xa;			o.date_created as date_result_entered,&#xa;			o.obs_group_id&#xa;from        omrs_obs o&#xa;where 		o.concept &#x3d; &#x27;Result of HIV test&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -127,14 +241,14 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Diagnosis Statuses</name>
+    <name>Import Test Type</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -145,7 +259,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnois_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_patient_id&#x3b;</sql>
+    <sql>select		o.patient_id, o.obs_group_id, o.value_coded as test_type&#xa;from		omrs_obs o&#xa;where		o.concept &#x3d; &#x27;HIV test type&#x27;&#xa;order by 	patient_id, obs_group_id&#xa;&#xa;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -153,15 +267,141 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>208</yloc>
+      <xloc>176</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>VHW Merge</name>
+    <name>Merge Date Received</name>
     <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Merge Test Type</step1>
+<step2>Import Date Result Received</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>848</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Merge IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>if &#x28;&#x21;patient_id&#x29; &#x7b;&#xa;	patient_id &#x3d; patient_id_1&#x3b;&#xa;&#x7d;&#xa;if &#x28;&#x21;obs_group_id&#x29; &#x7b;&#xa;	obs_group_id &#x3d; obs_group_id_1&#xa;&#x7d;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>patient_id</name>
+        <rename>patient_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>obs_group_id</name>
+        <rename>obs_group_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>672</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Merge Test Type</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Sort rows</step1>
+<step2>Import Test Type</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>848</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Result and Collection Date Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>FULL OUTER</join_type>
+<step1>Import HIV Results</step1>
+<step2>Import Collection Dates</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>464</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Sort rows</name>
+    <type>SortRows</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -170,25 +410,37 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>diagnosis_status_patient_id</key>
-    </keys_2>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <sort_size>1000000</sort_size>
+      <free_memory/>
+      <compress>N</compress>
+      <compress_variable/>
+      <unique_rows>N</unique_rows>
+    <fields>
+      <field>
+        <name>patient_id</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <presorted>N</presorted>
+      </field>
+      <field>
+        <name>obs_group_id</name>
+        <ascending>Y</ascending>
+        <case_sensitive>N</case_sensitive>
+        <presorted>N</presorted>
+      </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>208</yloc>
+      <xloc>848</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write rw_onc_diagnosis Table</name>
+    <name>Write to Lab Test Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -200,7 +452,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_onc_diagnosis</table>
+    <table>mw_lab_tests</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -221,62 +473,30 @@
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>identifier</column_name>
-          <stream_name>identifier</stream_name>
+          <column_name>result_coded</column_name>
+          <stream_name>result</stream_name>
         </field>
         <field>
-          <column_name>first_name</column_name>
-          <stream_name>first_name</stream_name>
+          <column_name>date_result_entered</column_name>
+          <stream_name>date_result_entered</stream_name>
         </field>
         <field>
-          <column_name>last_name</column_name>
-          <stream_name>last_name</stream_name>
+          <column_name>date_collected</column_name>
+          <stream_name>date_collected</stream_name>
         </field>
         <field>
-          <column_name>gender</column_name>
-          <stream_name>gender</stream_name>
+          <column_name>test_type</column_name>
+          <stream_name>test_type</stream_name>
         </field>
         <field>
-          <column_name>birthdate</column_name>
-          <stream_name>birthdate</stream_name>
-        </field>
-        <field>
-          <column_name>birthdate_estimated</column_name>
-          <stream_name>birthdate_estimated</stream_name>
-        </field>
-        <field>
-          <column_name>phone_number</column_name>
-          <stream_name>phone_number</stream_name>
-        </field>
-        <field>
-          <column_name>district</column_name>
-          <stream_name>district</stream_name>
-        </field>
-        <field>
-          <column_name>traditional_authority</column_name>
-          <stream_name>traditional_authority</stream_name>
-        </field>
-        <field>
-          <column_name>village</column_name>
-          <stream_name>village</stream_name>
-        </field>
-        <field>
-          <column_name>dead</column_name>
-          <stream_name>dead</stream_name>
-        </field>
-        <field>
-          <column_name>death_date</column_name>
-          <stream_name>death_date</stream_name>
-        </field>
-        <field>
-          <column_name>vhw</column_name>
-          <stream_name>vhw</stream_name>
+          <column_name>date_result_received</column_name>
+          <stream_name>date_result_received</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>208</yloc>
+      <xloc>1264</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

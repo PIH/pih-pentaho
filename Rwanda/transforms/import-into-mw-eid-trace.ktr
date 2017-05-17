@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-patient</name>
+    <name>import-into-mw-eid-trace</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -74,6 +74,27 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>mw_eid_trace &#x28;&#xa;  patient_id                              INT NOT NULL,&#xa;  location                                VARCHAR&#x28;255&#x29;,&#xa;  eid_number                              VARCHAR&#x28;50&#x29;,&#xa;  last_visit_date                         DATE,&#xa;  next_appointment_date                   DATE,&#xa;  birthdate                               DATE,&#xa;  breastfeeding_stopped_over_6_weeks_date DATE,&#xa;  last_pcr_result                         VARCHAR&#x28;100&#x29;,&#xa;  last_pcr_result_date                    DATE,&#xa;  second_to_last_pcr_result               VARCHAR&#x28;100&#x29;&#xa;&#x29;</note>
+      <xloc>912</xloc>
+      <yloc>64</yloc>
+      <width>362</width>
+      <heigth>214</heigth>
+      <fontname>Ubuntu</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>Warehouse</name>
@@ -103,12 +124,16 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>VHW Merge</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Active EID Patients</from><to>Breastfeeding Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Breastfeeding Date</from><to>Breastfeeding Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Breastfeeding Merge</from><to>Last PCR Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Last PCR</from><to>Last PCR Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Last PCR Merge</from><to>Second to Last PCR Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Second to Last PCR</from><to>Second to Last PCR Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Second to Last PCR Merge</from><to>Write EID Trace Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Import Diagnoses</name>
+    <name>Breastfeeding Date</name>
     <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
@@ -119,7 +144,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract date on which patient first stopped breastfeeding over 6 weeks ago&#xa;	For all patients in the register, first recorded breastfeeding status obs date, if the value is stopped over 6 weeks ago,&#xa;	and after any other different status is recorded.&#xa;	We intentionally do not restrict this by location, as we want Observations to span all locations&#xa;&#x2a;&#x2f;&#xa;SELECT		v.patient_id,&#xa;			min&#x28;v.visit_date&#x29; AS breastfeeding_stopped_over_6_weeks_date&#xa;FROM		mw_eid_visits v&#xa;LEFT JOIN 	&#x28;&#xa;	SELECT		v1.patient_id,&#xa;				max&#x28;v1.visit_date&#x29; AS last_non_6_wk_status_date&#xa;	FROM 		mw_eid_visits v1&#xa;	WHERE 		v1.breastfeeding_status &#x21;&#x3d; &#x27;Breastfeeding stopped over 6 weeks ago&#x27;&#xa;	GROUP BY 	v1.patient_id&#xa;	&#x29; &#xa;	ls ON v.patient_id &#x3d; ls.patient_id&#xa;WHERE 		v.breastfeeding_status &#x3d; &#x27;Breastfeeding stopped over 6 weeks ago&#x27;&#xa;AND 		&#x28; ls.last_non_6_wk_status_date IS NULL OR v.visit_date &#x3e;&#x3d; ls.last_non_6_wk_status_date &#x29;&#xa;GROUP BY 	v.patient_id&#xa;ORDER BY 	v.patient_id</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -127,17 +152,45 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Diagnosis Statuses</name>
+    <name>Breastfeeding Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Active EID Patients</step1>
+<step2>Breastfeeding Date</step2>
+    <keys_1>
+      <key>patient_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>400</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Active EID Patients</name>
     <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -145,7 +198,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnois_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_patient_id&#x3b;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract superset of all Active EID patients&#xa;&#x2a;&#x2f;&#xa;select      r.patient_id,&#xa;			r.location,&#xa;			r.eid_number,&#xa;			v.visit_date as last_visit_date,&#xa;			v.next_appointment_date as next_appointment_date,&#xa;			p.birthdate&#xa;from 		mw_eid_register r&#xa;inner join	mw_patient p on r.patient_id &#x3d; p.patient_id&#xa;left join	mw_eid_visits v on v.eid_visit_id &#x3d; r.last_eid_visit_id&#xa;where 		r.end_date is null&#xa;order by 	patient_id, location&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -153,42 +206,122 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>208</yloc>
+      <xloc>176</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>VHW Merge</name>
-    <type>MergeJoin</type>
+    <name>Last PCR</name>
+    <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>diagnosis_status_patient_id</key>
-    </keys_2>
+    <connection>Warehouse</connection>
+    <sql>&#x2f;&#x2a;&#xa;	Extract last PCR date and result&#xa;&#x2a;&#x2f;&#xa;SELECT 		t.patient_id,&#xa;			t.result_coded as last_pcr_result, &#xa;			coalesce&#x28;t.date_collected, t.date_result_received, t.date_result_entered&#x29; as last_pcr_result_date&#xa;FROM		mw_lab_tests t&#xa;&#xa;WHERE		t.lab_test_id &#x3d; &#x28;&#xa;	SELECT		t1.lab_test_id&#xa;	FROM		mw_lab_tests t1&#xa;	WHERE		t.patient_id &#x3d; t1.patient_id&#xa;	AND			t1.test_type &#x3d; &#x27;HIV DNA polymerase chain reaction&#x27;&#xa;	AND			t1.result_coded is not null&#xa;	ORDER BY 	coalesce&#x28;t1.date_collected, t1.date_result_received, t1.date_result_entered&#x29; desc&#xa;	LIMIT		1&#xa;&#x29;&#xa;ORDER BY t.patient_id&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>208</yloc>
+      <xloc>176</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write rw_onc_diagnosis Table</name>
+    <name>Last PCR Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Breastfeeding Merge</step1>
+<step2>Last PCR</step2>
+    <keys_1>
+      <key>patient_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>400</xloc>
+      <yloc>240</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Second to Last PCR</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>&#x2f;&#x2a;&#xa;	Extract second to last PCR date and result&#xa;&#x2a;&#x2f;&#xa;SELECT 		t.patient_id,&#xa;			t.result_coded as second_to_last_pcr_result, &#xa;			coalesce&#x28;t.date_collected, t.date_result_received, t.date_result_entered&#x29; as second_to_last_pcr_result_date&#xa;FROM		mw_lab_tests t&#xa;&#xa;WHERE		t.lab_test_id &#x3d; &#x28;&#xa;	SELECT		t1.lab_test_id&#xa;	FROM		mw_lab_tests t1&#xa;	WHERE		t.patient_id &#x3d; t1.patient_id&#xa;	AND			t1.test_type &#x3d; &#x27;HIV DNA polymerase chain reaction&#x27;&#xa;	AND			t1.result_coded is not null&#xa;	ORDER BY 	coalesce&#x28;t1.date_collected, t1.date_result_received, t1.date_result_entered&#x29; desc&#xa;	LIMIT		1&#xa;	OFFSET 		1&#xa;&#x29;&#xa;ORDER BY t.patient_id&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Second to Last PCR Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Last PCR Merge</step1>
+<step2>Second to Last PCR</step2>
+    <keys_1>
+      <key>patient_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>400</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write EID Trace Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -200,7 +333,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_onc_diagnosis</table>
+    <table>mw_eid_trace</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
@@ -221,62 +354,46 @@
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>identifier</column_name>
-          <stream_name>identifier</stream_name>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
         </field>
         <field>
-          <column_name>first_name</column_name>
-          <stream_name>first_name</stream_name>
+          <column_name>eid_number</column_name>
+          <stream_name>eid_number</stream_name>
         </field>
         <field>
-          <column_name>last_name</column_name>
-          <stream_name>last_name</stream_name>
+          <column_name>last_visit_date</column_name>
+          <stream_name>last_visit_date</stream_name>
         </field>
         <field>
-          <column_name>gender</column_name>
-          <stream_name>gender</stream_name>
+          <column_name>next_appointment_date</column_name>
+          <stream_name>next_appointment_date</stream_name>
         </field>
         <field>
           <column_name>birthdate</column_name>
           <stream_name>birthdate</stream_name>
         </field>
         <field>
-          <column_name>birthdate_estimated</column_name>
-          <stream_name>birthdate_estimated</stream_name>
+          <column_name>breastfeeding_stopped_over_6_weeks_date</column_name>
+          <stream_name>breastfeeding_stopped_over_6_weeks_date</stream_name>
         </field>
         <field>
-          <column_name>phone_number</column_name>
-          <stream_name>phone_number</stream_name>
+          <column_name>last_pcr_result</column_name>
+          <stream_name>last_pcr_result</stream_name>
         </field>
         <field>
-          <column_name>district</column_name>
-          <stream_name>district</stream_name>
+          <column_name>last_pcr_result_date</column_name>
+          <stream_name>last_pcr_result_date</stream_name>
         </field>
         <field>
-          <column_name>traditional_authority</column_name>
-          <stream_name>traditional_authority</stream_name>
-        </field>
-        <field>
-          <column_name>village</column_name>
-          <stream_name>village</stream_name>
-        </field>
-        <field>
-          <column_name>dead</column_name>
-          <stream_name>dead</stream_name>
-        </field>
-        <field>
-          <column_name>death_date</column_name>
-          <stream_name>death_date</stream_name>
-        </field>
-        <field>
-          <column_name>vhw</column_name>
-          <stream_name>vhw</stream_name>
+          <column_name>second_to_last_pcr_result</column_name>
+          <stream_name>second_to_last_pcr_result</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>208</yloc>
+      <xloc>672</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
