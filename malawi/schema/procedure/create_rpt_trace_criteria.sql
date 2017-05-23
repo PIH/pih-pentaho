@@ -1,7 +1,7 @@
 /************************************************************************
   Get the trace criteria for each patient
 *************************************************************************/
-CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHAR(255), IN _minWks INT, IN _maxWks INT, IN _phase1Only BOOLEAN) BEGIN
+CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHAR(255), IN _minWks INT, IN _labWks INT, IN _maxWks INT, IN _phase1Only BOOLEAN) BEGIN
 
   DROP TEMPORARY TABLE IF EXISTS rpt_trace_criteria;
   CREATE TEMPORARY TABLE rpt_trace_criteria (
@@ -147,7 +147,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       AND         previousTest.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 1)
       AND         lastTest.result_coded = 'Negative'
       AND         previousTest.result_coded = 'Positive'
-      AND         datediff(_endDate, lastTest.date_result_entered) <= 14
+      AND         datediff(_endDate, lastTest.date_result_entered) <= 7*_labWks
     ;
 
 
