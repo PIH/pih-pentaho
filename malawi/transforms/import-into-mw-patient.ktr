@@ -103,10 +103,86 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>VHW Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>VHW Merge</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Diagnosis Statuses</from><to>Diagnosis Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Diagnoses</from><to>Diagnosis Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Diagnosis Merge</from><to>Calculator</to><enabled>Y</enabled> </hop>
+  <hop> <from>Calculator</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
   </order>
+  <step>
+    <name>Calculator</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>start_date_difference</field_name>
+<calc_type>DATE_DIFF</calc_type>
+<field_a>start_date</field_a>
+<field_b>diagnosis_status_start_date</field_b>
+<field_c>start_date_difference</field_c>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+       <calculation><field_name>end_date_difference</field_name>
+<calc_type>DATE_DIFF</calc_type>
+<field_a>end_date</field_a>
+<field_b>diagnosis_status_end_date</field_b>
+<field_c>end_date_difference</field_c>
+<value_type>Number</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>656</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Diagnosis Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Diagnoses</step1>
+<step2>Import Diagnosis Statuses</step2>
+    <keys_1>
+      <key>program_enrollment_id</key>
+    </keys_1>
+    <keys_2>
+      <key>diagnosis_status_program_enrollment_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>496</xloc>
+      <yloc>208</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Import Diagnoses</name>
     <type>TableInput</type>
@@ -119,7 +195,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	patient_id&#x3b;</sql>
+    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -145,7 +221,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnois_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_patient_id&#x3b;</sql>
+    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnosis_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -154,34 +230,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>160</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>VHW Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>diagnosis_status_patient_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
       </GUI>
@@ -217,65 +265,101 @@
     <return_field/>
     <fields>
         <field>
+          <column_name>program_state_id</column_name>
+          <stream_name>program_state_id</stream_name>
+        </field>
+        <field>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
+        </field>
+        <field>
+          <column_name>program_enrollment_id</column_name>
+          <stream_name>program_enrollment_id</stream_name>
+        </field>
+        <field>
           <column_name>patient_id</column_name>
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>identifier</column_name>
-          <stream_name>identifier</stream_name>
+          <column_name>program</column_name>
+          <stream_name>program</stream_name>
         </field>
         <field>
-          <column_name>first_name</column_name>
-          <stream_name>first_name</stream_name>
+          <column_name>workflow</column_name>
+          <stream_name>workflow</stream_name>
         </field>
         <field>
-          <column_name>last_name</column_name>
-          <stream_name>last_name</stream_name>
+          <column_name>state</column_name>
+          <stream_name>state</stream_name>
         </field>
         <field>
-          <column_name>gender</column_name>
-          <stream_name>gender</stream_name>
+          <column_name>start_date</column_name>
+          <stream_name>start_date</stream_name>
         </field>
         <field>
-          <column_name>birthdate</column_name>
-          <stream_name>birthdate</stream_name>
+          <column_name>age_years_at_start</column_name>
+          <stream_name>age_years_at_start</stream_name>
         </field>
         <field>
-          <column_name>birthdate_estimated</column_name>
-          <stream_name>birthdate_estimated</stream_name>
+          <column_name>age_months_at_start</column_name>
+          <stream_name>age_months_at_start</stream_name>
         </field>
         <field>
-          <column_name>phone_number</column_name>
-          <stream_name>phone_number</stream_name>
+          <column_name>end_date</column_name>
+          <stream_name>end_date</stream_name>
         </field>
         <field>
-          <column_name>district</column_name>
-          <stream_name>district</stream_name>
+          <column_name>age_years_at_end</column_name>
+          <stream_name>age_years_at_end</stream_name>
         </field>
         <field>
-          <column_name>traditional_authority</column_name>
-          <stream_name>traditional_authority</stream_name>
+          <column_name>age_months_at_end</column_name>
+          <stream_name>age_months_at_end</stream_name>
         </field>
         <field>
-          <column_name>village</column_name>
-          <stream_name>village</stream_name>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
         </field>
         <field>
-          <column_name>dead</column_name>
-          <stream_name>dead</stream_name>
+          <column_name>diagnosis_status_program_enrollment_id</column_name>
+          <stream_name>diagnosis_status_program_enrollment_id</stream_name>
         </field>
         <field>
-          <column_name>death_date</column_name>
-          <stream_name>death_date</stream_name>
+          <column_name>diagnosis_status_patient_id</column_name>
+          <stream_name>diagnosis_status_patient_id</stream_name>
         </field>
         <field>
-          <column_name>vhw</column_name>
-          <stream_name>vhw</stream_name>
+          <column_name>diagnosis_status</column_name>
+          <stream_name>diagnosis_status</stream_name>
+        </field>
+        <field>
+          <column_name>diagnosis_status_start_date</column_name>
+          <stream_name>diagnosis_status_start_date</stream_name>
+        </field>
+        <field>
+          <column_name>diagnosis_status_end_date</column_name>
+          <stream_name>diagnosis_status_end_date</stream_name>
+        </field>
+        <field>
+          <column_name>diagnosis_status_program</column_name>
+          <stream_name>diagnosis_status_program</stream_name>
+        </field>
+        <field>
+          <column_name>diagnosis_status_workflow</column_name>
+          <stream_name>diagnosis_status_workflow</stream_name>
+        </field>
+        <field>
+          <column_name>start_date_difference</column_name>
+          <stream_name>start_date_difference</stream_name>
+        </field>
+        <field>
+          <column_name>end_date_difference</column_name>
+          <stream_name>end_date_difference</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
+      <xloc>896</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
       </GUI>

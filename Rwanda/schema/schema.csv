@@ -1,15 +1,4 @@
 type,name
 table,rw_onc_diagnosis
-function,first_date_no_breastfeeding
-function,first_test_result_by_date_entered
-function,latest_test_result_by_date_entered
-function,latest_diabetes_htn_visit
-function,latest_asthma_visit
-function,latest_epilepsy_visit
-function,latest_mental_health_visit
-procedure,create_rpt_identifiers
-procedure,create_rpt_active_eid
-procedure,create_rpt_active_art
-procedure,create_rpt_active_ncd
-procedure,create_rpt_priority_patients
-procedure,create_rpt_trace_criteria
+table,rw_order
+table,rw_order_group

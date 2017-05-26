@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-patient</name>
+    <name>import-into-rw-ordergroups</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,14 +67,42 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</created_date>
+  <created_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>OpenMRS</name>
+    <server>&#x24;&#x7b;openmrs.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;openmrs.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;openmrs.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;openmrs.db.port&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>Warehouse</name>
     <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
@@ -89,7 +117,10 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -103,14 +134,15 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>Diagnosis Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>Diagnosis Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Diagnosis Merge</from><to>Calculator</to><enabled>Y</enabled> </hop>
-  <hop> <from>Calculator</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Orders</from><to>Lookup Concept</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Orders Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Location</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Concept</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Calculator</name>
-    <type>Calculator</type>
+    <name>Get ID Prefix</name>
+    <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -119,73 +151,57 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-       <calculation><field_name>start_date_difference</field_name>
-<calc_type>DATE_DIFF</calc_type>
-<field_a>start_date</field_a>
-<field_b>diagnosis_status_start_date</field_b>
-<field_c>start_date_difference</field_c>
-<value_type>Number</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>end_date_difference</field_name>
-<calc_type>DATE_DIFF</calc_type>
-<field_a>end_date</field_a>
-<field_b>diagnosis_status_end_date</field_b>
-<field_c>end_date_difference</field_c>
-<value_type>Number</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
+    <fields>
+      <field>
+        <name>id_prefix</name>
+        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>208</yloc>
+      <xloc>352</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Diagnosis Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
-    <keys_1>
-      <key>program_enrollment_id</key>
-    </keys_1>
-    <keys_2>
-      <key>diagnosis_status_program_enrollment_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Diagnoses</name>
+    <name>Import Orders</name>
     <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OpenMRS</connection>
+    <sql>&#x2f;&#x2a;&#xd;&#xa;&#x2a;	Extracts all non-voided orders  on non-voided patients&#xd;&#xa;&#x2a;&#x2f;&#xd;&#xa;select		o.order_id,&#xd;&#xa;			o.order_type_id,&#xd;&#xa;			o.concept_id,&#xd;&#xa;			o.orderer,&#xd;&#xa;			o.instructions,&#xd;&#xa;			o.start_date,&#xd;&#xa;			o.auto_expire_date,&#xd;&#xa;			o.discontinued_date,&#xd;&#xa;			o.discontinued_by,&#xd;&#xa;			o.discontinued_reason,&#xd;&#xa;			o.patient_id,&#xd;&#xa;			o.uuid,&#xd;&#xa;			o.discontinued_reason_non_coded,&#xd;&#xa;			o.urgency,&#xd;&#xa;			o.date_created,&#xd;&#xa;			&#xd;&#xa;			e.encounter_id,&#xd;&#xa;			e.encounter_type,&#xd;&#xa;			e.location_id,&#xd;&#xa;&#xd;&#xa;			oeo.group_id,&#xd;&#xa;			oeo.order_index,&#xd;&#xa;			oeo.indication,&#xd;&#xa;			oeo.route,&#xd;&#xa;			oeo.administration_instructions&#xd;&#xa;	&#xd;&#xa;from 		orders o&#xd;&#xa;&#xd;&#xa;inner join 	person p on o.patient_id &#x3d; p.person_id&#xd;&#xa;left join   orderextension_order oeo on o.order_id &#x3d; oeo.order_id&#xd;&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xd;&#xa;&#xd;&#xa;where		o.voided &#x3d; 0 and p.voided &#x3d; 0&#x3b;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>32</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Concept</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>N</distribute>
     <custom_distribution/>
@@ -195,23 +211,39 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	program_enrollment_id&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_concept</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>concept_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>concept</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
+      <xloc>128</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Diagnosis Statuses</name>
-    <type>TableInput</type>
+    <name>Lookup Location</name>
+    <type>DBLookup</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -221,22 +253,80 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnosis_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_program_enrollment_id&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_location</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>location_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>location</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>208</yloc>
+      <xloc>256</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write rw_onc_diagnosis Table</name>
+    <name>Prefix IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var prefixed_order_id &#x3d; id_prefix &#x2b; order_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;&#xa;var prefixed_encounter_id &#x3d; encounter_id &#x3d;&#x3d; null &#x3f; null &#x3a; id_prefix &#x2b; encounter_id&#x3b;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
+        <rename>patient_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_order_id</name>
+        <rename>order_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_encounter_id</name>
+        <rename>encounter_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>432</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write Orders Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -248,11 +338,11 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_onc_diagnosis</table>
+    <table>rw_order</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
+    <use_batch>N</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -265,102 +355,102 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>program_state_id</column_name>
-          <stream_name>program_state_id</stream_name>
+          <column_name>order_id</column_name>
+          <stream_name>order_id</stream_name>
         </field>
         <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
+          <column_name>order_type_id</column_name>
+          <stream_name>order_type_id</stream_name>
         </field>
         <field>
-          <column_name>program_enrollment_id</column_name>
-          <stream_name>program_enrollment_id</stream_name>
+          <column_name>orderer</column_name>
+          <stream_name>orderer</stream_name>
         </field>
         <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>program</column_name>
-          <stream_name>program</stream_name>
-        </field>
-        <field>
-          <column_name>workflow</column_name>
-          <stream_name>workflow</stream_name>
-        </field>
-        <field>
-          <column_name>state</column_name>
-          <stream_name>state</stream_name>
+          <column_name>instructions</column_name>
+          <stream_name>instructions</stream_name>
         </field>
         <field>
           <column_name>start_date</column_name>
           <stream_name>start_date</stream_name>
         </field>
         <field>
-          <column_name>age_years_at_start</column_name>
-          <stream_name>age_years_at_start</stream_name>
+          <column_name>auto_expire_date</column_name>
+          <stream_name>auto_expire_date</stream_name>
         </field>
         <field>
-          <column_name>age_months_at_start</column_name>
-          <stream_name>age_months_at_start</stream_name>
+          <column_name>discontinued_date</column_name>
+          <stream_name>discontinued_date</stream_name>
         </field>
         <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
+          <column_name>discontinued_by</column_name>
+          <stream_name>discontinued_by</stream_name>
         </field>
         <field>
-          <column_name>age_years_at_end</column_name>
-          <stream_name>age_years_at_end</stream_name>
+          <column_name>discontinued_reason</column_name>
+          <stream_name>discontinued_reason</stream_name>
         </field>
         <field>
-          <column_name>age_months_at_end</column_name>
-          <stream_name>age_months_at_end</stream_name>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
+        </field>
+        <field>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
+        </field>
+        <field>
+          <column_name>discontinued_reason_non_coded</column_name>
+          <stream_name>discontinued_reason_non_coded</stream_name>
+        </field>
+        <field>
+          <column_name>urgency</column_name>
+          <stream_name>urgency</stream_name>
+        </field>
+        <field>
+          <column_name>date_created</column_name>
+          <stream_name>date_created</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_id</column_name>
+          <stream_name>encounter_id</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_type</column_name>
+          <stream_name>encounter_type</stream_name>
+        </field>
+        <field>
+          <column_name>group_id</column_name>
+          <stream_name>group_id</stream_name>
+        </field>
+        <field>
+          <column_name>order_index</column_name>
+          <stream_name>order_index</stream_name>
+        </field>
+        <field>
+          <column_name>indication</column_name>
+          <stream_name>indication</stream_name>
+        </field>
+        <field>
+          <column_name>route</column_name>
+          <stream_name>route</stream_name>
+        </field>
+        <field>
+          <column_name>administration_instructions</column_name>
+          <stream_name>administration_instructions</stream_name>
+        </field>
+        <field>
+          <column_name>concept</column_name>
+          <stream_name>concept</stream_name>
         </field>
         <field>
           <column_name>location</column_name>
           <stream_name>location</stream_name>
         </field>
-        <field>
-          <column_name>diagnosis_status_program_enrollment_id</column_name>
-          <stream_name>diagnosis_status_program_enrollment_id</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_patient_id</column_name>
-          <stream_name>diagnosis_status_patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status</column_name>
-          <stream_name>diagnosis_status</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_start_date</column_name>
-          <stream_name>diagnosis_status_start_date</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_end_date</column_name>
-          <stream_name>diagnosis_status_end_date</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_program</column_name>
-          <stream_name>diagnosis_status_program</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_workflow</column_name>
-          <stream_name>diagnosis_status_workflow</stream_name>
-        </field>
-        <field>
-          <column_name>start_date_difference</column_name>
-          <stream_name>start_date_difference</stream_name>
-        </field>
-        <field>
-          <column_name>end_date_difference</column_name>
-          <stream_name>end_date_difference</stream_name>
-        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>896</xloc>
-      <yloc>208</yloc>
+      <xloc>544</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

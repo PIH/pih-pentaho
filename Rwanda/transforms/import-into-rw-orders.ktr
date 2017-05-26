@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-patient</name>
+    <name>import-into-rw-orders</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,14 +67,42 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</created_date>
+  <created_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>OpenMRS</name>
+    <server>&#x24;&#x7b;openmrs.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;openmrs.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;openmrs.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;openmrs.db.port&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>Warehouse</name>
     <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
@@ -89,7 +117,10 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -103,14 +134,13 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Diagnosis Statuses</from><to>Diagnosis Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Diagnoses</from><to>Diagnosis Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Diagnosis Merge</from><to>Calculator</to><enabled>Y</enabled> </hop>
-  <hop> <from>Calculator</from><to>Write rw_onc_diagnosis Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Order Group</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Order Group Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Calculator</name>
-    <type>Calculator</type>
+    <name>Get ID Prefix</name>
+    <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -119,98 +149,30 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-       <calculation><field_name>start_date_difference</field_name>
-<calc_type>DATE_DIFF</calc_type>
-<field_a>start_date</field_a>
-<field_b>diagnosis_status_start_date</field_b>
-<field_c>start_date_difference</field_c>
-<value_type>Number</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-       <calculation><field_name>end_date_difference</field_name>
-<calc_type>DATE_DIFF</calc_type>
-<field_a>end_date</field_a>
-<field_b>diagnosis_status_end_date</field_b>
-<field_c>end_date_difference</field_c>
-<value_type>Number</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
+    <fields>
+      <field>
+        <name>id_prefix</name>
+        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>208</yloc>
+      <xloc>336</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Diagnosis Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Import Diagnoses</step1>
-<step2>Import Diagnosis Statuses</step2>
-    <keys_1>
-      <key>program_enrollment_id</key>
-    </keys_1>
-    <keys_2>
-      <key>diagnosis_status_program_enrollment_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Diagnoses</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	program_enrollment_id&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Diagnosis Statuses</name>
+    <name>Import Order Group</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -220,8 +182,8 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnosis_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_program_enrollment_id&#x3b;</sql>
+    <connection>OpenMRS</connection>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all non-voided orders  on non-voided patients&#xd;&#xa;&#x2a;	Do not currently have the patient id on here. That is desirable&#xa;&#x2a;&#x2f;&#xa;select		og.id as order_group_id,&#xd;&#xa;			og.uuid,&#xd;&#xa;			og.group_type,&#xd;&#xa;			og.cycle_number,&#xd;&#xa;			og.date_created,&#xd;&#xa;			&#xd;&#xa;			os.uuid as order_set_uuid,&#xd;&#xa;			os.name as order_set_name,&#xd;&#xa;			os.description as order_set_description,&#xd;&#xa;			os.indication&#xd;&#xa;				&#xd;&#xa;from 		orderextension_order_group og&#xa;left join	orderextension_order_set os on og.order_set_id&#x3d;os.id&#xd;&#xa;&#xd;&#xa;where		og.voided &#x3d; 0 &#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -230,13 +192,43 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>160</xloc>
-      <yloc>208</yloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write rw_onc_diagnosis Table</name>
+    <name>Prefix IDs</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var prefixed_order_group_id &#x3d; id_prefix &#x2b; order_group_id&#x3b;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_order_group_id</name>
+        <rename>order_group_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>336</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write Order Group Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -248,9 +240,9 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_onc_diagnosis</table>
+    <table>rw_order_group</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
@@ -265,101 +257,45 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>program_state_id</column_name>
-          <stream_name>program_state_id</stream_name>
+          <column_name>order_group_id</column_name>
+          <stream_name>order_group_id</stream_name>
         </field>
         <field>
           <column_name>uuid</column_name>
           <stream_name>uuid</stream_name>
         </field>
         <field>
-          <column_name>program_enrollment_id</column_name>
-          <stream_name>program_enrollment_id</stream_name>
+          <column_name>group_type</column_name>
+          <stream_name>group_type</stream_name>
         </field>
         <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
+          <column_name>cycle_number</column_name>
+          <stream_name>cycle_number</stream_name>
         </field>
         <field>
-          <column_name>program</column_name>
-          <stream_name>program</stream_name>
+          <column_name>date_created</column_name>
+          <stream_name>date_created</stream_name>
         </field>
         <field>
-          <column_name>workflow</column_name>
-          <stream_name>workflow</stream_name>
+          <column_name>order_set_uuid</column_name>
+          <stream_name>order_set_uuid</stream_name>
         </field>
         <field>
-          <column_name>state</column_name>
-          <stream_name>state</stream_name>
+          <column_name>order_set_name</column_name>
+          <stream_name>order_set_name</stream_name>
         </field>
         <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
+          <column_name>order_set_description</column_name>
+          <stream_name>order_set_description</stream_name>
         </field>
         <field>
-          <column_name>age_years_at_start</column_name>
-          <stream_name>age_years_at_start</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_start</column_name>
-          <stream_name>age_months_at_start</stream_name>
-        </field>
-        <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_end</column_name>
-          <stream_name>age_years_at_end</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_end</column_name>
-          <stream_name>age_months_at_end</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_program_enrollment_id</column_name>
-          <stream_name>diagnosis_status_program_enrollment_id</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_patient_id</column_name>
-          <stream_name>diagnosis_status_patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status</column_name>
-          <stream_name>diagnosis_status</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_start_date</column_name>
-          <stream_name>diagnosis_status_start_date</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_end_date</column_name>
-          <stream_name>diagnosis_status_end_date</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_program</column_name>
-          <stream_name>diagnosis_status_program</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_workflow</column_name>
-          <stream_name>diagnosis_status_workflow</stream_name>
-        </field>
-        <field>
-          <column_name>start_date_difference</column_name>
-          <stream_name>start_date_difference</stream_name>
-        </field>
-        <field>
-          <column_name>end_date_difference</column_name>
-          <stream_name>end_date_difference</stream_name>
+          <column_name>indication</column_name>
+          <stream_name>indication</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>896</xloc>
+      <xloc>336</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
       </GUI>
