@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>create-schema</name>
+    <name>Easternize</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -74,27 +74,6 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Reads the schema.csv file and recreates the schema based on the contents.&#xa;This requires 1 table, function, or procedure per file, and the file name should be the same as the&#xa;name of the table, function, or procedure stored within. </note>
-      <xloc>112</xloc>
-      <yloc>96</yloc>
-      <width>664</width>
-      <heigth>61</heigth>
-      <fontname>Ubuntu</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
     <name>Warehouse</name>
@@ -124,16 +103,17 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Get Base Folder</from><to>Join Rows</to><enabled>Y</enabled> </hop>
-  <hop> <from>Schema File Names</from><to>Join Rows</to><enabled>Y</enabled> </hop>
-  <hop> <from>Join Rows</from><to>Construct full file path</to><enabled>Y</enabled> </hop>
-  <hop> <from>Construct full file path</from><to>Drop Previous</to><enabled>Y</enabled> </hop>
-  <hop> <from>Drop Previous</from><to>Test If Table</to><enabled>Y</enabled> </hop>
-  <hop> <from>Test If Table</from><to>Create Table and Index</to><enabled>Y</enabled> </hop>
-  <hop> <from>Test If Table</from><to>Create Function or Procedure</to><enabled>Y</enabled> </hop>
+  <hop> <from>Construct full file path for Northern rephrasing</from><to>Northern Rephrasing Program</to><enabled>Y</enabled> </hop>
+  <hop> <from>Northern Rephrasing Program</from><to>Northern Rephrasing program_state program</to><enabled>Y</enabled> </hop>
+  <hop> <from>Northern Rephrasing program_state program</from><to>Northern Rephrasing encounter_type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Northern Rephrasing encounter_type</from><to>Northern Rephrasing lookup_encounter_type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Base Folder</from><to>Join Rows 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Program Easternize File name</from><to>Join Rows 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Encounter type easternize file name</from><to>Join Rows 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Join Rows 2</from><to>Construct full file path for Northern rephrasing</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Construct full file path</name>
+    <name>Construct full file path for Northern rephrasing</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -147,30 +127,42 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var dropSql &#x3d; &#x22;drop &#x22; &#x2b; type &#x2b; &#x22; if exists &#x22; &#x2b; name&#x3b;&#xa;var sqlPath &#x3d; baseDir &#x2b; &#x22;&#x2f;&#x22; &#x2b; country &#x2b; &#x22;&#x2f;schema&#x2f;&#x22; &#x2b; type &#x2b; &#x22;&#x2f;&#x22; &#x2b; name &#x2b; &#x22;.sql&#x22;&#x3b;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>sqlPath</name>
-        <rename>sqlPath</rename>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var program_easternize &#x3d; &#x22;UPDATE omrs_program_enrollment SET program &#x3d;&#x22; &#xd;&#xa;	&#x2b; east_program_name &#x2b; &#x22; WHERE program &#x3d;&#x22; &#x2b; north_program_name&#x3b;&#xd;&#xa;&#xd;&#xa;var program_program_state_easternize &#x3d; &#x22;UPDATE omrs_program_state SET program &#x3d;&#x22; &#xd;&#xa;	&#x2b; east_program_name &#x2b; &#x22; WHERE program&#x3d;&#x22; &#x2b; north_program_name&#x3b;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;var encounter_type_easternize &#x3d; &#x22;UPDATE omrs_encounter SET encounter_type &#x3d;&#x22; &#xd;&#xa;	&#x2b; east_encounter_type &#x2b; &#x22; WHERE encounter_type&#x3d;&#x22; &#x2b; north_encounter_type&#x3b;&#xd;&#xa;&#xd;&#xa;var lookup_encounter_type_easternize &#x3d; &#x22;UPDATE lookup_encounter_type SET target_value &#x3d;&#x22; &#xd;&#xa;	&#x2b; east_encounter_type &#x2b; &#x22; WHERE target_value&#x3d;&#x22; &#x2b; north_encounter_type&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>program_easternize</name>
+        <rename>program_easternize</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
-      </field>      <field>        <name>dropSql</name>
-        <rename>dropSql</rename>
+      </field>      <field>        <name>program_program_state_easternize</name>
+        <rename>program_program_state_easternize</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>encounter_type_easternize</name>
+        <rename>encounter_type_easternize</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>lookup_encounter_type_easternize</name>
+        <rename>lookup_encounter_type_easternize</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>464</xloc>
-      <yloc>272</yloc>
+      <xloc>480</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Create Function or Procedure</name>
-    <type>ExecSQLRow</type>
+    <name>Encounter type easternize file name</name>
+    <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -179,75 +171,47 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <commit>1</commit>
-    <connection>Warehouse</connection>
-    <sql_field>sqlPath</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>Y</sqlFromfile>
-    <sendOneStatement>Y</sendOneStatement>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x5c;schema&#x5c;encounter_type.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>&#x22;</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <encoding/>
+    <fields>
+      <field>
+        <name>east_encounter_type</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>100</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>north_encounter_type</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>100</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>960</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Create Table and Index</name>
-    <type>ExecSQLRow</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <commit>1</commit>
-    <connection>Warehouse</connection>
-    <sql_field>sqlPath</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>Y</sqlFromfile>
-    <sendOneStatement>N</sendOneStatement>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>960</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Drop Previous</name>
-    <type>ExecSQLRow</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <commit>1</commit>
-    <connection>Warehouse</connection>
-    <sql_field>dropSql</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>N</sqlFromfile>
-    <sendOneStatement>Y</sendOneStatement>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>624</xloc>
-      <yloc>272</yloc>
+      <xloc>128</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -256,7 +220,7 @@
     <name>Get Base Folder</name>
     <type>GetVariable</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -291,17 +255,17 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>224</yloc>
+      <xloc>128</xloc>
+      <yloc>176</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Join Rows</name>
+    <name>Join Rows 2</name>
     <type>JoinRows</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -322,14 +286,126 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>304</xloc>
-      <yloc>272</yloc>
+      <xloc>272</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Schema File Names</name>
+    <name>Northern Rephrasing Program</name>
+    <type>ExecSQLRow</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <commit>1</commit>
+    <connection>Warehouse</connection>
+    <sql_field>program_easternize</sql_field>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <sqlFromfile>N</sqlFromfile>
+    <sendOneStatement>Y</sendOneStatement>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>704</xloc>
+      <yloc>320</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Northern Rephrasing encounter_type</name>
+    <type>ExecSQLRow</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <commit>1</commit>
+    <connection>Warehouse</connection>
+    <sql_field>encounter_type_easternize</sql_field>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <sqlFromfile>N</sqlFromfile>
+    <sendOneStatement>Y</sendOneStatement>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1024</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Northern Rephrasing lookup_encounter_type</name>
+    <type>ExecSQLRow</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <commit>1</commit>
+    <connection>Warehouse</connection>
+    <sql_field>lookup_encounter_type_easternize</sql_field>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <sqlFromfile>N</sqlFromfile>
+    <sendOneStatement>Y</sendOneStatement>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1168</xloc>
+      <yloc>416</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Northern Rephrasing program_state program</name>
+    <type>ExecSQLRow</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <commit>1</commit>
+    <connection>Warehouse</connection>
+    <sql_field>program_program_state_easternize</sql_field>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <sqlFromfile>N</sqlFromfile>
+    <sendOneStatement>Y</sendOneStatement>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>848</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Program Easternize File name</name>
     <type>CsvInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -339,7 +415,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;schema&#x5c;anonymized_schema.csv</filename>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x5c;schema&#x5c;programs.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -354,60 +430,32 @@
     <encoding/>
     <fields>
       <field>
-        <name>type</name>
+        <name>east_program_name</name>
         <type>String</type>
         <format/>
         <currency>&#x24;</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>50</length>
+        <length>100</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
       <field>
-        <name>name</name>
+        <name>north_program_name</name>
         <type>String</type>
         <format/>
         <currency>&#x24;</currency>
         <decimal>.</decimal>
         <group>,</group>
-        <length>50</length>
+        <length>100</length>
         <precision>-1</precision>
         <trim_type>none</trim_type>
       </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Test If Table</name>
-    <type>SwitchCase</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<fieldname>type</fieldname>
-<use_contains>N</use_contains>
-<case_value_type>String</case_value_type>
-<case_value_format/>
-<case_value_decimal/>
-<case_value_group/>
-<default_target_step>Create Function or Procedure</default_target_step>
-<cases><case><value>table</value>
-<target_step>Create Table and Index</target_step>
-</case></cases>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>272</yloc>
+      <xloc>128</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

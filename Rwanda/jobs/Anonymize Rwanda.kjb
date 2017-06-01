@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>load-rwanda-data</name>
+  <name>Anonymize</name>
     <description/>
     <extended_description/>
     <job_version/>
@@ -56,8 +56,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>96</xloc>
-      <yloc>160</yloc>
+      <xloc>112</xloc>
+      <yloc>96</yloc>
       </entry>
     <entry>
       <name>Load Configuration</name>
@@ -87,49 +87,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>192</xloc>
-      <yloc>160</yloc>
+      <xloc>208</xloc>
+      <yloc>96</yloc>
       </entry>
     <entry>
-      <name>Load onc Diagnosis</name>
+      <name>Anonymize</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;import-into-mw-patient.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>Y</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>496</xloc>
-      <yloc>224</yloc>
-      </entry>
-    <entry>
-      <name>Load location table </name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;import-into-rw-location.ktr</filename>
+      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;anonymize-rwanda.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -153,16 +120,16 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>496</xloc>
-      <yloc>304</yloc>
+      <xloc>576</xloc>
+      <yloc>96</yloc>
       </entry>
     <entry>
-      <name>Load Order Groups</name>
+      <name>Create Schema </name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;import-into-rw-orders.ktr</filename>
+      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;create-anonymized-schema.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -186,82 +153,16 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>496</xloc>
-      <yloc>80</yloc>
+      <xloc>320</xloc>
+      <yloc>96</yloc>
       </entry>
     <entry>
-      <name>Load Orders Table</name>
+      <name>Make Research IDs</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;import-into-rw-ordergroups.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>1</nr>
-      <xloc>496</xloc>
-      <yloc>144</yloc>
-      </entry>
-    <entry>
-      <name>Create Schema</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;create-schema.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>Y</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>304</xloc>
-      <yloc>160</yloc>
-      </entry>
-    <entry>
-      <name>Eastenrize</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;Easternize.ktr</filename>
+      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;Make Research IDs.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -285,8 +186,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>496</xloc>
-      <yloc>384</yloc>
+      <xloc>448</xloc>
+      <yloc>96</yloc>
       </entry>
   </entries>
   <hops>
@@ -301,7 +202,7 @@
     </hop>
     <hop>
       <from>Load Configuration</from>
-      <to>Create Schema</to>
+      <to>Create Schema </to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -309,8 +210,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Schema</from>
-      <to>Load Order Groups</to>
+      <from>Create Schema </from>
+      <to>Make Research IDs</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -318,35 +219,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Schema</from>
-      <to>Load Orders Table</to>
-      <from_nr>0</from_nr>
-      <to_nr>1</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Schema</from>
-      <to>Load onc Diagnosis</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Schema</from>
-      <to>Load location table </to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Schema</from>
-      <to>Eastenrize</to>
+      <from>Make Research IDs</from>
+      <to>Anonymize</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

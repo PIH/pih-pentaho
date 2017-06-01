@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>create-schema</name>
+    <name>create-anonymized-schema</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -97,14 +97,14 @@
     </notepad>
   </notepads>
   <connection>
-    <name>Warehouse</name>
-    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <name>anonymized</name>
+    <server>&#x24;&#x7b;anonymized.db.host&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <database>&#x24;&#x7b;anonymized.db.name&#x7d;</database>
+    <port>&#x24;&#x7b;anonymized.db.port&#x7d;</port>
+    <username>&#x24;&#x7b;anonymized.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;anonymized.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -114,7 +114,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;anonymized.db.port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -130,7 +130,6 @@
   <hop> <from>Construct full file path</from><to>Drop Previous</to><enabled>Y</enabled> </hop>
   <hop> <from>Drop Previous</from><to>Test If Table</to><enabled>Y</enabled> </hop>
   <hop> <from>Test If Table</from><to>Create Table and Index</to><enabled>Y</enabled> </hop>
-  <hop> <from>Test If Table</from><to>Create Function or Procedure</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Construct full file path</name>
@@ -169,34 +168,6 @@
     </step>
 
   <step>
-    <name>Create Function or Procedure</name>
-    <type>ExecSQLRow</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <commit>1</commit>
-    <connection>Warehouse</connection>
-    <sql_field>sqlPath</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>Y</sqlFromfile>
-    <sendOneStatement>Y</sendOneStatement>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>960</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>Create Table and Index</name>
     <type>ExecSQLRow</type>
     <description/>
@@ -208,7 +179,7 @@
            <schema_name/>
            </partitioning>
     <commit>1</commit>
-    <connection>Warehouse</connection>
+    <connection>anonymized</connection>
     <sql_field>sqlPath</sql_field>
     <insert_field/>
     <update_field/>
@@ -218,8 +189,8 @@
     <sendOneStatement>N</sendOneStatement>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>960</xloc>
-      <yloc>208</yloc>
+      <xloc>912</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -236,7 +207,7 @@
            <schema_name/>
            </partitioning>
     <commit>1</commit>
-    <connection>Warehouse</connection>
+    <connection>anonymized</connection>
     <sql_field>dropSql</sql_field>
     <insert_field/>
     <update_field/>
@@ -339,7 +310,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;schema&#x5c;anonymized_schema.csv</filename>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;schema&#x2f;schema.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
