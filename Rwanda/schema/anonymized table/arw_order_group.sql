@@ -10,4 +10,3 @@ CREATE TABLE arw_order_group (
   indication VARCHAR(255)
 );
 
-alter table rw_order_group add index rw_order_group_order_group_id(research_order_group_id);

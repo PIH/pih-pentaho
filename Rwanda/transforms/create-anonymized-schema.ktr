@@ -146,7 +146,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var dropSql &#x3d; &#x22;drop &#x22; &#x2b; type &#x2b; &#x22; if exists &#x22; &#x2b; name&#x3b;&#xa;var sqlPath &#x3d; baseDir &#x2b; &#x22;&#x2f;&#x22; &#x2b; country &#x2b; &#x22;&#x2f;schema&#x2f;&#x22; &#x2b; type &#x2b; &#x22;&#x2f;&#x22; &#x2b; name &#x2b; &#x22;.sql&#x22;&#x3b;&#xa;</jsScript_script>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var dropSql &#x3d; &#x22;drop &#x22; &#x2b; type &#x2b; &#x22; if exists &#x22; &#x2b; name&#x3b;&#xa;var sqlPath &#x3d; baseDir &#x2b; &#x22;&#x2f;&#x22; &#x2b; country &#x2b; &#x22;&#x2f;schema&#x2f;anonymized table&#x2f;&#x22; &#x2b; name &#x2b; &#x22;.sql&#x22;&#x3b;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>sqlPath</name>
         <rename>sqlPath</rename>
         <type>String</type>
@@ -161,8 +161,8 @@
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>464</xloc>
-      <yloc>272</yloc>
+      <xloc>448</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -189,8 +189,8 @@
     <sendOneStatement>N</sendOneStatement>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>912</xloc>
-      <yloc>272</yloc>
+      <xloc>896</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -217,8 +217,8 @@
     <sendOneStatement>Y</sendOneStatement>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>624</xloc>
-      <yloc>272</yloc>
+      <xloc>608</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -262,8 +262,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>224</yloc>
+      <xloc>128</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -293,8 +293,8 @@
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>304</xloc>
-      <yloc>272</yloc>
+      <xloc>288</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -310,7 +310,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;schema&#x2f;schema.csv</filename>
+    <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;schema&#x5c;anonymized_schema.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -349,8 +349,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>304</yloc>
+      <xloc>128</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -377,8 +377,8 @@
 <target_step>Create Table and Index</target_step>
 </case></cases>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>768</xloc>
-      <yloc>272</yloc>
+      <xloc>752</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

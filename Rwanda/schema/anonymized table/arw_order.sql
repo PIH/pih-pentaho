@@ -33,4 +33,3 @@ CREATE TABLE arw_order (
   
 );
 
-alter table rw_order add index rw_order_id(research_order_id);

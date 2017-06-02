@@ -1,5 +1,5 @@
 
-CREATE TABLE rw_location (
+CREATE TABLE arw_location (
  	location_id INT not null,
     name VARCHAR(255),
 	description VARCHAR(1023),
@@ -14,4 +14,4 @@ CREATE TABLE rw_location (
   
 );
 
-alter table rw_location add index rw_location_id(location_id);
+			

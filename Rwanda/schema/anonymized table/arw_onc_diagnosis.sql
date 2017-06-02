@@ -24,4 +24,3 @@ CREATE TABLE arw_onc_diagnosis (
   end_date_difference FLOAT
 );
 
-alter table rw_onc_diagnosis add index rw_onc_diagnosis_program_state_id(research_program_state_id);

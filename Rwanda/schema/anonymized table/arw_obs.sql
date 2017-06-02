@@ -1,8 +1,8 @@
 
 CREATE TABLE arw_obs (
   research_obs_id BIGINT not null,
-  research_patient_id INT not null,
-  research_encounter_id INT,
+  research_patient_id BIGINT not null,
+  research_encounter_id BIGINT,
   obs_date date,
   obs_time time,
   age_years_at_obs INT,
