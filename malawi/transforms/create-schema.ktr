@@ -339,7 +339,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;schema&#x5c;anonymized_schema.csv</filename>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;malawi&#x2f;schema&#x2f;schema.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>

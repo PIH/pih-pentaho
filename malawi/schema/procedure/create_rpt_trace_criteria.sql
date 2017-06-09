@@ -1,7 +1,7 @@
 /************************************************************************
   Get the trace criteria for each patient
 *************************************************************************/
-CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHAR(255), IN _minWks INT, IN _maxWks INT, IN _phase1Only BOOLEAN) BEGIN
+CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHAR(255), IN _minWks INT, IN _labWks INT, IN _maxWks INT, IN _phase1Only BOOLEAN) BEGIN
 
   DROP TEMPORARY TABLE IF EXISTS rpt_trace_criteria;
   CREATE TEMPORARY TABLE rpt_trace_criteria (
@@ -38,12 +38,12 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
     WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'Viral Load', null, _endDate, 0)
     AND         (
                   ( _minWks = 2 AND
-                    datediff(_endDate, t.date_result_entered) <= 14 AND
+                    datediff(_endDate, t.date_result_entered) <= 7*_labWks AND
                     t.result_numeric > 1000
                   )
                   OR
                   ( _minWks = 6 AND
-                    datediff(_endDate, t.date_result_entered) <= 56 AND
+                    datediff(_endDate, t.date_result_entered) <= 42+7*_labWks AND
                     t.result_numeric > 1000 AND
                     t.date_result_entered > r.last_visit_date
                   )
@@ -66,12 +66,12 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
     AND         t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
     AND         (
                   ( _minWks = 2 AND
-                    datediff(_endDate, t.date_result_entered) <= 14 AND
+                    datediff(_endDate, t.date_result_entered) <= 7*_labWks AND
                     t.result_coded = 'Positive'
                   )
                   OR
                   ( _minWks = 6 AND
-                    datediff(_endDate, t.date_result_entered) <= 56 AND
+                    datediff(_endDate, t.date_result_entered) <= 42+7*_labWks AND
                     t.result_coded = 'Positive' AND
                     t.date_result_entered > r.last_visit_date
                   )
@@ -90,9 +90,9 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'Viral Load', null, _endDate, 0)
       AND         t.result_numeric > 1000
       AND         datediff(_endDate, t.date_result_entered) >= 84
-      AND         datediff(_endDate, t.date_result_entered) < 168
+      AND         datediff(_endDate, t.date_result_entered) < 154+7*_labWks
       AND         r.last_visit_date > t.date_result_entered
-      AND         r.days_to_next_appt >= 14
+      AND         r.days_to_next_appt >= 28-7*_labWks
       AND         r.days_to_next_appt < 28
     ;
 
@@ -110,7 +110,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
       AND         date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate
       AND         t.date_result_entered < date_add(p.birthdate, INTERVAL 12 MONTH)
-      AND         r.days_to_next_appt >= 14
+      AND         r.days_to_next_appt >= 28-7*_labWks
       AND         r.days_to_next_appt < 28
     ;
 
@@ -129,7 +129,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
       AND         date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate
       AND         t.date_result_entered < first_date_no_breastfeeding(r.patient_id, _endDate)
-      AND         r.days_to_next_appt >= 14
+      AND         r.days_to_next_appt >= 28-7*_labWks
       AND         r.days_to_next_appt < 28
     ;
 
@@ -147,7 +147,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       AND         previousTest.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 1)
       AND         lastTest.result_coded = 'Negative'
       AND         previousTest.result_coded = 'Positive'
-      AND         datediff(_endDate, lastTest.date_result_entered) <= 14
+      AND         datediff(_endDate, lastTest.date_result_entered) <= 7*_labWks
     ;
 
 

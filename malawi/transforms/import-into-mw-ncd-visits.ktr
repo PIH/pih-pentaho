@@ -172,6 +172,154 @@
     </step>
 
   <step>
+    <name>Asthma Severity Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>On Insulin Merge</step1>
+<step2>Import Asthma Severity</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Check Encounter Types</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var cc_initial &#x3d; visit_types.indexOf&#x28;&#x27;CHRONIC_CARE_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var cc_followup &#x3d; visit_types.indexOf&#x28;&#x27;CHRONIC_CARE_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var diabetes_htn_initial &#x3d; visit_types.indexOf&#x28;&#x27;DIABETES HYPERTENSION INITIAL VISIT&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var diabetes_htn_followup &#x3d; visit_types.indexOf&#x28;&#x27;DIABETES HYPERTENSION FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var asthma_initial &#x3d; visit_types.indexOf&#x28;&#x27;ASTHMA_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var asthma_followup &#x3d; visit_types.indexOf&#x28;&#x27;ASTHMA_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var epilepsy_initial &#x3d; visit_types.indexOf&#x28;&#x27;EPILEPSY_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var epilepsy_followup &#x3d; visit_types.indexOf&#x28;&#x27;EPILEPSY_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var mental_health_initial &#x3d; visit_types.indexOf&#x28;&#x27;MENTAL_HEALTH_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var mental_health_followup &#x3d; visit_types.indexOf&#x28;&#x27;MENTAL_HEALTH_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>cc_initial</name>
+        <rename>cc_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>cc_followup</name>
+        <rename>cc_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>diabetes_htn_initial</name>
+        <rename>diabetes_htn_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>diabetes_htn_followup</name>
+        <rename>diabetes_htn_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>asthma_initial</name>
+        <rename>asthma_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>asthma_followup</name>
+        <rename>asthma_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>epilepsy_initial</name>
+        <rename>epilepsy_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>epilepsy_followup</name>
+        <rename>epilepsy_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>mental_health_initial</name>
+        <rename>mental_health_initial</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>mental_health_followup</name>
+        <rename>mental_health_followup</rename>
+        <type>Boolean</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Diastolic BP Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Systolic BP Merge</step1>
+<step2>Import Diastolic BP</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Import Appointment Date</name>
     <type>TableInput</type>
     <description/>
@@ -193,6 +341,58 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>176</xloc>
       <yloc>192</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Asthma Severity</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as asthma_classification&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Asthma classification&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>512</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Diastolic BP</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as diastolic_bp&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Diastolic blood pressure&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -224,6 +424,180 @@
     </step>
 
   <step>
+    <name>Import Num Seizures</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as num_seizures&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;NUMBER OF SEIZURES&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import On Insulin</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, &#x28;count&#x28;&#x2a;&#x29; &#x3e; 0&#x29; as on_insulin&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Current drugs used&#x27;&#xa;and			o.value_coded &#x3d; &#x27;Insulin&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location&#xa;&#xa;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Systolic BP</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as systolic_bp&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Systolic blood pressure&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>176</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Num Seizures Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Asthma Severity Merge</step1>
+<step2>Import Num Seizures</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>On Insulin Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Diastolic BP Merge</step1>
+<step2>Import On Insulin</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>432</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Systolic BP Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Appointment Date Merge</step1>
+<step2>Import Systolic BP</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>368</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Write NCD Visit Table</name>
     <type>TableOutput</type>
     <description/>
@@ -238,7 +612,7 @@
     <schema/>
     <table>mw_ncd_visits</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
@@ -337,380 +711,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>704</xloc>
       <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Check Encounter Types</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var cc_initial &#x3d; visit_types.indexOf&#x28;&#x27;CHRONIC_CARE_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var cc_followup &#x3d; visit_types.indexOf&#x28;&#x27;CHRONIC_CARE_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var diabetes_htn_initial &#x3d; visit_types.indexOf&#x28;&#x27;DIABETES HYPERTENSION INITIAL VISIT&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var diabetes_htn_followup &#x3d; visit_types.indexOf&#x28;&#x27;DIABETES HYPERTENSION FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var asthma_initial &#x3d; visit_types.indexOf&#x28;&#x27;ASTHMA_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var asthma_followup &#x3d; visit_types.indexOf&#x28;&#x27;ASTHMA_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var epilepsy_initial &#x3d; visit_types.indexOf&#x28;&#x27;EPILEPSY_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var epilepsy_followup &#x3d; visit_types.indexOf&#x28;&#x27;EPILEPSY_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var mental_health_initial &#x3d; visit_types.indexOf&#x28;&#x27;MENTAL_HEALTH_INITIAL&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;var mental_health_followup &#x3d; visit_types.indexOf&#x28;&#x27;MENTAL_HEALTH_FOLLOWUP&#x27;&#x29; &#x21;&#x3d; -1&#x3b;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>cc_initial</name>
-        <rename>cc_initial</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>cc_followup</name>
-        <rename>cc_followup</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>diabetes_htn_initial</name>
-        <rename>diabetes_htn_initial</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>diabetes_htn_followup</name>
-        <rename>diabetes_htn_followup</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>asthma_initial</name>
-        <rename>asthma_initial</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>asthma_followup</name>
-        <rename>asthma_followup</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>epilepsy_initial</name>
-        <rename>epilepsy_initial</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>epilepsy_followup</name>
-        <rename>epilepsy_followup</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>mental_health_initial</name>
-        <rename>mental_health_initial</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>mental_health_followup</name>
-        <rename>mental_health_followup</rename>
-        <type>Boolean</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Systolic BP Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Appointment Date Merge</step1>
-<step2>Import Systolic BP</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Systolic BP</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as systolic_bp&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Systolic blood pressure&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Diastolic BP Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Systolic BP Merge</step1>
-<step2>Import Diastolic BP</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Diastolic BP</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as diastolic_bp&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Diastolic blood pressure&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>On Insulin Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Diastolic BP Merge</step1>
-<step2>Import On Insulin</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>432</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import On Insulin</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, &#x28;count&#x28;&#x2a;&#x29; &#x3e; 0&#x29; as on_insulin&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Current drugs used&#x27;&#xa;and			o.value_coded &#x3d; &#x27;Insulin&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location&#xa;&#xa;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>432</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Asthma Severity Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>On Insulin Merge</step1>
-<step2>Import Asthma Severity</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>512</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Asthma Severity</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as asthma_classification&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Asthma classification&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>512</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Num Seizures Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Asthma Severity Merge</step1>
-<step2>Import Num Seizures</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>368</xloc>
-      <yloc>592</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Num Seizures</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as num_seizures&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;NUMBER OF SEIZURES&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>176</xloc>
-      <yloc>592</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
