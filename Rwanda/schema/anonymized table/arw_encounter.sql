@@ -1,7 +1,7 @@
 
 CREATE TABLE arw_encounter (
-  research_encounter_id BIGINT not null,
-  research_patient_id BIGINT not null,
+  research_encounter_id VARCHAR(32),
+  research_patient_id VARCHAR(32),
   encounter_type VARCHAR(255) not null,
   form VARCHAR(255),
   location VARCHAR(255),

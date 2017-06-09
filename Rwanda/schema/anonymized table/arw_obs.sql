@@ -1,8 +1,8 @@
 
 CREATE TABLE arw_obs (
-  research_obs_id BIGINT not null,
-  research_patient_id BIGINT not null,
-  research_encounter_id BIGINT,
+  research_obs_id VARCHAR(32),
+  research_patient_id VARCHAR(32),
+  research_encounter_id VARCHAR(32),
   obs_date date,
   obs_time time,
   age_years_at_obs INT,
@@ -15,6 +15,6 @@ CREATE TABLE arw_obs (
   value_numeric DOUBLE DEFAULT NULL,
   value_text TEXT,
   comments VARCHAR(255),
-  obs_group_id INT,
+  research_obs_group_id INT,
   date_created DATE
 );

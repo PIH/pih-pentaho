@@ -1,6 +1,6 @@
 
 CREATE TABLE arw_order_group (
-  research_order_group_id BIGINT not null,
+  research_order_group_id VARCHAR(32),
   group_type VARCHAR(255),
   cycle_number INT,
   date_created date,

@@ -1,0 +1,11 @@
+table,id_column
+omrs_encounter,encounter_id
+omrs_encounter_provider,encounter_provider_id
+omrs_obs,obs_id
+omrs_obs_group,obs_group_id
+omrs_patient,patient_id
+omrs_patient_identifier,patient_identifier_id
+omrs_program_enrollment,program_enrollment_id
+omrs_program_state,program_state_id
+omrs_relationship,relationship_id
+omrs_visit,visit_id

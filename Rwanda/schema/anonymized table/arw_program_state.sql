@@ -1,8 +1,8 @@
 
 CREATE TABLE arw_program_state (
-  research_program_state_id BIGINT not null,
-  research_program_enrollment_id BIGINT not null,
-  research_patient_id BIGINT not null,
+  research_program_state_id VARCHAR(32),
+  research_program_enrollment_id VARCHAR(32),
+  research_patient_id VARCHAR(32),
   program VARCHAR(100) not null,
   workflow VARCHAR(100) not null,
   state VARCHAR(100) not null,

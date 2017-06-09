@@ -56,38 +56,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>96</xloc>
-      <yloc>160</yloc>
-      </entry>
-    <entry>
-      <name>Load Configuration</name>
-      <description/>
-      <type>JOB</type>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;jobs&#x2f;load-configuration.kjb</filename>
-      <jobname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>192</xloc>
+      <xloc>160</xloc>
       <yloc>160</yloc>
       </entry>
     <entry>
@@ -223,12 +192,12 @@
       <yloc>144</yloc>
       </entry>
     <entry>
-      <name>Create Schema</name>
+      <name>Create Schema if exists</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;create-schema.ktr</filename>
+      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;transforms&#x5c;create-schema if not exist.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -291,25 +260,7 @@
   </entries>
   <hops>
     <hop>
-      <from>START</from>
-      <to>Load Configuration</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Load Configuration</from>
-      <to>Create Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create Schema</from>
+      <from>Create Schema if exists</from>
       <to>Load Order Groups</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -318,7 +269,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Schema</from>
+      <from>Create Schema if exists</from>
       <to>Load Orders Table</to>
       <from_nr>0</from_nr>
       <to_nr>1</to_nr>
@@ -327,7 +278,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Schema</from>
+      <from>Create Schema if exists</from>
       <to>Load onc Diagnosis</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -336,7 +287,7 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Schema</from>
+      <from>Create Schema if exists</from>
       <to>Load location table </to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -345,13 +296,22 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Create Schema</from>
+      <from>Create Schema if exists</from>
       <to>Eastenrize</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>START</from>
+      <to>Create Schema if exists</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>
