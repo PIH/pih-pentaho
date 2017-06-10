@@ -58,7 +58,7 @@
       <description/>
       <type>SET_VARIABLES</type>
       <replacevars>Y</replacevars>
-      <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.kettle&#x2f;pih-kettle.properties</filename>
+      <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.kettle&#x2f;east-kettle.properties</filename>
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
@@ -147,7 +147,7 @@
       <description/>
       <type>SET_VARIABLES</type>
       <replacevars>Y</replacevars>
-      <filename>&#x24;&#x7b;KETTLE_HOME&#x7d;&#x2f;.kettle&#x2f;pih-kettle.properties</filename>
+      <filename>&#x24;&#x7b;KETTLE_HOME&#x7d;&#x2f;.kettle&#x2f;east-kettle.properties</filename>
       <file_variable_type>JVM</file_variable_type>
       <fields>
       </fields>
