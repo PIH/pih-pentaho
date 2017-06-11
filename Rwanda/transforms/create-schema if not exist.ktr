@@ -130,7 +130,8 @@
   <hop> <from>Test If Table</from><to>Create Table and Index</to><enabled>Y</enabled> </hop>
   <hop> <from>Test If Table</from><to>Create Function or Procedure</to><enabled>Y</enabled> </hop>
   <hop> <from>Construct full file path</from><to>Table exists</to><enabled>Y</enabled> </hop>
-  <hop> <from>Table exists</from><to>Test If Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Table exists</from><to>Test If Table 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Test If Table 2</from><to>Test If Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Construct full file path</name>
@@ -357,6 +358,29 @@
     </step>
 
   <step>
+    <name>Table exists</name>
+    <type>TableExists</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <tablenamefield>name</tablenamefield>
+    <resultfieldname>result</resultfieldname>
+    <schemaname>&#x24;&#x7b;warehouse.db.name&#x7d;</schemaname>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>576</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Test If Table</name>
     <type>SwitchCase</type>
     <description/>
@@ -385,8 +409,8 @@
     </step>
 
   <step>
-    <name>Table exists</name>
-    <type>TableExists</type>
+    <name>Test If Table 2</name>
+    <type>SwitchCase</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -395,14 +419,19 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Warehouse</connection>
-    <tablenamefield>name</tablenamefield>
-    <resultfieldname>result</resultfieldname>
-    <schemaname>&#x24;&#x7b;warehouse.db.name&#x7d;</schemaname>
-     <cluster_schema/>
+<fieldname>result</fieldname>
+<use_contains>N</use_contains>
+<case_value_type>String</case_value_type>
+<case_value_format/>
+<case_value_decimal/>
+<case_value_group/>
+<default_target_step>Create Function or Procedure</default_target_step>
+<cases><case><value>N</value>
+<target_step>Test If Table</target_step>
+</case></cases>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>576</xloc>
-      <yloc>272</yloc>
+      <xloc>656</xloc>
+      <yloc>336</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -411,7 +440,7 @@
       <error>
         <source_step>Table exists</source_step>
         <target_step>Test If Table</target_step>
-        <is_enabled>Y</is_enabled>
+        <is_enabled>N</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>
         <fields_valuename/>

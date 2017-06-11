@@ -78,8 +78,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>144</xloc>
-      <yloc>208</yloc>
+      <xloc>96</xloc>
+      <yloc>288</yloc>
       </entry>
     <entry>
       <name>Create OMRS Schema</name>
@@ -107,20 +107,204 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>320</xloc>
+      <xloc>272</xloc>
+      <yloc>288</yloc>
+      </entry>
+    <entry>
+      <name>Load Encounter Table</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;import-into-omrs-encounter.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1024</xloc>
       <yloc>208</yloc>
+      </entry>
+    <entry>
+      <name>Add Patient Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_patient add index patient_id_idx &#x28;patient_id&#x29;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>352</yloc>
+      </entry>
+    <entry>
+      <name>Add Encounter Provider Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_encounter_provider add index encounter_provider_id_idx &#x28;encounter_provider_id&#x29;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>208</yloc>
+      </entry>
+    <entry>
+      <name>Add Program Enrollment Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_program_enrollment add index omrs_program_enrollment_id_idx &#x28;program_enrollment_id&#x29;&#x3b;&#xa;alter table omrs_program_enrollment add index omrs_program_enrollment_patient_idx &#x28;patient_id&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>528</yloc>
+      </entry>
+    <entry>
+      <name>Add Encounter Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_encounter add index omrs_encounter_id_idx &#x28;encounter_id&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_patient_idx &#x28;patient_id&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_date_idx &#x28;encounter_date&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_time_idx &#x28;encounter_time&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_type_idx &#x28;encounter_type&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_form_idx &#x28;form&#x29;&#x3b;&#xa;alter table omrs_encounter add index omrs_encounter_location_idx &#x28;location&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>1221</xloc>
+      <yloc>558</yloc>
+      </entry>
+    <entry>
+      <name>Add Obs Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_obs add index omrs_obs_id_idx &#x28;obs_id&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_patient_idx &#x28;patient_id&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_date_idx &#x28;obs_date&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_time_idx &#x28;obs_time&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_concept_idx &#x28;concept&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_encounter_type_idx &#x28;encounter_type&#x29;&#x3b;&#xa;alter table omrs_obs add index omrs_obs_location_idx &#x28;location&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>432</yloc>
+      </entry>
+    <entry>
+      <name>Add Program State Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_program_state add index omrs_program_state_id_idx &#x28;program_state_id&#x29;&#x3b;&#xa;alter table omrs_program_state add index omrs_program_state_enrollment_id_idx &#x28;program_enrollment_id&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>624</yloc>
+      </entry>
+    <entry>
+      <name>Add Patient Identifier Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_patient_identifier add index patient_identifier_id_idx &#x28;patient_identifier_id&#x29;&#x3b;&#xa;alter table omrs_patient_identifier add index omrs_patient_identifier_patient_idx &#x28;patient_id&#x29;&#x3b;&#xa;alter table omrs_patient_identifier add index omrs_patient_identifier_location_idx &#x28;location&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>48</yloc>
+      </entry>
+    <entry>
+      <name>Add Relationship Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_relationship add index omrs_relationship_relationship_id_idx &#x28;relationship_id&#x29;&#x3b;&#xa;alter table omrs_relationship add index omrs_relationship_patient_idx &#x28;patient_id&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>128</yloc>
+      </entry>
+    <entry>
+      <name>Add Obs Group Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_obs_group add index omrs_bos_group_id_idx &#x28;obs_group_id&#x29;&#x3b;&#xa;alter table omrs_obs_group add index omrs_obs_group_patient_idx &#x28;patient_id&#x29;&#x3b;&#xa;alter table omrs_obs_group add index omrs_obs_group_date_idx &#x28;obs_group_date&#x29;&#x3b;&#xa;alter table omrs_obs_group add index omrs_obs_group_time_idx &#x28;obs_group_time&#x29;&#x3b;&#xa;alter table omrs_obs_group add index omrs_obs_group_concept_idx &#x28;concept&#x29;&#x3b;&#xa;alter table omrs_obs_group add index omrs_obs_group_encounter_type_idx &#x28;encounter_type&#x29;&#x3b;&#xa;alter table omrs_obs_group add index omrs_obs_group_location_idx &#x28;location&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>960</xloc>
+      <yloc>432</yloc>
+      </entry>
+    <entry>
+      <name>Add Visit Indexes</name>
+      <description/>
+      <type>SQL</type>
+      <sql>alter table omrs_visit add index omrs_visit_id_idx &#x28;visit_id&#x29;&#x3b;&#xa;alter table omrs_visit add index omrs_visit_patient_idx &#x28;patient_id&#x29;&#x3b;&#xa;alter table omrs_visit add index omrs_visit_date_started_idx &#x28;date_started&#x29;&#x3b;&#xa;alter table omrs_visit add index omrs_visit_date_stopped_idx &#x28;date_stopped&#x29;&#x3b;&#xa;alter table omrs_visit add index omrs_visit_type_idx &#x28;visit_type&#x29;&#x3b;&#xa;alter table omrs_visit add index omrs_visit_location_idx &#x28;location&#x29;&#x3b;</sql>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>F</sqlfromfile>
+      <sqlfilename/>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>800</xloc>
+      <yloc>288</yloc>
       </entry>
   </entries>
   <hops>
-    <hop>
-      <from>Table exists</from>
-      <to>Create OMRS Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>N</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
     <hop>
       <from>START</from>
       <to>Table exists</to>
@@ -129,6 +313,105 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Patient Identifier Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Relationship Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Encounter Provider Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Visit Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Patient Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Obs Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Program Enrollment Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create OMRS Schema</from>
+      <to>Add Program State Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Add Obs Indexes</from>
+      <to>Add Obs Group Indexes</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Add Encounter Provider Indexes</from>
+      <to>Load Encounter Table</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Table exists</from>
+      <to>Create OMRS Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>N</evaluation>
+      <unconditional>N</unconditional>
     </hop>
   </hops>
   <notepads>
