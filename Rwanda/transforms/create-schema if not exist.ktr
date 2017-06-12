@@ -130,8 +130,8 @@
   <hop> <from>Test If Table</from><to>Create Table and Index</to><enabled>Y</enabled> </hop>
   <hop> <from>Test If Table</from><to>Create Function or Procedure</to><enabled>Y</enabled> </hop>
   <hop> <from>Construct full file path</from><to>Table exists</to><enabled>Y</enabled> </hop>
-  <hop> <from>Table exists</from><to>Test If Table 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Test If Table 2</from><to>Test If Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Table exists</from><to>Send non-existent tables</to><enabled>Y</enabled> </hop>
+  <hop> <from>Send non-existent tables</from><to>Test If Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Construct full file path</name>
@@ -409,7 +409,7 @@
     </step>
 
   <step>
-    <name>Test If Table 2</name>
+    <name>Send non-existent tables</name>
     <type>SwitchCase</type>
     <description/>
     <distribute>Y</distribute>
