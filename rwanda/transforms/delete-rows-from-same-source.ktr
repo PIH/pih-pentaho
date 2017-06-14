@@ -205,7 +205,7 @@
       <field>
         <name>prefix</name>
         <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
-        <type>None</type>
+        <type>String</type>
         <format/>
         <currency/>
         <decimal/>
@@ -265,7 +265,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;Rwanda&#x5c;schema&#x5c;Source_rows_delete.csv</filename>
+    <filename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x5c;rwanda&#x5c;schema&#x5c;Source_rows_delete.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
