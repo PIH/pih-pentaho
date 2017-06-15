@@ -265,7 +265,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x5c;rwanda&#x5c;schema&#x5c;Source_rows_delete.csv</filename>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x5c;rwanda&#x5c;schema&#x5c;Source_rows_to_delete.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -305,7 +305,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>144</xloc>
-      <yloc>192</yloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
