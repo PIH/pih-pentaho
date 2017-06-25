@@ -1,0 +1,12 @@
+type,name
+table,arw_location
+table,arw_onc_diagnosis
+table,arw_order
+table,arw_order_group
+table,arw_encounter
+table,arw_obs
+table,arw_patient
+table,arw_program_enrollment
+table,arw_program_state
+table,arw_relationship
+table,arw_location
