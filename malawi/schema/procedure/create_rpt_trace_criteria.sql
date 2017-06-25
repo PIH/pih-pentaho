@@ -29,8 +29,8 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
   ;
 
   -- High Viral Load
-  -- 2 wk: Active patients who have a viral load > 1000 with entry date <= 14 days
-  -- 6 wk: Active patients who have a viral load > 1000 with entry date <= 56 days and no subsequent visit
+  -- 2 wk: Active patients who have a viral load > 1000 with entry date <= 56 days
+  -- 6 wk: Active patients who have a viral load > 1000 and no subsequent visit
   INSERT INTO   rpt_trace_criteria(patient_id, criteria)
     SELECT      r.patient_id, 'HIGH_VIRAL_LOAD'
     FROM        rpt_active_art r
@@ -38,12 +38,11 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
     WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'Viral Load', null, _endDate, 0)
     AND         (
                   ( _minWks = 2 AND
-                    datediff(_endDate, t.date_result_entered) <= 7*_labWks AND
+                    datediff(_endDate, t.date_result_entered) <= 42+7*_labWks AND
                     t.result_numeric > 1000
                   )
                   OR
                   ( _minWks = 6 AND
-                    datediff(_endDate, t.date_result_entered) <= 42+7*_labWks AND
                     t.result_numeric > 1000 AND
                     t.date_result_entered > r.last_visit_date
                   )
@@ -52,8 +51,8 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
 
   -- EID Positive 6 week
   -- Active in EID and
-  -- 2wk:  6wk eid test result is positive AND today-lastEidTestResultDate <= 14d
-  -- 6wk:  6wk eid test result is positive AND today-lastEidTestResultDate <= 56d AND no visit since lastEidTestResultDate
+  -- 2wk:  6wk eid test result is positive AND today-lastEidTestResultDate <= 56d
+  -- 6wk:  6wk eid test result is positive AND no visit since lastEidTestResultDate
   -- TODO: My assumption is that the 6 week test result is the first test result.  Confirm this.
   -- (eg:  patient only has 1 test result, it was positive, and it was recorded within
   -- the last 14 days (2 wk) or last 56 days with no subsequent visit (6 wk))
@@ -66,12 +65,11 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
     AND         t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
     AND         (
                   ( _minWks = 2 AND
-                    datediff(_endDate, t.date_result_entered) <= 7*_labWks AND
+                    datediff(_endDate, t.date_result_entered) <= 42+7*_labWks AND
                     t.result_coded = 'Positive'
                   )
                   OR
                   ( _minWks = 6 AND
-                    datediff(_endDate, t.date_result_entered) <= 42+7*_labWks AND
                     t.result_coded = 'Positive' AND
                     t.date_result_entered > r.last_visit_date
                   )
@@ -90,7 +88,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'Viral Load', null, _endDate, 0)
       AND         t.result_numeric > 1000
       AND         datediff(_endDate, t.date_result_entered) >= 84
-      AND         datediff(_endDate, t.date_result_entered) < 154+7*_labWks
+      AND         datediff(_endDate, t.date_result_entered) < 154+7*_labWks -- May remove this requirement (MLW-575, 6/25/2017)
       AND         r.last_visit_date > t.date_result_entered
       AND         r.days_to_next_appt >= 28-7*_labWks
       AND         r.days_to_next_appt < 28
@@ -147,7 +145,7 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       AND         previousTest.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 1)
       AND         lastTest.result_coded = 'Negative'
       AND         previousTest.result_coded = 'Positive'
-      AND         datediff(_endDate, lastTest.date_result_entered) <= 7*_labWks
+      AND         datediff(_endDate, lastTest.date_result_entered) <= 7*_labWks -- May remove this requirement (MLW-575, 6/25/2017)
     ;
 
 
