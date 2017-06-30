@@ -23,8 +23,8 @@ CREATE PROCEDURE create_rpt_patients_expected(IN _startDate DATE, IN _endDate DA
                 JOIN (
                       SELECT patient_id, location
                       FROM mw_art_register 
-                      WHERE location = @_location
-                      and (end_date IS NULL OR end_date > @_endDate)
+                      WHERE location = _location
+                      and (end_date IS NULL OR end_date > _endDate)
                     ) r
                 ON r.patient_id = v.patient_id          
                 WHERE next_appointment_date IS NOT NULL 
@@ -36,8 +36,8 @@ CREATE PROCEDURE create_rpt_patients_expected(IN _startDate DATE, IN _endDate DA
                 JOIN (
                       SELECT patient_id, location
                       FROM mw_eid_register 
-                      WHERE location = @_location
-                      and (end_date IS NULL OR end_date > @_endDate)
+                      WHERE location = _location
+                      and (end_date IS NULL OR end_date > _endDate)
                     ) r
                 ON r.patient_id = v.patient_id  
                 WHERE next_appointment_date IS NOT NULL
@@ -49,8 +49,8 @@ CREATE PROCEDURE create_rpt_patients_expected(IN _startDate DATE, IN _endDate DA
                 JOIN (
                       SELECT patient_id, location
                       FROM mw_ncd_register 
-                      WHERE location = @_location
-                      and (end_date IS NULL OR end_date > @_endDate)
+                      WHERE location = _location
+                      and (end_date IS NULL OR end_date > _endDate)
                     ) r
                 ON r.patient_id = v.patient_id            
                 WHERE next_appointment_date IS NOT NULL   
@@ -58,7 +58,7 @@ CREATE PROCEDURE create_rpt_patients_expected(IN _startDate DATE, IN _endDate DA
           ) itable
         GROUP BY patient_id
         ) appt_temp
-  WHERE next_appointment_date >= @_startDate
-  AND next_appointment_date <= @_endDate;    
+  WHERE next_appointment_date >= _startDate
+  AND next_appointment_date <= _endDate;    
 
 END
