@@ -298,6 +298,32 @@
     </step>
 
   <step>
+    <name>location</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT &#xd;&#xa;    location_id,&#xd;&#xa;	name,&#xd;&#xa;	description ,&#xd;&#xa;	address1,&#xd;&#xa;	address2,&#xd;&#xa;	address3,&#xd;&#xa;	address4,&#xd;&#xa;	city_village,&#xd;&#xa;	state_province,&#xd;&#xa;	country,&#xd;&#xa;	county_district&#xd;&#xa;FROM rw_location&#x3b;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>144</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>location output</name>
     <type>TableOutput</type>
     <description/>
@@ -326,6 +352,10 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+        <field>
+          <column_name>location_id</column_name>
+          <stream_name>location_id</stream_name>
+        </field>
         <field>
           <column_name>name</column_name>
           <stream_name>name</stream_name>
@@ -371,6 +401,32 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>448</xloc>
       <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>obs</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;obs_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  encounter_id ,&#xd;&#xa;  obs_date ,&#xd;&#xa;  obs_time ,&#xd;&#xa;  age_years_at_obs ,&#xd;&#xa;  age_months_at_obs ,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  concept ,&#xd;&#xa;  value_coded ,&#xd;&#xa;  value_date ,&#xd;&#xa;  value_numeric,&#xd;&#xa;  value_text ,&#xd;&#xa;  comments ,&#xd;&#xa;  md5&#x28;obs_group_id&#x29;,&#xd;&#xa;  date_created&#xd;&#xa;FROM omrs_obs&#x3b;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>144</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -608,128 +664,6 @@
     </step>
 
   <step>
-    <name>order group output</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Anonymized</connection>
-    <schema/>
-    <table>arw_order_group</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>research_order_group_id</column_name>
-          <stream_name>md5&#x28;order_group_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>group_type</column_name>
-          <stream_name>group_type</stream_name>
-        </field>
-        <field>
-          <column_name>cycle_number</column_name>
-          <stream_name>cycle_number</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
-        <field>
-          <column_name>order_set_uuid</column_name>
-          <stream_name>order_set_uuid</stream_name>
-        </field>
-        <field>
-          <column_name>order_set_name</column_name>
-          <stream_name>order_set_name</stream_name>
-        </field>
-        <field>
-          <column_name>order_set_description</column_name>
-          <stream_name>order_set_description</stream_name>
-        </field>
-        <field>
-          <column_name>indication</column_name>
-          <stream_name>indication</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>912</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>location</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;    name,&#xd;&#xa;	description ,&#xd;&#xa;	address1,&#xd;&#xa;	address2,&#xd;&#xa;	address3,&#xd;&#xa;	address4,&#xd;&#xa;	city_village,&#xd;&#xa;	state_province,&#xd;&#xa;	country,&#xd;&#xa;	county_district&#xd;&#xa;FROM rw_location&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>obs</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;obs_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  encounter_id ,&#xd;&#xa;  obs_date ,&#xd;&#xa;  obs_time ,&#xd;&#xa;  age_years_at_obs ,&#xd;&#xa;  age_months_at_obs ,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  concept ,&#xd;&#xa;  value_coded ,&#xd;&#xa;  value_date ,&#xd;&#xa;  value_numeric,&#xd;&#xa;  value_text ,&#xd;&#xa;  comments ,&#xd;&#xa;  md5&#x28;obs_group_id&#x29;,&#xd;&#xa;  date_created&#xd;&#xa;FROM omrs_obs&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>onc_diangosis</name>
     <type>TableInput</type>
     <description/>
@@ -808,6 +742,76 @@
     </step>
 
   <step>
+    <name>order group output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Anonymized</connection>
+    <schema/>
+    <table>arw_order_group</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>research_order_group_id</column_name>
+          <stream_name>md5&#x28;order_group_id&#x29;</stream_name>
+        </field>
+        <field>
+          <column_name>group_type</column_name>
+          <stream_name>group_type</stream_name>
+        </field>
+        <field>
+          <column_name>cycle_number</column_name>
+          <stream_name>cycle_number</stream_name>
+        </field>
+        <field>
+          <column_name>date_created</column_name>
+          <stream_name>date_created</stream_name>
+        </field>
+        <field>
+          <column_name>order_set_uuid</column_name>
+          <stream_name>order_set_uuid</stream_name>
+        </field>
+        <field>
+          <column_name>order_set_name</column_name>
+          <stream_name>order_set_name</stream_name>
+        </field>
+        <field>
+          <column_name>order_set_description</column_name>
+          <stream_name>order_set_description</stream_name>
+        </field>
+        <field>
+          <column_name>indication</column_name>
+          <stream_name>indication</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>912</xloc>
+      <yloc>48</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>order output</name>
     <type>TableOutput</type>
     <description/>
@@ -877,7 +881,7 @@
           <stream_name>discontinued_reason</stream_name>
         </field>
         <field>
-          <column_name>patient_id</column_name>
+          <column_name>research_patient_id</column_name>
           <stream_name>patient_id</stream_name>
         </field>
         <field>

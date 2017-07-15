@@ -15,6 +15,6 @@ CREATE TABLE arw_obs (
   value_numeric DOUBLE DEFAULT NULL,
   value_text TEXT,
   comments VARCHAR(255),
-  research_obs_group_id INT,
+  research_obs_group_id VARCHAR(50),
   date_created DATE
 );
