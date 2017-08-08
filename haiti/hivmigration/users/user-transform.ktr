@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>add-column-data</name>
+    <name>user-transform</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -105,7 +105,7 @@
   <order>
   </order>
   <step>
-    <name>Populate User Columns</name>
+    <name>Transform Column Values</name>
     <type>ExecSQL</type>
     <description/>
     <distribute>Y</distribute>
@@ -120,7 +120,7 @@
     <single_statement>N</single_statement>
     <replace_variables>N</replace_variables>
     <quoteString>N</quoteString>
-    <sql>update hivmigration_users set user_uuid &#x3d; uuid&#x28;&#x29;&#x3b;&#xa;update hivmigration_users set username &#x3d; left&#x28;email, locate&#x28;&#x27;&#x40;&#x27;, email&#x29; - 1&#x29;&#x3b;</sql>
+    <sql>update hivmigration_users set user_uuid &#x3d; uuid&#x28;&#x29;&#x3b;&#xa;update hivmigration_users set person_uuid &#x3d; uuid&#x28;&#x29;&#x3b;&#xa;update hivmigration_users set username &#x3d; left&#x28;email, locate&#x28;&#x27;&#x40;&#x27;, email&#x29; - 1&#x29;&#x3b;</sql>
     <set_params>N</set_params>
     <insert_field/>
     <update_field/>
@@ -130,8 +130,8 @@
     </arguments>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>160</xloc>
-      <yloc>48</yloc>
+      <xloc>176</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

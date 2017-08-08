@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>user-load</name>
+    <name>user-extract</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -102,23 +102,46 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
+  <connection>
+    <name>Oracle</name>
+    <server>localhost</server>
+    <type>ORACLE</type>
+    <access>Native</access>
+    <database>XE</database>
+    <port>1521</port>
+    <username>hiv</username>
+    <password>Encrypted 2be98afc86aa7f2e4cb79ce10be9aa6cc</password>
+    <servername/>
+    <data_tablespace>HIV</data_tablespace>
+    <index_tablespace>HIV</index_tablespace>
+    <attributes>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>1521</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
   <order>
-  <hop> <from>Select from users</from><to>Insert User</to><enabled>N</enabled> </hop>
-  <hop> <from>Select from users</from><to>Execute SQL script</to><enabled>Y</enabled> </hop>
+  <hop> <from>Extract Users</from><to>Write to hivmigration_users</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Select from users</name>
+    <name>Extract Users</name>
     <type>TableInput</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OpenMRS</connection>
-    <sql>select  source_user_id, user_uuid, username, email, first_name, last_name, password, salt, member_state&#xa;from    hivmigration_users</sql>
+    <connection>Oracle</connection>
+    <sql>&#x2f;&#x2a;&#x2a;&#xa; &#x2a; User data in contained within the users, parties, and persons tables.  We are choosing not to include the following&#x3a;&#xa; &#x2a; 	url, screen_name, priv_name, priv_email, email_verified_p, email_bouncing_p, no_alerts_until, last_visit, second_to_last_visit, n_sessions, password_question, password_answer.&#xa; &#x2a; 	We considered including and migrating Password question and answer were but ultimately decided against it since they are not&#xa; &#x2a; 	encrypted and aren&#x27;t really needed for migration &#x28;users can regenerate their own in the new system&#x29;&#xa; &#x2a;&#x2f;&#xa;select	  u.USER_ID as SOURCE_USER_ID, p.EMAIL, n.FIRST_NAMES as FIRST_NAME, n.LAST_NAME, u.PASSWORD, u.SALT, mr.MEMBER_STATE&#xa;from	  users u, parties p, persons n, acs_rels ar, membership_rels mr&#xa;where	  u.USER_ID &#x3d; p.PARTY_ID&#xa;and		  u.USER_ID &#x3d; n.PERSON_ID&#xa;and       u.USER_ID &#x3d; ar.OBJECT_ID_TWO&#xa;and       ar.REL_ID &#x3d; mr.REL_ID&#xa;and       ar.REL_TYPE &#x3d; &#x27;membership_rel&#x27;&#xa;and       mr.MEMBER_STATE IS NOT NULL&#xa;order by  u.user_id</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -126,15 +149,15 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>128</xloc>
-      <yloc>64</yloc>
+      <xloc>112</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Insert User</name>
-    <type>DBProc</type>
+    <name>Write to hivmigration_users</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -144,94 +167,56 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <procedure>create_user</procedure>
-    <lookup>
-      <arg>
-        <name>user_uuid</name>
-        <direction>IN</direction>
-        <type>String</type>
-      </arg>
-      <arg>
-        <name>email</name>
-        <direction>IN</direction>
-        <type>String</type>
-      </arg>
-      <arg>
-        <name>first_name</name>
-        <direction>IN</direction>
-        <type>String</type>
-      </arg>
-      <arg>
-        <name>last_name</name>
-        <direction>IN</direction>
-        <type>String</type>
-      </arg>
-      <arg>
-        <name>password</name>
-        <direction>IN</direction>
-        <type>String</type>
-      </arg>
-      <arg>
-        <name>salt</name>
-        <direction>IN</direction>
-        <type>String</type>
-      </arg>
-      <arg>
-        <name>member_state</name>
-        <direction>IN</direction>
-        <type>String</type>
-      </arg>
-    </lookup>
-    <result>
-      <name/>
-      <type>Number</type>
-    </result>
-    <auto_commit>Y</auto_commit>
+    <schema/>
+    <table>hivmigration_users</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>SOURCE_USER_ID</column_name>
+          <stream_name>SOURCE_USER_ID</stream_name>
+        </field>
+        <field>
+          <column_name>EMAIL</column_name>
+          <stream_name>EMAIL</stream_name>
+        </field>
+        <field>
+          <column_name>FIRST_NAME</column_name>
+          <stream_name>FIRST_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>LAST_NAME</column_name>
+          <stream_name>LAST_NAME</stream_name>
+        </field>
+        <field>
+          <column_name>PASSWORD</column_name>
+          <stream_name>PASSWORD</stream_name>
+        </field>
+        <field>
+          <column_name>SALT</column_name>
+          <stream_name>SALT</stream_name>
+        </field>
+        <field>
+          <column_name>MEMBER_STATE</column_name>
+          <stream_name>MEMBER_STATE</stream_name>
+        </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>304</xloc>
-      <yloc>64</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Execute SQL script</name>
-    <type>ExecSQL</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OpenMRS</connection>
-    <execute_each_row>Y</execute_each_row>
-    <single_statement>Y</single_statement>
-    <replace_variables>Y</replace_variables>
-    <quoteString>Y</quoteString>
-    <sql>call create_user&#x28;&#x3f;,&#x3f;,&#x3f;,&#x3f;,&#x3f;,&#x3f;,&#x3f;,&#x3f;,&#x3f;&#x29;</sql>
-    <set_params>N</set_params>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <arguments>
-       <argument><name>source_user_id</name></argument>
-       <argument><name>user_uuid</name></argument>
-       <argument><name>username</name></argument>
-       <argument><name>email</name></argument>
-       <argument><name>first_name</name></argument>
-       <argument><name>last_name</name></argument>
-       <argument><name>password</name></argument>
-       <argument><name>salt</name></argument>
-       <argument><name>member_state</name></argument>
-    </arguments>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>304</xloc>
-      <yloc>160</yloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
