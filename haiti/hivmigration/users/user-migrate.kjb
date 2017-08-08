@@ -88,7 +88,7 @@
       <sql/>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>&#x2f;home&#x2f;mseaton&#x2f;code&#x2f;pih-pentaho&#x2f;haiti&#x2f;hivmigration&#x2f;users&#x2f;hivmigration_users.sql</sqlfilename>
+      <sqlfilename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;hivmigration_users.sql</sqlfilename>
       <sendOneStatement>F</sendOneStatement>
       <connection>OpenMRS</connection>
       <parallel>N</parallel>
@@ -104,7 +104,7 @@
       <sql/>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>&#x2f;home&#x2f;mseaton&#x2f;code&#x2f;pih-pentaho&#x2f;haiti&#x2f;hivmigration&#x2f;users&#x2f;delete-migrated-users.sql</sqlfilename>
+      <sqlfilename>&#x24;&#x7b;Internal.Job.Filename.Directory&#x7d;&#x2f;delete-migrated-users.sql</sqlfilename>
       <sendOneStatement>F</sendOneStatement>
       <connection>OpenMRS</connection>
       <parallel>N</parallel>
