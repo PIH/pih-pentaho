@@ -1,6 +1,6 @@
 
 CREATE TABLE arw_patient (
-  research_patient_id BIGINT not null,
+  research_patient_id VARCHAR(50),
   gender CHAR(1),
   birthdate DATE,
   birthdate_estimated BOOLEAN,

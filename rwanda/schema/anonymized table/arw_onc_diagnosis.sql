@@ -1,10 +1,10 @@
 
 CREATE TABLE arw_onc_diagnosis (
-  research_program_state_id BIGINT not null,
-  research_diagnosis_status_program_enrollment_id BIGINT,
-  research_program_enrollment_id BIGINT not null,
-  research_patient_id BIGINT not null,
-  research_diagnosis_status_patient_id BIGINT,
+  research_program_state_id VARCHAR(50),
+  research_diagnosis_status_program_enrollment_id VARCHAR(50),
+  research_program_enrollment_id VARCHAR(50),
+  research_patient_id VARCHAR(50),
+  research_diagnosis_status_patient_id VARCHAR(50),
   program VARCHAR(100) not null,
   diagnosis_status_program VARCHAR(100),
   workflow VARCHAR(100) not null,
