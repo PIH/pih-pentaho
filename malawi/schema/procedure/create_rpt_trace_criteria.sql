@@ -104,12 +104,25 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       SELECT      r.patient_id, 'EID_12_MONTH_TEST'
       FROM        rpt_active_eid r
       INNER JOIN  mw_patient p on r.patient_id = p.patient_id
-      INNER JOIN  mw_lab_tests t on r.patient_id = t.patient_id
-      WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
-      AND         date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate
-      AND         t.date_result_entered < date_add(p.birthdate, INTERVAL 12 MONTH)
-      AND         r.days_to_next_appt >= 28-7*_labWks
-      AND         r.days_to_next_appt < 28
+      LEFT JOIN  -- This join gets the most recent HIV rapid or DNA-PCR test
+             (
+              SELECT * 
+              FROM (
+                SELECT * 
+                FROM mw_lab_tests
+                WHERE test_type IN ('HIV rapid test, qualitative','HIV DNA polymerase chain reaction') 
+                ORDER BY date_collected DESC            
+              ) MLTI GROUP BY PATIENT_ID
+              ) t ON t.patient_id = r.patient_id 
+              
+      WHERE       date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate -- Ensure patient is 12+ months
+      AND         (
+                (t.date_collected < date_add(p.birthdate, INTERVAL 12 MONTH))
+              OR
+                (t.date_collected IS NULL) 
+            ) -- Ensure result was before 12 months or no result recorded
+      AND         r.days_to_next_appt >= 28-7*_labWks 
+      AND         r.days_to_next_appt < 28 -- ~2-4 weeks to appointment
     ;
 
 
@@ -123,12 +136,26 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       SELECT      r.patient_id, 'EID_24_MONTH_TEST'
       FROM        rpt_active_eid r
       INNER JOIN  mw_patient p on r.patient_id = p.patient_id
-      INNER JOIN  mw_lab_tests t on r.patient_id = t.patient_id
-      WHERE       t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
-      AND         date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate
-      AND         t.date_result_entered < first_date_no_breastfeeding(r.patient_id, _endDate)
-      AND         r.days_to_next_appt >= 28-7*_labWks
-      AND         r.days_to_next_appt < 28
+      LEFT JOIN  -- This join gets the most recent HIV rapid or DNA-PCR test
+             (
+              SELECT * 
+              FROM (
+                SELECT * 
+                FROM mw_lab_tests
+                WHERE test_type IN ('HIV rapid test, qualitative','HIV DNA polymerase chain reaction') 
+                ORDER BY date_collected DESC            
+              ) MLTI GROUP BY PATIENT_ID
+              ) t ON t.patient_id = r.patient_id 
+              
+      WHERE       date_add(p.birthdate, INTERVAL 12 MONTH) <= _endDate -- Ensure patient is 12+ months
+      AND         (
+                (t.date_collected < date_add(p.birthdate, INTERVAL 12 MONTH))
+              OR
+                (t.date_collected IS NULL) 
+            ) -- Ensure result was before 12 months or no result recorded
+      AND         t.date_collected < first_date_no_breastfeeding(r.patient_id, _endDate) -- no results since breastfeeding stopped
+      AND         r.days_to_next_appt >= 28-7*_labWks 
+      AND         r.days_to_next_appt < 28 -- ~2-4 weeks to appointment      
     ;
 
     -- EID_NEGATIVE
