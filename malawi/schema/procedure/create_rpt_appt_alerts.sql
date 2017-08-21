@@ -111,7 +111,7 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
   -- Alert: EID Positive RT
   -- Do this today: Confirm ART Enrollment
     INSERT INTO   rpt_appt_alerts(patient_id, alert, action)
-      SELECT        r.patient_id, 'EID Positive RT', 'Confirm ART Enrollment'
+      SELECT        r.patient_id, 'EID Positive RT', 'Enroll on ART and do DNA-PCR'
       FROM          rpt_active_eid r 
       INNER JOIN    mw_lab_tests t ON t.patient_id = r.patient_id
       WHERE         t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV rapid test, qualitative', null, _endDate, 0)
@@ -173,14 +173,14 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
 
   -- Diabetes Test Needed
   -- Logic: 
-  --        * Diabetes diagnosis
-  --        * No HbA1C test in last 6 months
+  --        * Diabetes (or Type 2 diabetes) diagnosis and no test in last 6 months
+  --        * Type 1 diabetes diagnosis and no test in last 3 months
   -- Alert: Test for HbA1C
   -- Do this today: Refer for fingerstick
     INSERT INTO   rpt_appt_alerts(patient_id, alert, action)
       SELECT       r.patient_id, 'Test for HbA1C', 'Refer for fingerstick'
       FROM         rpt_active_ncd r
-      INNER JOIN   (SELECT * FROM mw_ncd_diagnoses WHERE diagnosis = "Diabetes" group by patient_id) d on d.patient_id = r.patient_id
+      JOIN    (SELECT * FROM mw_ncd_diagnoses WHERE diagnosis IN ('Diabetes','Type 1 diabetes','Type 2 diabetes') group by patient_id) d on d.patient_id = r.patient_id
       LEFT JOIN    (SELECT * 
                       FROM (SELECT * 
                               FROM omrs_obs 
@@ -188,7 +188,13 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
                               ORDER BY obs_date desc) oi 
                       GROUP BY patient_id) o 
                       ON o.patient_id = r.patient_id
-    AND             (datediff(_endDate,obs_date) > 182 OR obs_date IS NULL)
+      WHERE   ( 
+                diagnosis = 'Type 1 diabetes' AND (datediff(_endDate,obs_date) > 90 OR obs_date IS NULL)
+              )
+                OR
+              ( 
+                diagnosis in ('Diabetes','Type 2 diabetes') AND (datediff(_endDate,obs_date) > 182 OR obs_date IS NULL)
+              )             
     ;  
 
   -- Creatinine test for HTN and DM
@@ -208,7 +214,7 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
                             ORDER BY obs_date desc) oi 
                             GROUP BY patient_id) o 
                             ON o.patient_id = r.patient_id
-      AND         (datediff(_endDate,obs_date) > 365 OR obs_date IS NULL)
+      WHERE         (datediff(_endDate,obs_date) > 365 OR obs_date IS NULL)
     ;
 
 END
