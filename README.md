@@ -5,6 +5,7 @@ Repository hosting PIH data warehousing scripts built on the Pentaho product sui
 
 * Kettle jobs (*.kjb):  Represent a sequence of transforms that can be executed or run on a schedule to process data
 * Kettle transforms (*.ktr):  Represent specific data transformations (Extract, Transform, and Load) that can be exectuted within one more more jobs
+* Other files (.sql, etc): Files used by these jobs and transforms
 
 =====================
 
@@ -19,8 +20,15 @@ Pentaho jobs and transforms.
 * Download the latest mysql connector jar from here: https://dev.mysql.com/downloads/file/?id=465644
 * Extract the mysql connector jar out of the above zip file and copy it into the data-integration/lib folder
 * Create a new mysql database for the warehouse ( eg. _create database openmrs_warehouse default charset utf8;_ )
-* Edit or create ~/.kettle/kettle.properties, and add the following: PIH_PENTAHO_HOME=/local/directory/of/pih-pentaho
+* Checkout out pih-pentaho code (this repository).  Make note of the location where this is located.  This is your _PIH_PENTAHO_HOME_ directory.
+* Edit or create ~/.kettle/kettle.properties, and add the following: PIH_PENTAHO_HOME=the/folder/from/above
 * Create file at ~/.kettle/pih-kettle.properties with the following variables set to your preferred values:
+
+** A sample of what this should look like is in pih-pentaho/config/pih-kettle-default.properties
+** Connection settings are there for configuring the source and target databases
+** pih.country should be set to the country of interest, and controls certain configurations within the main jobs and transforms
+** warehouse.db.key_prefix by default will be 100 unless you override it here.  This is a prefix that is appended to all primary keys for data that is imported.
+** Sample for Haiti below:
 
 ```
 pih.country  = haiti
@@ -46,6 +54,8 @@ Link your shared.xml to the shared file used by the project:
 * Create a new shared.xml that is a symbolic link to to "shared/shared-connections.xml" in this project.
 
 * Test it out by trying to run a job in the pih-pentaho/jobs folder (eg. load-from-openmrs.kjb)
+
+* Each country has it's own folder with implementation-specific jobs and transforms.  By convention, the main pipleline run for each country is accessible under: <country>/jobs/refresh-warehouse.kjb
 
 =======================
 
