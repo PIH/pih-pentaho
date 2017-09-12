@@ -146,7 +146,9 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
       FROM        rpt_active_eid r 
       INNER JOIN  mw_patient p on p.patient_id = r.patient_id      
       LEFT JOIN     (SELECT * from 
-                      (SELECT * from mw_lab_tests order by date_result_entered desc) mli 
+                      (SELECT * FROM mw_lab_tests 
+                        WHERE test_type IN ('HIV rapid test, qualitative','HIV DNA polymerase chain reaction') 
+                        ORDER BY date_collected desc) mli 
                         GROUP BY patient_id) t ON t.patient_id = r.patient_id
       WHERE         DATEDIFF(_endDate,p.birthdate) >= 365
       AND         DATEDIFF(_endDate,p.birthdate) < 731
@@ -165,7 +167,9 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
       FROM          rpt_active_eid r 
       INNER JOIN    mw_patient p on p.patient_id = r.patient_id      
       LEFT JOIN     (SELECT * from 
-                      (SELECT * from mw_lab_tests order by date_result_entered desc) mli 
+                      (SELECT * FROM mw_lab_tests 
+                        WHERE test_type IN ('HIV rapid test, qualitative','HIV DNA polymerase chain reaction') 
+                        ORDER BY date_collected desc) mli 
                     GROUP BY patient_id) t ON t.patient_id = r.patient_id
       WHERE         DATEDIFF(_endDate,p.birthdate) >= 731
       AND           (DATEDIFF(t.date_result_entered,p.birthdate) < 731 OR t.date_result_entered IS NULL)
