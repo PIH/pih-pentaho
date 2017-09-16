@@ -46,6 +46,7 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
         OR
         ( -- within 2y/4y/6y/... years to 2y+90d/4y+90d/6y+90d/... of *enrollment* (should be ART start)
           DATEDIFF(_endDate,start_date) % 730 < 90 -- within 90 days after 2y anniversary
+          AND DATEDIFF(@endDate,start_date) > 182 -- 6 months after *enrollment* (should be ART start)
           AND (
                 DATEDIFF(_endDate,date_collected) > DATEDIFF(_endDate,start_date) % 730 + 90 -- no test 90d before 2y anniversary to present
               OR 
