@@ -26,3 +26,4 @@
 "procedure","create_rpt_trace_criteria"
 "procedure","create_rpt_appt_alerts"
 "procedure","create_rpt_patients_expected"
+"procedure","create_rpt_ic3_data"
