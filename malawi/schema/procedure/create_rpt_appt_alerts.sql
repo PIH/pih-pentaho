@@ -119,20 +119,46 @@ CREATE PROCEDURE create_rpt_appt_alerts(IN _endDate DATE) BEGIN
       AND           result_coded = "Positive"
     ;  
 
-  -- EID Positive DNA-PCR
+  -- EID No DNA-PCR Test
   -- Logic: 
-  --        * Last DNA-PCR is positive
-  --        * No visit since test result entered
-  --        * Outcome is still "Exposed Child (continue)"
-  -- Alert: EID Positive DNA-PCR
-  -- Do this today: Inform patient, enroll ART, refer to HTC for confirmatory test
+  --        * No DNA-PCR 
+  --        * Over 6 weeks old (42 days)
+  --        * Less than 365 days
+  -- Alert: Due for EID DNA-PCR Test
+  -- Do this today: Refer to HTC for DNA-PCR test
     INSERT INTO   rpt_appt_alerts(patient_id, alert, action)
-      SELECT        r.patient_id, 'EID Positive DNA-PCR', 'Inform patient, enroll ART, refer to HTC for confirmatory test'
-      FROM          rpt_active_eid r 
-      INNER JOIN    mw_lab_tests t ON t.patient_id = r.patient_id
-      WHERE         t.lab_test_id = latest_test_result_by_date_entered(r.patient_id, 'HIV DNA polymerase chain reaction', null, _endDate, 0)
-      AND           result_coded = "Positive"
-      AND           last_visit_date <= date_result_entered
+      SELECT      r.patient_id, 'Due for EID DNA-PCR Test', 'Refer to HTC for DNA-PCR test'
+      FROM        rpt_active_eid r 
+      INNER JOIN  mw_patient p on p.patient_id = r.patient_id      
+      LEFT JOIN       (SELECT * from 
+                            (SELECT * FROM mw_lab_tests 
+                            WHERE test_type IN ('HIV DNA polymerase chain reaction') 
+                            ORDER BY date_collected desc) mli 
+                      GROUP BY patient_id) 
+                      t ON t.patient_id = r.patient_id
+      WHERE       DATEDIFF(@endDate,p.birthdate) >= 42
+      AND         DATEDIFF(@endDate,p.birthdate) < 365
+      AND         t.lab_test_id IS NULL
+    ;  
+
+  -- EID Due for 12 month rapid test
+  -- Logic: 
+  --        * Age >= 12 months
+  --        * No rapid test since 12 months
+  -- Alert: Due for EID Rapid Test
+  -- Do this today: Refer to HTC for rapid test
+    INSERT INTO   rpt_appt_alerts(patient_id, alert, action)
+      SELECT        r.patient_id, 'Due for EID Rapid Test', 'Refer to HTC for rapid test'
+      FROM        rpt_active_eid r 
+      INNER JOIN  mw_patient p on p.patient_id = r.patient_id      
+      LEFT JOIN     (SELECT * from 
+                      (SELECT * FROM mw_lab_tests 
+                        WHERE test_type IN ('HIV rapid test, qualitative','HIV DNA polymerase chain reaction') 
+                        ORDER BY date_collected desc) mli 
+                        GROUP BY patient_id) t ON t.patient_id = r.patient_id
+      WHERE         DATEDIFF(_endDate,p.birthdate) >= 365
+      AND         DATEDIFF(_endDate,p.birthdate) < 731
+      AND         (DATEDIFF(t.date_result_entered,p.birthdate) < 365 OR t.date_result_entered IS NULL)
     ;  
 
 
