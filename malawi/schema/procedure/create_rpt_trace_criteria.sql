@@ -94,6 +94,29 @@ CREATE PROCEDURE create_rpt_trace_criteria(IN _endDate DATE, IN _location VARCHA
       AND         r.days_to_next_appt < 28
     ;
 
+  -- EID No DNA-PCR Test
+  -- Logic: 
+  --        * No DNA-PCR 
+  --        * Over 6 weeks old (42 days)
+  --        * Less than 365 days
+  --        * and appointmentDate-today [14, 28)
+  
+    INSERT INTO   rpt_trace_criteria(patient_id, criteria)
+      SELECT      r.patient_id, 'EID_6_WEEK_TEST'
+      FROM        rpt_active_eid r 
+      INNER JOIN  mw_patient p on p.patient_id = r.patient_id      
+      LEFT JOIN       (SELECT * from 
+                            (SELECT * FROM mw_lab_tests 
+                            WHERE test_type IN ('HIV DNA polymerase chain reaction') 
+                            ORDER BY date_collected desc) mli 
+                      GROUP BY patient_id) 
+                      t ON t.patient_id = r.patient_id
+      WHERE       DATEDIFF(@endDate,p.birthdate) >= 42
+      AND         DATEDIFF(@endDate,p.birthdate) < 365
+      AND         t.lab_test_id IS NULL
+      AND         r.days_to_next_appt >= 28-7*_labWks 
+      AND         r.days_to_next_appt < 28 -- ~2-4 weeks to appointment
+    ;  
 
     -- EID_12_MONTH_TEST
     -- age >= 12m
