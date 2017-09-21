@@ -45,6 +45,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					artVisits.lastArtVisit,
 					ncdVisits.lastNcdVisit,
 					lastMentalHealthVisitDate,
+					lastAsthmaVisitDate,
 					CASE 
 						WHEN artVisits.lastArtVisit IS NULL THEN ncdVisits.lastNcdVisit
 						WHEN ncdVisits.lastNcdVisit IS NULL THEN artVisits.lastArtVisit
@@ -324,6 +325,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					ON mentalHealthVisit1.patient_id = ic3.patient_id											
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
+							visit_date as lastAsthmaVisitDate,
 							asthma_classification as asthmaClassification,
 							next_appointment_date AS nextAsthmaAppt
 							FROM mw_ncd_visits
