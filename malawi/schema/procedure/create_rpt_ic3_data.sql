@@ -74,6 +74,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					diastolicBp,
 					fingerStick,
 					hba1c,
+					seizuresSinceLastVisit,
 					seizures,				
 					asthmaClassification
 	FROM 			rpt_ic3_patient_ids ic3
@@ -236,20 +237,22 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					ON motherHivStatus.patient_id = ic3.patient_id			
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT omrs_encounter.patient_id,
-							encounter_id as lastHtnDmEncounterId,
+							omrs_encounter.encounter_id,
 							fingerStick,
 							hba1c
 							FROM omrs_encounter
-							LEFT JOIN 	(SELECT patient_id, value_numeric as hba1c 
+							LEFT JOIN 	(SELECT patient_id, value_numeric as hba1c,
+										encounter_id
 										FROM omrs_obs 
 					   					WHERE concept = 'Glycated hemoglobin'
 					   					) hba1c
-					   		ON hba1c.patient_id = omrs_encounter.patient_id
-							LEFT JOIN 	(SELECT patient_id, value_numeric as fingerStick 
+					   		ON hba1c.encounter_id = omrs_encounter.encounter_id
+							LEFT JOIN 	(SELECT patient_id, value_numeric as fingerStick,
+										encounter_id 
 										FROM omrs_obs 
 					   					WHERE concept = 'Serum glucose'
 					   					) fingerStick
-					   		ON fingerStick.patient_id = omrs_encounter.patient_id				   								   					   				
+					   		ON fingerStick.encounter_id = omrs_encounter.encounter_id				   								   					   				
 							WHERE encounter_type = 'DIABETES HYPERTENSION FOLLOWUP'
 							AND encounter_date < _endDate
 							ORDER BY encounter_date DESC
@@ -274,8 +277,27 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 							WHERE epilepsy_followup = 1
 							AND visit_date < _endDate
 							ORDER BY visit_date DESC					
-							) epilepsyInner1 GROUP BY patient_id
-					) epilepsyVisit2 ON epilepsyVisit2.patient_id = ic3.patient_id		
+							) epilepsyInner GROUP BY patient_id
+					) epilepsyVisit ON epilepsyVisit.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT *
+					FROM 	(SELECT omrs_encounter.patient_id,
+							omrs_encounter.encounter_id,
+							CASE WHEN value_coded IS NOT NULL 
+							THEN 'X' 
+							ELSE NULL 
+							END AS seizuresSinceLastVisit
+							FROM omrs_encounter
+							LEFT JOIN 	(SELECT encounter_id, value_coded
+										FROM omrs_obs 
+					   					WHERE concept = 'Seizure activity'
+					   					AND value_coded = 'Seizure since last visit'
+					   					) seizuresSinceLastVisit
+					   		ON seizuresSinceLastVisit.encounter_id = omrs_encounter.encounter_id				   								   					   				
+							WHERE encounter_type = 'EPILEPSY_FOLLOWUP'
+							AND encounter_date < _endDate
+							ORDER BY encounter_date DESC
+							) epilepsyVisitInner1 GROUP BY patient_id) epilepsyVisit2
+					ON epilepsyVisit2.patient_id = ic3.patient_id						
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
 							asthma_classification as asthmaClassification,
