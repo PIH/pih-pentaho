@@ -44,6 +44,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					ncdCurrentLocation,
 					artVisits.lastArtVisit,
 					ncdVisits.lastNcdVisit,
+					lastMentalHealthVisitDate,
 					CASE 
 						WHEN artVisits.lastArtVisit IS NULL THEN ncdVisits.lastNcdVisit
 						WHEN ncdVisits.lastNcdVisit IS NULL THEN artVisits.lastArtVisit
@@ -76,7 +77,9 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					hba1c,
 					seizuresSinceLastVisit,
 					seizures,				
-					asthmaClassification
+					asthmaClassification,
+					ablePerformDailyActivities,
+					suicideRisk
 	FROM 			rpt_ic3_patient_ids ic3
 	LEFT JOIN 		(SELECT * FROM		
 						(SELECT patient_id, start_date AS artStartDate, location AS artStartLocation
@@ -193,7 +196,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					AND diagnosis_date < _endDate
 					GROUP BY patient_id
 					) epilepsyDx
-					ON epilepsyDx.patient_id = ic3.patient_id												
+					ON epilepsyDx.patient_id = ic3.patient_id					
 	LEFT JOIN 		(SELECT * 
 					FROM 	(SELECT patient_id,
 							date_collected AS lastViralLoadTest
@@ -297,7 +300,28 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 							AND encounter_date < _endDate
 							ORDER BY encounter_date DESC
 							) epilepsyVisitInner1 GROUP BY patient_id) epilepsyVisit2
-					ON epilepsyVisit2.patient_id = ic3.patient_id						
+					ON epilepsyVisit2.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT *
+					FROM 	(SELECT omrs_encounter.patient_id,
+							omrs_encounter.encounter_id,
+							ablePerformDailyActivities,
+							suicideRisk
+							FROM omrs_encounter
+							LEFT JOIN 	(SELECT encounter_id, value_coded as ablePerformDailyActivities
+										FROM omrs_obs 
+					   					WHERE concept = 'Able to perform daily activities'
+					   					) ablePerformDailyActivities
+					   		ON ablePerformDailyActivities.encounter_id = omrs_encounter.encounter_id	
+							LEFT JOIN 	(SELECT encounter_id, value_coded as suicideRisk
+										FROM omrs_obs 
+					   					WHERE concept = 'Suicide risk'
+					   					) suicideRisk
+					   		ON suicideRisk.encounter_id = omrs_encounter.encounter_id
+							WHERE encounter_type = 'MENTAL_HEALTH_FOLLOWUP'
+							AND encounter_date < _endDate
+							ORDER BY encounter_date DESC
+							) mentalHealthVisitInner GROUP BY patient_id) mentalHealthVisit1
+					ON mentalHealthVisit1.patient_id = ic3.patient_id											
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
 							asthma_classification as asthmaClassification,
@@ -310,6 +334,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					) asthmaVisit ON asthmaVisit.patient_id = ic3.patient_id	
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
+							visit_date AS lastMentalHealthVisitDate,
 							next_appointment_date AS nextMentalHealthAppt
 							FROM mw_ncd_visits
 							WHERE mental_health_followup = 1
