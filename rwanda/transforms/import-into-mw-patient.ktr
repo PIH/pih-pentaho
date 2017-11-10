@@ -195,7 +195,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	program_enrollment_id&#x3b;</sql>
+    <sql>SELECT&#xa;	program_state_id,&#xd;&#xa;	uuid,&#xd;&#xa;	program_enrollment_id,&#xd;&#xa;	patient_id,&#xd;&#xa;	program,&#xd;&#xa;	workflow,&#xd;&#xa;	state,&#xd;&#xa;	start_date,&#xd;&#xa;	age_years_at_start,&#xd;&#xa;	age_months_at_start,&#xd;&#xa;	end_date,&#xd;&#xa;	age_years_at_end,&#xd;&#xa;	age_months_at_end,&#xd;&#xa;	location&#xa;FROM&#xa;	omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis&#x22;&#xa;ORDER BY&#xa;	program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -221,7 +221,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnosis_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	openmrs_warehouse.omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_program_enrollment_id&#x3b;</sql>
+    <sql>SELECT&#xd;&#xa;	&#xd;&#xa;	program_enrollment_id as diagnosis_status_program_enrollment_id,&#xd;&#xa;	patient_id as diagnosis_status_patient_id,&#xd;&#xa;	state as diagnosis_status,&#xd;&#xa;	start_date as diagnosis_status_start_date,&#xd;&#xa;	end_date as diagnosis_status_end_date,&#xd;&#xa;	program as diagnosis_status_program,&#xd;&#xa;	workflow as diagnosis_status_workflow&#xd;&#xa;&#xd;&#xa;FROM&#xd;&#xa;	omrs_program_state&#xd;&#xa;WHERE&#xd;&#xa;	program&#x3d;&#x22;Oncology&#x22;&#xd;&#xa;AND&#xd;&#xa;	workflow&#x3d;&#x22;Diagnosis Status&#x22;&#xd;&#xa;ORDER BY&#xd;&#xa;	diagnosis_status_program_enrollment_id&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -250,7 +250,7 @@
     <schema/>
     <table>rw_onc_diagnosis</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
