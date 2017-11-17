@@ -69,8 +69,8 @@
       </parameters>      <parallel>Y</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>320</yloc>
+      <xloc>352</xloc>
+      <yloc>432</yloc>
       </entry>
     <entry>
       <name>Load Configuration</name>
@@ -164,7 +164,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>672</xloc>
+      <xloc>624</xloc>
       <yloc>320</yloc>
       </entry>
     <entry>
@@ -226,7 +226,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>288</xloc>
+      <xloc>352</xloc>
       <yloc>320</yloc>
       </entry>
     <entry>
