@@ -1,6 +1,6 @@
 
 CREATE TABLE rw_order_group (
-  order_group_id INT not null,
+  order_group_id varchar(32) not null,
   uuid VARCHAR(255),
   group_type VARCHAR(255),
   cycle_number INT,

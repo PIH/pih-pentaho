@@ -1,7 +1,7 @@
 
 CREATE TABLE rw_order (
-  order_id INT not null,
-  order_type_id INT,
+  order_id varchar(32) not null,
+  order_type_id varchar(32),
   concept VARCHAR(100),
   orderer VARCHAR(100),
   instructions VARCHAR(1023),
@@ -15,10 +15,10 @@ CREATE TABLE rw_order (
   discontinued_reason_non_coded VARCHAR(1023),
   urgency VARCHAR(255),
   date_created date,
-  encounter_id INT,
+  encounter_id varchar(32),
   encounter_type VARCHAR(255),
   location VARCHAR(255),
-  group_id INT,
+  group_id varchar(32),
   order_index INt,
   indication VARCHAR(255),
   route VARCHAR(255),

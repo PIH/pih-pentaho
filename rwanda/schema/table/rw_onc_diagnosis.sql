@@ -1,11 +1,11 @@
 
 CREATE TABLE rw_onc_diagnosis (
-  program_state_id INT not null,
-  diagnosis_status_program_enrollment_id INT,
-  uuid CHAR(38) not null,
-  program_enrollment_id INT not null,
-  patient_id INT not null,
-  diagnosis_status_patient_id INT,
+  program_state_id varchar(32) not null,
+  diagnosis_status_program_enrollment_id varchar(32),
+  uuid varchar(64) ,
+  program_enrollment_id varchar(32) not null,
+  patient_id varchar(32) not null,
+  diagnosis_status_patient_id varchar(32),
   program VARCHAR(100) not null,
   diagnosis_status_program VARCHAR(100),
   workflow VARCHAR(100) not null,

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>Delete Phone Numbers</name>
+    <name>create-schema</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,21 +67,42 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2017&#x2f;06&#x2f;19 15&#x3a;19&#x3a;16.911</created_date>
+  <created_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;19 15&#x3a;19&#x3a;16.911</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>Reads the schema.csv file and recreates the schema based on the contents.&#xa;This requires 1 table, function, or procedure per file, and the file name should be the same as the&#xa;name of the table, function, or procedure stored within. </note>
+      <xloc>112</xloc>
+      <yloc>96</yloc>
+      <width>664</width>
+      <heigth>61</heigth>
+      <fontname>Ubuntu</fontname>
+      <fontsize>11</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
-    <name>Anonymized Warehouse</name>
+    <name>anonymized_db</name>
     <server>&#x24;&#x7b;anonymized.db.host&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
     <database>&#x24;&#x7b;anonymized.db.name&#x7d;</database>
-    <port>&#x24;&#x7b;anonymized.db.port&#x7d;</port>
+    <port>3306</port>
     <username>&#x24;&#x7b;anonymized.db.user&#x7d;</username>
     <password>&#x24;&#x7b;anonymized.db.password&#x7d;</password>
     <servername/>
@@ -93,7 +114,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;anonymized.db.port&#x7d;</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -103,8 +124,14 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Construct full file path</from><to>Delete names and phone numbers</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get Base Folder</from><to>Construct full file path</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Base Folder</from><to>Join Rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Schema File Names</from><to>Join Rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Join Rows</from><to>Construct full file path</to><enabled>Y</enabled> </hop>
+  <hop> <from>Test If Table</from><to>Create Table and Index</to><enabled>Y</enabled> </hop>
+  <hop> <from>Test If Table</from><to>Create Function or Procedure</to><enabled>Y</enabled> </hop>
+  <hop> <from>Construct full file path</from><to>Table exists</to><enabled>Y</enabled> </hop>
+  <hop> <from>Table exists</from><to>Send non-existent tables</to><enabled>Y</enabled> </hop>
+  <hop> <from>Send non-existent tables</from><to>Test If Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Construct full file path</name>
@@ -121,23 +148,29 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var delete_phones_and_names &#x3d; &#x27;DELETE FROM omrs_obs WHERE concept in&#x28;&#x22;NAME OF NEIGHBOR&#x22;,&#x22;NAME OF SUPPORT PROVIDER&#x22;,&#x22;GUARDIAN PHONE NUMBER&#x22;,&#x22;TELEPHONE NUMBER OF CONTACT&#x22;,&#x22;NAME OF REFERRING PERSON&#x22;,&#x22;NAMES AND FIRSTNAMES OF CONTACT&#x22;,&#x22;NAME OF HEALTH CARE PROVIDER&#x22;,&#x22;TELEPHONE NUMBER&#x22;,&#x22;GUARDIAN&#x3b; NAME AND FIRST NAMES&#x22;,&#x22;NAME OR LOCATION OF SPECIALIST&#x22;,&#x22;LAST NAME OF COMMUNITY HEALTH WORKER, REPORTED&#x22;,&#x22;FIRST NAMES OF COMMUNITY HEALTH WORKER, REPORTED&#x22;,&#x22;NAME OF DATA COLLECTOR&#x22;,&#x22;TELEPHONE NUMBER TYPE&#x22;,&#x22;CELL TELEPHONE&#x22;,&#x22;HOME TELEPHONE&#x22;,&#x22;NEXT OF KIN TELEPHONE&#x22;,&#x22;LASTNAME OF CONTACT&#x22;,&#x22;FIRSTNAMES OF CONTACT&#x22;,&#x22;FIRST NAME&#x22;,&#x22;MIDDLE NAME&#x22;,&#x22;LAST NAME&#x22;,&#x22;MOTHER FIRST NAME&#x22;,&#x22;FATHER NAME&#x22;,&#x22;GUARDIAN LAST NAME&#x22;,&#x22;SECONDARY TELEPHONE NUMBER&#x22;,&#x22;ACCOMPAGNATEUR PHONE NUMBER&#x22;,&#x22;RWANDAN MOTHERS NAME&#x22;,&#x22;RWANDAN FATHERS NAME&#x22;,&#x22;NAME OF DOCTOR&#x22;,&#x22;FIRST NAME OF FATHER&#x22;,&#x22;FIRST NAME OF MOTHER&#x22;,&#x22;CELL PHONE&#x22;,&#x22;GUARDIAN FIRST NAME&#x22;,&#x22;Phone not reached&#x22;,&#x22;Telephone number of clinician&#x22;,&#x22;CLINICIAN TELEPHONE&#x22;,&#x22;LAST NAME OF MOTHER&#x22;,&#x22;Home visitor Name&#x22;,&#x22;LAST NAME OF FATHER&#x22;&#x29;&#x3b;&#x27;&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>delete_phones_and_names</name>
-        <rename>delete_phones_and_names</rename>
+        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var dropSql &#x3d; &#x22;drop &#x22; &#x2b; type &#x2b; &#x22; if exists &#x22; &#x2b; name&#x3b;&#xa;var sqlPath &#x3d; baseDir &#x2b; &#x22;&#x2f;&#x22; &#x2b; country &#x2b; &#x22;&#x2f;schema&#x2f;&#x22; &#x2b; type &#x2b; &#x22;&#x2f;&#x22; &#x2b; name &#x2b; &#x22;.sql&#x22;&#x3b;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>sqlPath</name>
+        <rename>sqlPath</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>dropSql</name>
+        <rename>dropSql</rename>
         <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>N</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>192</yloc>
+      <xloc>448</xloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Delete names and phone numbers</name>
+    <name>Create Function or Procedure</name>
     <type>ExecSQLRow</type>
     <description/>
     <distribute>Y</distribute>
@@ -148,18 +181,46 @@
            <schema_name/>
            </partitioning>
     <commit>1</commit>
-    <connection>Anonymized Warehouse</connection>
-    <sql_field>delete_phones_and_names</sql_field>
+    <connection>anonymized_db</connection>
+    <sql_field>sqlPath</sql_field>
     <insert_field/>
     <update_field/>
     <delete_field/>
     <read_field/>
-    <sqlFromfile>N</sqlFromfile>
+    <sqlFromfile>Y</sqlFromfile>
     <sendOneStatement>Y</sendOneStatement>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>560</xloc>
-      <yloc>192</yloc>
+      <xloc>912</xloc>
+      <yloc>480</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Create Table and Index</name>
+    <type>ExecSQLRow</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <commit>1</commit>
+    <connection>anonymized_db</connection>
+    <sql_field>sqlPath</sql_field>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <sqlFromfile>Y</sqlFromfile>
+    <sendOneStatement>N</sendOneStatement>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>912</xloc>
+      <yloc>352</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -203,13 +264,191 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>240</xloc>
-      <yloc>192</yloc>
+      <xloc>144</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Join Rows</name>
+    <type>JoinRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <cache_size>500</cache_size>
+      <main/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue/>
+ <function>&#x3d;</function>
+ <rightvalue/>
+ </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>304</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Schema File Names</name>
+    <type>CsvInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;schema&#x2f;schema.csv</filename>
+    <filename_field/>
+    <rownum_field/>
+    <include_filename>N</include_filename>
+    <separator>,</separator>
+    <enclosure>&#x22;</enclosure>
+    <header>Y</header>
+    <buffer_size>50000</buffer_size>
+    <lazy_conversion>Y</lazy_conversion>
+    <add_filename_result>N</add_filename_result>
+    <parallel>N</parallel>
+    <newline_possible>N</newline_possible>
+    <encoding/>
+    <fields>
+      <field>
+        <name>type</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>50</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+      <field>
+        <name>name</name>
+        <type>String</type>
+        <format/>
+        <currency>&#x24;</currency>
+        <decimal>.</decimal>
+        <group>,</group>
+        <length>50</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>144</xloc>
+      <yloc>304</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Send non-existent tables</name>
+    <type>SwitchCase</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<fieldname>result</fieldname>
+<use_contains>N</use_contains>
+<case_value_type>String</case_value_type>
+<case_value_format/>
+<case_value_decimal/>
+<case_value_group/>
+<default_target_step>Create Function or Procedure</default_target_step>
+<cases><case><value>N</value>
+<target_step>Test If Table</target_step>
+</case></cases>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>656</xloc>
+      <yloc>336</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Table exists</name>
+    <type>TableExists</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>anonymized_db</connection>
+    <tablenamefield>name</tablenamefield>
+    <resultfieldname>result</resultfieldname>
+    <schemaname>&#x24;&#x7b;anonymized.db.name&#x7d;</schemaname>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>576</xloc>
+      <yloc>272</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Test If Table</name>
+    <type>SwitchCase</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<fieldname>type</fieldname>
+<use_contains>N</use_contains>
+<case_value_type>String</case_value_type>
+<case_value_format/>
+<case_value_decimal/>
+<case_value_group/>
+<default_target_step>Create Function or Procedure</default_target_step>
+<cases><case><value>table</value>
+<target_step>Create Table and Index</target_step>
+</case></cases>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>720</xloc>
+      <yloc>416</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step_error_handling>
+      <error>
+        <source_step>Table exists</source_step>
+        <target_step>Test If Table</target_step>
+        <is_enabled>N</is_enabled>
+        <nr_valuename/>
+        <descriptions_valuename/>
+        <fields_valuename/>
+        <codes_valuename/>
+        <max_errors/>
+        <max_pct_errors/>
+        <min_pct_rows/>
+      </error>
   </step_error_handling>
    <slave-step-copy-partition-distribution>
 </slave-step-copy-partition-distribution>
