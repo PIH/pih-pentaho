@@ -17,6 +17,33 @@
             <description/>
         </parameter>
     </parameters>
+  <connection>
+    <name>anonymized_schema</name>
+    <server>&#x24;&#x7b;anonymized.db.host&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;anonymized.db.name&#x7d;</database>
+    <port>3306</port>
+    <username>&#x24;&#x7b;anonymized.db.user&#x7d;</username>
+    <password>&#x24;&#x7b;anonymized.db.password&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
     <slaveservers>
     </slaveservers>
 <job-log-table><connection/>
@@ -118,7 +145,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>416</xloc>
+      <xloc>528</xloc>
       <yloc>96</yloc>
       </entry>
     <entry>
@@ -151,7 +178,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>784</xloc>
+      <xloc>896</xloc>
       <yloc>112</yloc>
       </entry>
     <entry>
@@ -184,7 +211,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>576</xloc>
+      <xloc>688</xloc>
       <yloc>112</yloc>
       </entry>
     <entry>
@@ -217,8 +244,24 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>928</xloc>
+      <xloc>1040</xloc>
       <yloc>112</yloc>
+      </entry>
+    <entry>
+      <name>Drop OMRS Schema</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x5c;rwanda&#x5c;schema&#x5c;Drop_tables_of_anonymized_schema.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>anonymized_schema</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>336</xloc>
+      <yloc>96</yloc>
       </entry>
   </entries>
   <hops>
@@ -230,15 +273,6 @@
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>Y</unconditional>
-    </hop>
-    <hop>
-      <from>Load Configuration</from>
-      <to>Create Anonymized Schema if not exist</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
     </hop>
     <hop>
       <from>Create Anonymized Schema if not exist</from>
@@ -261,6 +295,24 @@
     <hop>
       <from>Transfer, hash ids</from>
       <to>Delete Phone Numbers and names</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Configuration</from>
+      <to>Drop OMRS Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Drop OMRS Schema</from>
+      <to>Create Anonymized Schema if not exist</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

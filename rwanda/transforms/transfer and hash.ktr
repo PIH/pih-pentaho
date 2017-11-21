@@ -473,7 +473,7 @@
         </field>
         <field>
           <column_name>encounter_id</column_name>
-          <stream_name>encounter_id</stream_name>
+          <stream_name>md5&#x28;encounter_id&#x29;</stream_name>
         </field>
         <field>
           <column_name>date_created</column_name>
