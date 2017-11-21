@@ -420,7 +420,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;obs_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  md5&#x28;encounter_id&#x29; ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;obs_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;obs_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as date_created ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  age_years_at_obs ,&#xd;&#xa;	1&#x2b; floor&#x28;age_months_at_obs&#x2f;4&#x29; as age_months_at_obs,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  concept ,&#xd;&#xa;  value_coded ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;value_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;value_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as value_date,&#xd;&#xa;  value_numeric,&#xd;&#xa;  value_text ,&#xd;&#xa;  comments ,&#xd;&#xa;  md5&#x28;obs_group_id&#x29;,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as date_created&#xd;&#xa;&#xd;&#xa;FROM omrs_obs&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;obs_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  md5&#x28;encounter_id&#x29; ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;obs_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;obs_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as obs_date ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  age_years_at_obs ,&#xd;&#xa;	1&#x2b; floor&#x28;age_months_at_obs&#x2f;4&#x29; as age_months_at_obs,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  concept ,&#xd;&#xa;  value_coded ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;value_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;value_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as value_date,&#xd;&#xa;  value_numeric,&#xd;&#xa;  value_text ,&#xd;&#xa;  comments ,&#xd;&#xa;  md5&#x28;obs_group_id&#x29;,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as date_created&#xd;&#xa;&#xd;&#xa;FROM omrs_obs&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -526,6 +526,10 @@
         <field>
           <column_name>obs_group_id</column_name>
           <stream_name>md5&#x28;obs_group_id&#x29;</stream_name>
+        </field>
+        <field>
+          <column_name>obs_date</column_name>
+          <stream_name>obs_date</stream_name>
         </field>
     </fields>
      <cluster_schema/>
