@@ -9,4 +9,3 @@ table,arw_patient
 table,arw_program_enrollment
 table,arw_program_state
 table,arw_relationship
-table,arw_location

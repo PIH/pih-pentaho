@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>malawi-data</name>
+  <name>create-rwanda-schema</name>
     <description/>
     <extended_description/>
     <job_version/>
@@ -87,16 +87,16 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>256</xloc>
+      <xloc>272</xloc>
       <yloc>64</yloc>
       </entry>
     <entry>
-      <name>Create Schema</name>
+      <name>Create RW Schema</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;malawi&#x2f;transforms&#x2f;create-schema.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;transforms&#x2f;create-rw-schema.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -120,7 +120,7 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>400</xloc>
+      <xloc>432</xloc>
       <yloc>64</yloc>
       </entry>
   </entries>
@@ -136,7 +136,7 @@
     </hop>
     <hop>
       <from>Load Configuration</from>
-      <to>Create Schema</to>
+      <to>Create RW Schema</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
