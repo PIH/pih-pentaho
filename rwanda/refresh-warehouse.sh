@@ -16,4 +16,3 @@ NOW=$(date +"%Y%m%d_%H%M%S")
 LOG_FILE="petl_$NOW.log"
 echo "Moving Log TO $LOG_FILE"
 mv /home/petl/logs/petl.log /home/petl/logs/$LOG_FILE
-
