@@ -4,7 +4,7 @@ echo "Re-creating OMRS Schema"
 /home/petl/bin/execute-job.sh jobs/create-omrs-schema.kjb MINIMAL
 
 echo "Re-creating RW Schema"
-/home/petl/bin/execute-job.sh rwanda/jobs/create-rw-schema.kjb MINIMAL
+/home/petl/bin/execute-job.sh rwanda/jobs/create-rw-schema.kjb MINIMAL "Rwink"
 
 echo "Refreshing Warehouse from Butaro"
 /home/petl/bin/execute-job.sh rwanda/jobs/refresh-warehouse.kjb MINIMAL "Butaro"
