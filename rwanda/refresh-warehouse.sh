@@ -1,14 +1,19 @@
 #!/usr/bin/env bash
 
 echo "Re-creating OMRS Schema"
-/home/petl/bin/execute-job.sh jobs/create-omrs-schema.kjb BASIC
+/home/petl/bin/execute-job.sh jobs/create-omrs-schema.kjb MINIMAL
 
 echo "Re-creating RW Schema"
-/home/petl/bin/execute-job.sh rwanda/jobs/create-rw-schema.kjb BASIC
+/home/petl/bin/execute-job.sh rwanda/jobs/create-rw-schema.kjb MINIMAL
 
-echo "Refreshing Warehouse"
-/home/petl/bin/execute-job.sh rwanda/jobs/refresh-warehouse.kjb BASIC
+echo "Refreshing Warehouse from Butaro"
+/home/petl/bin/execute-job.sh rwanda/jobs/refresh-warehouse.kjb MINIMAL "Butaro"
 
-echo "Moving Log"
+echo "Refreshing Warehouse from Rwink"
+/home/petl/bin/execute-job.sh rwanda/jobs/refresh-warehouse.kjb MINIMAL "Rwink"
+
 NOW=$(date +"%Y%m%d_%H%M%S")
-mv /home/petl/logs/petl.log /home/petl/logs/petl_$NOW.log
+LOG_FILE="petl_$NOW.log"
+echo "Moving Log TO $LOG_FILE"
+mv /home/petl/logs/petl.log /home/petl/logs/$LOG_FILE
+
