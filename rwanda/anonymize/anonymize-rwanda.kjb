@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>Anonymize</name>
+  <name>anonymize-rwanda</name>
     <description/>
     <extended_description/>
     <job_version/>
@@ -118,76 +118,12 @@
       <yloc>96</yloc>
       </entry>
     <entry>
-      <name>Create Anonymized Schema if not exist</name>
-      <description/>
-      <type>JOB</type>
-      <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;jobs&#x2f;create-anonymous-schema.kjb</filename>
-      <jobname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name/>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>240</xloc>
-      <yloc>288</yloc>
-      </entry>
-    <entry>
-      <name>Transfer, hash ids</name>
+      <name>Transfer and Hash Data</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x5c;rwanda&#x5c;transforms&#x5c;transfer and hash.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>240</xloc>
-      <yloc>496</yloc>
-      </entry>
-    <entry>
-      <name>Create rw anonymized schema if not exist</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x5c;rwanda&#x5c;transforms&#x5c;create rw anonymized schema if not exist.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;anonymize&#x2f;transfer-and-hash.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -215,46 +151,13 @@
       <yloc>384</yloc>
       </entry>
     <entry>
-      <name>Delete Phone Numbers and names</name>
-      <description/>
-      <type>TRANS</type>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x5c;rwanda&#x5c;transforms&#x5c;delete-personal-info.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>240</xloc>
-      <yloc>592</yloc>
-      </entry>
-    <entry>
       <name>Drop Anonymized Schema</name>
       <description/>
       <type>SQL</type>
       <sql/>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x5c;rwanda&#x5c;schema&#x5c;Drop_tables_of_anonymized_schema.sql</sqlfilename>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;anonymize&#x2f;anonymized_schema_drop.sql</sqlfilename>
       <sendOneStatement>F</sendOneStatement>
       <connection>anonymized_schema</connection>
       <parallel>N</parallel>
@@ -262,6 +165,38 @@
       <nr>0</nr>
       <xloc>240</xloc>
       <yloc>192</yloc>
+      </entry>
+    <entry>
+      <name>Create Anonymized Schema</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;anonymize&#x2f;anonymized_schema_create.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>anonymized_schema</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>240</xloc>
+      <yloc>288</yloc>
+      </entry>
+    <entry>
+      <name>Delete Identifyable Obs</name>
+      <description/>
+      <type>SQL</type>
+      <sql/>
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;anonymize&#x2f;delete-identifyable-obs.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>anonymized_schema</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>240</xloc>
+      <yloc>480</yloc>
       </entry>
   </entries>
   <hops>
@@ -275,33 +210,6 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Create Anonymized Schema if not exist</from>
-      <to>Create rw anonymized schema if not exist</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create rw anonymized schema if not exist</from>
-      <to>Transfer, hash ids</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Transfer, hash ids</from>
-      <to>Delete Phone Numbers and names</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load Configuration</from>
       <to>Drop Anonymized Schema</to>
       <from_nr>0</from_nr>
@@ -312,7 +220,25 @@
     </hop>
     <hop>
       <from>Drop Anonymized Schema</from>
-      <to>Create Anonymized Schema if not exist</to>
+      <to>Create Anonymized Schema</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Create Anonymized Schema</from>
+      <to>Transfer and Hash Data</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Transfer and Hash Data</from>
+      <to>Delete Identifyable Obs</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
