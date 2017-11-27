@@ -12,6 +12,9 @@ echo "Refreshing Warehouse from Butaro"
 echo "Refreshing Warehouse from Rwink"
 /home/petl/bin/execute-job.sh rwanda/jobs/refresh-warehouse.kjb MINIMAL "Rwink"
 
+echo "Anonymizing Warehouse"
+/home/petl/bin/execute-job.sh rwanda/anonymize/anonymize-rwanda.kjb MINIMAL
+
 NOW=$(date +"%Y%m%d_%H%M%S")
 LOG_FILE="petl_$NOW.log"
 echo "Moving Log TO $LOG_FILE"
