@@ -126,7 +126,7 @@
       <yloc>304</yloc>
       </entry>
     <entry>
-      <name>Load Order Groups</name>
+      <name>Load Orders</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -156,10 +156,10 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>496</xloc>
-      <yloc>80</yloc>
+      <yloc>64</yloc>
       </entry>
     <entry>
-      <name>Load Orders Table</name>
+      <name>Load Order Groups</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
@@ -228,7 +228,7 @@
   <hops>
     <hop>
       <from>START</from>
-      <to>Load Order Groups</to>
+      <to>Load Orders</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -237,7 +237,7 @@
     </hop>
     <hop>
       <from>START</from>
-      <to>Load Orders Table</to>
+      <to>Load Order Groups</to>
       <from_nr>0</from_nr>
       <to_nr>1</to_nr>
       <enabled>Y</enabled>
