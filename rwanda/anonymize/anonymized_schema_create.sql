@@ -160,3 +160,94 @@ CREATE TABLE omrs_program_state (
   age_months_at_end int,
   location VARCHAR(255)
 );
+
+CREATE TABLE rw_location (
+  location_id INT,
+  name VARCHAR(255),
+  description VARCHAR(1023),
+  address1 VARCHAR(255),
+  address2 VARCHAR(255),
+  address3 VARCHAR(255),
+  address4 VARCHAR(255),
+  city_village VARCHAR(255),
+  state_province VARCHAR(255),
+  country VARCHAR(255),
+  county_district VARCHAR(255)
+);
+
+CREATE TABLE rw_onc_diagnosis (
+  program_state_id varchar(32) not null,
+  diagnosis_status_program_enrollment_id varchar(32),
+  uuid varchar(64) ,
+  program_enrollment_id varchar(32) not null,
+  patient_id varchar(32) not null,
+  diagnosis_status_patient_id varchar(32),
+  program VARCHAR(100) not null,
+  diagnosis_status_program VARCHAR(100),
+  workflow VARCHAR(100) not null,
+  diagnosis_status_workflow VARCHAR(100),
+  state VARCHAR(100) not null,
+  diagnosis_status VARCHAR(100),
+  start_date date not null,
+  diagnosis_status_start_date date,
+  age_years_at_start int,
+  age_months_at_start int,
+  end_date date,
+  diagnosis_status_end_date date,
+  age_years_at_end int,
+  age_months_at_end int,
+  location VARCHAR(255),
+  start_date_difference fLOAT,
+  end_date_difference FLOAT
+);
+
+alter table rw_onc_diagnosis add index rw_onc_diagnosis_program_state_id(program_state_id);
+
+CREATE TABLE rw_order (
+  order_id varchar(32) not null,
+  order_type_id varchar(32),
+  concept VARCHAR(100),
+  orderer VARCHAR(100),
+  instructions VARCHAR(1023),
+  start_date date,
+  auto_expire_date date,
+  discontinued_date date,
+  discontinued_by VARCHAR(255),
+  discontinued_reason VARCHAR(1023),
+  patient_id INT,
+  uuid VARCHAR(255),
+  discontinued_reason_non_coded VARCHAR(1023),
+  urgency VARCHAR(255),
+  date_created date,
+  encounter_id varchar(32),
+  encounter_type VARCHAR(255),
+  location VARCHAR(255),
+  group_id varchar(32),
+  order_index INt,
+  indication VARCHAR(255),
+  route VARCHAR(255),
+  administration_instructions VARCHAR(1023),
+  dose DECIMAL,
+  equivalent_daily_dose DECIMAL,
+  units VARCHAR(255),
+  frequency VARCHAR(255),
+  prn INT,
+  complex VARCHAR(255),
+  quantity DECIMAL
+);
+
+alter table rw_order add index rw_order_id(order_id);
+
+CREATE TABLE rw_order_group (
+  order_group_id varchar(32) not null,
+  uuid VARCHAR(255),
+  group_type VARCHAR(255),
+  cycle_number INT,
+  date_created date,
+  order_set_uuid VARCHAR(255),
+  order_set_name VARCHAR(255),
+  order_set_description VARCHAR(1023),
+  indication VARCHAR(255)
+);
+
+alter table rw_order_group add index rw_order_group_order_group_id(order_group_id);

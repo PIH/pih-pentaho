@@ -450,7 +450,7 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>992</xloc>
+      <xloc>912</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
