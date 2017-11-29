@@ -137,7 +137,7 @@
   <order>
   <hop> <from>Import Orders</from><to>Lookup Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Write Orders Table</to><enabled>N</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Orders Table</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Location</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Concept</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   </order>
