@@ -20,7 +20,8 @@ create table mw_ncd_visits (
   diastolic_bp           DOUBLE,
   on_insulin             BOOLEAN,
   asthma_classification  VARCHAR(100),
-  num_seizures           DOUBLE
+  num_seizures           DOUBLE,
+  hba1c                  DOUBLE
 );
 alter table mw_ncd_visits add index mw_ncd_visit_patient_idx (patient_id);
 alter table mw_ncd_visits add index mw_ncd_visit_patient_location_idx (patient_id, location);
