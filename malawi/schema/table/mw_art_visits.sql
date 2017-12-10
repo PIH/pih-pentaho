@@ -4,6 +4,7 @@ CREATE TABLE mw_art_visits (
   patient_id            INT NOT NULL,
   visit_date            DATE,
   location              VARCHAR(255),
+  art_drug_regimen      VARCHAR(255),
   next_appointment_date DATE
 );
 alter table mw_art_visits add index mw_art_visit_patient_idx (patient_id);

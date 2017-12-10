@@ -524,22 +524,12 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Import On Insulin</from>
-      <to>On Insulin Merge</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Diastolic BP Merge</from>
       <to>HbA1c Merge</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
       <from>Import Asthma Severity</from>
-      <to>Asthma Severity Merge</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>On Insulin Merge</from>
       <to>Asthma Severity Merge</to>
       <enabled>Y</enabled>
     </hop>
@@ -565,7 +555,137 @@
     </hop>
     <hop>
       <from>HbA1c Merge</from>
-      <to>On Insulin Merge</to>
+      <to>Serum Glucose Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Suicide Risk</from>
+      <to>Suicide Risk Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Serum Glucose</from>
+      <to>Serum Glucose Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Suicide Risk Merge</from>
+      <to>Proteinuria Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Serum Glucose Merge</from>
+      <to>Suicide Risk Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Proteinuria</from>
+      <to>Proteinuria Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Proteinuria Merge</from>
+      <to>Creatinine Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Creatinine</from>
+      <to>Creatinine Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Creatinine Merge</from>
+      <to>HIV Test Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import HIV Test Result</from>
+      <to>HIV Test Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>HIV Test Merge</from>
+      <to>Visual Acuity Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Visual Acuity</from>
+      <to>Visual Acuity Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Visual Acuity Merge</from>
+      <to>Cardiovascular Risk Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Cardiovascular Risk</from>
+      <to>Cardiovascular Risk Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Cardiovascular Risk Merge</from>
+      <to>Hospitilization Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Hospitilization</from>
+      <to>Hospitilization Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Hospitilization Merge</from>
+      <to>Mental Health Rx Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Mental Health Drugs</from>
+      <to>Mental Health Rx Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Mental Health Rx Merge</from>
+      <to>Mental Health Rx Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Mental Health Drug Side Effect</from>
+      <to>Mental Health Rx Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Mental Health Rx Side Effect Merge</from>
+      <to>Stable Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Stable</from>
+      <to>Stable Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Insulin Merge</from>
+      <to>Asthma Severity Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import On Insulin</from>
+      <to>Insulin Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Stable Merge</from>
+      <to>Fundoscopy Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Fundoscopy Merge</from>
+      <to>Insulin Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Fundoscopy</from>
+      <to>Fundoscopy Merge</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -619,7 +739,7 @@
       <schema_name/>
     </partitioning>
 <join_type>LEFT OUTER</join_type>
-<step1>On Insulin Merge</step1>
+<step1>Insulin Merge</step1>
 <step2>Import Asthma Severity</step2>
     <keys_1>
       <key>patient_id</key>
@@ -640,7 +760,45 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>624</yloc>
+      <yloc>1648</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Cardiovascular Risk Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Visual Acuity Merge</step1>
+<step2>Import Cardiovascular Risk</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>1008</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -736,6 +894,44 @@
     </step>
 
   <step>
+    <name>Creatinine Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Proteinuria Merge</step1>
+<step2>Import Creatinine</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>768</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
     <name>Diastolic BP Merge</name>
     <type>MergeJoin</type>
     <description/>
@@ -774,6 +970,82 @@
     </step>
 
   <step>
+    <name>Fundoscopy Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Stable Merge</step1>
+<step2>Import Fundoscopy</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>1408</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>HIV Test Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Creatinine Merge</step1>
+<step2>Import HIV Test Result</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>848</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
     <name>HbA1c Merge</name>
     <type>MergeJoin</type>
     <description/>
@@ -807,6 +1079,44 @@
     <GUI>
       <xloc>368</xloc>
       <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Hospitilization Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Cardiovascular Risk Merge</step1>
+<step2>Import Hospitilization</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>1088</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -870,7 +1180,71 @@
     </remotesteps>
     <GUI>
       <xloc>176</xloc>
-      <yloc>624</yloc>
+      <yloc>1648</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Cardiovascular Risk</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as cv_risk&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Cardiovascular risk score&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>1008</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Creatinine</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as creatinine&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Creatinine&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>768</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -940,6 +1314,70 @@
     </step>
 
   <step>
+    <name>Import Fundoscopy</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_text as fundoscopy&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Fundoscopy&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>1408</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import HIV Test Result</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_coded&#x29; as hiv_test_result&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Result of HIV test&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>848</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
     <name>Import HbA1c</name>
     <type>TableInput</type>
     <description/>
@@ -972,6 +1410,102 @@
     </step>
 
   <step>
+    <name>Import Hospitilization</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_coded&#x29; as hospitalized&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Patient hospitalized since last visit&#x27;&#xa;or	 		o.concept &#x3d; &#x27;Hospitalized for mental health since last visit&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>1088</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Mental Health Drug Side Effect</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as mental_health_drug_side_effect&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Does patient have adverse effects&#x27;&#xa;and 		e.encounter_type &#x3d; &#x27;MENTAL_HEALTH_FOLLOWUP&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>1248</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Mental Health Drugs</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, group_concat&#x28;o.value_coded&#x29; as mental_health_drugs&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Current drugs used&#x27;&#xa;and 		e.encounter_type &#x3d; &#x27;MENTAL_HEALTH_FOLLOWUP&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>1168</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
     <name>Import Num Seizures</name>
     <type>TableInput</type>
     <description/>
@@ -998,7 +1532,7 @@
     </remotesteps>
     <GUI>
       <xloc>176</xloc>
-      <yloc>704</yloc>
+      <yloc>1728</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1030,7 +1564,135 @@
     </remotesteps>
     <GUI>
       <xloc>176</xloc>
-      <yloc>544</yloc>
+      <yloc>1568</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Proteinuria</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_coded&#x29; as proteinuria&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Urine protein&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>688</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Serum Glucose</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_numeric&#x29; as serum_glucose&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Serum glucose&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Stable</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_coded&#x29; as mental_stable&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Stable&#x27;&#xa;and 		e.encounter_type &#x3d; &#x27;MENTAL_HEALTH_FOLLOWUP&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>1328</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Import Suicide Risk</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_coded&#x29; as suicide_risk&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Suicide risk&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1068,6 +1730,152 @@
     </step>
 
   <step>
+    <name>Import Visual Acuity</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, max&#x28;o.value_text&#x29; as visual_acuity&#xa;from		omrs_encounter e&#xa;inner join 	omrs_obs o on e.encounter_id &#x3d; o.encounter_id&#xa;where		o.concept &#x3d; &#x27;Visual acuity &#x28;text&#x29;&#x27;&#xa;group by 	e.patient_id, e.encounter_date, e.location&#xa;order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>928</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Insulin Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Fundoscopy Merge</step1>
+<step2>Import On Insulin</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>1568</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Mental Health Rx Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Hospitilization Merge</step1>
+<step2>Import Mental Health Drugs</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>1168</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Mental Health Rx Side Effect Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Mental Health Rx Merge</step1>
+<step2>Import Mental Health Drug Side Effect</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>1248</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
     <name>Num Seizures Merge</name>
     <type>MergeJoin</type>
     <description/>
@@ -1100,13 +1908,13 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>704</yloc>
+      <yloc>1728</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
 
   <step>
-    <name>On Insulin Merge</name>
+    <name>Proteinuria Merge</name>
     <type>MergeJoin</type>
     <description/>
     <distribute>N</distribute>
@@ -1117,8 +1925,8 @@
       <schema_name/>
     </partitioning>
 <join_type>LEFT OUTER</join_type>
-<step1>HbA1c Merge</step1>
-<step2>Import On Insulin</step2>
+<step1>Suicide Risk Merge</step1>
+<step2>Import Proteinuria</step2>
     <keys_1>
       <key>patient_id</key>
       <key>visit_date</key>
@@ -1138,7 +1946,121 @@
     </remotesteps>
     <GUI>
       <xloc>368</xloc>
-      <yloc>544</yloc>
+      <yloc>688</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Serum Glucose Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>HbA1c Merge</step1>
+<step2>Import Serum Glucose</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Stable Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Mental Health Rx Side Effect Merge</step1>
+<step2>Import Stable</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>1328</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Suicide Risk Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Serum Glucose Merge</step1>
+<step2>Import Suicide Risk</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>608</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1177,6 +2099,44 @@
     <GUI>
       <xloc>368</xloc>
       <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+    </step>
+
+  <step>
+    <name>Visual Acuity Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>HIV Test Merge</step1>
+<step2>Import Visual Acuity</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>368</xloc>
+      <yloc>928</yloc>
       <draw>Y</draw>
     </GUI>
     </step>
@@ -1293,6 +2253,50 @@
         <field>
           <column_name>hba1c</column_name>
           <stream_name>hba1c</stream_name>
+        </field>
+        <field>
+          <column_name>serum_glucose</column_name>
+          <stream_name>serum_glucose</stream_name>
+        </field>
+        <field>
+          <column_name>proteinuria</column_name>
+          <stream_name>proteinuria</stream_name>
+        </field>
+        <field>
+          <column_name>visual_acuity</column_name>
+          <stream_name>visual_acuity</stream_name>
+        </field>
+        <field>
+          <column_name>hiv_result</column_name>
+          <stream_name>hiv_test_result</stream_name>
+        </field>
+        <field>
+          <column_name>creatinine</column_name>
+          <stream_name>creatinine</stream_name>
+        </field>
+        <field>
+          <column_name>suicide_risk</column_name>
+          <stream_name>suicide_risk</stream_name>
+        </field>
+        <field>
+          <column_name>cv_risk</column_name>
+          <stream_name>cv_risk</stream_name>
+        </field>
+        <field>
+          <column_name>hospitilized_since_last_visit</column_name>
+          <stream_name>hospitalized</stream_name>
+        </field>
+        <field>
+          <column_name>mental_stable</column_name>
+          <stream_name>mental_stable</stream_name>
+        </field>
+        <field>
+          <column_name>mental_health_drug_side_effect</column_name>
+          <stream_name>mental_health_drug_side_effect</stream_name>
+        </field>
+        <field>
+          <column_name>mental_health_drugs</column_name>
+          <stream_name>mental_health_drugs</stream_name>
         </field>
     </fields>
     <cluster_schema/>
