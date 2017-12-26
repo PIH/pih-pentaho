@@ -625,16 +625,16 @@
     </hop>
     <hop>
       <from>Cardiovascular Risk Merge</from>
-      <to>Hospitilization Merge</to>
+      <to>Hospitalization Merge</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Import Hospitilization</from>
-      <to>Hospitilization Merge</to>
+      <from>Import Hospitalization</from>
+      <to>Hospitalization Merge</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Hospitilization Merge</from>
+      <from>Hospitalization Merge</from>
       <to>Mental Health Rx Merge</to>
       <enabled>Y</enabled>
     </hop>
@@ -1084,7 +1084,7 @@
     </step>
 
   <step>
-    <name>Hospitilization Merge</name>
+    <name>Hospitalization Merge</name>
     <type>MergeJoin</type>
     <description/>
     <distribute>N</distribute>
@@ -1096,7 +1096,7 @@
     </partitioning>
 <join_type>LEFT OUTER</join_type>
 <step1>Cardiovascular Risk Merge</step1>
-<step2>Import Hospitilization</step2>
+<step2>Import Hospitalization</step2>
     <keys_1>
       <key>patient_id</key>
       <key>visit_date</key>
@@ -1410,7 +1410,7 @@
     </step>
 
   <step>
-    <name>Import Hospitilization</name>
+    <name>Import Hospitalization</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1811,7 +1811,7 @@
       <schema_name/>
     </partitioning>
 <join_type>LEFT OUTER</join_type>
-<step1>Hospitilization Merge</step1>
+<step1>Hospitalization Merge</step1>
 <step2>Import Mental Health Drugs</step2>
     <keys_1>
       <key>patient_id</key>
@@ -2283,10 +2283,6 @@
           <stream_name>cv_risk</stream_name>
         </field>
         <field>
-          <column_name>hospitilized_since_last_visit</column_name>
-          <stream_name>hospitalized</stream_name>
-        </field>
-        <field>
           <column_name>mental_stable</column_name>
           <stream_name>mental_stable</stream_name>
         </field>
@@ -2297,6 +2293,14 @@
         <field>
           <column_name>mental_health_drugs</column_name>
           <stream_name>mental_health_drugs</stream_name>
+        </field>
+        <field>
+          <column_name>hospitalized_since_last_visit</column_name>
+          <stream_name>hospitalized</stream_name>
+        </field>
+        <field>
+          <column_name>fundoscopy</column_name>
+          <stream_name>fundoscopy</stream_name>
         </field>
     </fields>
     <cluster_schema/>

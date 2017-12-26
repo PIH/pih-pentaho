@@ -26,8 +26,10 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 	CREATE TABLE rpt_ic3_data_table AS
 	-- Define columns
 	SELECT 			ic3.patient_id, 
+					birthdate,
 					htnDx,				
 					dmDx,
+					cvDisease,
 					asthmaDx,
 					epilepsyDx,
 					artStartDate, 
@@ -56,6 +58,9 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					nextAsthmaAppt,
 					nextEpilepsyAppt,
 					mentalHealthVisit.nextMentalHealthAppt,
+					mentalHospitalizedSinceLastVisit,
+					mentalHealthRxSideEffectsAtLastVisit,
+					mentalStableAtLastVisit,
 					artVisits.nextArtAppt,
 					CASE WHEN	GREATEST(IFNULL(nextHtnDmAppt,"01-01-1500"), 
 										IFNULL(nextAsthmaAppt,"01-01-1500"), 
@@ -70,18 +75,31 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					END AS latestAppt,
 					viralLoad.lastViralLoadTest,
 					artRegimen.lastArtRegimen,
-					motherArtNumber.motherArtNumber,
-					motherHivStatus.motherHivStatus,
-					systolicBp,
-					diastolicBp,
-					fingerStick,
-					hba1c,
+					motherArtNumber,
+					motherEnrollmentHivStatus,
+					dnaPcr.lastDnaPcrTest,
+					rapid.lastRapidTest,
+					systolicBpAtLastVisit,
+					diastolicBpAtLastVisit,
+					visualAcuityAtLastVisit,
+					cvRiskAtLastVisit,
+					htnDmHospitalizedSinceLastVisit,
+					lastProteinuria,
+					lastCreatinine,
+					lastFundoscopy,
+					fingerStickAtLastVisit,
+					hba1cAtLastVisit,
 					seizuresSinceLastVisit,
 					seizures,				
-					asthmaClassification,
-					ablePerformDailyActivities,
-					suicideRisk
+					asthmaClassificationAtLastVisit,
+					ablePerformDailyActivitiesAtLastVisit,
+					suicideRiskAtLastVisit
 	FROM 			rpt_ic3_patient_ids ic3
+	LEFT JOIN 		(SELECT patient_id,
+					birthdate
+					FROM omrs_patient
+					) pdetails
+					ON pdetails.patient_id = ic3.patient_id
 	LEFT JOIN 		(SELECT * FROM		
 						(SELECT patient_id, start_date AS artStartDate, location AS artStartLocation
 						FROM omrs_program_state
@@ -197,7 +215,13 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					AND diagnosis_date < _endDate
 					GROUP BY patient_id
 					) epilepsyDx
-					ON epilepsyDx.patient_id = ic3.patient_id					
+					ON epilepsyDx.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT patient_id, 
+					cv_disease as cvDisease
+					FROM mw_ncd_register
+					WHERE cv_disease = 1
+					GROUP BY patient_id
+					) cvDisease on cvDisease.patient_id = ic3.patient_id
 	LEFT JOIN 		(SELECT * 
 					FROM 	(SELECT patient_id,
 							date_collected AS lastViralLoadTest
@@ -209,28 +233,43 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					) viralLoad 
 					ON viralLoad.patient_id = ic3.patient_id
 	LEFT JOIN 		(SELECT *
-					FROM 	(SELECT patient_id,
-							value_coded as lastArtRegimen
-							FROM omrs_obs
-							WHERE concept = 'Malawi Antiretroviral drugs received'
-							AND obs_date < _endDate
-							ORDER BY obs_date DESC
+					FROM 	(SELECT patient_id, 
+							art_drug_regimen as lastArtRegimen
+							FROM mw_art_visits
+							WHERE visit_date < _endDate
+							AND art_drug_regimen IS NOT NULL
+							ORDER BY visit_date DESC
 							) artRegimenInner GROUP BY patient_id
 					) artRegimen
 					ON artRegimen.patient_id = ic3.patient_id
+	LEFT JOIN 		(SELECT patient_id,
+					mother_art_number as motherArtNumber
+					FROM mw_eid_register
+					GROUP BY patient_id) mwEid
+					ON mwEid.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT * 
+					FROM 	(SELECT patient_id,
+							date_collected AS lastDnaPcrTest
+							FROM mw_lab_tests
+							WHERE date_collected <= _endDate
+							AND test_type = "HIV DNA polymerase chain reaction"
+							ORDER BY date_collected DESC
+							) dnaPcrInner GROUP BY patient_id
+					) dnaPcr 
+					ON dnaPcr.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT * 
+					FROM 	(SELECT patient_id,
+							date_collected AS lastRapidTest
+							FROM mw_lab_tests
+							WHERE date_collected <= _endDate
+							AND test_type = "HIV rapid test, qualitative"
+							ORDER BY date_collected DESC
+							) rapidInner GROUP BY patient_id
+					) rapid 
+					ON rapid.patient_id = ic3.patient_id					
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT patient_id,
-							value_text as motherArtNumber
-							FROM omrs_obs
-							WHERE concept = 'Mother ART registration number'
-							AND obs_date < _endDate
-							ORDER BY obs_date DESC
-							) motherArtNumberInner GROUP BY patient_id
-					) motherArtNumber
-					ON motherArtNumber.patient_id = ic3.patient_id	
-	LEFT JOIN 		(SELECT *
-					FROM 	(SELECT patient_id,
-							value_coded as motherHivStatus
+							value_coded as motherEnrollmentHivStatus
 							FROM omrs_obs
 							WHERE concept = 'Mother HIV Status'
 							AND obs_date < _endDate
@@ -240,39 +279,50 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					) motherHivStatus
 					ON motherHivStatus.patient_id = ic3.patient_id			
 	LEFT JOIN 		(SELECT *
-					FROM 	(SELECT omrs_encounter.patient_id,
-							omrs_encounter.encounter_id,
-							fingerStick,
-							hba1c
-							FROM omrs_encounter
-							LEFT JOIN 	(SELECT patient_id, value_numeric as hba1c,
-										encounter_id
-										FROM omrs_obs 
-					   					WHERE concept = 'Glycated hemoglobin'
-					   					) hba1c
-					   		ON hba1c.encounter_id = omrs_encounter.encounter_id
-							LEFT JOIN 	(SELECT patient_id, value_numeric as fingerStick,
-										encounter_id 
-										FROM omrs_obs 
-					   					WHERE concept = 'Serum glucose'
-					   					) fingerStick
-					   		ON fingerStick.encounter_id = omrs_encounter.encounter_id				   								   					   				
-							WHERE encounter_type = 'DIABETES HYPERTENSION FOLLOWUP'
-							AND encounter_date < _endDate
-							ORDER BY encounter_date DESC
-							) htnDmVisitInner GROUP BY patient_id) htnDmVisit
-					ON htnDmVisit.patient_id = ic3.patient_id
-	LEFT JOIN		(SELECT * 
-					FROM 	(SELECT patient_id,
-							systolic_bp as systolicBp,
-							diastolic_bp as diastolicBp,
-							next_appointment_date AS nextHtnDmAppt
+					FROM	(SELECT patient_id,
+							hba1c as hba1cAtLastVisit,
+							serum_glucose as fingerStickAtLastVisit,
+							systolic_bp as systolicBpAtLastVisit,
+							diastolic_bp as diastolicBpAtLastVisit,
+							visual_acuity as visualAcuityAtLastVisit,
+							cv_risk as cvRiskAtLastVisit,
+							hospitalized_since_last_visit as htnDmHospitalizedSinceLastVisit,
+							next_appointment_date AS nextHtnDmAppt						
 							FROM mw_ncd_visits
 							WHERE diabetes_htn_followup = 1
 							AND visit_date < _endDate
-							ORDER BY visit_date DESC					
-							) htnDmInner1 GROUP BY patient_id
-					) htnDmVisit2 ON htnDmVisit2.patient_id = ic3.patient_id	
+							ORDER BY visit_date DESC
+							) htnDmVisitInner GROUP BY patient_id 
+					) htnDmVisit
+					ON htnDmVisit.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT *
+					FROM 	(SELECT patient_id,
+							proteinuria as lastProteinuria
+							FROM mw_ncd_visits
+							WHERE visit_date < _endDate
+							ORDER BY visit_date DESC
+					) proteinuriaInner GROUP BY patient_id
+					) proteinuria
+					ON proteinuria.patient_id = ic3.patient_id
+	LEFT JOIN 		(SELECT *
+					FROM 	(SELECT patient_id,
+							creatinine as lastCreatinine
+							FROM mw_ncd_visits
+							WHERE visit_date < _endDate
+							ORDER BY visit_date DESC
+					) creatinineInner GROUP BY patient_id
+					) creatinine
+					ON creatinine.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT *
+					FROM 	(SELECT patient_id,
+							fundoscopy as lastFundoscopy
+							FROM mw_ncd_visits
+							WHERE visit_date < _endDate
+							ORDER BY visit_date DESC
+					) fundoscopyInner GROUP BY patient_id
+					) fundoscopy
+					ON fundoscopy.patient_id = ic3.patient_id
+					
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
 							num_seizures as seizures,
@@ -305,15 +355,15 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT omrs_encounter.patient_id,
 							omrs_encounter.encounter_id,
-							ablePerformDailyActivities,
-							suicideRisk
+							ablePerformDailyActivitiesAtLastVisit,
+							suicideRiskAtLastVisit
 							FROM omrs_encounter
-							LEFT JOIN 	(SELECT encounter_id, value_coded as ablePerformDailyActivities
+							LEFT JOIN 	(SELECT encounter_id, value_coded as ablePerformDailyActivitiesAtLastVisit
 										FROM omrs_obs 
 					   					WHERE concept = 'Able to perform daily activities'
 					   					) ablePerformDailyActivities
 					   		ON ablePerformDailyActivities.encounter_id = omrs_encounter.encounter_id	
-							LEFT JOIN 	(SELECT encounter_id, value_coded as suicideRisk
+							LEFT JOIN 	(SELECT encounter_id, value_coded as suicideRiskAtLastVisit
 										FROM omrs_obs 
 					   					WHERE concept = 'Suicide risk'
 					   					) suicideRisk
@@ -326,7 +376,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
 							visit_date as lastAsthmaVisitDate,
-							asthma_classification as asthmaClassification,
+							asthma_classification as asthmaClassificationAtLastVisit,
 							next_appointment_date AS nextAsthmaAppt
 							FROM mw_ncd_visits
 							WHERE asthma_followup = 1
@@ -337,6 +387,9 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
 							visit_date AS lastMentalHealthVisitDate,
+							hospitalized_since_last_visit as mentalHospitalizedSinceLastVisit,
+							mental_health_drug_side_effect as mentalHealthRxSideEffectsAtLastVisit,
+							mental_stable as mentalStableAtLastVisit,
 							next_appointment_date AS nextMentalHealthAppt
 							FROM mw_ncd_visits
 							WHERE mental_health_followup = 1
