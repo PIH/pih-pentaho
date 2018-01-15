@@ -85,12 +85,16 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					cvRiskAtLastVisit,
 					htnDmHospitalizedSinceLastVisit,
 					lastProteinuria,
+					lastProteinuriaDate,
 					lastCreatinine,
+					lastCreatinineDate,
 					lastFundoscopy,
+					lastFundoscopyDate,
 					fingerStickAtLastVisit,
 					hba1cAtLastVisit,
 					seizuresSinceLastVisit,
-					seizures,				
+					seizures,
+					lastSeizureActivityRecorded,				
 					asthmaClassificationAtLastVisit,
 					ablePerformDailyActivitiesAtLastVisit,
 					suicideRiskAtLastVisit
@@ -259,14 +263,17 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					ON dnaPcr.patient_id = ic3.patient_id	
 	LEFT JOIN 		(SELECT * 
 					FROM 	(SELECT patient_id,
-							date_collected AS lastRapidTest
+							CASE WHEN date_collected IS NULL AND date_result_entered IS NOT NULL THEN date_result_entered
+								WHEN date_result_entered IS NULL AND date_collected IS NOT NULL THEN date_collected
+								ELSE date_collected
+							END AS lastRapidTest
 							FROM mw_lab_tests
-							WHERE date_collected <= _endDate
-							AND test_type = "HIV rapid test, qualitative"
-							ORDER BY date_collected DESC
+							WHERE (date_collected <= _endDate OR date_result_entered < _endDate)
+							AND test_type IN ("HIV rapid test, qualitative", "HIV test")
+							ORDER BY lastRapidTest DESC
 							) rapidInner GROUP BY patient_id
 					) rapid 
-					ON rapid.patient_id = ic3.patient_id					
+					ON rapid.patient_id = ic3.patient_id				
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT patient_id,
 							value_coded as motherEnrollmentHivStatus
@@ -297,27 +304,33 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					ON htnDmVisit.patient_id = ic3.patient_id	
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT patient_id,
-							proteinuria as lastProteinuria
+							proteinuria as lastProteinuria,
+							visit_date as lastProteinuriaDate
 							FROM mw_ncd_visits
 							WHERE visit_date < _endDate
+							AND proteinuria IS NOT NULL
 							ORDER BY visit_date DESC
 					) proteinuriaInner GROUP BY patient_id
 					) proteinuria
 					ON proteinuria.patient_id = ic3.patient_id
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT patient_id,
-							creatinine as lastCreatinine
+							creatinine as lastCreatinine,
+							visit_date as lastCreatinineDate
 							FROM mw_ncd_visits
 							WHERE visit_date < _endDate
+							AND creatinine IS NOT NULL
 							ORDER BY visit_date DESC
 					) creatinineInner GROUP BY patient_id
 					) creatinine
 					ON creatinine.patient_id = ic3.patient_id	
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT patient_id,
-							fundoscopy as lastFundoscopy
+							fundoscopy as lastFundoscopy,
+							visit_date as lastFundoscopyDate
 							FROM mw_ncd_visits
 							WHERE visit_date < _endDate
+							AND fundoscopy IS NOT NULL
 							ORDER BY visit_date DESC
 					) fundoscopyInner GROUP BY patient_id
 					) fundoscopy
@@ -325,6 +338,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id,
+							seizure_activity as seizuresSinceLastVisit,
 							num_seizures as seizures,
 							next_appointment_date AS nextEpilepsyAppt
 							FROM mw_ncd_visits
@@ -332,26 +346,19 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 							AND visit_date < _endDate
 							ORDER BY visit_date DESC					
 							) epilepsyInner GROUP BY patient_id
-					) epilepsyVisit ON epilepsyVisit.patient_id = ic3.patient_id	
-	LEFT JOIN 		(SELECT *
-					FROM 	(SELECT omrs_encounter.patient_id,
-							omrs_encounter.encounter_id,
-							CASE WHEN value_coded IS NOT NULL 
-							THEN 'X' 
-							ELSE NULL 
-							END AS seizuresSinceLastVisit
-							FROM omrs_encounter
-							LEFT JOIN 	(SELECT encounter_id, value_coded
-										FROM omrs_obs 
-					   					WHERE concept = 'Seizure activity'
-					   					AND value_coded = 'Seizure since last visit'
-					   					) seizuresSinceLastVisit
-					   		ON seizuresSinceLastVisit.encounter_id = omrs_encounter.encounter_id				   								   					   				
-							WHERE encounter_type = 'EPILEPSY_FOLLOWUP'
-							AND encounter_date < _endDate
-							ORDER BY encounter_date DESC
-							) epilepsyVisitInner1 GROUP BY patient_id) epilepsyVisit2
-					ON epilepsyVisit2.patient_id = ic3.patient_id	
+					) epilepsyVisit ON epilepsyVisit.patient_id = ic3.patient_id
+	LEFT JOIN 		(SELECT * 
+					FROM 	(SELECT patient_id,
+							visit_date AS lastSeizureActivityRecorded
+							FROM mw_ncd_visits
+							WHERE visit_date < _endDate
+							AND 	(num_seizures IS NOT NULL
+									OR 
+									seizure_activity IS NOT NULL)
+							ORDER BY visit_date DESC
+							) seizureInner GROUP BY patient_id
+					) seizure 
+					ON seizure.patient_id = ic3.patient_id						
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT omrs_encounter.patient_id,
 							omrs_encounter.encounter_id,

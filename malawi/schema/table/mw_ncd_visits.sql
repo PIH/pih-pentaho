@@ -20,6 +20,7 @@ create table mw_ncd_visits (
   diastolic_bp                      DOUBLE,
   on_insulin                        BOOLEAN,
   asthma_classification             VARCHAR(100),
+  seizure_activity                  BOOLEAN,
   num_seizures                      DOUBLE,
   hba1c                             DOUBLE,
   serum_glucose                     DOUBLE,
