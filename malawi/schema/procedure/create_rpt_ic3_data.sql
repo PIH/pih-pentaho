@@ -90,6 +90,8 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					lastCreatinineDate,
 					lastFundoscopy,
 					lastFundoscopyDate,
+					lastHba1c,
+					lastHba1cVisitDate,
 					fingerStickAtLastVisit,
 					hba1cAtLastVisit,
 					seizuresSinceLastVisit,
@@ -302,6 +304,17 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 							) htnDmVisitInner GROUP BY patient_id 
 					) htnDmVisit
 					ON htnDmVisit.patient_id = ic3.patient_id	
+	LEFT JOIN 		(SELECT *
+					FROM 	(SELECT patient_id,
+							hba1c as lastHba1c,
+							visit_date as lastHba1cVisitDate
+							FROM mw_ncd_visits
+							WHERE visit_date < _endDate
+							AND hba1c IS NOT NULL
+							ORDER BY visit_date DESC
+					) hba1cInner GROUP BY patient_id
+					) hba1c
+					ON hba1c.patient_id = ic3.patient_id					
 	LEFT JOIN 		(SELECT *
 					FROM 	(SELECT patient_id,
 							proteinuria as lastProteinuria,
