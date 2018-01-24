@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>test</name>
+  <name>test-error</name>
     <description/>
     <extended_description/>
     <job_version/>
@@ -89,19 +89,20 @@
       <name>Write to Log</name>
       <description/>
       <type>WRITE_TO_LOG</type>
-      <logmessage>Test of a job that should run successfully</logmessage>
+      <logmessage>Test of a job that throws and error</logmessage>
       <loglevel>Basic</loglevel>
       <logsubject>PIH Pentaho Home&#x3a; &#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;</logsubject>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>528</xloc>
+      <xloc>544</xloc>
       <yloc>48</yloc>
       </entry>
     <entry>
-      <name>Success</name>
+      <name>Abort job</name>
       <description/>
-      <type>SUCCESS</type>
+      <type>ABORT</type>
+      <message/>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
@@ -130,7 +131,7 @@
     </hop>
     <hop>
       <from>Write to Log</from>
-      <to>Success</to>
+      <to>Abort job</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
