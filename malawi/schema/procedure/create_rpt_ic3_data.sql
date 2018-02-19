@@ -80,7 +80,9 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					motherArtNumber,
 					motherEnrollmentHivStatus,
 					dnaPcr.lastDnaPcrTest,
+					dnaPcr.lastDnaPcrResult,
 					rapid.lastRapidTest,
+					rapid.lastRapidResult,
 					systolicBpAtLastVisit,
 					diastolicBpAtLastVisit,
 					visualAcuityAtLastVisit,
@@ -269,7 +271,8 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					ON mwEid.patient_id = ic3.patient_id	
 	LEFT JOIN 		(SELECT * 
 					FROM 	(SELECT patient_id,
-							date_collected AS lastDnaPcrTest
+							date_collected AS lastDnaPcrTest,
+							result_coded AS lastDnaPcrResult
 							FROM mw_lab_tests
 							WHERE date_collected <= _endDate
 							AND test_type = "HIV DNA polymerase chain reaction"
@@ -282,7 +285,8 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 							CASE WHEN date_collected IS NULL AND date_result_entered IS NOT NULL THEN date_result_entered
 								WHEN date_result_entered IS NULL AND date_collected IS NOT NULL THEN date_collected
 								ELSE date_collected
-							END AS lastRapidTest
+							END AS lastRapidTest,
+							result_coded as lastRapidResult
 							FROM mw_lab_tests
 							WHERE (date_collected <= _endDate OR date_result_entered < _endDate)
 							AND test_type IN ("HIV rapid test, qualitative", "HIV test")
