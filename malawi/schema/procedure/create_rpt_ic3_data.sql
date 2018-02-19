@@ -46,6 +46,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					ncdCurrentLocation,
 					artVisits.lastArtVisit,
 					ncdVisits.lastNcdVisit,
+					eidVisits.lastEidVisit,
 					lastMentalHealthVisitDate,
 					lastAsthmaVisitDate,
 					CASE 
@@ -58,6 +59,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					nextAsthmaAppt,
 					nextEpilepsyAppt,
 					mentalHealthVisit.nextMentalHealthAppt,
+					mentalStatusExam,
 					mentalHospitalizedSinceLastVisit,
 					mentalHealthRxSideEffectsAtLastVisit,
 					mentalStableAtLastVisit,
@@ -179,6 +181,18 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					GROUP BY patient_id	
 					) artVisits	
 					ON artVisits.patient_id = ic3.patient_id	
+	LEFT JOIN		(SELECT * 
+					FROM 	(SELECT patient_id, 
+							visit_date as lastEidVisit,
+							next_appointment_date as nextEidAppt
+							FROM mw_eid_visits
+							-- WHERE (location = _location OR _location IS NULL)
+							WHERE visit_date <= _endDate
+							ORDER BY visit_date DESC
+							) eidVisitsInner
+					GROUP BY patient_id	
+					) eidVisits	
+					ON eidVisits.patient_id = ic3.patient_id						
 	LEFT JOIN		(SELECT * 
 					FROM 	(SELECT patient_id, 
 							visit_date as lastNcdVisit
@@ -409,6 +423,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 							visit_date AS lastMentalHealthVisitDate,
 							hospitalized_since_last_visit as mentalHospitalizedSinceLastVisit,
 							mental_health_drug_side_effect as mentalHealthRxSideEffectsAtLastVisit,
+							mental_status_exam as mentalStatusExam,
 							mental_stable as mentalStableAtLastVisit,
 							next_appointment_date AS nextMentalHealthAppt
 							FROM mw_ncd_visits

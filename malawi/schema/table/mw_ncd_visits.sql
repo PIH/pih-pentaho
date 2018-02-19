@@ -31,6 +31,7 @@ create table mw_ncd_visits (
   visual_acuity                     VARCHAR(255),
   cv_risk                           DOUBLE,
   hospitalized_since_last_visit     VARCHAR(255),
+  mental_status_exam                VARCHAR(255),
   mental_health_drugs               VARCHAR(255),
   mental_health_drug_side_effect    VARCHAR(255),
   mental_stable                     VARCHAR(255),
