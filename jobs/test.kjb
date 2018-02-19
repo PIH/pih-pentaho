@@ -89,13 +89,23 @@
       <name>Write to Log</name>
       <description/>
       <type>WRITE_TO_LOG</type>
-      <logmessage>Loaded configuration</logmessage>
+      <logmessage>Test of a job that should run successfully</logmessage>
       <loglevel>Basic</loglevel>
       <logsubject>PIH Pentaho Home&#x3a; &#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;</logsubject>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>544</xloc>
+      <xloc>528</xloc>
+      <yloc>48</yloc>
+      </entry>
+    <entry>
+      <name>Success</name>
+      <description/>
+      <type>SUCCESS</type>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>704</xloc>
       <yloc>48</yloc>
       </entry>
   </entries>
@@ -112,6 +122,15 @@
     <hop>
       <from>Load Configuration</from>
       <to>Write to Log</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Write to Log</from>
+      <to>Success</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
