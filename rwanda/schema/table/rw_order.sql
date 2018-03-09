@@ -23,13 +23,13 @@ CREATE TABLE rw_order (
   indication VARCHAR(255),
   route VARCHAR(255),
   administration_instructions VARCHAR(1023),
-  dose DECIMAL,
-  equivalent_daily_dose DECIMAL,
+  dose DOUBLE,
+  equivalent_daily_dose DOUBLE,
   units VARCHAR(255),
   frequency VARCHAR(255),
   prn INT,
   complex VARCHAR(255),
-  quantity DECIMAL
+  quantity int(11)
 );
 
 alter table rw_order add index rw_order_id(order_id);
