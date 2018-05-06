@@ -29,6 +29,8 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					birthdate,
 					htnDx,				
 					dmDx,
+					dmDx1,
+					dmDx2,
 					cvDisease,
 					asthmaDx,
 					epilepsyDx,
@@ -100,7 +102,8 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					hba1cAtLastVisit,
 					seizuresSinceLastVisit,
 					seizures,
-					lastSeizureActivityRecorded,				
+					lastSeizureActivityRecorded,
+					epilepsyHospitalizedSinceLastVisit,
 					asthmaClassificationAtLastVisit,
 					ablePerformDailyActivitiesAtLastVisit,
 					suicideRiskAtLastVisit
@@ -229,7 +232,23 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					AND diagnosis_date < _endDate
 					GROUP BY patient_id
 					) dmDx
-					ON dmDx.patient_id = ic3.patient_id								
+					ON dmDx.patient_id = ic3.patient_id			
+	LEFT JOIN 		(SELECT patient_id,
+					CASE WHEN diagnosis IS NOT NULL THEN 'X' END AS dmDx1 
+					FROM mw_ncd_diagnoses
+					WHERE diagnosis = "Type 1 diabetes"
+					AND diagnosis_date < _endDate
+					GROUP BY patient_id
+					) dmDx1
+					ON dmDx1.patient_id = ic3.patient_id		
+	LEFT JOIN 		(SELECT patient_id,
+					CASE WHEN diagnosis IS NOT NULL THEN 'X' END AS dmDx2 
+					FROM mw_ncd_diagnoses
+					WHERE diagnosis = "Type 2 diabetes"
+					AND diagnosis_date < _endDate
+					GROUP BY patient_id
+					) dmDx2
+					ON dmDx2.patient_id = ic3.patient_id																	
 	LEFT JOIN 		(SELECT patient_id,
 					CASE WHEN diagnosis IS NOT NULL THEN 'X' END AS epilepsyDx 
 					FROM mw_ncd_diagnoses
@@ -371,6 +390,7 @@ CREATE PROCEDURE create_rpt_ic3_data(IN _endDate DATE, IN _location VARCHAR(255)
 					FROM 	(SELECT patient_id,
 							seizure_activity as seizuresSinceLastVisit,
 							num_seizures as seizures,
+							hospitalized_since_last_visit as epilepsyHospitalizedSinceLastVisit,
 							next_appointment_date AS nextEpilepsyAppt
 							FROM mw_ncd_visits
 							WHERE epilepsy_followup = 1
