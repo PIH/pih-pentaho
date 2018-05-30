@@ -488,7 +488,7 @@
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id/>
-      <filename>/home/dominic/pih-pentaho/jobs/copy-openmrs-warehouse-to-azure.kjb</filename>
+      <filename>${PIH_PENTAHO_HOME}/jobs/copy-openmrs-warehouse-to-azure.kjb</filename>
       <jobname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>

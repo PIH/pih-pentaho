@@ -353,7 +353,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-encounter-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-encounter-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -409,7 +409,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-encounter-provider-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-encounter-provider-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -445,7 +445,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-obs-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-obs-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -481,7 +481,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-obs-group-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-obs-group-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -517,7 +517,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-patient-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-patient-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -553,7 +553,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-patient-identifier-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-patient-identifier-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -589,7 +589,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-program-enrollment-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-program-enrollment-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -625,7 +625,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-program-state-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-program-state-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -661,7 +661,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-relationship-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-relationship-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -697,7 +697,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>/home/dominic/pih-pentaho/transforms/copy-omrs-visit-to-azure.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-visit-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
