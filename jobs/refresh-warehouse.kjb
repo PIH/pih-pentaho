@@ -12,7 +12,7 @@
   <modified_date>2016/10/24 16:40:00.548</modified_date>
   <parameters>
     <parameter>
-      <name>pih.countrys</name>
+      <name>pih.country</name>
       <default_value>malawi</default_value>
       <description/>
     </parameter>
