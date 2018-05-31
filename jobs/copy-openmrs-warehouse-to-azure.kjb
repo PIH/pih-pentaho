@@ -1,351 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
   <name>copy-openmrs-warehouse-to-azure</name>
-  <description/>
-  <extended_description/>
-  <job_version/>
-  <job_status>0</job_status>
-  <directory>/</directory>
+    <description/>
+    <extended_description/>
+    <job_version/>
+    <job_status>0</job_status>
+  <directory>&#x2f;</directory>
   <created_user>-</created_user>
-  <created_date>2018/05/22 17:54:18.302</created_date>
+  <created_date>2018&#x2f;05&#x2f;22 17&#x3a;54&#x3a;18.302</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018/05/22 17:54:18.302</modified_date>
-  <parameters>
-    <parameter>
-      <name>pih.country</name>
-      <default_value>haiti</default_value>
-      <description/>
-    </parameter>
-  </parameters>
-  <connection>
-    <name>openmrs_warehouse (Azure)</name>
-    <server>${warehouse-azure.db.host}</server>
-    <type>MSSQL</type>
-    <access>Native</access>
-    <database>${warehouse-azure.db.name}</database>
-    <port>${warehouse-azure.db.port}</port>
-    <username>${warehouse-azure.db.user}</username>
-    <password>${warehouse-azure.db.password}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>${warehouse-azure.db.port}</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
-  <slaveservers>
+  <modified_date>2018&#x2f;05&#x2f;22 17&#x3a;54&#x3a;18.302</modified_date>
+    <parameters>
+        <parameter>
+            <name>pih.country</name>
+            <default_value>haiti</default_value>
+            <description/>
+        </parameter>
+    </parameters>
+    <connection>
+        <name>openmrs_warehouse &#x28;Azure&#x29;</name>
+        <server>&#x24;&#x7b;warehouse-azure.db.host&#x7d;</server>
+        <type>MSSQLNATIVE</type>
+        <access>Native</access>
+        <database>&#x24;&#x7b;warehouse-azure.db.name&#x7d;</database>
+        <port>1433</port>
+        <username>&#x24;&#x7b;warehouse-azure.db.user&#x7d;</username>
+        <password>&#x24;&#x7b;warehouse-azure.db.password&#x7d;</password>
+        <servername/>
+        <data_tablespace/>
+        <index_tablespace/>
+        <attributes>
+            <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+            <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+            <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+            <attribute><code>MSSQLUseIntegratedSecurity</code><attribute>false</attribute></attribute>
+            <attribute><code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code><attribute>N</attribute></attribute>
+            <attribute><code>PORT_NUMBER</code><attribute>1433</attribute></attribute>
+            <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+            <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+            <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+            <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+            <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+        </attributes>
+    </connection>
+    <slaveservers>
     </slaveservers>
-  <job-log-table>
-    <connection/>
-    <schema/>
-    <table/>
-    <size_limit_lines/>
-    <interval/>
-    <timeout_days/>
-    <field>
-      <id>ID_JOB</id>
-      <enabled>Y</enabled>
-      <name>ID_JOB</name>
-    </field>
-    <field>
-      <id>CHANNEL_ID</id>
-      <enabled>Y</enabled>
-      <name>CHANNEL_ID</name>
-    </field>
-    <field>
-      <id>JOBNAME</id>
-      <enabled>Y</enabled>
-      <name>JOBNAME</name>
-    </field>
-    <field>
-      <id>STATUS</id>
-      <enabled>Y</enabled>
-      <name>STATUS</name>
-    </field>
-    <field>
-      <id>LINES_READ</id>
-      <enabled>Y</enabled>
-      <name>LINES_READ</name>
-    </field>
-    <field>
-      <id>LINES_WRITTEN</id>
-      <enabled>Y</enabled>
-      <name>LINES_WRITTEN</name>
-    </field>
-    <field>
-      <id>LINES_UPDATED</id>
-      <enabled>Y</enabled>
-      <name>LINES_UPDATED</name>
-    </field>
-    <field>
-      <id>LINES_INPUT</id>
-      <enabled>Y</enabled>
-      <name>LINES_INPUT</name>
-    </field>
-    <field>
-      <id>LINES_OUTPUT</id>
-      <enabled>Y</enabled>
-      <name>LINES_OUTPUT</name>
-    </field>
-    <field>
-      <id>LINES_REJECTED</id>
-      <enabled>Y</enabled>
-      <name>LINES_REJECTED</name>
-    </field>
-    <field>
-      <id>ERRORS</id>
-      <enabled>Y</enabled>
-      <name>ERRORS</name>
-    </field>
-    <field>
-      <id>STARTDATE</id>
-      <enabled>Y</enabled>
-      <name>STARTDATE</name>
-    </field>
-    <field>
-      <id>ENDDATE</id>
-      <enabled>Y</enabled>
-      <name>ENDDATE</name>
-    </field>
-    <field>
-      <id>LOGDATE</id>
-      <enabled>Y</enabled>
-      <name>LOGDATE</name>
-    </field>
-    <field>
-      <id>DEPDATE</id>
-      <enabled>Y</enabled>
-      <name>DEPDATE</name>
-    </field>
-    <field>
-      <id>REPLAYDATE</id>
-      <enabled>Y</enabled>
-      <name>REPLAYDATE</name>
-    </field>
-    <field>
-      <id>LOG_FIELD</id>
-      <enabled>Y</enabled>
-      <name>LOG_FIELD</name>
-    </field>
-    <field>
-      <id>EXECUTING_SERVER</id>
-      <enabled>N</enabled>
-      <name>EXECUTING_SERVER</name>
-    </field>
-    <field>
-      <id>EXECUTING_USER</id>
-      <enabled>N</enabled>
-      <name>EXECUTING_USER</name>
-    </field>
-    <field>
-      <id>START_JOB_ENTRY</id>
-      <enabled>N</enabled>
-      <name>START_JOB_ENTRY</name>
-    </field>
-    <field>
-      <id>CLIENT</id>
-      <enabled>N</enabled>
-      <name>CLIENT</name>
-    </field>
-  </job-log-table>
-  <jobentry-log-table>
-    <connection/>
-    <schema/>
-    <table/>
-    <timeout_days/>
-    <field>
-      <id>ID_BATCH</id>
-      <enabled>Y</enabled>
-      <name>ID_BATCH</name>
-    </field>
-    <field>
-      <id>CHANNEL_ID</id>
-      <enabled>Y</enabled>
-      <name>CHANNEL_ID</name>
-    </field>
-    <field>
-      <id>LOG_DATE</id>
-      <enabled>Y</enabled>
-      <name>LOG_DATE</name>
-    </field>
-    <field>
-      <id>JOBNAME</id>
-      <enabled>Y</enabled>
-      <name>TRANSNAME</name>
-    </field>
-    <field>
-      <id>JOBENTRYNAME</id>
-      <enabled>Y</enabled>
-      <name>STEPNAME</name>
-    </field>
-    <field>
-      <id>LINES_READ</id>
-      <enabled>Y</enabled>
-      <name>LINES_READ</name>
-    </field>
-    <field>
-      <id>LINES_WRITTEN</id>
-      <enabled>Y</enabled>
-      <name>LINES_WRITTEN</name>
-    </field>
-    <field>
-      <id>LINES_UPDATED</id>
-      <enabled>Y</enabled>
-      <name>LINES_UPDATED</name>
-    </field>
-    <field>
-      <id>LINES_INPUT</id>
-      <enabled>Y</enabled>
-      <name>LINES_INPUT</name>
-    </field>
-    <field>
-      <id>LINES_OUTPUT</id>
-      <enabled>Y</enabled>
-      <name>LINES_OUTPUT</name>
-    </field>
-    <field>
-      <id>LINES_REJECTED</id>
-      <enabled>Y</enabled>
-      <name>LINES_REJECTED</name>
-    </field>
-    <field>
-      <id>ERRORS</id>
-      <enabled>Y</enabled>
-      <name>ERRORS</name>
-    </field>
-    <field>
-      <id>RESULT</id>
-      <enabled>Y</enabled>
-      <name>RESULT</name>
-    </field>
-    <field>
-      <id>NR_RESULT_ROWS</id>
-      <enabled>Y</enabled>
-      <name>NR_RESULT_ROWS</name>
-    </field>
-    <field>
-      <id>NR_RESULT_FILES</id>
-      <enabled>Y</enabled>
-      <name>NR_RESULT_FILES</name>
-    </field>
-    <field>
-      <id>LOG_FIELD</id>
-      <enabled>N</enabled>
-      <name>LOG_FIELD</name>
-    </field>
-    <field>
-      <id>COPY_NR</id>
-      <enabled>N</enabled>
-      <name>COPY_NR</name>
-    </field>
-  </jobentry-log-table>
-  <channel-log-table>
-    <connection/>
-    <schema/>
-    <table/>
-    <timeout_days/>
-    <field>
-      <id>ID_BATCH</id>
-      <enabled>Y</enabled>
-      <name>ID_BATCH</name>
-    </field>
-    <field>
-      <id>CHANNEL_ID</id>
-      <enabled>Y</enabled>
-      <name>CHANNEL_ID</name>
-    </field>
-    <field>
-      <id>LOG_DATE</id>
-      <enabled>Y</enabled>
-      <name>LOG_DATE</name>
-    </field>
-    <field>
-      <id>LOGGING_OBJECT_TYPE</id>
-      <enabled>Y</enabled>
-      <name>LOGGING_OBJECT_TYPE</name>
-    </field>
-    <field>
-      <id>OBJECT_NAME</id>
-      <enabled>Y</enabled>
-      <name>OBJECT_NAME</name>
-    </field>
-    <field>
-      <id>OBJECT_COPY</id>
-      <enabled>Y</enabled>
-      <name>OBJECT_COPY</name>
-    </field>
-    <field>
-      <id>REPOSITORY_DIRECTORY</id>
-      <enabled>Y</enabled>
-      <name>REPOSITORY_DIRECTORY</name>
-    </field>
-    <field>
-      <id>FILENAME</id>
-      <enabled>Y</enabled>
-      <name>FILENAME</name>
-    </field>
-    <field>
-      <id>OBJECT_ID</id>
-      <enabled>Y</enabled>
-      <name>OBJECT_ID</name>
-    </field>
-    <field>
-      <id>OBJECT_REVISION</id>
-      <enabled>Y</enabled>
-      <name>OBJECT_REVISION</name>
-    </field>
-    <field>
-      <id>PARENT_CHANNEL_ID</id>
-      <enabled>Y</enabled>
-      <name>PARENT_CHANNEL_ID</name>
-    </field>
-    <field>
-      <id>ROOT_CHANNEL_ID</id>
-      <enabled>Y</enabled>
-      <name>ROOT_CHANNEL_ID</name>
-    </field>
-  </channel-log-table>
-  <pass_batchid>N</pass_batchid>
-  <shared_objects_file/>
+<job-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_JOB</id><enabled>Y</enabled><name>ID_JOB</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>JOBNAME</id><enabled>Y</enabled><name>JOBNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>START_JOB_ENTRY</id><enabled>N</enabled><name>START_JOB_ENTRY</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></job-log-table>
+<jobentry-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>JOBNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>JOBENTRYNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>RESULT</id><enabled>Y</enabled><name>RESULT</name></field><field><id>NR_RESULT_ROWS</id><enabled>Y</enabled><name>NR_RESULT_ROWS</name></field><field><id>NR_RESULT_FILES</id><enabled>Y</enabled><name>NR_RESULT_FILES</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field><field><id>COPY_NR</id><enabled>N</enabled><name>COPY_NR</name></field></jobentry-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+   <pass_batchid>N</pass_batchid>
+   <shared_objects_file/>
   <entries>
     <entry>
       <name>copy-omrs-encounter-to-azure</name>
@@ -353,7 +71,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-encounter-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-encounter-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -373,16 +91,13 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>160</xloc>
       <yloc>464</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>START</name>
       <description/>
@@ -402,14 +117,14 @@
       <nr>0</nr>
       <xloc>160</xloc>
       <yloc>16</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-encounter-provider-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-encounter-provider-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-encounter-provider-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -429,23 +144,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>464</xloc>
       <yloc>16</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-obs-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-obs-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-obs-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -465,23 +177,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>464</xloc>
       <yloc>112</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-obs-group-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-obs-group-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-obs-group-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -501,23 +210,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>480</xloc>
       <yloc>240</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-patient-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-patient-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-patient-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -537,23 +243,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>464</xloc>
       <yloc>352</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-patient-identifier-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-patient-identifier-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-patient-identifier-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -573,23 +276,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>480</xloc>
       <yloc>464</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-program-enrollment-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-program-enrollment-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-program-enrollment-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -609,23 +309,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>816</xloc>
       <yloc>16</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-program-state-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-program-state-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-program-state-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -645,23 +342,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>816</xloc>
       <yloc>144</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-relationship-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-relationship-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-relationship-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -681,23 +375,20 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>816</xloc>
       <yloc>336</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>copy-omrs-visit-to-azure</name>
       <description/>
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/copy-omrs-visit-to-azure.ktr</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;transforms&#x2f;copy-omrs-visit-to-azure.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -717,16 +408,13 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>816</xloc>
       <yloc>480</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>drop openmrs_warehouse schema</name>
       <description/>
@@ -734,15 +422,15 @@
       <sql/>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>${PIH_PENTAHO_HOME}/sql/azure/openmrs_warehouse_schema_drop.sql</sqlfilename>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;azure&#x2f;openmrs_warehouse_schema_drop.sql</sqlfilename>
       <sendOneStatement>F</sendOneStatement>
-      <connection>openmrs_warehouse (Azure)</connection>
+      <connection>openmrs_warehouse &#x28;Azure&#x29;</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>160</xloc>
       <yloc>240</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>create openmrs_warehouse schema</name>
       <description/>
@@ -750,22 +438,22 @@
       <sql/>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>${PIH_PENTAHO_HOME}/sql/azure/openmrs_warehouse_schema_create.sql</sqlfilename>
+      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;azure&#x2f;openmrs_warehouse_schema_create.sql</sqlfilename>
       <sendOneStatement>F</sendOneStatement>
-      <connection>openmrs_warehouse (Azure)</connection>
+      <connection>openmrs_warehouse &#x28;Azure&#x29;</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>160</xloc>
       <yloc>352</yloc>
-    </entry>
+      </entry>
     <entry>
       <name>Load Configuration</name>
       <description/>
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/jobs/load-configuration.kjb</filename>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;jobs&#x2f;load-configuration.kjb</filename>
       <jobname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -782,17 +470,14 @@
       <expand_remote_job>N</expand_remote_job>
       <create_parent_folder>N</create_parent_folder>
       <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>160</xloc>
       <yloc>128</yloc>
-    </entry>
+      </entry>
   </entries>
   <hops>
     <hop>
@@ -915,20 +600,12 @@
   </hops>
   <notepads>
   </notepads>
-  <attributes>
-    <group>
-      <name>METASTORE.pentaho</name>
-      <attribute>
-        <key>Default Run Configuration</key>
-        <value>{"namespace":"pentaho","id":"Default Run Configuration","name":"Default Run Configuration","description":"Defines a default run configuration","metaStoreName":null}</value>
-      </attribute>
-    </group>
-    <group>
-      <name>{"_":"Embedded MetaStore Elements","namespace":"pentaho","type":"Default Run Configuration"}</name>
-      <attribute>
-        <key>Pentaho local</key>
-        <value>{"children":[{"children":[],"id":"server","value":null},{"children":[],"id":"clustered","value":"N"},{"children":[],"id":"name","value":"Pentaho local"},{"children":[],"id":"description","value":null},{"children":[],"id":"pentaho","value":"N"},{"children":[],"id":"readOnly","value":"Y"},{"children":[],"id":"sendResources","value":"N"},{"children":[],"id":"logRemoteExecutionLocally","value":"N"},{"children":[],"id":"remote","value":"N"},{"children":[],"id":"local","value":"Y"},{"children":[],"id":"showTransformations","value":"N"}],"id":"Pentaho local","value":null,"name":"Pentaho local","owner":null,"ownerPermissionsList":[]}</value>
-      </attribute>
-    </group>
-  </attributes>
+<attributes><group><name>METASTORE.pentaho</name>
+<attribute><key>Default Run Configuration</key>
+<value>&#x7b;&#x22;namespace&#x22;&#x3a;&#x22;pentaho&#x22;,&#x22;id&#x22;&#x3a;&#x22;Default Run Configuration&#x22;,&#x22;name&#x22;&#x3a;&#x22;Default Run Configuration&#x22;,&#x22;description&#x22;&#x3a;&#x22;Defines a default run configuration&#x22;,&#x22;metaStoreName&#x22;&#x3a;null&#x7d;</value>
+</attribute></group><group><name>&#x7b;&#x22;_&#x22;&#x3a;&#x22;Embedded MetaStore Elements&#x22;,&#x22;namespace&#x22;&#x3a;&#x22;pentaho&#x22;,&#x22;type&#x22;&#x3a;&#x22;Default Run Configuration&#x22;&#x7d;</name>
+<attribute><key>Pentaho local</key>
+<value>&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;server&#x22;,&#x22;value&#x22;&#x3a;null&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;clustered&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;name&#x22;,&#x22;value&#x22;&#x3a;&#x22;Pentaho local&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;description&#x22;,&#x22;value&#x22;&#x3a;null&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;pentaho&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;readOnly&#x22;,&#x22;value&#x22;&#x3a;&#x22;Y&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;sendResources&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;logRemoteExecutionLocally&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;remote&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;local&#x22;,&#x22;value&#x22;&#x3a;&#x22;Y&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;showTransformations&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;Pentaho local&#x22;,&#x22;value&#x22;&#x3a;null,&#x22;name&#x22;&#x3a;&#x22;Pentaho local&#x22;,&#x22;owner&#x22;&#x3a;null,&#x22;ownerPermissionsList&#x22;&#x3a;&#x5b;&#x5d;&#x7d;</value>
+</attribute></group></attributes>
+
 </job>
