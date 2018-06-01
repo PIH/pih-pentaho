@@ -439,10 +439,10 @@
   <connection>
     <name>openmrs_warehouse (Azure)</name>
     <server>${warehouse-azure.db.host}</server>
-    <type>MSSQLNATIVE</type>
+    <type>MSSQL</type>
     <access>Native</access>
     <database>${warehouse-azure.db.name}</database>
-    <port>${warehouse-azure.db.port}</port>
+    <port>1433</port>
     <username>${warehouse-azure.db.user}</username>
     <password>${warehouse-azure.db.password}</password>
     <servername/>
@@ -462,16 +462,12 @@
         <attribute>N</attribute>
       </attribute>
       <attribute>
-        <code>MSSQLUseIntegratedSecurity</code>
-        <attribute>false</attribute>
-      </attribute>
-      <attribute>
         <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
         <attribute>N</attribute>
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>${warehouse-azure.db.port}</attribute>
+        <attribute>1433</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
