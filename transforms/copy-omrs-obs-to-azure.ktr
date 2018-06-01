@@ -518,7 +518,7 @@
   <order>
     <hop>
       <from>omrs-obs (MySQL)</from>
-      <to>Dummy (do nothing)</to>
+      <to>Text file output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -617,8 +617,8 @@ FROM omrs_obs
     </GUI>
   </step>
   <step>
-    <name>Dummy (do nothing)</name>
-    <type>Dummy</type>
+    <name>Text file output</name>
+    <type>TextFileOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -627,6 +627,38 @@ FROM omrs_obs
       <method>none</method>
       <schema_name/>
     </partitioning>
+    <separator>;</separator>
+    <enclosure>"</enclosure>
+    <enclosure_forced>N</enclosure_forced>
+    <enclosure_fix_disabled>N</enclosure_fix_disabled>
+    <header>Y</header>
+    <footer>N</footer>
+    <format>DOS</format>
+    <compression>None</compression>
+    <encoding/>
+    <endedLine/>
+    <fileNameInField>N</fileNameInField>
+    <fileNameField/>
+    <create_parent_folder>Y</create_parent_folder>
+    <file>
+      <name>${PIH_PENTAHO_HOME}/copy-omrs-obs-to-azure</name>
+      <servlet_output>N</servlet_output>
+      <do_not_open_new_file_init>N</do_not_open_new_file_init>
+      <extention>txt</extention>
+      <append>N</append>
+      <split>N</split>
+      <haspartno>N</haspartno>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <SpecifyFormat>N</SpecifyFormat>
+      <date_time_format/>
+      <add_to_result_filenames>Y</add_to_result_filenames>
+      <pad>N</pad>
+      <fast_dump>N</fast_dump>
+      <splitevery>0</splitevery>
+    </file>
+    <fields>
+    </fields>
     <cluster_schema/>
     <remotesteps>
       <input>
@@ -635,8 +667,8 @@ FROM omrs_obs
       </output>
     </remotesteps>
     <GUI>
-      <xloc>304</xloc>
-      <yloc>64</yloc>
+      <xloc>384</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
