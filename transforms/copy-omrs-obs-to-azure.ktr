@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>migrate-omrs-obs-to-azure</name>
+    <name>copy-omrs-obs-to-azure</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -436,65 +437,6 @@
   <notepads>
   </notepads>
   <connection>
-    <name>openmrs_warehouse (Azure)</name>
-    <server>${warehouse-azure.db.host}</server>
-    <type>MSSQLNATIVE</type>
-    <access>Native</access>
-    <database>${warehouse-azure.db.name}</database>
-    <port>1433</port>
-    <username>${warehouse-azure.db.user}</username>
-    <password>${warehouse-azure.db.password}</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>IS_CLUSTERED</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>MSSQLUseIntegratedSecurity</code>
-        <attribute>false</attribute>
-      </attribute>
-      <attribute>
-        <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>PORT_NUMBER</code>
-        <attribute>1433</attribute>
-      </attribute>
-      <attribute>
-        <code>PRESERVE_RESERVED_WORD_CASE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>QUOTE_ALL_FIELDS</code>
-        <attribute>N</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
-        <attribute>Y</attribute>
-      </attribute>
-      <attribute>
-        <code>USE_POOLING</code>
-        <attribute>N</attribute>
-      </attribute>
-    </attributes>
-  </connection>
-  <connection>
     <name>openmrs_warehouse (MySQL)</name>
     <server>${warehouse.db.host}</server>
     <type>MYSQL</type>
@@ -576,114 +518,10 @@
   <order>
     <hop>
       <from>omrs-obs (MySQL)</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Select values</from>
-      <to>omrs-obs (Azure)</to>
+      <to>Dummy (do nothing)</to>
       <enabled>Y</enabled>
     </hop>
   </order>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>obs_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>uuid</name>
-        <rename/>
-      </field>
-      <field>
-        <name>patient_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>encounter_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>obs_date</name>
-        <rename/>
-      </field>
-      <field>
-        <name>obs_time</name>
-        <rename/>
-      </field>
-      <field>
-        <name>age_years_at_obs</name>
-        <rename/>
-      </field>
-      <field>
-        <name>age_months_at_obs</name>
-        <rename/>
-      </field>
-      <field>
-        <name>encounter_type</name>
-        <rename/>
-      </field>
-      <field>
-        <name>location</name>
-        <rename/>
-      </field>
-      <field>
-        <name>concept</name>
-        <rename/>
-      </field>
-      <field>
-        <name>value_coded</name>
-        <rename/>
-      </field>
-      <field>
-        <name>value_date</name>
-        <rename/>
-      </field>
-      <field>
-        <name>value_numeric</name>
-        <rename/>
-      </field>
-      <field>
-        <name>value_text</name>
-        <rename/>
-      </field>
-      <field>
-        <name>comments</name>
-        <rename/>
-      </field>
-      <field>
-        <name>obs_group_id</name>
-        <rename/>
-      </field>
-      <field>
-        <name>date_created</name>
-        <rename/>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>208</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
   <step>
     <name>omrs-obs (Azure)</name>
     <type>TableOutput</type>
@@ -695,7 +533,7 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>openmrs_warehouse (Azure)</connection>
+    <connection/>
     <schema/>
     <table>omrs_obs</table>
     <commit>1000</commit>
@@ -724,7 +562,7 @@
     <GUI>
       <xloc>400</xloc>
       <yloc>96</yloc>
-      <draw>Y</draw>
+      <draw>N</draw>
     </GUI>
   </step>
   <step>
@@ -775,6 +613,30 @@ FROM omrs_obs
     <GUI>
       <xloc>96</xloc>
       <yloc>80</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
