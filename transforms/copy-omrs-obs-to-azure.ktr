@@ -439,7 +439,7 @@
   <connection>
     <name>openmrs_warehouse (Azure)</name>
     <server>${warehouse-azure.db.host}</server>
-    <type>MSSQL</type>
+    <type>MSSQLNATIVE</type>
     <access>Native</access>
     <database>${warehouse-azure.db.name}</database>
     <port>1433</port>
@@ -460,6 +460,10 @@
       <attribute>
         <code>IS_CLUSTERED</code>
         <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>MSSQLUseIntegratedSecurity</code>
+        <attribute>false</attribute>
       </attribute>
       <attribute>
         <code>MSSQL_DOUBLE_DECIMAL_SEPARATOR</code>
