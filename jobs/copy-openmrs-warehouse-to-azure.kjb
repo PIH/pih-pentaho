@@ -95,8 +95,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>160</xloc>
-      <yloc>464</yloc>
+      <xloc>688</xloc>
+      <yloc>224</yloc>
       </entry>
     <entry>
       <name>START</name>
@@ -148,8 +148,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>16</yloc>
+      <xloc>976</xloc>
+      <yloc>224</yloc>
       </entry>
     <entry>
       <name>copy-omrs-obs-to-azure</name>
@@ -182,7 +182,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>464</xloc>
-      <yloc>112</yloc>
+      <yloc>352</yloc>
       </entry>
     <entry>
       <name>copy-omrs-obs-group-to-azure</name>
@@ -214,8 +214,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>240</yloc>
+      <xloc>976</xloc>
+      <yloc>352</yloc>
       </entry>
     <entry>
       <name>copy-omrs-patient-to-azure</name>
@@ -248,7 +248,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>464</xloc>
-      <yloc>352</yloc>
+      <yloc>16</yloc>
       </entry>
     <entry>
       <name>copy-omrs-patient-identifier-to-azure</name>
@@ -280,8 +280,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>480</xloc>
-      <yloc>464</yloc>
+      <xloc>688</xloc>
+      <yloc>16</yloc>
       </entry>
     <entry>
       <name>copy-omrs-program-enrollment-to-azure</name>
@@ -313,8 +313,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>816</xloc>
-      <yloc>16</yloc>
+      <xloc>464</xloc>
+      <yloc>128</yloc>
       </entry>
     <entry>
       <name>copy-omrs-program-state-to-azure</name>
@@ -346,8 +346,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>816</xloc>
-      <yloc>144</yloc>
+      <xloc>976</xloc>
+      <yloc>128</yloc>
       </entry>
     <entry>
       <name>copy-omrs-relationship-to-azure</name>
@@ -379,8 +379,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>816</xloc>
-      <yloc>336</yloc>
+      <xloc>976</xloc>
+      <yloc>16</yloc>
       </entry>
     <entry>
       <name>copy-omrs-visit-to-azure</name>
@@ -412,8 +412,8 @@
       </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>816</xloc>
-      <yloc>480</yloc>
+      <xloc>464</xloc>
+      <yloc>224</yloc>
       </entry>
     <entry>
       <name>drop openmrs_warehouse schema</name>
@@ -481,26 +481,8 @@
   </entries>
   <hops>
     <hop>
-      <from>copy-omrs-encounter-provider-to-azure</from>
-      <to>copy-omrs-obs-to-azure</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>copy-omrs-obs-to-azure</from>
       <to>copy-omrs-obs-group-to-azure</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>copy-omrs-obs-group-to-azure</from>
-      <to>copy-omrs-patient-to-azure</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -517,35 +499,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>copy-omrs-patient-identifier-to-azure</from>
-      <to>copy-omrs-program-enrollment-to-azure</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>copy-omrs-program-enrollment-to-azure</from>
       <to>copy-omrs-program-state-to-azure</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>copy-omrs-program-state-to-azure</from>
-      <to>copy-omrs-relationship-to-azure</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>copy-omrs-relationship-to-azure</from>
-      <to>copy-omrs-visit-to-azure</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -558,15 +513,6 @@
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>create openmrs_warehouse schema</from>
-      <to>copy-omrs-encounter-to-azure</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -589,16 +535,61 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>copy-omrs-encounter-to-azure</from>
-      <to>copy-omrs-encounter-provider-to-azure</to>
+      <from>create openmrs_warehouse schema</from>
+      <to>copy-omrs-patient-to-azure</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>N</enabled>
+      <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>create openmrs_warehouse schema</from>
+      <from>copy-omrs-patient-identifier-to-azure</from>
+      <to>copy-omrs-relationship-to-azure</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>copy-omrs-relationship-to-azure</from>
+      <to>copy-omrs-program-enrollment-to-azure</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>copy-omrs-program-state-to-azure</from>
+      <to>copy-omrs-visit-to-azure</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>copy-omrs-visit-to-azure</from>
+      <to>copy-omrs-encounter-to-azure</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>copy-omrs-encounter-to-azure</from>
+      <to>copy-omrs-encounter-provider-to-azure</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>copy-omrs-encounter-provider-to-azure</from>
       <to>copy-omrs-obs-to-azure</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
