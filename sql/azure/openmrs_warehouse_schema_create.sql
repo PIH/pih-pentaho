@@ -44,7 +44,7 @@ CREATE TABLE omrs_obs
 , value_coded VARCHAR(255)
 , value_date DATETIME
 , value_numeric FLOAT(53)
-, value_text NVARCHAR(65535)
+, value_text VARCHAR(MAX)
 , comments VARCHAR(255)
 , obs_group_id INT
 , date_created DATETIME
