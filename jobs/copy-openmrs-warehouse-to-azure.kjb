@@ -539,7 +539,7 @@
       <to>copy-omrs-patient-to-azure</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
     </hop>
@@ -590,6 +590,15 @@
     </hop>
     <hop>
       <from>copy-omrs-encounter-provider-to-azure</from>
+      <to>copy-omrs-obs-to-azure</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>create openmrs_warehouse schema</from>
       <to>copy-omrs-obs-to-azure</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
