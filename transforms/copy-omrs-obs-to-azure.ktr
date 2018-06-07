@@ -184,7 +184,7 @@
            <schema_name/>
            </partitioning>
     <connection>openmrs_warehouse &#x28;MySQL&#x29;</connection>
-    <sql>SELECT&#xa;  obs_id&#xa;, uuid&#xa;, patient_id&#xa;, encounter_id&#xa;, obs_date&#xa;, obs_time&#xa;, age_years_at_obs&#xa;, age_months_at_obs&#xa;, encounter_type&#xa;, location&#xa;, concept&#xa;, value_coded&#xa;, value_date&#xa;, value_numeric&#xa;, value_text&#xa;, comments&#xa;, obs_group_id&#xa;, date_created&#xa;FROM omrs_obs&#xa;</sql>
+    <sql>SELECT&#xa;  obs_id&#xa;, uuid&#xa;, patient_id&#xa;, encounter_id&#xa;, obs_date&#xa;, obs_time&#xa;, age_years_at_obs&#xa;, age_months_at_obs&#xa;, encounter_type&#xa;, location&#xa;, concept&#xa;, value_coded&#xa;, value_date&#xa;, obs_group_id&#xa;, date_created&#xa;FROM omrs_obs&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -201,7 +201,7 @@
   <step_error_handling>
       <error>
         <source_step>omrs-obs &#x28;Azure&#x29;</source_step>
-        <target_step>Write to log</target_step>
+        <target_step/>
         <is_enabled>Y</is_enabled>
         <nr_valuename/>
         <descriptions_valuename/>
