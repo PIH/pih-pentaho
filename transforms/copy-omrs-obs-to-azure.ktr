@@ -6,7 +6,6 @@
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
     </parameters>
@@ -148,19 +147,19 @@
            </partitioning>
     <connection>openmrs_warehouse &#x28;Azure&#x29;</connection>
     <schema/>
-    <table/>
-    <commit>1000</commit>
-    <truncate>Y</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>N</specify_fields>
+      <table>omrs_obs</table>
+      <commit>1000</commit>
+      <truncate>Y</truncate>
+      <ignore_errors>Y</ignore_errors>
+      <use_batch>Y</use_batch>
+      <specify_fields>N</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_monthly>Y</partitioning_monthly>
     <tablename_in_field>N</tablename_in_field>
     <tablename_field/>
-    <tablename_in_table>N</tablename_in_table>
+    <tablename_in_table>Y</tablename_in_table>
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
@@ -190,7 +189,7 @@
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <lazy_conversion_active>Y</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>96</xloc>
