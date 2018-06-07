@@ -184,7 +184,7 @@
            <schema_name/>
            </partitioning>
     <connection>openmrs_warehouse &#x28;MySQL&#x29;</connection>
-    <sql>SELECT&#xa;  obs_id&#xa;, uuid&#xa;, patient_id&#xa;, encounter_id&#xa;, obs_date&#xa;, obs_time&#xa;, age_years_at_obs&#xa;, age_months_at_obs&#xa;, encounter_type&#xa;, location&#xa;, concept&#xa;, value_coded&#xa;, value_date&#xa;, obs_group_id&#xa;, date_created&#xa;FROM omrs_obs&#xa;</sql>
+    <sql>SELECT&#xa;  obs_id&#xa;, uuid&#xa;, patient_id&#xa;, encounter_id&#xa;, obs_date&#xa;, obs_time&#xa;, age_years_at_obs&#xa;, age_months_at_obs&#xa;, encounter_type&#xa;, location&#xa;, concept&#xa;, value_coded&#xa;, value_date&#xa;, value_numeric&#xa;, obs_group_id&#xa;, date_created&#xa;FROM omrs_obs&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
