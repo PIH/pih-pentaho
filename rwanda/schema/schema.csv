@@ -4,3 +4,6 @@ table,rw_onc_diagnosis
 table,rw_order
 table,rw_order_group
 table,rw_import_metadata
+table,rw_concepts_selected
+table,rw_selected_periods
+table,rw_last_obs_in_period
