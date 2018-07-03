@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>most_recent_obs_for_period</name>
+    <name>most-recent-obs-for-period</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -103,10 +103,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>Table output</to><enabled>Y</enabled> </hop>
+  <hop> <from>most recent obs sql</from><to>Table output</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Table input</name>
+    <name>most recent obs sql</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -117,7 +117,7 @@
            <schema_name/>
            </partitioning>
     <connection>warehouse</connection>
-    <sql>SELECT omrs_obs.patient_id, omrs_obs.concept, end_date, omrs_obs.obs_date as last_obs_date,omrs_obs.encounter_type, &#xd;&#xa;		omrs_obs.location,omrs_obs.value_coded,omrs_obs.value_date, omrs_obs.value_numeric,omrs_obs.value_text,omrs_obs.obs_group_id&#xd;&#xa;    from &#x28;SELECT omrs_obs.patient_id, concept, end_date, max&#x28;obs_date&#x29; as last_obs_date &#xd;&#xa;			from omrs_obs, mw_selected_periods&#xd;&#xa;            WHERE concept in &#x28;SELECT concept from mw_concepts_selected&#x29;&#xd;&#xa;            and obs_date&#x3c;&#x3d;mw_selected_periods.end_date&#xd;&#xa;            Group By omrs_obs.patient_id, omrs_obs.concept, end_date&#xd;&#xa;        &#x29; as patient_concept_last        &#x2f;&#x2a;this is the most recent obs_date grouped by patient id and concept&#x2a;&#x2f;&#xd;&#xa;			inner join omrs_obs &#xd;&#xa;				on patient_concept_last.last_obs_date &#x3d; omrs_obs.obs_date&#xd;&#xa;				and omrs_obs.patient_id&#x3d; patient_concept_last.patient_id&#xd;&#xa;				and omrs_obs.concept   &#x3d; patient_concept_last.concept &#xd;&#xa;&#xd;&#xa;&#x3b;</sql>
+    <sql>&#xd;&#xa;	SELECT omrs_obs.patient_id, omrs_obs.concept, omrs_obs.obs_date as last_obs_date,omrs_obs.encounter_type,&#xd;&#xa;		omrs_obs.location,omrs_obs.value_coded,omrs_obs.value_date, omrs_obs.value_numeric,omrs_obs.value_text,omrs_obs.obs_group_id&#xd;&#xa;    from &#x28;SELECT omrs_obs.patient_id, concept, max&#x28;obs_date&#x29; as last_obs_date&#xd;&#xa;			from omrs_obs, mw_selected_periods&#xd;&#xa;            WHERE concept in &#x28;SELECT concept from mw_concepts_selected&#x29;&#xd;&#xa;            and obs_date&#x3c;&#x3d;mw_selected_periods.end_date&#xd;&#xa;            Group By omrs_obs.patient_id, omrs_obs.concept&#xd;&#xa;        &#x29; as patient_concept_last        &#x2f;&#x2a;this is the most recent obs_date grouped by patient id and concept&#x2a;&#x2f;&#xd;&#xa;			inner join omrs_obs &#xd;&#xa;				on patient_concept_last.last_obs_date &#x3d; omrs_obs.obs_date&#xd;&#xa;				and omrs_obs.patient_id&#x3d; patient_concept_last.patient_id&#xd;&#xa;				and omrs_obs.concept   &#x3d; patient_concept_last.concept &#xd;&#xa;&#xd;&#xa;&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -149,7 +149,7 @@
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -167,10 +167,6 @@
         <field>
           <column_name>concept</column_name>
           <stream_name>concept</stream_name>
-        </field>
-        <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
         </field>
         <field>
           <column_name>last_obs_date</column_name>

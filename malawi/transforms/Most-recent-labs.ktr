@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>most_recent_obs_for_period</name>
+    <name>Malawi Lab Tests most recent</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,9 +67,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2018&#x2f;06&#x2f;24 14&#x3a;16&#x3a;49.059</created_date>
+  <created_date>2018&#x2f;06&#x2f;29 03&#x3a;56&#x3a;06.139</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;06&#x2f;24 14&#x3a;16&#x3a;49.059</modified_date>
+  <modified_date>2018&#x2f;06&#x2f;29 03&#x3a;56&#x3a;06.139</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -103,34 +103,8 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Table input</from><to>Table output</to><enabled>Y</enabled> </hop>
+  <hop> <from>sql most recent lab tests by period</from><to>Table output</to><enabled>Y</enabled> </hop>
   </order>
-  <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>warehouse</connection>
-    <sql>SELECT omrs_obs.patient_id, omrs_obs.concept, end_date, omrs_obs.obs_date as last_obs_date,omrs_obs.encounter_type, &#xd;&#xa;		omrs_obs.location,omrs_obs.value_coded,omrs_obs.value_date, omrs_obs.value_numeric,omrs_obs.value_text,omrs_obs.obs_group_id&#xd;&#xa;    from &#x28;SELECT omrs_obs.patient_id, concept, end_date, max&#x28;obs_date&#x29; as last_obs_date &#xd;&#xa;			from omrs_obs, mw_selected_periods&#xd;&#xa;            WHERE concept in &#x28;SELECT concept from mw_concepts_selected&#x29;&#xd;&#xa;            and obs_date&#x3c;&#x3d;mw_selected_periods.end_date&#xd;&#xa;            Group By omrs_obs.patient_id, omrs_obs.concept, end_date&#xd;&#xa;        &#x29; as patient_concept_last        &#x2f;&#x2a;this is the most recent obs_date grouped by patient id and concept&#x2a;&#x2f;&#xd;&#xa;			inner join omrs_obs &#xd;&#xa;				on patient_concept_last.last_obs_date &#x3d; omrs_obs.obs_date&#xd;&#xa;				and omrs_obs.patient_id&#x3d; patient_concept_last.patient_id&#xd;&#xa;				and omrs_obs.concept   &#x3d; patient_concept_last.concept &#xd;&#xa;&#xd;&#xa;&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>96</xloc>
-      <yloc>64</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
   <step>
     <name>Table output</name>
     <type>TableOutput</type>
@@ -144,12 +118,12 @@
            </partitioning>
     <connection>warehouse</connection>
     <schema/>
-    <table>mw_last_obs_in_period</table>
+    <table>mw_lab_tests_recent_period</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>N</specify_fields>
+    <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -165,50 +139,72 @@
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>concept</column_name>
-          <stream_name>concept</stream_name>
+          <column_name>encounter_id</column_name>
+          <stream_name>encounter_id</stream_name>
+        </field>
+        <field>
+          <column_name>date_collected</column_name>
+          <stream_name>date_collected</stream_name>
+        </field>
+        <field>
+          <column_name>test_type</column_name>
+          <stream_name>test_type</stream_name>
+        </field>
+        <field>
+          <column_name>date_result_received</column_name>
+          <stream_name>date_result_received</stream_name>
+        </field>
+        <field>
+          <column_name>date_result_entered</column_name>
+          <stream_name>date_result_entered</stream_name>
+        </field>
+        <field>
+          <column_name>result_coded</column_name>
+          <stream_name>result_coded</stream_name>
+        </field>
+        <field>
+          <column_name>result_numeric</column_name>
+          <stream_name>result_numeric</stream_name>
+        </field>
+        <field>
+          <column_name>result_exception</column_name>
+          <stream_name>result_exception</stream_name>
         </field>
         <field>
           <column_name>end_date</column_name>
           <stream_name>end_date</stream_name>
         </field>
-        <field>
-          <column_name>last_obs_date</column_name>
-          <stream_name>last_obs_date</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_type</column_name>
-          <stream_name>encounter_type</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>value_coded</column_name>
-          <stream_name>value_coded</stream_name>
-        </field>
-        <field>
-          <column_name>value_date</column_name>
-          <stream_name>value_date</stream_name>
-        </field>
-        <field>
-          <column_name>value_numeric</column_name>
-          <stream_name>value_numeric</stream_name>
-        </field>
-        <field>
-          <column_name>value_text</column_name>
-          <stream_name>value_text</stream_name>
-        </field>
-        <field>
-          <column_name>obs_group_id</column_name>
-          <stream_name>obs_group_id</stream_name>
-        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>208</xloc>
-      <yloc>64</yloc>
+      <xloc>256</xloc>
+      <yloc>80</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>sql most recent lab tests by period</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>warehouse</connection>
+    <sql>SELECT base.patient_id, tests.encounter_id,tests.date_collected,tests.test_type,tests.date_result_received,tests.date_result_entered,&#xd;&#xa;tests.result_coded,tests.result_numeric,tests.result_exception,base.end_date&#xd;&#xa;from  &#x28;SELECT &#x2a; from mw_selected_periods,omrs_patient&#xd;&#xa;WHERE omrs_patient.patient_id in &#x28;SELECT patient_id from omrs_program_enrollment where program&#x3d;&#x22;HIV Program&#x22;&#x29;&#xd;&#xa;&#x29; base&#xd;&#xa;&#xd;&#xa;LEFT JOIN&#x28;&#xd;&#xa;	SELECT &#xd;&#xa;    mw_lab_tests.lab_test_id,mw_lab_tests.patient_id,mw_lab_tests.encounter_id,mw_lab_tests.date_collected,&#xd;&#xa;	mw_lab_tests.test_type,mw_lab_tests.date_result_received,mw_lab_tests.date_result_entered,&#xd;&#xa;	mw_lab_tests.result_coded,mw_lab_tests.result_numeric,mw_lab_tests.result_exception, &#xd;&#xa;    patient_test_last_no_duplicate.end_date&#xd;&#xa;    from &#x28;&#xd;&#xa;    &#xd;&#xa;		SELECT mw_lab_tests.patient_id, min&#x28;lab_test_id&#x29; as last_test_id, end_date &#x2f;&#x2a;This select is the lab_test_id of one of the most recent date colected for each patient and end date&#x2a;&#x2f;&#xd;&#xa;        FROM&#x28;&#xd;&#xa;			&#xd;&#xa;            SELECT mw_lab_tests.patient_id, max&#x28;date_collected&#x29; as last_test_date, end_date &#x2f;&#x2a;This SELECT is the most recent date collected for each patient and end date&#x2a;&#x2f;&#xd;&#xa;				from mw_lab_tests, mw_selected_periods&#xd;&#xa;				WHERE mw_lab_tests.test_type&#x3d;&#x22;Viral Load&#x22;&#xd;&#xa;				and date_collected&#x3c;&#x3d;mw_selected_periods.end_date&#xd;&#xa;				Group By mw_lab_tests.patient_id, mw_selected_periods.end_date&#xd;&#xa;			&#x29; as patient_test_last        &#x2f;&#x2a;this is the most recent obs_date grouped by patient id and concept&#x2a;&#x2f;&#xd;&#xa;				inner join mw_lab_tests&#xd;&#xa;					on patient_test_last.last_test_date &#x3d; mw_lab_tests.date_collected&#xd;&#xa;					and patient_test_last.patient_id&#x3d; mw_lab_tests.patient_id&#xd;&#xa;			GROUP BY mw_lab_tests.patient_id, patient_test_last.end_date&#xd;&#xa;		&#x29; as patient_test_last_no_duplicate&#xd;&#xa;        &#x2f;&#x2a;I don&#x27;t have the min lab_test_id picked before matching&#x2a;&#x2f;&#xd;&#xa;        inner join mw_lab_tests&#xd;&#xa;        on mw_lab_tests.lab_test_id&#x3d;patient_test_last_no_duplicate.last_test_id&#xd;&#xa;&#x29; tests &#xd;&#xa;on  tests.end_date&#x3d;base.end_date &#xd;&#xa;and tests.patient_id&#x3d;base.patient_id</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>112</xloc>
+      <yloc>80</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
