@@ -24,6 +24,7 @@ create table mw_ncd_visits (
   num_seizures                      DOUBLE,
   hba1c                             DOUBLE,
   serum_glucose                     DOUBLE,
+  foot_check                        BOOLEAN,
   suicide_risk                      VARCHAR(255),
   proteinuria                       VARCHAR(255),
   creatinine                        DOUBLE,
