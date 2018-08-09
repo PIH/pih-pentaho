@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>load-selected-periods-and-concepts</name>
+    <name>most_recent_obs_for_period</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,9 +67,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2018&#x2f;06&#x2f;24 14&#x3a;55&#x3a;35.019</created_date>
+  <created_date>2018&#x2f;06&#x2f;24 14&#x3a;16&#x3a;49.059</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;06&#x2f;24 14&#x3a;55&#x3a;35.019</modified_date>
+  <modified_date>2018&#x2f;06&#x2f;24 14&#x3a;16&#x3a;49.059</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -103,12 +103,11 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>selected concepts input</from><to>selected-conceptsoutput</to><enabled>Y</enabled> </hop>
-  <hop> <from>selected-periods-input</from><to>selected-periods-output</to><enabled>Y</enabled> </hop>
+  <hop> <from>Table input</from><to>Table output</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>selected concepts input</name>
-    <type>CsvInput</type>
+    <name>Table input</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -117,42 +116,23 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.kettle&#x2f;Select Concepts.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>&#x22;</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <encoding/>
-    <fields>
-      <field>
-        <name>concept</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
+    <connection>warehouse</connection>
+    <sql>SELECT omrs_obs.patient_id, omrs_obs.concept, end_date, omrs_obs.obs_date as last_obs_date,omrs_obs.encounter_type, &#xd;&#xa;		omrs_obs.location,omrs_obs.value_coded,omrs_obs.value_date, omrs_obs.value_numeric,omrs_obs.value_text,omrs_obs.obs_group_id&#xd;&#xa;    from &#x28;SELECT omrs_obs.patient_id, concept, end_date, max&#x28;obs_date&#x29; as last_obs_date &#xd;&#xa;			from omrs_obs, rw_selected_periods&#xd;&#xa;            WHERE concept in &#x28;SELECT concept from rw_concepts_selected&#x29;&#xd;&#xa;            and obs_date&#x3c;&#x3d;rw_selected_periods.end_date&#xd;&#xa;            Group By omrs_obs.patient_id, omrs_obs.concept, end_date&#xd;&#xa;        &#x29; as patient_concept_last        &#x2f;&#x2a;this is the most recent obs_date grouped by patient id and concept&#x2a;&#x2f;&#xd;&#xa;			inner join omrs_obs &#xd;&#xa;				on patient_concept_last.last_obs_date &#x3d; omrs_obs.obs_date&#xd;&#xa;				and omrs_obs.patient_id&#x3d; patient_concept_last.patient_id&#xd;&#xa;				and omrs_obs.concept   &#x3d; patient_concept_last.concept &#xd;&#xa;&#xd;&#xa;&#x3b;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>208</xloc>
-      <yloc>192</yloc>
+      <xloc>96</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>selected-conceptsoutput</name>
+    <name>Table output</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -164,12 +144,12 @@
            </partitioning>
     <connection>warehouse</connection>
     <schema/>
-    <table>rw_concepts_selected</table>
+    <table>mw_last_obs_in_period</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
+    <specify_fields>N</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -180,177 +160,55 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
+        <field>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
+        </field>
         <field>
           <column_name>concept</column_name>
           <stream_name>concept</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>452</xloc>
-      <yloc>191</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>selected-periods-input</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.kettle&#x2f;selected_periods.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>&#x22;</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <encoding/>
-    <fields>
-      <field>
-        <name>year</name>
-        <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>quarter</name>
-        <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>yearquart</name>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>start_date</name>
-        <type>Date</type>
-        <format>MM&#x2f;dd&#x2f;yyyy</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>end_date</name>
-        <type>Date</type>
-        <format>MM&#x2f;dd&#x2f;yyyy</format>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>zero</name>
-        <type>Number</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>208</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>selected-periods-output</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>warehouse</connection>
-    <schema/>
-    <table>rw_selected_periods</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>year</column_name>
-          <stream_name>year</stream_name>
-        </field>
-        <field>
-          <column_name>quarter</column_name>
-          <stream_name>quarter</stream_name>
-        </field>
-        <field>
-          <column_name>yearquarter</column_name>
-          <stream_name>yearquart</stream_name>
-        </field>
-        <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
         </field>
         <field>
           <column_name>end_date</column_name>
           <stream_name>end_date</stream_name>
         </field>
         <field>
-          <column_name>zero</column_name>
-          <stream_name>zero</stream_name>
+          <column_name>last_obs_date</column_name>
+          <stream_name>last_obs_date</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_type</column_name>
+          <stream_name>encounter_type</stream_name>
+        </field>
+        <field>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
+        </field>
+        <field>
+          <column_name>value_coded</column_name>
+          <stream_name>value_coded</stream_name>
+        </field>
+        <field>
+          <column_name>value_date</column_name>
+          <stream_name>value_date</stream_name>
+        </field>
+        <field>
+          <column_name>value_numeric</column_name>
+          <stream_name>value_numeric</stream_name>
+        </field>
+        <field>
+          <column_name>value_text</column_name>
+          <stream_name>value_text</stream_name>
+        </field>
+        <field>
+          <column_name>obs_group_id</column_name>
+          <stream_name>obs_group_id</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>448</xloc>
-      <yloc>304</yloc>
+      <xloc>208</xloc>
+      <yloc>64</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

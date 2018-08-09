@@ -117,7 +117,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.kettle&#x2f;Select Concepts.csv</filename>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;malawi&#x2f;schema&#x2f;select_concepts.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>
@@ -204,7 +204,7 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <filename>&#x24;&#x7b;user.home&#x7d;&#x2f;.kettle&#x2f;selected_periods.csv</filename>
+    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;malawi&#x2f;schema&#x2f;selected_periods.csv</filename>
     <filename_field/>
     <rownum_field/>
     <include_filename>N</include_filename>

@@ -1,0 +1,567 @@
+province,district,subdistrict,sector,organisationunitname,fosaid,type,openmrs.db.name
+North,Musanze District,Ruhengeri Sub District,Nyange (Musanze),Nyange (Musanze) CS,1688,Health Center,a1688
+East,Kirehe District,Kirehe Sub District,Mahama,Mahama Refugee Camp II HC,1671,Health Center,a1671
+South,Kamonyi District,Remera Rukoma Sub District,Karama (Kamonyi District),Karama (Kamonyi) CS,1666,Health Center,a1666
+West,Rusizi District,Mibilizi Sub District,Nyakabuye,Nyakabuye CS,1665,Health Center,a1665
+West,Karongi District,Kibuye Sub District,Rwankuba,Bigugu CS,1662,Health Center,a1662
+East,Ngoma District,Kibungo Sub District,Gashanda,Gashanda CS,1660,Health Center,a1660
+West,Rubavu District,Gisenyi Sub District,Cyanzarwe,Busigari CS,1656,Health Center,a1656
+North,Gicumbi District,Byumba Sub District,Mukarange,Mukarange (Gicumbi) CS,1655,Health Center,a1655
+North,Gakenke District,Ruli Sub District,Minazi ,Minazi CS,1651,Health Center,a1651
+North,Gakenke District,Nemba Sub District,Gakenke ,Nganzo CS,1650,Health Center,a1650
+South,Muhanga District,Kabgayi Sub District,Muhanga,Mata CS,1648,Health Center,a1648
+Kigali City,Kicukiro District,Masaka Sub District,Kanombe,Kairos CS,1647,Health Center,a1647
+East,Kirehe District,Kirehe Sub District,Mahama,Mahama Refugee Camp HC,1646,Health Center,a1646
+North,Burera District,Butaro Sub District,Rugarama,Rugarama CS,1641,Health Center,a1641
+North,Burera District,Butaro Sub District,Gatebe,Gatebe CS,1560,Health Center,a1560
+South,Huye District,Kabutare Sub District,Mukura,Mukura (Huye) CS,1557,Health Center,a1557
+West,Rubavu District,Gisenyi Sub District,Nyakiriba,Nyakiriba CS,1555,Health Center,a1555
+South,Gisagara District,Kibilizi Sub District,Kigembe,Agahabwa CS,1554,Health Center,a1554
+West,Ngororero District,Muhororo Sub District,KAGEYO,Kageyo (Ngororero) CS,1538,Health Center,a1538
+North,Gakenke District,Ruli Sub District,Muyongwe ,Muyongwe CS,1534,Health Center,a1534
+West,Rutsiro District,Murunda Sub District,Boneza,Iwawa CS,1533,Health Center,a1533
+North,Musanze District,Ruhengeri Sub District,Musanze,Musanze CS,1475,Health Center,a1475
+East,Kirehe District,Kirehe Sub District,Kigarama (Kirehe  District),Kigarama CS,1460,Health Center,a1460
+South,Nyanza District,Nyanza Sub District,Kibilizi,Mututu CS,1427,Health Center,a1427
+North,Rulindo District,Rutongo Sub District,Murambi,Bubangu CS,1426,Health Center,a1426
+North,Rulindo District,Rutongo Sub District,BUREGA,Burega CS,1425,Health Center,a1425
+West,Rusizi District,Gihundwe Sub District,Kamembe,Mont Cyangugu CS,1403,Health Center,a1403
+West,Nyamasheke District,Kibogora Sub District,Karambi,Cyivugiza (Nyamasheke) CS,1393,Health Center,a1393
+North,Gicumbi District,Byumba Sub District,Cyumba,Cyumba CS,1346,Health Center,a1346
+North,Gicumbi District,Byumba Sub District,Ruvune,Ruvune CS,1345,Health Center,a1345
+South,Nyamagabe District,Kaduha Sub District,Buruhukiro,Buruhukiro CS,1343,Health Center,a1343
+South,Kamonyi District,Remera Rukoma Sub District,Nyamiyaga,Nyamiyaga (Kamonyi) CS,1342,Health Center,a1342
+West,Rusizi District,Mibilizi Sub District,Nzahaha,Rwinzuki CS,1341,Health Center,a1341
+West,Rusizi District,Mibilizi Sub District,Gikundamvura,Gikundamvura CS,1340,Health Center,a1340
+Kigali City,Nyarugenge District,Muhima Sub District,Kanyinya,Kanyinya CS,1337,Health Center,a1337
+Kigali City,Nyarugenge District,Muhima Sub District,Mageragere,Nyarurenzi CS,1328,Health Center,a1328
+East,Kirehe District,Kirehe Sub District,Gatore,Rwantonde CS,1325,Health Center,a1325
+East,Bugesera District,Nyamata Sub District,Nyarugenge (Bugesera District),Nyarugenge CS,1323,Health Center,a1323
+South,Muhanga District,Kabgayi Sub District,Nyarusange,Gikomero (Kabgayi) CS,1322,Health Center,a1322
+South,Muhanga District,Kabgayi Sub District,Rugendabari,Rugendabali CS,1321,Health Center,a1321
+East,Kirehe District,Kirehe Sub District,Mahama,Mahama CS,1320,Health Center,a1320
+South,Ruhango District,Gitwe Sub District,Mwendo,Mwendo (Gitwe) CS,1319,Health Center,a1319
+North,Rulindo District,Kinihira Sub District,KINIHIRA (Rulindo),Kinihira PH,1313,Provincial Hospital,a1313
+South,Ruhango District,Gitwe Sub District,Kabagali,Munanira CS,1310,Health Center,a1310
+Kigali City,Kicukiro District,Masaka Sub District,Gatenga,Gatenga CS,1306,Health Center,a1306
+South,Nyamagabe District,Kigeme Sub District,Kibirizi (Nyamagabe District),Kibirizi (Nyamagabe) CS,1280,Health Center,a1280
+North,Burera District,Butaro Sub District,Gitovu,Ruhombo CS,1279,Health Center,a1279
+North,Burera District,Butaro Sub District,Cyeru,Ndongozi CS,1278,Health Center,a1278
+South,Ruhango District,Ruhango Sub District,Kinazi (Ruhango  District),Ruhango PH,1277,Provincial Hospital,a1277
+Kigali City,Kicukiro District,Masaka Sub District,Masaka,Masaka DH,1234,District Hospital,a1234
+West,Rusizi District,Mibilizi Sub District,Nyakarenzo,Nyakarenzo CS,1233,Health Center,a1233
+West,Rubavu District,Gisenyi Sub District,Bugeshi,Bugeshi CS,1232,Health Center,a1232
+North,Rulindo District,Rutongo Sub District,RUSIGA,Kinini CS,1231,Health Center,a1231
+South,Nyaruguru District,Munini Sub District,Ngera,Ngera CS,1230,Health Center,a1230
+Kigali City,Gasabo District,Kibagabaga Sub District,Kinyinya,Rwanda Women's Network CS,1229,Health Center,a1229
+Kigali City,Gasabo District,Kibagabaga Sub District,Rusororo,SOLACE MINISTRIES CS,1228,Health Center,a1228
+North,Musanze District,Ruhengeri Sub District,Gataraga,Gataraga (MUSANZE) CS,1103,Health Center,a1103
+North,Gicumbi District,Byumba Sub District,Miyove,Prison Miyove,1102,Prison Clinic,a1102
+East,Bugesera District,Nyamata Sub District,Ntarama,Ntarama CS,1101,Health Center,a1101
+Kigali City,Gasabo District,Kibagabaga Sub District,Gikomero,Gikomero II CS,654,Health Center,a0654
+West,Rusizi District,Gihundwe Sub District,Giheke,Giheke CS,651,Health Center,a0651
+West,Rubavu District,Gisenyi Sub District,Kanzenze,Kabari (Rubavu) CS,647,Health Center,a0647
+South,Nyamagabe District,Kigeme Sub District,Uwinkingi,Uwinkingi CS,646,Health Center,a0646
+South,Nyamagabe District,Kigeme Sub District,Kitabi,Shaba (nyamagabe) CS,645,Health Center,a0645
+East,Nyagatare District,Nyagatare Sub District,KATABAGEMU,Nyakigando (Nyagatare) CS,643,Health Center,a0643
+East,Nyagatare District,Nyagatare Sub District,KARANGAZI,Ndama (nyagatare) CS,642,Health Center,a0642
+West,Nyabihu District,Shyira Sub District,Kintobo,Kintobo CS,637,Health Center,a0637
+East,Ngoma District,Kibungo Sub District,Kibungo,Rubona (ngoma) CS,628,Health Center,a0628
+East,Ngoma District,Kibungo Sub District,Remera (Ngoma  District),Gasetsa CS,625,Health Center,a0625
+North,Musanze District,Ruhengeri Sub District,Kimonyi,Kimonyi CS,622,Health Center,a0622
+West,Karongi District,Kibuye Sub District,Rwankuba,Bisesero (karongi) CS,617,Health Center,a0617
+South,Huye District,Kabutare Sub District,Maraba,Maraba (huye) CS,616,Health Center,a0616
+South,Gisagara District,Gakoma Sub District,Gishubi,Gishubi CS,612,Health Center,a0612
+East,Gatsibo District,Ngarama Sub District,Gatsibo,Gatsibo CS,606,Health Center,a0606
+North,Burera District,Butaro Sub District,Cyanika (Burera  District),Cyanika (burera) CS,605,Health Center,a0605
+East,Bugesera District,Nyamata Sub District,Ngeruka,Ngeruka CS,604,Health Center,a0604
+East,Bugesera District,Nyamata Sub District,Juru,Juru CS,603,Health Center,a0603
+North,Musanze District,Ruhengeri Sub District,Gashaki,Gashaki CS,602,Health Center,a0602
+South,Nyanza District,Nyanza Sub District,Kigoma,Gahombo CS,600,Health Center,a0600
+East,Ngoma District,Kibungo Sub District,Kibungo,Prison Kibungo Pris,596,Prison Clinic,a0596
+East,Nyagatare District,Nyagatare Sub District,NYAGATARE,Nyagatare Prison,595,Prison Clinic,a0595
+East,Kayonza District,Gahini Sub District,Mwiri,Kageyo I (Kayonza Gahini) CS,594,Health Center,a0594
+South,Nyanza District,Nyanza Sub District,Rwabicuma,Nyarusange (nyanza) CS,593,Health Center,a0593
+South,Nyaruguru District,Munini Sub District,Kivu,Kivu CS,592,Health Center,a0592
+South,Nyaruguru District,Munini Sub District,NGOMA,Ngoma CS,591,Health Center,a0591
+North,Burera District,Butaro Sub District,Gahunga,Gahunga CS,586,Health Center,a0586
+East,Rwamagana District,Rwamagana Sub District,Muhazi,Murambi (rwamagana) CS,585,Health Center,a0585
+West,Rusizi District,Gihundwe Sub District,Kamembe,Prison Rusizi,584,Prison Clinic,a0584
+West,Nyamasheke District,Kibogora Sub District,Karambi,Ngange CS,573,Health Center,a0573
+South,Nyamagabe District,Kaduha Sub District,Mugano,Mugano CS,562,Health Center,a0562
+East,Gatsibo District,Kiziguro Sub District,Gitoki,Gitoki CS,561,Health Center,a0561
+Kigali City,Kicukiro District,Masaka Sub District,Nyarugunga,Nyarugunga CS,558,Health Center,a0558
+Kigali City,Gasabo District,Kibagabaga Sub District,Bumbogo,Bumbogo (ex-Gikomero I) CS,552,Health Center,a0552
+Kigali City,Gasabo District,Kibagabaga Sub District,Nduba,Nduba CS,551,Health Center,a0551
+East,Rwamagana District,Rwamagana Sub District,Muhazi,Prison Nsinda Pris,550,Prison Clinic,a0550
+East,Rwamagana District,Rwamagana Sub District,Muhazi,Avega Rwamagana CS,547,Health Center,a0547
+West,Nyamasheke District,Kibogora Sub District,Mahembe,Mahembe CS,546,Health Center,a0546
+South,Nyamagabe District,Kaduha Sub District,Kibumbwe,Kibumbwe CS,545,Health Center,a0545
+North,Musanze District,Ruhengeri Sub District,Muhoza,Prison Ruhengeri DISP,536,Prison Clinic,a0536
+North,Rulindo District,Kinihira Sub District,BASE,Mushongi CS,518,Health Center,a0518
+North,Rulindo District,Kinihira Sub District,CYUNGO,Marembo CS,517,Health Center,a0517
+North,Rulindo District,Kinihira Sub District,KISARO,Kisaro CS,516,Health Center,a0516
+Kigali City,Gasabo District,Kibagabaga Sub District,Jali,Gihogwe CS,513,Health Center,a0513
+North,Burera District,Butaro Sub District,Rwerere,Rwerere CS,505,Health Center,a0505
+East,Rwamagana District,Rwamagana Sub District,Gahengeri,Gahengeri CS,497,Health Center,a0497
+East,Kayonza District,Gahini Sub District,Murundi (Kayonza District),Buhabwa CS,496,Health Center,a0496
+South,Nyamagabe District,Kigeme Sub District,Gasaka,Prison Gikongoro Pris,492,Prison Clinic,a0492
+North,Gakenke District,Nemba Sub District,Kamubuga ,Kamubuga CS,483,Health Center,a0483
+West,Ngororero District,Kabaya Sub District,HINDIRO,Hindiro CS,474,Health Center,a0474
+West,Ngororero District,Kabaya Sub District,MATYAZO,Gashonyi CS,472,Health Center,a0472
+East,Gatsibo District,Ngarama Sub District,Gatsibo,Camp Nyabiheke CS,463,Health Center,a0463
+West,Karongi District,Kibuye Sub District,Rwankuba,Kiziba Camp CS,462,Health Center,a0462
+North,Gicumbi District,Byumba Sub District,KAGEYO,Camp Gihembe CS,461,Health Center,a0461
+East,Bugesera District,Nyamata Sub District,Ruhuha,Ruhuha CS,458,Health Center,a0458
+East,Bugesera District,Nyamata Sub District,Ririma,Rilima CS,457,Health Center,a0457
+East,Bugesera District,Nyamata Sub District,Ririma,Prison Rilima Prison DISP,456,Prison Clinic,a0456
+East,Bugesera District,Nyamata Sub District,Rweru,Nzangwa CS,455,Health Center,a0455
+East,Bugesera District,Nyamata Sub District,Nyamata,Nyamata DH,454,District Hospital,a0454
+East,Bugesera District,Nyamata Sub District,Nyamata,Nyamata CS,453,Health Center,a0453
+East,Bugesera District,Nyamata Sub District,Mwogo,Mwogo CS,452,Health Center,a0452
+East,Bugesera District,Nyamata Sub District,Mayange,Mayange (bugesera) CS,451,Health Center,a0451
+East,Bugesera District,Nyamata Sub District,Mareba,Mareba CS,450,Health Center,a0450
+East,Bugesera District,Nyamata Sub District,Kamabuye,Kamabuye CS,449,Health Center,a0449
+East,Bugesera District,Nyamata Sub District,Shyara,Gihinga CS,448,Health Center,a0448
+East,Bugesera District,Nyamata Sub District,Gashora,Gashora CS,447,Health Center,a0447
+East,Bugesera District,Nyamata Sub District,Musenyi,Gakurazo CS,446,Health Center,a0446
+East,Ngoma District,Kibungo Sub District,Zaza,Zaza CS,445,Health Center,a0445
+East,Ngoma District,Kibungo Sub District,Zaza,Sangaza CS,444,Health Center,a0444
+East,Ngoma District,Kibungo Sub District,Rukumberi,Rukumberi CS,443,Health Center,a0443
+East,Ngoma District,Kibungo Sub District,Sake,Rukoma Sake CS,442,Health Center,a0442
+East,Ngoma District,Kibungo Sub District,Murama (Ngoma  District),Rukira CS,441,Health Center,a0441
+East,Ngoma District,Kibungo Sub District,Remera (Ngoma  District),Remera (Ngoma) CS,440,Health Center,a0440
+East,Ngoma District,Kibungo Sub District,Mugesera,Nyange CS,439,Health Center,a0439
+East,Ngoma District,Kibungo Sub District,Mutenderi,Mutenderi CS,438,Health Center,a0438
+East,Ngoma District,Kibungo Sub District,Rurenge,Kirwa CS,437,Health Center,a0437
+East,Ngoma District,Kibungo Sub District,Kibungo,Kibungo RH,436,Referral Hospital,a0436
+East,Ngoma District,Kibungo Sub District,Kibungo,Kibungo CS,435,Health Center,a0435
+East,Ngoma District,Kibungo Sub District,Jarama,Jarama CS,434,Health Center,a0434
+East,Ngoma District,Kibungo Sub District,Rukira,Gituku CS,433,Health Center,a0433
+East,Kirehe District,Kirehe Sub District,Nyamugari,Rusumo CS,432,Health Center,a0432
+East,Kirehe District,Kirehe Sub District,Nyarubuye,Nyarubuye (kirehe) CS,431,Health Center,a0431
+East,Kirehe District,Kirehe Sub District,Nyarubuye,Nyabitare (kirehe) CS,430,Health Center,a0430
+East,Kirehe District,Kirehe Sub District,Nasho,Ntaruka (nasho Kirehe) CS,429,Health Center,a0429
+East,Kirehe District,Kirehe Sub District,Mpanga,Nasho CS,428,Health Center,a0428
+East,Kirehe District,Kirehe Sub District,Mushikiri,Mushikiri CS,427,Health Center,a0427
+East,Kirehe District,Kirehe Sub District,Musaza,Musaza CS,426,Health Center,a0426
+East,Kirehe District,Kirehe Sub District,Nasho,Mulindi (kirehe) CS,425,Health Center,a0425
+East,Kirehe District,Kirehe Sub District,Kirehe,Kirehe DH,424,District Hospital,a0424
+East,Kirehe District,Kirehe Sub District,Kirehe,Kirehe CS,423,Health Center,a0423
+East,Kirehe District,Kirehe Sub District,Mpanga,Kabuye (kirehe) CS,422,Health Center,a0422
+East,Kirehe District,Kirehe Sub District,Gahara,Gashongora CS,421,Health Center,a0421
+East,Kirehe District,Kirehe Sub District,Gahara,Gahara CS,420,Health Center,a0420
+East,Kirehe District,Kirehe Sub District,Nyamugari,Bukora CS,419,Health Center,a0419
+East,Kayonza District,Gahini Sub District,Murundi (Kayonza District),Ryamanyoni CS,418,Health Center,a0418
+East,Kayonza District,Rwinkwavu Sub District,Rwinkwavu,Rwinkwavu DH,417,District Hospital,a0417
+East,Kayonza District,Rwinkwavu Sub District,Rwinkwavu,Rwinkwavu CS,416,Health Center,a0416
+East,Kayonza District,Gahini Sub District,Mukarange (Kayonza District),Rutare (kayonza) CS,415,Health Center,a0415
+East,Kayonza District,Rwinkwavu Sub District,Ruramira,Ruramira CS,414,Health Center,a0414
+East,Kayonza District,Gahini Sub District,Rukara,Rukara CS,413,Health Center,a0413
+East,Kayonza District,Rwinkwavu Sub District,Nyamirama,Nyamirama CS,412,Health Center,a0412
+East,Kayonza District,Gahini Sub District,Mwiri,Nyakabungo CS,411,Health Center,a0411
+East,Kayonza District,Rwinkwavu Sub District,Ndego,Ndego CS,410,Health Center,a0410
+East,Kayonza District,Gahini Sub District,Mukarange (Kayonza District),Mukarange CS,409,Health Center,a0409
+East,Kayonza District,Rwinkwavu Sub District,Murama,Karama (kayonza) CS,408,Health Center,a0408
+East,Kayonza District,Rwinkwavu Sub District,Kabarondo,Kabarondo (kayonza) CS,407,Health Center,a0407
+East,Kayonza District,Gahini Sub District,Gahini,Gahini DH,406,District Hospital,a0406
+East,Kayonza District,Gahini Sub District,Gahini,Gahini CS,405,Health Center,a0405
+East,Kayonza District,Rwinkwavu Sub District,Kabare,Cyarubare CS,404,Health Center,a0404
+East,Gatsibo District,Kiziguro Sub District,Murambi (Gatsibo District),Rwimitereri CS,403,Health Center,a0403
+East,Gatsibo District,Kiziguro Sub District,Rwimbogo (Gatsibo District),Rwembogo CS,402,Health Center,a0402
+East,Gatsibo District,Kiziguro Sub District,Rugarama (Gatsibo District),Rugarama (gatsibo) CS,401,Health Center,a0401
+East,Gatsibo District,Ngarama Sub District,Nyagihanga,Nyagihanga CS,400,Health Center,a0400
+East,Gatsibo District,Ngarama Sub District,Gatsibo,Nyagahanga CS,399,Health Center,a0399
+East,Gatsibo District,Ngarama Sub District,Ngarama,Ngarama DH,398,District Hospital,a0398
+East,Gatsibo District,Ngarama Sub District,Ngarama,Ngarama CS,397,Health Center,a0397
+East,Gatsibo District,Kiziguro Sub District,Muhura,Muhura CS,396,Health Center,a0396
+East,Gatsibo District,Kiziguro Sub District,Kiziguro,Kiziguro DH,395,District Hospital,a0395
+East,Gatsibo District,Kiziguro Sub District,Kiziguro,Kiziguro (gatsibo) CS,394,Health Center,a0394
+East,Gatsibo District,Ngarama Sub District,Ngarama,Kibondo CS,393,Health Center,a0393
+East,Gatsibo District,Ngarama Sub District,Kageyo (Gatsibo District),Kageyo (gatsibo) CS,392,Health Center,a0392
+East,Gatsibo District,Kiziguro Sub District,Kabarore,Kabarore CS,391,Health Center,a0391
+East,Gatsibo District,Kiziguro Sub District,Remera (Gatsibo District),Humure CS,390,Health Center,a0390
+East,Gatsibo District,Ngarama Sub District,Kageyo (Gatsibo District),Gituza CS,389,Health Center,a0389
+East,Gatsibo District,Kiziguro Sub District,Gasange,Gasange CS,388,Health Center,a0388
+East,Gatsibo District,Kiziguro Sub District,Kiramuruzi,Gakenke CS,387,Health Center,a0387
+East,Gatsibo District,Kiziguro Sub District,Remera (Gatsibo District),Bugarura CS,386,Health Center,a0386
+East,Nyagatare District,Nyagatare Sub District,TABAGWE,Tabagwe CS,385,Health Center,a0385
+East,Nyagatare District,Nyagatare Sub District,RWEMPASHA,Rwempasha CS,384,Health Center,a0384
+East,Nyagatare District,Nyagatare Sub District,RUKOMO,Rurenge CS,383,Health Center,a0383
+East,Nyagatare District,Nyagatare Sub District,RUKOMO,Rukomo CS,382,Health Center,a0382
+East,Nyagatare District,Nyagatare Sub District,GATUNDA,Nyarurema CS,381,Health Center,a0381
+East,Nyagatare District,Nyagatare Sub District,NYAGATARE,Nyagatare DH,380,District Hospital,a0380
+East,Nyagatare District,Nyagatare Sub District,NYAGATARE,Nyagatare CS,379,Health Center,a0379
+East,Nyagatare District,Nyagatare Sub District,MIMURI,Nyagahita CS,378,Health Center,a0378
+East,Nyagatare District,Nyagatare Sub District,MUSHERI,Ntoma CS,376,Health Center,a0376
+East,Nyagatare District,Nyagatare Sub District,MUKAMA,Muhambo CS,375,Health Center,a0375
+East,Nyagatare District,Nyagatare Sub District,MIMURI,Mimuri CS,374,Health Center,a0374
+East,Nyagatare District,Nyagatare Sub District,MATIMBA,Matimba CS,373,Health Center,a0373
+East,Nyagatare District,Nyagatare Sub District,KATABAGEMU,Katabagemu CS,372,Health Center,a0372
+East,Nyagatare District,Nyagatare Sub District,NYAGATARE,Karangazi CS,371,Health Center,a0371
+East,Nyagatare District,Nyagatare Sub District,MATIMBA,Kagitumba CS,370,Health Center,a0370
+East,Nyagatare District,Nyagatare Sub District,Karama (Nyagatare),Kabuga (karama Nyagatare) CS,369,Health Center,a0369
+East,Nyagatare District,Nyagatare Sub District,KIYOMBE,Cyondo CS,368,Health Center,a0368
+East,Nyagatare District,Nyagatare Sub District,NYAGATARE,Cyabayaga CS,367,Health Center,a0367
+East,Nyagatare District,Nyagatare Sub District,RWIMIYAGA,Bugaragara CS,366,Health Center,a0366
+East,Rwamagana District,Rwamagana Sub District,Kigabiro,Rwamagana PH,365,Provincial Hospital,a0365
+East,Rwamagana District,Rwamagana Sub District,Kigabiro,Rwamagana CS,364,Health Center,a0364
+East,Rwamagana District,Rwamagana Sub District,Gishali,Ruhunda CS,363,Health Center,a0363
+East,Rwamagana District,Rwamagana Sub District,Rubona,Rubona (rwamagana) CS,362,Health Center,a0362
+East,Rwamagana District,Rwamagana Sub District,Nzige,Nzige CS,361,Health Center,a0361
+East,Rwamagana District,Rwamagana Sub District,Nyakaliro,Nyakaliro CS,360,Health Center,a0360
+East,Rwamagana District,Rwamagana Sub District,Fumbwe,Nyagasambu CS,359,Health Center,a0359
+East,Rwamagana District,Rwamagana Sub District,Muyumbu,Muyumbu CS,358,Health Center,a0358
+East,Rwamagana District,Rwamagana Sub District,Musha (Rwamagana  District),Musha (rwamagana) CS,357,Health Center,a0357
+East,Rwamagana District,Rwamagana Sub District,Munyaga,Munyaga CS,356,Health Center,a0356
+East,Rwamagana District,Rwamagana Sub District,Karenge,Karenge CS,355,Health Center,a0355
+East,Rwamagana District,Rwamagana Sub District,Gishali,Gishari(Police) CS,354,Health Center,a0354
+North,Gicumbi District,Byumba Sub District,Giti,Tanda CS,353,Health Center,a0353
+North,Gicumbi District,Byumba Sub District,Rwamiko,Rwesero CS,352,Health Center,a0352
+North,Gicumbi District,Byumba Sub District,Rutare,Rutare (gicumbi) CS,351,Health Center,a0351
+North,Gicumbi District,Byumba Sub District,Rushaki,Rushaki CS,350,Health Center,a0350
+North,Gicumbi District,Byumba Sub District,Byumba,Ruhenda CS,349,Health Center,a0349
+North,Gicumbi District,Byumba Sub District,Rubaya,Rubaya (gicumbi) CS,348,Health Center,a0348
+North,Gicumbi District,Byumba Sub District,Mutete,Musenyi (gicumbi) CS,347,Health Center,a0347
+North,Gicumbi District,Byumba Sub District,RUKOMO,Munyinya CS,346,Health Center,a0346
+North,Gicumbi District,Byumba Sub District,Kaniga,Mulindi (gicumbi) CS,345,Health Center,a0345
+North,Gicumbi District,Byumba Sub District,Bwisige,Mukono CS,344,Health Center,a0344
+North,Gicumbi District,Byumba Sub District,Muko (Gicumbi  District),Muko CS,343,Health Center,a0343
+North,Gicumbi District,Byumba Sub District,KAGEYO,Muhondo (kageyo) CS,342,Health Center,a0342
+North,Gicumbi District,Byumba Sub District,Miyove,Miyove CS,341,Health Center,a0341
+North,Gicumbi District,Byumba Sub District,Manyagiro,Manyagiro CS,340,Health Center,a0340
+North,Gicumbi District,Byumba Sub District,Nyankenke,Kigogo CS,339,Health Center,a0339
+North,Gicumbi District,Byumba Sub District,Bukure,Giti CS,338,Health Center,a0338
+North,Gicumbi District,Byumba Sub District,RUKOMO,Gisiza CS,337,Health Center,a0337
+North,Gicumbi District,Byumba Sub District,Byumba,Byumba DH,336,District Hospital,a0336
+North,Gicumbi District,Byumba Sub District,Byumba,Byumba CS,335,Health Center,a0335
+North,Gicumbi District,Byumba Sub District,Bwisige,Bwisige CS,334,Health Center,a0334
+North,Gicumbi District,Byumba Sub District,Shangasha,Bushara CS,333,Health Center,a0333
+North,Burera District,Butaro Sub District,Kivuye,Rusasa CS,332,Health Center,a0332
+North,Burera District,Butaro Sub District,Ruhunde,Ruhunde CS,331,Health Center,a0331
+North,Burera District,Butaro Sub District,Nemba,Nyamugali CS,330,Health Center,a0330
+North,Burera District,Butaro Sub District,Kinoni,Ntaruka (kinoni Burera) CS,329,Health Center,a0329
+North,Burera District,Butaro Sub District,Rugengabari,Mucaca CS,328,Health Center,a0328
+North,Burera District,Butaro Sub District,Kivuye,Kivuye CS,327,Health Center,a0327
+North,Burera District,Butaro Sub District,Rusarabuye,Kirambo (burera) CS,326,Health Center,a0326
+North,Burera District,Butaro Sub District,Kinyababa,Kinyababa CS,325,Health Center,a0325
+North,Burera District,Butaro Sub District,Kinoni,Kinoni CS,324,Health Center,a0324
+North,Burera District,Butaro Sub District,Kagogo,Gitare CS,323,Health Center,a0323
+North,Burera District,Butaro Sub District,Butaro,Butaro DH,322,District Hospital,a0322
+North,Burera District,Butaro Sub District,Butaro,Butaro CS,321,Health Center,a0321
+North,Burera District,Butaro Sub District,Bungwe,Bungwe (burera) CS,320,Health Center,a0320
+North,Musanze District,Ruhengeri Sub District,Shingiro,Shingiro CS,319,Health Center,a0319
+North,Musanze District,Ruhengeri Sub District,Rwaza,Rwaza CS,318,Health Center,a0318
+North,Musanze District,Ruhengeri Sub District,Muhoza,Ruhengeri RH,317,Referral Hospital,a0317
+North,Musanze District,Ruhengeri Sub District,Muhoza,Muhoza (Ruhengeri) CS,316,Health Center,a0316
+North,Musanze District,Ruhengeri Sub District,Nkotsi,Nyakinama CS,315,Health Center,a0315
+North,Musanze District,Ruhengeri Sub District,Remera (Musanze  District),Murandi CS,314,Health Center,a0314
+North,Musanze District,Ruhengeri Sub District,Kinigi,Kinigi CS,313,Health Center,a0313
+North,Musanze District,Ruhengeri Sub District,Cyuve,Karwasa CS,312,Health Center,a0312
+North,Musanze District,Ruhengeri Sub District,Muko,Kabere CS,311,Health Center,a0311
+North,Musanze District,Ruhengeri Sub District,Cyuve,Gasiza (musanze) CS,310,Health Center,a0310
+North,Musanze District,Ruhengeri Sub District,Busogo,Busogo CS,309,Health Center,a0309
+North,Musanze District,Ruhengeri Sub District,Kinigi,Bisate CS,308,Health Center,a0308
+North,Gakenke District,Ruli Sub District,Rushashi ,Rwankuba CS,307,Health Center,a0307
+North,Gakenke District,Nemba Sub District,Gashenyi ,Rutenderi CS,306,Health Center,a0306
+North,Gakenke District,Nemba Sub District,Janja ,Rutake CS,305,Health Center,a0305
+North,Gakenke District,Nemba Sub District,Muzo ,Rusoro CS,304,Health Center,a0304
+North,Gakenke District,Ruli Sub District,Rushashi ,Rushashi CS,303,Health Center,a0303
+North,Gakenke District,Ruli Sub District,Ruli ,Ruli DH,302,District Hospital,a0302
+North,Gakenke District,Ruli Sub District,Ruli ,Ruli CS,301,Health Center,a0301
+North,Gakenke District,Nemba Sub District,Gashenyi ,Rukura CS,300,Health Center,a0300
+North,Gakenke District,Nemba Sub District,Rusasa ,Nyundo (gakenke) CS,299,Health Center,a0299
+North,Gakenke District,Ruli Sub District,Coko ,Nyange (ruli) CS,298,Health Center,a0298
+North,Gakenke District,Nemba Sub District,Nemba ,Nemba DH,297,District Hospital,a0297
+North,Gakenke District,Nemba Sub District,Nemba ,Nemba CS,296,Health Center,a0296
+North,Gakenke District,Ruli Sub District,Muhondo ,Muhondo (gakenke) CS,295,Health Center,a0295
+North,Gakenke District,Nemba Sub District,Mataba ,Mataba CS,294,Health Center,a0294
+North,Gakenke District,Nemba Sub District,Karambo ,Karambo (gakenke) CS,293,Health Center,a0293
+North,Gakenke District,Nemba Sub District,Janja ,Janja CS,292,Health Center,a0292
+North,Gakenke District,Nemba Sub District,Mugunga ,Gatonde CS,291,Health Center,a0291
+North,Gakenke District,Nemba Sub District,Cyabingo ,Cyabingo CS,290,Health Center,a0290
+North,Gakenke District,Ruli Sub District,Coko ,Coko (ruli) CS,289,Health Center,a0289
+North,Gakenke District,Nemba Sub District,Kivuruga ,Bushoka CS,288,Health Center,a0288
+North,Gakenke District,Nemba Sub District,Busengo ,Busengo CS,287,Health Center,a0287
+North,Rulindo District,Kinihira Sub District,TUMBA,Tumba CS,286,Health Center,a0286
+North,Rulindo District,Kinihira Sub District,BUSHOKI,Tare CS,285,Health Center,a0285
+North,Rulindo District,Rutongo Sub District,SHYORONGI,Shyorongi CS,284,Health Center,a0284
+North,Rulindo District,Rutongo Sub District,SHYORONGI,Rwahi CS,283,Health Center,a0283
+North,Rulindo District,Rutongo Sub District,NGOMA,Rutongo DH,282,District Hospital,a0282
+North,Rulindo District,Rutongo Sub District,SHYORONGI,Rutonde CS,281,Health Center,a0281
+North,Rulindo District,Rutongo Sub District,MBOGO,Rulindo CS,280,Health Center,a0280
+North,Rulindo District,Kinihira Sub District,RUKOZO,Rukozo CS,279,Health Center,a0279
+North,Rulindo District,Rutongo Sub District,NGOMA,Remera-mbogo CS,278,Health Center,a0278
+North,Rulindo District,Rutongo Sub District,BUREGA,Muyanza CS,277,Health Center,a0277
+North,Rulindo District,Rutongo Sub District,Murambi,Murambi CS,276,Health Center,a0276
+North,Rulindo District,Rutongo Sub District,MASORO,Masoro CS,275,Health Center,a0275
+North,Rulindo District,Rutongo Sub District,NTARABANA,Kiyanza CS,274,Health Center,a0274
+North,Rulindo District,Kinihira Sub District,KINIHIRA (Rulindo),Kinihira (rulindo) CS,273,Health Center,a0273
+North,Rulindo District,Rutongo Sub District,NTARABANA,Kajevuba CS,272,Health Center,a0272
+North,Rulindo District,Kinihira Sub District,BUYOGA,Buyoga CS,271,Health Center,a0271
+West,Nyamasheke District,Kibogora Sub District,Cyato,Yove CS,270,Health Center,a0270
+West,Nyamasheke District,Kibogora Sub District,Kanjongo,Ruheru (kanjongo Nyamasheke) CS,269,Health Center,a0269
+West,Nyamasheke District,Kibogora Sub District,Rangiro,Rangiro CS,268,Health Center,a0268
+West,Nyamasheke District,Kibogora Sub District,Kagano,Nyamasheke CS,267,Health Center,a0267
+West,Nyamasheke District,Bushenge Sub District,Karengera,Mwezi CS,266,Health Center,a0266
+West,Nyamasheke District,Bushenge Sub District,Nyabitekeri,Muyange CS,265,Health Center,a0265
+West,Nyamasheke District,Bushenge Sub District,Nyabitekeri,Mukoma (nyamasheke) CS,264,Health Center,a0264
+West,Nyamasheke District,Bushenge Sub District,Shangi,Mugera CS,263,Health Center,a0263
+West,Nyamasheke District,Kibogora Sub District,Kanjongo,Kibogora DH,262,District Hospital,a0262
+West,Nyamasheke District,Kibogora Sub District,Kanjongo,Kibogora CS,261,Health Center,a0261
+West,Nyamasheke District,Kibogora Sub District,Gihombo,Kibingo (nyamasheke) CS,260,Health Center,a0260
+West,Nyamasheke District,Kibogora Sub District,Kirimbi,Karengera CS,259,Health Center,a0259
+West,Nyamasheke District,Kibogora Sub District,Karambi,Karambi (nyamasheke) CS,258,Health Center,a0258
+West,Nyamasheke District,Bushenge Sub District,Ruharambuga,Kamonyi (ruharambuga) CS,257,Health Center,a0257
+West,Nyamasheke District,Kibogora Sub District,Macuba,Hanika (nyamasheke) CS,256,Health Center,a0256
+West,Nyamasheke District,Bushenge Sub District,Bushekeri,Gisakura CS,255,Health Center,a0255
+West,Nyamasheke District,Kibogora Sub District,Macuba,Gatare (macuba) CS,254,Health Center,a0254
+West,Nyamasheke District,Bushenge Sub District,Bushenge,Bushenge PH,253,Provincial Hospital,a0253
+West,Nyamasheke District,Bushenge Sub District,Bushenge,Bushenge CS,252,Health Center,a0252
+West,Rusizi District,Gihundwe Sub District,Mururu,Rusizi CS,251,Health Center,a0251
+West,Rusizi District,Mibilizi Sub District,Butare,Nyabitimbo CS,250,Health Center,a0250
+West,Rusizi District,Mibilizi Sub District,Nkungu,Nkungu CS,249,Health Center,a0249
+West,Rusizi District,Gihundwe Sub District,Nkombo,Nkombo CS,248,Health Center,a0248
+West,Rusizi District,Gihundwe Sub District,Nkanka,Nkanka CS,247,Health Center,a0247
+West,Rusizi District,Mibilizi Sub District,Rwimbogo,Mushaka CS,246,Health Center,a0246
+West,Rusizi District,Mibilizi Sub District,Gashonga,Mibilizi DH,245,District Hospital,a0245
+West,Rusizi District,Mibilizi Sub District,Gashonga,Mibilizi CS,244,Health Center,a0244
+West,Rusizi District,Mibilizi Sub District,Gitambi,Mashesha CS,243,Health Center,a0243
+West,Rusizi District,Mibilizi Sub District,Bugarama,Islamic (Bugarama) CS,242,Health Center,a0242
+West,Rusizi District,Gihundwe Sub District,Kamembe,Gihundwe DH,241,District Hospital,a0241
+West,Rusizi District,Gihundwe Sub District,Kamembe,Gihundwe CS,240,Health Center,a0240
+West,Rusizi District,Gihundwe Sub District,Bweyeye,Bweyeye CS,238,Health Center,a0238
+West,Rusizi District,Mibilizi Sub District,Muganza (Rusizi District),Bugarama (rusizi) CS,237,Health Center,a0237
+West,Ngororero District,Muhororo Sub District,NGORORERO,Rususa CS,236,Health Center,a0236
+West,Ngororero District,Muhororo Sub District,GATUMBA,Rubona (ngororera) CS,235,Health Center,a0235
+West,Ngororero District,Kabaya Sub District,MUHANDA,Rubaya (ngororera) CS,234,Health Center,a0234
+West,Ngororero District,Kabaya Sub District,KAVUMU,Ramba CS,233,Health Center,a0233
+West,Ngororero District,Muhororo Sub District,NYANGE,Nyange B CS,232,Health Center,a0232
+West,Ngororero District,Muhororo Sub District,NGORORERO,Nyange A CS,231,Health Center,a0231
+West,Ngororero District,Muhororo Sub District,NDARO,Ntobwe  CS,230,Health Center,a0230
+West,Ngororero District,Muhororo Sub District,MUHORORO,Ntaganzwa CS,229,Health Center,a0229
+West,Ngororero District,Kabaya Sub District,HINDIRO,Muramba CS,228,Health Center,a0228
+West,Ngororero District,Muhororo Sub District,MUHORORO,Muhororo DH,227,District Hospital,a0227
+West,Ngororero District,Muhororo Sub District,GATUMBA,Muhororo CS,226,Health Center,a0226
+West,Ngororero District,Kabaya Sub District,KABAYA,Kabaya DH,225,District Hospital,a0225
+West,Ngororero District,Kabaya Sub District,KABAYA,Kabaya CS,224,Health Center,a0224
+West,Ngororero District,Muhororo Sub District,BWIRA,Gashubi CS,223,Health Center,a0223
+West,Nyabihu District,Shyira Sub District,Shyira,Shyira DH,222,District Hospital,a0222
+West,Nyabihu District,Shyira Sub District,Shyira,Shyira CS,221,Health Center,a0221
+West,Nyabihu District,Shyira Sub District,Mukamira,Rwankeri CS,220,Health Center,a0220
+West,Nyabihu District,Shyira Sub District,Rurembo,Rurembo CS,219,Health Center,a0219
+West,Nyabihu District,Shyira Sub District,Rambura,Rambura CS,218,Health Center,a0218
+West,Nyabihu District,Shyira Sub District,Rugera,Nyakiliba CS,217,Health Center,a0217
+West,Nyabihu District,Shyira Sub District,Rugera,Nyakigezi CS,216,Health Center,a0216
+West,Nyabihu District,Shyira Sub District,Karago,Mwiyanike CS,215,Health Center,a0215
+West,Nyabihu District,Shyira Sub District,Bigogwe,Kora CS,214,Health Center,a0214
+West,Nyabihu District,Shyira Sub District,Jenda,Kareba CS,213,Health Center,a0213
+West,Nyabihu District,Shyira Sub District,Kabatwa,Kabatwa CS,212,Health Center,a0212
+West,Nyabihu District,Shyira Sub District,Jomba,Jomba CS,210,Health Center,a0210
+West,Nyabihu District,Shyira Sub District,Muringa,Gakamba CS,209,Health Center,a0209
+West,Nyabihu District,Shyira Sub District,Rambura,Birembo CS,208,Health Center,a0208
+West,Nyabihu District,Shyira Sub District,Bigogwe,Bigogwe CS,207,Health Center,a0207
+West,Nyabihu District,Shyira Sub District,Bigogwe,Arusha CS,206,Health Center,a0206
+West,Rubavu District,Gisenyi Sub District,Gisenyi,Prison Gisenyi Pris,205,Prison Clinic,a0205
+West,Rubavu District,Gisenyi Sub District,Nyundo,Nyundo (rubavu) CS,204,Health Center,a0204
+West,Rubavu District,Gisenyi Sub District,Rubavu,Murara CS,203,Health Center,a0203
+West,Rubavu District,Gisenyi Sub District,Mudende,Mudende CS,202,Health Center,a0202
+West,Rubavu District,Gisenyi Sub District,Nyamyumba,Kigufi CS,201,Health Center,a0201
+West,Rubavu District,Gisenyi Sub District,Kanama,Karambo (rubavu) CS,200,Health Center,a0200
+West,Rubavu District,Gisenyi Sub District,Gisenyi,Gisenyi DH,199,District Hospital,a0199
+West,Rubavu District,Gisenyi Sub District,Gisenyi,Gisenyi CS,198,Health Center,a0198
+West,Rubavu District,Gisenyi Sub District,Gisenyi,Gacuba Ii CS,197,Health Center,a0197
+West,Rubavu District,Gisenyi Sub District,Rubavu,Byahi (rubavu) CS,196,Health Center,a0196
+West,Rubavu District,Gisenyi Sub District,Busasamana (Rubavu District),Busasamana CS,195,Health Center,a0195
+West,Rutsiro District,Murunda Sub District,Manihira,Rutsiro CS,194,Health Center,a0194
+West,Rutsiro District,Murunda Sub District,Nyabirasi,Nyabirasi CS,193,Health Center,a0193
+West,Rutsiro District,Murunda Sub District,Mushubati,Mushubati CS,192,Health Center,a0192
+West,Rutsiro District,Murunda Sub District,Musasa,Musasa CS,191,Health Center,a0191
+West,Rutsiro District,Murunda Sub District,Murunda,Murunda DH,190,District Hospital,a0190
+West,Rutsiro District,Murunda Sub District,Murunda,Murunda CS,189,Health Center,a0189
+West,Rutsiro District,Murunda Sub District,Mukura (Rutsiro  District),Mukura (Rutsiro) CS,188,Health Center,a0188
+West,Rutsiro District,Murunda Sub District,Kivumu,Kivumu (rutsiro) CS,187,Health Center,a0187
+West,Rutsiro District,Murunda Sub District,Boneza,Kinunu CS,186,Health Center,a0186
+West,Rutsiro District,Murunda Sub District,Kigeyo,Kinihira (rutsiro) CS,185,Health Center,a0185
+West,Rutsiro District,Murunda Sub District,Gihango,Kibingo (rutsiro) CS,184,Health Center,a0184
+West,Rutsiro District,Murunda Sub District,Ruhango (Rutsiro  District),Kayove CS,183,Health Center,a0183
+West,Rutsiro District,Murunda Sub District,Murunda,Karumbi CS,182,Health Center,a0182
+West,Rutsiro District,Murunda Sub District,Rusebeya,Kabona CS,181,Health Center,a0181
+West,Rutsiro District,Murunda Sub District,Kigeyo,Cyimbili CS,180,Health Center,a0180
+West,Rutsiro District,Murunda Sub District,Gihango,Crete Congo Nil CS,179,Health Center,a0179
+West,Rutsiro District,Murunda Sub District,Ruhango (Rutsiro  District),Bitenga  CS,178,Health Center,a0178
+West,Rutsiro District,Murunda Sub District,Mushonyi,Biruyi CS,177,Health Center,a0177
+West,Karongi District,Kibuye Sub District,Rugabano,Rugabano CS,176,Health Center,a0176
+West,Karongi District,Kibuye Sub District,Rugabano,Rufungo CS,175,Health Center,a0175
+West,Karongi District,Kibuye Sub District,Rubengera,Rubengera CS,174,Health Center,a0174
+West,Karongi District,Kirinda Sub District,Gashari,Mwendo (karongi) CS,173,Health Center,a0173
+West,Karongi District,Kibuye Sub District,Rwankuba,Musango CS,172,Health Center,a0172
+West,Karongi District,Kirinda Sub District,Murundi,Munzanga CS,171,Health Center,a0171
+West,Karongi District,Kibuye Sub District,Mutuntu,Mukungu CS,170,Health Center,a0170
+West,Karongi District,Mugonero Sub District,Gishyita,Mugonero DH,169,District Hospital,a0169
+West,Karongi District,Mugonero Sub District,Gishyita,Mugonero CS,168,Health Center,a0168
+West,Karongi District,Mugonero Sub District,Mubuga,Mubuga CS,167,Health Center,a0167
+West,Karongi District,Mugonero Sub District,Gishyita,Mpembe CS,166,Health Center,a0166
+West,Karongi District,Kirinda Sub District,Murambi,Kirinda DH,165,District Hospital,a0165
+West,Karongi District,Kirinda Sub District,Murambi,Kirinda CS,164,Health Center,a0164
+West,Karongi District,Kibuye Sub District,Gitesi,Kirambo (gitesi) CS,163,Health Center,a0163
+West,Karongi District,Kibuye Sub District,Bwishyura,Kibuye RH,162,Referral Hospital,a0162
+West,Karongi District,Kibuye Sub District,Bwishyura,Kibuye CS,161,Health Center,a0161
+West,Karongi District,Mugonero Sub District,Mubuga,Karora CS,160,Health Center,a0160
+West,Karongi District,Kibuye Sub District,Rugabano,Karongi (gisunzu) Police CS,159,Health Center,a0159
+West,Karongi District,Mugonero Sub District,Twumba,Gisovu CS,158,Health Center,a0158
+West,Karongi District,Mugonero Sub District,Twumba,Gatare (twumba) CS,157,Health Center,a0157
+West,Karongi District,Kibuye Sub District,Rubengera,Bubazi CS,156,Health Center,a0156
+West,Karongi District,Kirinda Sub District,Gashari,Birambo CS,155,Health Center,a0155
+West,Karongi District,Kirinda Sub District,Ruganda,Biguhu CS,154,Health Center,a0154
+South,Kamonyi District,Remera Rukoma Sub District,Rukoma,Remera Rukoma DH,153,District Hospital,a0153
+South,Kamonyi District,Remera Rukoma Sub District,Rukoma,Remera Rukoma CS,152,Health Center,a0152
+South,Kamonyi District,Remera Rukoma Sub District,Nyarubaka,Nyagihamba CS,151,Health Center,a0151
+South,Kamonyi District,Remera Rukoma Sub District,Musambira,Musambira CS,150,Health Center,a0150
+South,Kamonyi District,Remera Rukoma Sub District,Mugina,Mugina CS,149,Health Center,a0149
+South,Kamonyi District,Remera Rukoma Sub District,Rugarika,Kigese CS,148,Health Center,a0148
+South,Kamonyi District,Remera Rukoma Sub District,Kayenzi,Kayenzi CS,147,Health Center,a0147
+South,Kamonyi District,Remera Rukoma Sub District,Ngamba,Karangara CS,146,Health Center,a0146
+South,Kamonyi District,Remera Rukoma Sub District,Gacurabwenge,Kamonyi (gacurabwenge) CS,145,Health Center,a0145
+South,Kamonyi District,Remera Rukoma Sub District,Ngamba,Kabuga (ntamba Kamonyi) CS,144,Health Center,a0144
+South,Kamonyi District,Remera Rukoma Sub District,Runda,Gihara CS,143,Health Center,a0143
+South,Kamonyi District,Remera Rukoma Sub District,Mugina,Cyeru CS,142,Health Center,a0142
+South,Muhanga District,Kabgayi Sub District,Shyogwe,Shyogwe CS,141,Health Center,a0141
+South,Muhanga District,Kabgayi Sub District,Cyeza,Rutobwe CS,140,Health Center,a0140
+South,Muhanga District,Kabgayi Sub District,Shyogwe,Prison Gitarama Pris,139,Prison Clinic,a0139
+South,Muhanga District,Kabgayi Sub District,Nyarusange,Nyarusange (muhanga) CS,138,Health Center,a0138
+South,Muhanga District,Kabgayi Sub District,Nyabinoni,Nyabinoni CS,137,Health Center,a0137
+South,Muhanga District,Kabgayi Sub District,Kiyumba,Nyabikenke CS,136,Health Center,a0136
+South,Muhanga District,Kabgayi Sub District,Mushishiro,Mushishiro CS,135,Health Center,a0135
+South,Muhanga District,Kabgayi Sub District,Cyeza,Kivumu (muhanga) CS,134,Health Center,a0134
+South,Muhanga District,Kabgayi Sub District,Nyamabuye,Kabgayi DH,133,District Hospital,a0133
+South,Muhanga District,Kabgayi Sub District,Nyamabuye,Kabgayi CS,132,Health Center,a0132
+South,Muhanga District,Kabgayi Sub District,Kibangu,Gitega (kibangu) CS,131,Health Center,a0131
+South,Muhanga District,Kabgayi Sub District,Shyogwe,Gitarama CS,130,Health Center,a0130
+South,Muhanga District,Kabgayi Sub District,Rugendabari,Gasovu CS,129,Health Center,a0129
+South,Muhanga District,Kabgayi Sub District,Kabacuzi,Buramba CS,128,Health Center,a0128
+South,Muhanga District,Kabgayi Sub District,Rongi,Gasagara (ex-birehe) CS,127,Health Center,a0127
+South,Ruhango District,Ruhango Sub District,Ruhango,Ruhango CS,126,Health Center,a0126
+South,Ruhango District,Ruhango Sub District,Ntongwe,Nyarurama CS,125,Health Center,a0125
+South,Ruhango District,Gitwe Sub District,Kinihira (Ruhango),Muyunzwe CS,124,Health Center,a0124
+South,Ruhango District,Gitwe Sub District,Kinihira (Ruhango),Muremure CS,123,Health Center,a0123
+South,Ruhango District,Ruhango Sub District,Kinazi (Ruhango  District),Mukoma (ruhango) CS,122,Health Center,a0122
+South,Ruhango District,Ruhango Sub District,Mbuye,Mbuye CS,121,Health Center,a0121
+South,Ruhango District,Ruhango Sub District,Mbuye,Kizibere CS,120,Health Center,a0120
+South,Ruhango District,Ruhango Sub District,Kinazi (Ruhango  District),Kinazi CS,119,Health Center,a0119
+South,Ruhango District,Ruhango Sub District,Ruhango,Kigoma CS,118,Health Center,a0118
+South,Ruhango District,Gitwe Sub District,Kabagali,Karambi (ruhango) CS,117,Health Center,a0117
+South,Ruhango District,Gitwe Sub District,Bweramana,Gitwe DH,116,District Hospital,a0116
+South,Ruhango District,Gitwe Sub District,Bweramana,Gitwe CS,115,Health Center,a0115
+South,Ruhango District,Gitwe Sub District,Mwendo,Gishweru CS,114,Health Center,a0114
+South,Ruhango District,Gitwe Sub District,Byimana,Byimana CS,113,Health Center,a0113
+South,Nyamagabe District,Kaduha Sub District,Gatare,Rugege CS,112,Health Center,a0112
+South,Nyamagabe District,Kaduha Sub District,Nkomane,Nyarwungo CS,111,Health Center,a0111
+South,Nyamagabe District,Kigeme Sub District,Kamegeri,Nyarusiza CS,110,Health Center,a0110
+South,Nyamagabe District,Kigeme Sub District,Gasaka,Nyamagabe CS,109,Health Center,a0109
+South,Nyamagabe District,Kigeme Sub District,Mbazi (Nyamagabe District),Ngara CS,108,Health Center,a0108
+South,Nyamagabe District,Kaduha Sub District,Mushubi,Mushubi CS,107,Health Center,a0107
+South,Nyamagabe District,Kaduha Sub District,Musebeya,Musebeya CS,106,Health Center,a0106
+South,Nyamagabe District,Kigeme Sub District,Tare,Mbuga CS,105,Health Center,a0105
+South,Nyamagabe District,Kigeme Sub District,Kitabi,Kitabi CS,104,Health Center,a0104
+South,Nyamagabe District,Kigeme Sub District,Gasaka,Kigeme DH,103,District Hospital,a0103
+South,Nyamagabe District,Kigeme Sub District,Gasaka,Kigeme CS,102,Health Center,a0102
+South,Nyamagabe District,Kaduha Sub District,Kaduha,Kaduha DH,101,District Hospital,a0101
+South,Nyamagabe District,Kaduha Sub District,Kaduha,Kaduha CS,100,Health Center,a0100
+South,Nyamagabe District,Kaduha Sub District,Musange,Jenda (nyamagabe) CS,99,Health Center,a0099
+South,Nyamagabe District,Kigeme Sub District,Cyanika,Cyanika (nyamagabe) CS,98,Health Center,a0098
+South,Huye District,Kabutare Sub District,Huye,Sovu CS,97,Health Center,a0097
+South,Huye District,Kabutare Sub District,Simbi,Simbi CS,96,Health Center,a0096
+South,Huye District,Kabutare Sub District,Rwaniro,Rwaniro CS,95,Health Center,a0095
+South,Huye District,Kabutare Sub District,Rusatira,Rusatira-kinazi CS,94,Health Center,a0094
+South,Huye District,Kabutare Sub District,Ruhashya,Ruhashya CS,93,Health Center,a0093
+South,Huye District,Kabutare Sub District,Rusatira,Rubona (huye) CS,92,Health Center,a0092
+South,Huye District,Kabutare Sub District,TUMBA,Rango CS,91,Health Center,a0091
+South,Huye District,Kabutare Sub District,Ngoma (Huye District),Prison Karubanda Pris (Butare Huye),90,Prison Clinic,a0090
+South,Huye District,Kabutare Sub District,Mbazi,Mbazi CS,89,Health Center,a0089
+South,Huye District,Kabutare Sub District,Ngoma (Huye District),Matyazo CS,88,Health Center,a0088
+South,Huye District,Kabutare Sub District,Kigoma (Huye District),Kinyamakara CS,87,Health Center,a0087
+South,Huye District,Kabutare Sub District,Karama (Huye),Karama (huye) CS,86,Health Center,a0086
+South,Huye District,Kabutare Sub District,Ngoma (Huye District),Kabutare DH,85,District Hospital,a0085
+South,Huye District,Kabutare Sub District,Ngoma (Huye District),Huye Police CS,84,Health Center,a0084
+South,Huye District,Kabutare Sub District,Ngoma (Huye District),CUSP Butare CS,83,Health Center,a0083
+South,Huye District,Kabutare Sub District,Ngoma (Huye District),Butare Chu Hnr (huye),82,Referral Hospital,a0082
+South,Huye District,Kabutare Sub District,Gishamvu,Busoro-gishamvu CS,81,Health Center,a0081
+South,Nyaruguru District,Munini Sub District,Ruramba,Ruramba CS,80,Health Center,a0080
+South,Nyaruguru District,Munini Sub District,Busanze,Runyombyi CS,79,Health Center,a0079
+South,Nyaruguru District,Munini Sub District,Ruheru,Ruheru CS,78,Health Center,a0078
+South,Nyaruguru District,Munini Sub District,Nyagisozi (Nyaruguru District),Nyantanga CS,77,Health Center,a0077
+South,Nyaruguru District,Munini Sub District,Mata,Nyamyumba CS,76,Health Center,a0076
+South,Nyaruguru District,Munini Sub District,Nyabimata,Nyabimata CS,75,Health Center,a0075
+South,Nyaruguru District,Munini Sub District,Munini,Munini DH,74,District Hospital,a0074
+South,Nyaruguru District,Munini Sub District,Munini,Munini (nyaruguru) CS,73,Health Center,a0073
+South,Nyaruguru District,Munini Sub District,Muganza (Nyaruguru District),Muganza CS,72,Health Center,a0072
+South,Nyaruguru District,Munini Sub District,Nyagisozi (Nyaruguru District),Maraba (nyaruguru) CS,71,Health Center,a0071
+South,Nyaruguru District,Munini Sub District,Kibeho,Kibeho CS,70,Health Center,a0070
+South,Nyaruguru District,Munini Sub District,Rusenge,Kabilizi CS,69,Health Center,a0069
+South,Nyaruguru District,Munini Sub District,Cyahinda,Cyahinda CS,68,Health Center,a0068
+South,Nyaruguru District,Munini Sub District,Cyahinda,Coko CS,67,Health Center,a0067
+South,Gisagara District,Gakoma Sub District,Save,Save CS,66,Health Center,a0066
+South,Gisagara District,Gakoma Sub District,Musha,Musha (gisagara) CS,65,Health Center,a0065
+South,Gisagara District,Kibilizi Sub District,Mugombwa,Mugombwa CS,64,Health Center,a0064
+South,Gisagara District,Kibilizi Sub District,Muganza,Kirarambogo CS,63,Health Center,a0063
+South,Gisagara District,Kibilizi Sub District,Nyanza,Kigembe CS,62,Health Center,a0062
+South,Gisagara District,Kibilizi Sub District,Kibirizi,Kibilizi DH,61,District Hospital,a0061
+South,Gisagara District,Kibilizi Sub District,Kibirizi,Kibilizi (gisagara) CS,60,Health Center,a0060
+South,Gisagara District,Kibilizi Sub District,Mukindo,Kibayi CS,59,Health Center,a0059
+South,Gisagara District,Kibilizi Sub District,Kansi,Kansi CS,58,Health Center,a0058
+South,Gisagara District,Kibilizi Sub District,Ndora,Gisagara CS,57,Health Center,a0057
+South,Gisagara District,Kibilizi Sub District,Kansi,Gikore CS,56,Health Center,a0056
+South,Gisagara District,Gakoma Sub District,Gikonko,Gikonko (Gisagara) CS,55,Health Center,a0055
+South,Gisagara District,Gakoma Sub District,Mamba,Gakoma DH,54,District Hospital,a0054
+South,Gisagara District,Gakoma Sub District,Mamba,Gakoma CS,53,Health Center,a0053
+South,Nyanza District,Nyanza Sub District,Ntyazo,Ruyenzi CS,52,Health Center,a0052
+South,Nyanza District,Nyanza Sub District,Mukingo,Prison Nyanza Pris (nyanza),51,Prison Clinic,a0051
+South,Nyanza District,Nyanza Sub District,Mukingo,Prison Mpanga Pris (nyanza),50,Prison Clinic,a0050
+South,Nyanza District,Nyanza Sub District,Busasamana,Nyanza DH,49,District Hospital,a0049
+South,Nyanza District,Nyanza Sub District,Busasamana,Nyanza CS,48,Health Center,a0048
+South,Nyanza District,Nyanza Sub District,Muyira,Nyamure CS,47,Health Center,a0047
+South,Nyanza District,Nyanza Sub District,Muyira,Nyamiyaga (Nyanza) CS,46,Health Center,a0046
+South,Nyanza District,Nyanza Sub District,Ntyazo,Ntyazo CS,45,Health Center,a0045
+South,Nyanza District,Nyanza Sub District,Nyagisozi,Mweya CS,44,Health Center,a0044
+South,Nyanza District,Nyanza Sub District,Cyabakamyi,Mucubira CS,43,Health Center,a0043
+South,Nyanza District,Nyanza Sub District,Nyagisozi,Kirambi CS,42,Health Center,a0042
+South,Nyanza District,Nyanza Sub District,Kibilizi,Kibilizi (nyanza) CS,41,Health Center,a0041
+South,Nyanza District,Nyanza Sub District,Busasamana,Hanika I (NYANZA) CS,40,Health Center,a0040
+South,Nyanza District,Nyanza Sub District,Mukingo,Gatagara (Nyanza) CS,39,Health Center,a0039
+South,Nyanza District,Nyanza Sub District,Rwabicuma,Cyaratsi CS,38,Health Center,a0038
+South,Nyanza District,Nyanza Sub District,Busoro,Busoro CS,37,Health Center,a0037
+Kigali City,Kicukiro District,Masaka Sub District,Masaka,Masaka CS,36,Health Center,a0036
+Kigali City,Kicukiro District,Masaka Sub District,Niboye,Kicukiro CS,35,Health Center,a0035
+Kigali City,Kicukiro District,Masaka Sub District,Nyarugunga,Rwanda Military Hospital,34,Referral Hospital,a0034
+Kigali City,Kicukiro District,Masaka Sub District,Masaka,Kabuga (kicukiro) CS,33,Health Center,a0033
+Kigali City,Kicukiro District,Masaka Sub District,Gikondo,Gikondo (0103) CS,32,Health Center,a0032
+Kigali City,Kicukiro District,Masaka Sub District,Gahanga,Gahanga CS,31,Health Center,a0031
+Kigali City,Kicukiro District,Masaka Sub District,Kanombe,Busanza CS,30,Health Center,a0030
+Kigali City,Kicukiro District,Masaka Sub District,Kicukiro,Bethsaida  CS,29,Health Center,a0029
+Kigali City,Gasabo District,Kibagabaga Sub District,Ndera,Rubungo CS,28,Health Center,a0028
+Kigali City,Gasabo District,Kibagabaga Sub District,Kimironko,Prison Kimironko(Remera Pris),27,Prison Clinic,a0027
+Kigali City,Gasabo District,Kibagabaga Sub District,Jabana,Nyacyonga CS,26,Health Center,a0026
+Kigali City,Gasabo District,Kibagabaga Sub District,Kinyinya,Kinyinya CS,25,Health Center,a0025
+Kigali City,Gasabo District,Kibagabaga Sub District,Kacyiru,King Faisal Hospital HNR,24,Referral Hospital,a0024
+Kigali City,Gasabo District,Kibagabaga Sub District,Remera,Remera (Gasabo) CS,23,Health Center,a0023
+Kigali City,Gasabo District,Kibagabaga Sub District,Kimironko,Kibagabaga DH,22,District Hospital,a0022
+Kigali City,Gasabo District,Kibagabaga Sub District,Rutunga,Kayanga CS,21,Health Center,a0021
+Kigali City,Gasabo District,Kibagabaga Sub District,Kinyinya,Kagugu CS,20,Health Center,a0020
+Kigali City,Gasabo District,Kibagabaga Sub District,Kacyiru,Kacyiru DH,19,District Hospital,a0019
+Kigali City,Gasabo District,Kibagabaga Sub District,Kacyiru,Kacyiru CS,18,Health Center,a0018
+Kigali City,Gasabo District,Kibagabaga Sub District,Jabana,Kabuye CS,17,Health Center,a0017
+Kigali City,Gasabo District,Kibagabaga Sub District,Jali,Jali CS,16,Health Center,a0016
+Kigali City,Gasabo District,Kibagabaga Sub District,Ndera,Caraes Ndera Hnr,14,Referral Hospital,a0014
+Kigali City,Gasabo District,Kibagabaga Sub District,Remera,Avega Kigali CS,13,Health Center,a0013
+Kigali City,Nyarugenge District,Muhima Sub District,Nyamirambo,Rugarama (nyarugenge) CS,11,Health Center,a0011
+Kigali City,Nyarugenge District,Muhima Sub District,Nyarugenge,PCK(Gitega Pris),10,Prison Clinic,a0010
+Kigali City,Nyarugenge District,Muhima Sub District,Kigali,Mwendo (nyarugenge) CS,9,Health Center,a0009
+Kigali City,Nyarugenge District,Muhima Sub District,Muhima,Muhima DH,8,District Hospital,a0008
+Kigali City,Nyarugenge District,Muhima Sub District,Muhima,Muhima CS,7,Health Center,a0007
+Kigali City,Nyarugenge District,Muhima Sub District,Nyakabanda,Kabusunzu CS,6,Health Center,a0006
+Kigali City,Nyarugenge District,Muhima Sub District,Nyarugenge,Gitega (Nyarugenge) CS,5,Health Center,a0005
+Kigali City,Nyarugenge District,Muhima Sub District,Kimisagara,Cor-unum CS,4,Health Center,a0004
+Kigali City,Nyarugenge District,Muhima Sub District,Nyarugenge,CHK(CHUK) HNR,3,Referral Hospital,a0003
+Kigali City,Nyarugenge District,Muhima Sub District,Mageragere,Butamwa CS,2,Health Center,a0002
+Kigali City,Nyarugenge District,Muhima Sub District,Nyarugenge,Biryogo CS,1,Health Center,a0001

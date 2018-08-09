@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-omrs-obs</name>
+    <name>import-into-omrs-encounter</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -9,6 +9,11 @@
     <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
+        <parameter>
+            <name>openmrs.db.name</name>
+            <default_value/>
+            <description/>
+        </parameter>
     </parameters>
     <log>
 <trans-log-table><connection/>
@@ -67,9 +72,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</created_date>
+  <created_date>2016&#x2f;10&#x2f;21 15&#x3a;20&#x3a;39.242</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;21 15&#x3a;20&#x3a;39.242</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -138,18 +143,79 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Lookup Concept</from><to>Lookup Value Coded</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Encounter</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Location</from><to>Lookup Encounter Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Value Coded</from><to>Lookup Value Drug</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Value Drug</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Is Obs Group</to><enabled>Y</enabled> </hop>
-  <hop> <from>Is Obs Group</from><to>Write Obs Table</to><enabled>Y</enabled> </hop>
-  <hop> <from>Is Obs Group</from><to>Write Obs Group Table</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Encounter Type</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Obs</from><to>Lookup Form</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Form</from><to>Lookup Concept</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import OMRS Encounter Provider</from><to>Encounter Provider Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Encounter Provider Merge</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Encounter Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Encounter Type</from><to>Lookup Form</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Form</from><to>Lookup Creator</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Creator</from><to>Encounter Provider Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get FOSA</from><to>Strings cut</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix</from><to>Get FOSA</to><enabled>Y</enabled> </hop>
+  <hop> <from>Strings cut</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
   </order>
+  <step>
+    <name>Encounter Provider Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Lookup Creator</step1>
+<step2>Import OMRS Encounter Provider</step2>
+    <keys_1>
+      <key>uuid</key>
+    </keys_1>
+    <keys_2>
+      <key>encounter_uuid</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>528</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get FOSA</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>aFOSA</name>
+        <variable>&#x24;&#x7b;openmrs.db.name&#x7d;</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>768</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Get ID Prefix</name>
     <type>GetVariable</type>
@@ -177,14 +243,14 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>288</yloc>
+      <xloc>640</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Obs</name>
+    <name>Import Encounter</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -195,7 +261,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all obs&#xa;&#x2a;   NOTE&#x3a; did not add value_boolean which has been removed in platform 2.0 and has no obs values on any of our systems.&#xa;&#x2a;&#x2f;&#xa;select		o.obs_id,&#xa;			o.uuid as uuid,&#xa;			o.concept_id as concept_id,&#xa;			date&#x28;o.obs_datetime&#x29; as obs_date,&#xa;			time&#x28;o.obs_datetime&#x29; as obs_time,&#xa;			e.encounter_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.location_id,&#xd;&#xa;			e.form_id,&#xa;			p.person_id as patient_id,&#xa;			o.value_coded as value_coded_id,&#xa;			o.value_drug as value_drug_id,&#xa;			o.value_numeric,&#xa;			date&#x28;o.value_datetime&#x29; as value_date,&#xa;			o.value_text,&#xa;			o.comments as comments,&#xa;			o.obs_group_id,&#xa;			ifnull&#x28;og.is_obs_group, 0&#x29; as is_obs_group,&#xa;			if &#x28;p.birthdate is null or o.obs_datetime is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.obs_datetime&#x29;&#x29; as age_years_at_obs,&#xa;			if &#x28;p.birthdate is null or o.obs_datetime is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, o.obs_datetime&#x29;&#x29; as age_months_at_obs,&#xa;			o.date_created&#xa;from 		obs o&#xa;inner join 	person p on o.person_id &#x3d; p.person_id&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join 	&#x28;select distinct obs_group_id, 1 as is_obs_group from obs where obs_group_id is not null&#x29; og on og.obs_group_id &#x3d; o.obs_id&#xa;where		o.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extracts all encounteres&#xa;&#x2a;&#x2f;&#xa;select		e.encounter_id,&#xa;			e.uuid as uuid,&#xa;			e.location_id,&#xa;			e.encounter_type as encounter_type_id,&#xa;			e.form_id,&#xa;			date&#x28;e.encounter_datetime&#x29; as encounter_date,&#xa;			time&#x28;e.encounter_datetime&#x29; as encounter_time,&#xa;			e.patient_id,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_years_at_encounter,&#xa;			if &#x28;p.birthdate is null or e.encounter_datetime is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, e.encounter_datetime&#x29;&#x29; as age_months_at_encounter,&#xa;			e.date_created,&#xa;			e.creator&#xa;from 		encounter e&#xa;inner join 	person p on e.patient_id &#x3d; p.person_id&#xa;where		e.voided &#x3d; 0 and p.voided &#x3d; 0&#xa;order by	e.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -204,14 +270,14 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>32</xloc>
-      <yloc>176</yloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Is Obs Group</name>
-    <type>SwitchCase</type>
+    <name>Import OMRS Encounter Provider</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -220,30 +286,26 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<fieldname>is_obs_group</fieldname>
-<use_contains>N</use_contains>
-<case_value_type>Integer</case_value_type>
-<case_value_format/>
-<case_value_decimal/>
-<case_value_group/>
-<default_target_step/>
-<cases><case><value>1</value>
-<target_step>Write Obs Group Table</target_step>
-</case><case><value>0</value>
-<target_step>Write Obs Table</target_step>
-</case></cases>     <cluster_schema/>
+    <connection>Warehouse</connection>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Load in the previously-calculated encounter providers, grouping by encounter so we end up with only&#xa;&#x2a;   one provider per encounter--note that the way we determine this provider is arbitrary, we probably&#xa;&#x2a;  	want to figoure out a more &#x22;intelligent&#x22; way to do this&#xa;&#x2a;&#x2f;&#xa;&#xa;select &#x2a; &#xa;from omrs_encounter_provider&#xa;group by encounter_uuid&#xa;order by encounter_uuid</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>528</yloc>
+      <xloc>32</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Lookup Concept</name>
+    <name>Lookup Creator</name>
     <type>DBLookup</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -256,27 +318,27 @@
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
-      <table>lookup_concept</table>
+      <table>lookup_user</table>
       <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
+      <fail_on_multiple>N</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>concept_id</name>
+        <name>creator</name>
         <field>source_key</field>
         <condition>&#x3d;</condition>
         <name2/>
       </key>
       <value>
         <name>target_value</name>
-        <rename>concept</rename>
+        <rename>created_by</rename>
         <default/>
         <type>String</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>256</xloc>
-      <yloc>176</yloc>
+      <xloc>528</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -317,8 +379,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>176</yloc>
+      <xloc>272</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -359,8 +421,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>128</xloc>
-      <yloc>176</yloc>
+      <xloc>384</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -401,92 +463,8 @@
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>752</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Value Coded</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>value_coded_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>value_coded</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>416</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Value Drug</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_drug</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>value_drug_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>value_coded</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>592</xloc>
-      <yloc>176</yloc>
+      <xloc>144</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -506,15 +484,9 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_obs_id &#x3d; id_prefix &#x2b; obs_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;&#xa;var prefixed_encounter_id &#x3d; encounter_id &#x3d;&#x3d; null &#x3f; null &#x3a; id_prefix &#x2b; encounter_id&#x3b;&#xa;var prefixed_group_id &#x3d; obs_group_id &#x3d;&#x3d; null &#x3f; null &#x3a; id_prefix &#x2b; obs_group_id&#x3b;</jsScript_script>
+        <jsScript_script>var prefixed_encounter_id &#x3d; id_prefix &#x2b; encounter_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>prefixed_obs_id</name>
-        <rename>obs_id</rename>
         <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -525,100 +497,43 @@
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
-      </field>      <field>        <name>prefixed_group_id</name>
-        <rename>obs_group_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>416</yloc>
+      <xloc>992</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write Obs Group Table</name>
-    <type>TableOutput</type>
+    <name>Strings cut</name>
+    <type>StringCut</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Warehouse</connection>
-    <schema/>
-    <table>omrs_obs_group</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
     <fields>
-        <field>
-          <column_name>obs_group_id</column_name>
-          <stream_name>obs_id</stream_name>
-        </field>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
-        <field>
-          <column_name>obs_group_date</column_name>
-          <stream_name>obs_date</stream_name>
-        </field>
-        <field>
-          <column_name>obs_group_time</column_name>
-          <stream_name>obs_time</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_id</column_name>
-          <stream_name>encounter_id</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>concept</column_name>
-          <stream_name>concept</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_type</column_name>
-          <stream_name>encounter_type</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
+      <field>
+        <in_stream_name>aFOSA</in_stream_name>
+        <out_stream_name>FOSA</out_stream_name>
+        <cut_from>1</cut_from>
+        <cut_to>5</cut_to>
+      </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>688</xloc>
-      <yloc>528</yloc>
+      <xloc>864</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write Obs Table</name>
+    <name>Write Encounter Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -630,7 +545,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>omrs_obs</table>
+    <table>omrs_encounter</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -647,64 +562,24 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>obs_id</column_name>
-          <stream_name>obs_id</stream_name>
-        </field>
-        <field>
           <column_name>uuid</column_name>
           <stream_name>uuid</stream_name>
         </field>
         <field>
-          <column_name>obs_date</column_name>
-          <stream_name>obs_date</stream_name>
+          <column_name>encounter_date</column_name>
+          <stream_name>encounter_date</stream_name>
         </field>
         <field>
-          <column_name>obs_time</column_name>
-          <stream_name>obs_time</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_id</column_name>
-          <stream_name>encounter_id</stream_name>
+          <column_name>encounter_time</column_name>
+          <stream_name>encounter_time</stream_name>
         </field>
         <field>
           <column_name>patient_id</column_name>
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>value_numeric</column_name>
-          <stream_name>value_numeric</stream_name>
-        </field>
-        <field>
-          <column_name>value_date</column_name>
-          <stream_name>value_date</stream_name>
-        </field>
-        <field>
-          <column_name>value_text</column_name>
-          <stream_name>value_text</stream_name>
-        </field>
-        <field>
-          <column_name>comments</column_name>
-          <stream_name>comments</stream_name>
-        </field>
-        <field>
-          <column_name>obs_group_id</column_name>
-          <stream_name>obs_group_id</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_obs</column_name>
-          <stream_name>age_years_at_obs</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_obs</column_name>
-          <stream_name>age_months_at_obs</stream_name>
-        </field>
-        <field>
-          <column_name>concept</column_name>
-          <stream_name>concept</stream_name>
-        </field>
-        <field>
-          <column_name>value_coded</column_name>
-          <stream_name>value_coded</stream_name>
+          <column_name>age_years_at_encounter</column_name>
+          <stream_name>age_years_at_encounter</stream_name>
         </field>
         <field>
           <column_name>location</column_name>
@@ -715,18 +590,42 @@
           <stream_name>encounter_type</stream_name>
         </field>
         <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
+          <column_name>provider</column_name>
+          <stream_name>provider</stream_name>
+        </field>
+        <field>
+          <column_name>provider_role</column_name>
+          <stream_name>provider_role</stream_name>
+        </field>
+        <field>
+          <column_name>age_months_at_encounter</column_name>
+          <stream_name>age_months_at_encounter</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_id</column_name>
+          <stream_name>encounter_id</stream_name>
         </field>
         <field>
           <column_name>form</column_name>
           <stream_name>form</stream_name>
         </field>
+        <field>
+          <column_name>created_by</column_name>
+          <stream_name>created_by</stream_name>
+        </field>
+        <field>
+          <column_name>date_created</column_name>
+          <stream_name>date_created</stream_name>
+        </field>
+        <field>
+          <column_name>fosa_id</column_name>
+          <stream_name>FOSA</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1072</xloc>
-      <yloc>528</yloc>
+      <xloc>1120</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
