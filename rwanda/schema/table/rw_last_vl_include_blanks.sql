@@ -1,4 +1,4 @@
-CREATE TABLE rw_last_obs_in_period (
+CREATE TABLE rw_last_vl_include_blanks (
 	patient_id INT,
     concept VARCHAR(255),
     obs_id INT,

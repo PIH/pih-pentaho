@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>create-rw-schema</name>
+    <name>most-recent-viral-load-include-blanks</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -67,37 +67,16 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</created_date>
+  <created_date>2018&#x2f;08&#x2f;10 10&#x3a;30&#x3a;53.989</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+  <modified_date>2018&#x2f;08&#x2f;10 10&#x3a;30&#x3a;53.989</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
-    <notepad>
-      <note>Reads the schema.csv file and recreates the schema based on the contents.&#xa;This requires 1 table, function, or procedure per file, and the file name should be the same as the&#xa;name of the table, function, or procedure stored within. </note>
-      <xloc>112</xloc>
-      <yloc>96</yloc>
-      <width>664</width>
-      <heigth>61</heigth>
-      <fontname>Ubuntu</fontname>
-      <fontsize>11</fontsize>
-      <fontbold>N</fontbold>
-      <fontitalic>N</fontitalic>
-      <fontcolorred>0</fontcolorred>
-      <fontcolorgreen>0</fontcolorgreen>
-      <fontcolorblue>0</fontcolorblue>
-      <backgroundcolorred>255</backgroundcolorred>
-      <backgroundcolorgreen>205</backgroundcolorgreen>
-      <backgroundcolorblue>112</backgroundcolorblue>
-      <bordercolorred>100</bordercolorred>
-      <bordercolorgreen>100</bordercolorgreen>
-      <bordercolorblue>100</bordercolorblue>
-      <drawshadow>Y</drawshadow>
-    </notepad>
   </notepads>
   <connection>
-    <name>Warehouse</name>
+    <name>warehouse</name>
     <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
@@ -110,11 +89,7 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -128,17 +103,11 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Get Base Folder</from><to>Join Rows</to><enabled>Y</enabled> </hop>
-  <hop> <from>Schema File Names</from><to>Join Rows</to><enabled>Y</enabled> </hop>
-  <hop> <from>Construct full file path</from><to>Drop Previous</to><enabled>Y</enabled> </hop>
-  <hop> <from>Drop Previous</from><to>Test If Table</to><enabled>Y</enabled> </hop>
-  <hop> <from>Test If Table</from><to>Create Table and Index</to><enabled>Y</enabled> </hop>
-  <hop> <from>Test If Table</from><to>Create Function or Procedure</to><enabled>Y</enabled> </hop>
-  <hop> <from>Join Rows</from><to>Construct full file path</to><enabled>Y</enabled> </hop>
+  <hop> <from>Most recent obs including blanks</from><to>Table output 2</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Construct full file path</name>
-    <type>ScriptValueMod</type>
+    <name>Most recent obs including blanks</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -147,62 +116,24 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>&#x2f;&#x2f;Script here&#xa;var dropSql &#x3d; &#x22;drop &#x22; &#x2b; type &#x2b; &#x22; if exists &#x22; &#x2b; name&#x3b;&#xa;var sqlPath &#x3d; baseDir &#x2b; &#x22;&#x2f;&#x22; &#x2b; country &#x2b; &#x22;&#x2f;schema&#x2f;&#x22; &#x2b; type &#x2b; &#x22;&#x2f;&#x22; &#x2b; name &#x2b; &#x22;.sql&#x22;&#x3b;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>sqlPath</name>
-        <rename>sqlPath</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>      <field>        <name>dropSql</name>
-        <rename>dropSql</rename>
-        <type>String</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>N</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>512</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Create Function or Procedure</name>
-    <type>ExecSQLRow</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <commit>1</commit>
-    <connection>Warehouse</connection>
-    <sql_field>sqlPath</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>Y</sqlFromfile>
-    <sendOneStatement>Y</sendOneStatement>
+    <connection>warehouse</connection>
+    <sql>SELECT base.patient_id,base.end_date,  recent_unique_includeblank_obs.concept, recent_unique_includeblank_obs.last_obs_date,recent_unique_includeblank_obs.encounter_type, recent_unique_includeblank_obs.location, recent_unique_includeblank_obs.value_coded, recent_unique_includeblank_obs.value_numeric&#xd;&#xa;FROM &#x28;SELECT patient_id, end_date from rw_selected_periods,omrs_patient&#xd;&#xa;	WHERE omrs_patient.patient_id in &#x28;SELECT patient_id from omrs_program_enrollment where program in &#x28;&#x22;HIV Program&#x22;, &#x22;PMTCT Pregnancy&#x22;, &#x22;Pediatric HIV Program&#x22;, &#x22;PMTCT Combined Clinic - Mother&#x22;&#x29; &#x29;&#xd;&#xa;&#x29; base&#xd;&#xa;LEFT JOIN&#x28;&#xd;&#xa;	SELECT &#x2a; &#x2f;&#x2a;If there is a duplicate of this obs and date, just picks the earlier id&#x2a;&#x2f;&#xd;&#xa;	FROM&#x28;&#xd;&#xa;		SELECT patient_id pt_id,min&#x28;obs_id&#x29; as last_obs_id, end_date ed &#x2f;&#x2a;This is the patient_id, end_date, and obs_id for last_vl in period&#x2a;&#x2f;&#xd;&#xa;		from rw_last_obs_in_period&#xd;&#xa;        WHERE concept&#x3d;&#x22;HIV VIRAL LOAD&#x22;&#xd;&#xa;        group by patient_id, end_date&#xd;&#xa;	&#x29; patient_obs_last_no_duplicate&#xd;&#xa;		inner join rw_last_obs_in_period&#xd;&#xa;		on rw_last_obs_in_period.obs_id&#x3d;patient_obs_last_no_duplicate.last_obs_id&#xd;&#xa;        and rw_last_obs_in_period.patient_id&#x3d;patient_obs_last_no_duplicate.pt_id&#xd;&#xa;        and rw_last_obs_in_period.end_date&#x3d;patient_obs_last_no_duplicate.ed&#xd;&#xa;        &#xd;&#xa;&#x29; recent_unique_includeblank_obs&#xd;&#xa;on recent_unique_includeblank_obs.end_date&#x3d;base.end_date&#xd;&#xa;and recent_unique_includeblank_obs.patient_id&#x3d;base.patient_id&#xd;&#xa;and recent_unique_includeblank_obs.concept&#x3d;&#x22;HIV VIRAL LOAD&#x22;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1008</xloc>
-      <yloc>336</yloc>
+      <xloc>320</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Create Table and Index</name>
-    <type>ExecSQLRow</type>
+    <name>Table output 2</name>
+    <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -211,207 +142,61 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <commit>1</commit>
-    <connection>Warehouse</connection>
-    <sql_field>sqlPath</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>Y</sqlFromfile>
-    <sendOneStatement>N</sendOneStatement>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1008</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Drop Previous</name>
-    <type>ExecSQLRow</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <commit>1</commit>
-    <connection>Warehouse</connection>
-    <sql_field>dropSql</sql_field>
-    <insert_field/>
-    <update_field/>
-    <delete_field/>
-    <read_field/>
-    <sqlFromfile>N</sqlFromfile>
-    <sendOneStatement>Y</sendOneStatement>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>672</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get Base Folder</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <connection>warehouse</connection>
+    <schema/>
+    <table>rw_last_vl_include_blanks</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
     <fields>
-      <field>
-        <name>baseDir</name>
-        <variable>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>country</name>
-        <variable>&#x24;&#x7b;pih.country&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
+        <field>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
+        </field>
+        <field>
+          <column_name>end_date</column_name>
+          <stream_name>end_date</stream_name>
+        </field>
+        <field>
+          <column_name>concept</column_name>
+          <stream_name>concept</stream_name>
+        </field>
+        <field>
+          <column_name>last_obs_date</column_name>
+          <stream_name>last_obs_date</stream_name>
+        </field>
+        <field>
+          <column_name>encounter_type</column_name>
+          <stream_name>encounter_type</stream_name>
+        </field>
+        <field>
+          <column_name>location</column_name>
+          <stream_name>location</stream_name>
+        </field>
+        <field>
+          <column_name>value_coded</column_name>
+          <stream_name>value_coded</stream_name>
+        </field>
+        <field>
+          <column_name>value_numeric</column_name>
+          <stream_name>value_numeric</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Join Rows</name>
-    <type>JoinRows</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
-      <prefix>out</prefix>
-      <cache_size>500</cache_size>
-      <main/>
-    <compare>
-<condition>
- <negated>N</negated>
- <leftvalue/>
- <function>&#x3d;</function>
- <rightvalue/>
- </condition>
-    </compare>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>304</xloc>
-      <yloc>272</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Schema File Names</name>
-    <type>CsvInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;schema&#x2f;schema.csv</filename>
-    <filename_field/>
-    <rownum_field/>
-    <include_filename>N</include_filename>
-    <separator>,</separator>
-    <enclosure>&#x22;</enclosure>
-    <header>Y</header>
-    <buffer_size>50000</buffer_size>
-    <lazy_conversion>Y</lazy_conversion>
-    <add_filename_result>N</add_filename_result>
-    <parallel>N</parallel>
-    <newline_possible>N</newline_possible>
-    <encoding/>
-    <fields>
-      <field>
-        <name>type</name>
-        <type>String</type>
-        <format/>
-        <currency>&#x24;</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>50</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-      <field>
-        <name>name</name>
-        <type>String</type>
-        <format/>
-        <currency>&#x24;</currency>
-        <decimal>.</decimal>
-        <group>,</group>
-        <length>50</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Test If Table</name>
-    <type>SwitchCase</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<fieldname>type</fieldname>
-<use_contains>N</use_contains>
-<case_value_type>String</case_value_type>
-<case_value_format/>
-<case_value_decimal/>
-<case_value_group/>
-<default_target_step>Create Function or Procedure</default_target_step>
-<cases><case><value>table</value>
-<target_step>Create Table and Index</target_step>
-</case></cases>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>816</xloc>
-      <yloc>272</yloc>
+      <xloc>480</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
