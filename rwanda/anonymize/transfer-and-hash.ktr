@@ -88,12 +88,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -119,12 +119,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -140,9 +140,7 @@
   <order>
   <hop> <from>location</from><to>location output</to><enabled>Y</enabled> </hop>
   <hop> <from>obs</from><to>obs output</to><enabled>Y</enabled> </hop>
-  <hop> <from>onc_diangosis</from><to>onc diagnosis output</to><enabled>Y</enabled> </hop>
   <hop> <from>patient</from><to>patient output</to><enabled>Y</enabled> </hop>
-  <hop> <from>order group</from><to>order group output</to><enabled>Y</enabled> </hop>
   <hop> <from>relationship</from><to>relationship_output</to><enabled>Y</enabled> </hop>
   <hop> <from>order</from><to>order output</to><enabled>Y</enabled> </hop>
   <hop> <from>Patient State</from><to>patient_state_output</to><enabled>Y</enabled> </hop>
@@ -161,7 +159,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;program_state_id &#x29;,&#xd;&#xa;  md5&#x28;program_enrollment_id&#x29; ,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  program ,&#xd;&#xa;  workflow ,&#xd;&#xa;  state ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;start_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;start_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  start_date ,&#xd;&#xa;  age_years_at_start ,&#xd;&#xa;  1&#x2b; floor&#x28;age_months_at_start&#x2f;4&#x29; as age_months_at_start,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;end_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;end_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  end_date ,&#xd;&#xa;  age_years_at_end ,&#xd;&#xa;  1&#x2b; floor&#x28;age_months_at_end&#x2f;4&#x29; as age_months_at_end,&#xd;&#xa;  location &#xd;&#xa;FROM omrs_program_state&#xd;&#xa;&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;program_state_id &#x29;,&#xd;&#xa;  md5&#x28;program_enrollment_id&#x29; ,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  program ,&#xd;&#xa;  workflow ,&#xd;&#xa;  state ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  start_date ,&#xd;&#xa;  age_years_at_start ,&#xd;&#xa;  age_months_at_start,&#xd;&#xa;  end_date ,&#xd;&#xa;  age_years_at_end ,&#xd;&#xa;  age_months_at_end,&#xd;&#xa;  location &#xd;&#xa;FROM omrs_program_state&#xd;&#xa;&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -187,7 +185,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;program_enrollment_id &#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  program ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;enrollment_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;enrollment_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as   enrollment_date ,&#xd;&#xa;  age_years_at_enrollment ,&#xd;&#xa;  1&#x2b; floor&#x28;age_months_at_enrollment&#x2f;4&#x29; as age_months_at_enrollment,&#xd;&#xa;  location ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;completion_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;completion_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  completion_date ,&#xd;&#xa;  age_years_at_completion ,&#xd;&#xa;  1&#x2b; floor&#x28;age_months_at_completion&#x2f;4&#x29; as age_months_at_completion,&#xd;&#xa;  outcome &#xd;&#xa;FROM omrs_program_enrollment&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;program_enrollment_id &#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  program ,&#xd;&#xa;  md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  enrollment_date ,&#xd;&#xa;  age_years_at_enrollment ,&#xd;&#xa;  age_months_at_enrollment,&#xd;&#xa;  location ,&#xd;&#xa;  completion_date ,&#xd;&#xa;  age_years_at_completion ,&#xd;&#xa;  age_months_at_completion,&#xd;&#xa;  outcome &#xd;&#xa;FROM omrs_program_enrollment&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -196,7 +194,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>608</xloc>
-      <yloc>384</yloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -213,7 +211,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;	md5&#x28;encounter_id&#x29;,&#xd;&#xa;	md5&#x28;patient_id&#x29;,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;	encounter_type,&#xd;&#xa;	form,&#xd;&#xa;	location,&#xd;&#xa;	adddate&#x28; makedate&#x28;year&#x28;encounter_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;encounter_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as encounter_date,&#xd;&#xa;	age_years_at_encounter,&#xd;&#xa;	1&#x2b; floor&#x28;age_months_at_encounter&#x2f;4&#x29; as age_months_at_encounter,&#xd;&#xa;	adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as date_created&#xd;&#xa;	&#xd;&#xa;FROM omrs_encounter&#x3b;</sql>
+    <sql>SELECT &#xd;&#xa;	md5&#x28;encounter_id&#x29;,&#xd;&#xa;	md5&#x28;patient_id&#x29;,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;	encounter_type,&#xd;&#xa;	form,&#xd;&#xa;	location,&#xd;&#xa;	encounter_date,&#xd;&#xa;	age_years_at_encounter,&#xd;&#xa;	1&#x2b; floor&#x28;age_months_at_encounter&#x2f;4&#x29; as age_months_at_encounter,&#xd;&#xa;	date_created&#xd;&#xa;	&#xd;&#xa;FROM omrs_encounter&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -425,7 +423,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;obs_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  md5&#x28;encounter_id&#x29; ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;obs_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;obs_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as obs_date ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  age_years_at_obs ,&#xd;&#xa;	1&#x2b; floor&#x28;age_months_at_obs&#x2f;4&#x29; as age_months_at_obs,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  concept ,&#xd;&#xa;  value_coded ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;value_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;value_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as value_date,&#xd;&#xa;  value_numeric,&#xd;&#xa;  value_text ,&#xd;&#xa;  comments ,&#xd;&#xa;  md5&#x28;obs_group_id&#x29;,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as date_created&#xd;&#xa;&#xd;&#xa;FROM omrs_obs&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;obs_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  md5&#x28;encounter_id&#x29; ,&#xd;&#xa;  obs_date ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  age_years_at_obs ,&#xd;&#xa;  age_months_at_obs,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  concept ,&#xd;&#xa;  value_coded ,&#xd;&#xa;  value_date,&#xd;&#xa;  value_numeric,&#xd;&#xa;  value_text ,&#xd;&#xa;  comments ,&#xd;&#xa;  md5&#x28;obs_group_id&#x29;,&#xd;&#xa;  date_created&#xd;&#xa;&#xd;&#xa;FROM omrs_obs&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -546,150 +544,6 @@
     </step>
 
   <step>
-    <name>onc diagnosis output</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Anonymized</connection>
-    <schema/>
-    <table>rw_onc_diagnosis</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>program_state_id</column_name>
-          <stream_name>md5&#x28;program_state_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_program_enrollment_id</column_name>
-          <stream_name>md5&#x28;diagnosis_status_program_enrollment_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>program_enrollment_id</column_name>
-          <stream_name>md5&#x28;program_enrollment_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>md5&#x28;patient_id &#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_patient_id</column_name>
-          <stream_name>md5&#x28;diagnosis_status_patient_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>program</column_name>
-          <stream_name>program</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_program</column_name>
-          <stream_name>diagnosis_status_program</stream_name>
-        </field>
-        <field>
-          <column_name>workflow</column_name>
-          <stream_name>workflow</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_workflow</column_name>
-          <stream_name>diagnosis_status_workflow</stream_name>
-        </field>
-        <field>
-          <column_name>state</column_name>
-          <stream_name>state</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status</column_name>
-          <stream_name>diagnosis_status</stream_name>
-        </field>
-        <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_start_date</column_name>
-          <stream_name>diagnosis_status_start_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_start</column_name>
-          <stream_name>age_years_at_start</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_start</column_name>
-          <stream_name>age_months_at_start</stream_name>
-        </field>
-        <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
-        </field>
-        <field>
-          <column_name>diagnosis_status_end_date</column_name>
-          <stream_name>diagnosis_status_end_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_end</column_name>
-          <stream_name>age_years_at_end</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_end</column_name>
-          <stream_name>age_months_at_end</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>304</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>onc_diangosis</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;program_state_id&#x29; ,&#xd;&#xa;  md5&#x28;diagnosis_status_program_enrollment_id&#x29; ,&#xd;&#xa;  md5&#x28;program_enrollment_id&#x29; ,&#xd;&#xa;  md5&#x28;patient_id &#x29;,&#xd;&#xa;  md5&#x28;diagnosis_status_patient_id&#x29; ,&#xd;&#xa;  program ,&#xd;&#xa;  diagnosis_status_program ,&#xd;&#xa;  workflow ,&#xd;&#xa;  diagnosis_status_workflow ,&#xd;&#xa;  state ,&#xd;&#xa;  diagnosis_status ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;start_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;start_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as start_date ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;diagnosis_status_start_date &#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;diagnosis_status_start_date &#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as diagnosis_status_start_date ,&#xd;&#xa;  age_years_at_start ,&#xd;&#xa;  1&#x2b; floor&#x28;age_months_at_start&#x2f;4&#x29; as age_months_at_start     ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;end_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;end_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as   end_date ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28; diagnosis_status_end_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28; diagnosis_status_end_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as   diagnosis_status_end_date ,&#xd;&#xa;  age_years_at_end ,&#xd;&#xa;  1&#x2b; floor&#x28;age_months_at_end &#x2f;4&#x29; as age_months_at_end ,&#xd;&#xa;  location &#xd;&#xa;FROM rw_onc_diagnosis&#x3b;&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>144</xloc>
-      <yloc>304</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
     <name>order</name>
     <type>TableInput</type>
     <description/>
@@ -701,7 +555,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;order_id&#x29; ,&#xd;&#xa;  order_type_id ,&#xd;&#xa;  concept ,&#xd;&#xa;  orderer ,&#xd;&#xa;  instructions ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;start_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;start_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  start_date ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;auto_expire_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;auto_expire_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  auto_expire_date ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;discontinued_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;discontinued_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  discontinued_date,&#xd;&#xa;  discontinued_by ,&#xd;&#xa;  discontinued_reason ,&#xd;&#xa;  patient_id ,&#xd;&#xa;  discontinued_reason_non_coded ,&#xd;&#xa;  urgency ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  date_created ,&#xd;&#xa;  md5&#x28;encounter_id &#x29;,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  md5&#x28;group_id&#x29; ,&#xd;&#xa;  order_index ,&#xd;&#xa;  indication ,&#xd;&#xa;  route ,&#xd;&#xa;  administration_instructions ,&#xd;&#xa;  dose ,&#xd;&#xa;  equivalent_daily_dose ,&#xd;&#xa;  units ,&#xd;&#xa;  frequency ,&#xd;&#xa;  prn ,&#xd;&#xa;  complex ,&#xd;&#xa;  quantity &#xd;&#xa;FROM rw_order&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;order_id&#x29; ,&#xd;&#xa;  order_type_id ,&#xd;&#xa;  concept ,&#xd;&#xa;  orderer ,&#xd;&#xa;  instructions ,&#xd;&#xa;  start_date ,&#xd;&#xa;  auto_expire_date ,&#xd;&#xa;  discontinued_date,&#xd;&#xa;  discontinued_by ,&#xd;&#xa;  discontinued_reason ,&#xd;&#xa;  patient_id ,&#xd;&#xa;  discontinued_reason_non_coded ,&#xd;&#xa;  urgency ,&#xd;&#xa;  date_created ,&#xd;&#xa;  md5&#x28;encounter_id &#x29;,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location &#xd;&#xa;FROM rw_order&#x3b;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -711,102 +565,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>608</xloc>
       <yloc>208</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>order group</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;order_group_id&#x29; ,&#xd;&#xa;  group_type ,&#xd;&#xa;  cycle_number,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as date_created,&#xd;&#xa;  order_set_uuid ,&#xd;&#xa;  order_set_name ,&#xd;&#xa;  order_set_description ,&#xd;&#xa;  indication &#xd;&#xa;FROM rw_order_group&#x3b;&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>48</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>order group output</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Anonymized</connection>
-    <schema/>
-    <table>rw_order_group</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>order_group_id</column_name>
-          <stream_name>md5&#x28;order_group_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>group_type</column_name>
-          <stream_name>group_type</stream_name>
-        </field>
-        <field>
-          <column_name>cycle_number</column_name>
-          <stream_name>cycle_number</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
-        <field>
-          <column_name>order_set_uuid</column_name>
-          <stream_name>order_set_uuid</stream_name>
-        </field>
-        <field>
-          <column_name>order_set_name</column_name>
-          <stream_name>order_set_name</stream_name>
-        </field>
-        <field>
-          <column_name>order_set_description</column_name>
-          <stream_name>order_set_description</stream_name>
-        </field>
-        <field>
-          <column_name>indication</column_name>
-          <stream_name>indication</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>912</xloc>
-      <yloc>48</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -977,7 +735,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;patient_id&#x29;,&#xd;&#xa;  gender ,&#xd;&#xa;adddate&#x28; makedate&#x28;year&#x28;birthdate&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;birthdate&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as birthdate,&#xd;&#xa;  birthdate_estimated ,&#xd;&#xa;  country ,&#xd;&#xa;  state_province ,&#xd;&#xa;  county_district,&#xd;&#xa;  md5&#x28;patient_uuid&#x29;,&#xd;&#xa;  dead ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;death_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;death_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as death_date ,&#xd;&#xa;  age_years_at_death ,&#xd;&#xa;  1&#x2b; floor&#x28;age_months_at_death&#x2f;4&#x29; as age_months_at_death,&#xd;&#xa;  cause_of_death ,&#xd;&#xa;  health_center ,&#xd;&#xa;  adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as date_created &#xd;&#xa;FROM omrs_patient&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;patient_id&#x29;,&#xd;&#xa;  gender ,&#xd;&#xa;  birthdate,&#xd;&#xa;  birthdate_estimated ,&#xd;&#xa;  country ,&#xd;&#xa;  state_province ,&#xd;&#xa;  county_district,&#xd;&#xa;  md5&#x28;patient_uuid&#x29;,&#xd;&#xa;  dead ,&#xd;&#xa;  death_date ,&#xd;&#xa;  age_years_at_death ,&#xd;&#xa;  age_months_at_death,&#xd;&#xa;  cause_of_death ,&#xd;&#xa;  health_center ,&#xd;&#xa;  date_created &#xd;&#xa;FROM omrs_patient&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -986,7 +744,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>144</xloc>
-      <yloc>384</yloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1084,7 +842,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>304</xloc>
-      <yloc>384</yloc>
+      <yloc>272</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1264,7 +1022,7 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>912</xloc>
-      <yloc>384</yloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -1281,7 +1039,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;relationship_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id &#x29;,&#xd;&#xa;  patient_role ,&#xd;&#xa;  related_person_role ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;adddate&#x28; makedate&#x28;year&#x28;start_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;start_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as start_date ,&#xd;&#xa; adddate&#x28; makedate&#x28;year&#x28;end_date&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;end_date&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  end_date ,&#xd;&#xa;   adddate&#x28; makedate&#x28;year&#x28;date_created&#x29;,1&#x29;,&#xd;&#xa;		INTERVAL &#x28;floor&#x28;MONTH&#x28;date_created&#x29;&#x2f;4&#x29;&#x29; quarter&#x29; as  date_created &#xd;&#xa;FROM omrs_relationship&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
+    <sql>SELECT &#xd;&#xa;  md5&#x28;relationship_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id &#x29;,&#xd;&#xa;  patient_role ,&#xd;&#xa;  related_person_role ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  start_date ,&#xd;&#xa;  end_date ,&#xd;&#xa;  date_created &#xd;&#xa;FROM omrs_relationship&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

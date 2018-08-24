@@ -88,12 +88,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -119,12 +119,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -138,13 +138,12 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Patient State</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Location</from><to>Lookup Program Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Program Concept</from><to>Lookup Workflow Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Workflow Concept</from><to>Lookup State Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
   <hop> <from>Prefix IDs</from><to>Write Program State Table</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup State Concept</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Patient State</from><to>Lookup Program Concept</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Get ID Prefix</name>
@@ -191,7 +190,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient states&#xa;  This excludes any that have a null enrollment date or a null state start date&#xa; &#x2a;&#x2f;&#xa;select      ps.patient_state_id as program_state_id,&#xa;			ps.uuid as uuid,&#xa;			pp.patient_program_id as program_enrollment_id,&#xa;			p.person_id as patient_id,&#xa;            pg.concept_id as program_concept_id,&#xa;			pw.concept_id as workflow_concept_id,&#xa;			pws.concept_id as state_concept_id,&#xa;            ps.start_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, start_date&#x29;&#x29; as age_years_at_start,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, start_date&#x29;&#x29; as age_months_at_start,&#xa;			ps.end_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, end_date&#x29;&#x29; as age_years_at_end,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, end_date&#x29;&#x29; as age_months_at_end,&#xa;			pp.location_id&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  patient_state ps on ps.patient_program_id &#x3d; pp.patient_program_id&#xa;inner join  program_workflow_state pws on ps.state &#x3d; pws.program_workflow_state_id&#xa;inner join	program_workflow pw on pws.program_workflow_id &#x3d; pw.program_workflow_id &#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0 and p.voided &#x3d; 0 and ps.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;and			ps.start_date is not null&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient states&#xa;  This excludes any that have a null enrollment date or a null state start date&#xa; &#x2a;&#x2f;&#xa;select      ps.patient_state_id as program_state_id,&#xa;			ps.uuid as uuid,&#xa;			pp.patient_program_id as program_enrollment_id,&#xa;			p.person_id as patient_id,&#xa;            pg.concept_id as program_concept_id,&#xa;			pw.concept_id as workflow_concept_id,&#xa;			pws.concept_id as state_concept_id,&#xa;            ps.start_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, start_date&#x29;&#x29; as age_years_at_start,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, start_date&#x29;&#x29; as age_months_at_start,&#xa;			ps.end_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, end_date&#x29;&#x29; as age_years_at_end,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, end_date&#x29;&#x29; as age_months_at_end&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  patient_state ps on ps.patient_program_id &#x3d; pp.patient_program_id&#xa;inner join  program_workflow_state pws on ps.state &#x3d; pws.program_workflow_state_id&#xa;inner join	program_workflow pw on pws.program_workflow_id &#x3d; pw.program_workflow_id &#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xa;where       pp.voided &#x3d; 0 and p.voided &#x3d; 0 and ps.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;and			ps.start_date is not null&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -200,48 +199,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>144</xloc>
-      <yloc>112</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Location</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_location</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>location_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>location</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>320</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
@@ -391,19 +348,19 @@
         <jsScript_script>var prefixed_program_state_id &#x3d; id_prefix &#x2b; program_state_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;&#xa;var prefixed_enrollment_id &#x3d; id_prefix &#x2b; program_enrollment_id&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>      <field>        <name>prefixed_enrollment_id</name>
         <rename>program_enrollment_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>      <field>        <name>prefixed_program_state_id</name>
         <rename>program_state_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
@@ -483,10 +440,6 @@
         <field>
           <column_name>age_months_at_end</column_name>
           <stream_name>age_months_at_end</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
         </field>
         <field>
           <column_name>program</column_name>

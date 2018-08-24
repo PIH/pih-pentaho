@@ -2,7 +2,7 @@
 -- Schema used to set up the omrs_* tables for flattened OpenMRS data
 
 CREATE TABLE omrs_patient (
-  patient_id INT not null,
+  patient_id VARCHAR(32) not null,
   fosa_id INT not null, 
   patient_uuid CHAR(38) not null,
   identifier VARCHAR(50),
@@ -38,9 +38,9 @@ CREATE TABLE omrs_patient (
 );
 
 CREATE TABLE omrs_patient_identifier (
-  patient_identifier_id INT not null,
+  patient_identifier_id VARCHAR(32) not null,
   uuid CHAR(38) not null,
-  patient_id INT not null,
+  patient_id VARCHAR(32) not null,
   fosa_id INT not null,
   type VARCHAR(50) not null,
   identifier VARCHAR(50) not null,
@@ -49,10 +49,10 @@ CREATE TABLE omrs_patient_identifier (
 );
 
 CREATE TABLE omrs_relationship (
-  relationship_id INT not null,
+  relationship_id VARCHAR(32) not null,
   fosa_id INT not null,
   uuid CHAR(38) not null,
-  patient_id INT not null,
+  patient_id VARCHAR(32) not null,
   patient_role VARCHAR(50) not null,
   related_person_role VARCHAR(50) not null,
   related_person VARCHAR(255),
@@ -63,19 +63,19 @@ CREATE TABLE omrs_relationship (
 
 CREATE TABLE omrs_encounter_provider (
   fosa_id INT not null,
-  encounter_provider_id INT not null,
+  encounter_provider_id VARCHAR(32) not null,
   uuid CHAR(38) not null,
-  encounter_id INT not null,
+  encounter_id VARCHAR(32) not null,
   encounter_uuid CHAR(38) not null,
   provider VARCHAR(255),
   provider_role VARCHAR(255)
 );
 
 CREATE TABLE omrs_encounter (
-  encounter_id INT not null,
+  encounter_id VARCHAR(32) not null,
   fosa_id INT not null,
   uuid CHAR(38) not null,
-  patient_id INT not null,
+  patient_id VARCHAR(32) not null,
   encounter_type VARCHAR(255) not null,
   form VARCHAR(255),
   location VARCHAR(255),
@@ -90,10 +90,10 @@ CREATE TABLE omrs_encounter (
 );
 
 CREATE TABLE omrs_visit (
-  visit_id INT not null,
+  visit_id VARCHAR(32) not null,
   fosa_id INT not null,
   uuid CHAR(38) not null,
-  patient_id INT not null,
+  patient_id VARCHAR(32) not null,
   visit_type VARCHAR(255) not null,
   location VARCHAR(255),
   date_started date,
@@ -102,11 +102,11 @@ CREATE TABLE omrs_visit (
 );
 
 CREATE TABLE omrs_obs_group (
-  obs_group_id INT not null,
+  obs_group_id VARCHAR(32) not null,
   fosa_id INT not null,
   uuid CHAR(38) not null,
-  patient_id INT not null,
-  encounter_id INT,
+  patient_id VARCHAR(32) not null,
+  encounter_id VARCHAR(32),
   obs_group_date date,
   obs_group_time time,
   encounter_type VARCHAR(255),
@@ -116,11 +116,11 @@ CREATE TABLE omrs_obs_group (
 );
 
 CREATE TABLE omrs_obs (
-  obs_id INT not null,
+  obs_id VARCHAR(32) not null,
   fosa_id INT not null,
   uuid CHAR(38) not null,
-  patient_id INT not null,
-  encounter_id INT,
+  patient_id VARCHAR(32) not null,
+  encounter_id VARCHAR(32),
   obs_date date,
   obs_time time,
   age_years_at_obs INT,
@@ -134,15 +134,15 @@ CREATE TABLE omrs_obs (
   value_numeric DOUBLE DEFAULT NULL,
   value_text TEXT,
   comments VARCHAR(255),
-  obs_group_id INT,
+  obs_group_id VARCHAR(32),
   date_created DATE
 );
 
 CREATE TABLE omrs_program_enrollment (
-  program_enrollment_id INT not null,
+  program_enrollment_id VARCHAR(32) not null,
   fosa_id INT not null,
   uuid CHAR(38) not null,
-  patient_id INT not null,
+  patient_id VARCHAR(32) not null,
   program VARCHAR(100) not null,
   enrollment_date date not null,
   age_years_at_enrollment int,
@@ -155,11 +155,11 @@ CREATE TABLE omrs_program_enrollment (
 );
 
 CREATE TABLE omrs_program_state (
-  program_state_id INT not null,
+  program_state_id VARCHAR(32) not null,
   fosa_id INT not null,
   uuid CHAR(38) not null,
-  program_enrollment_id INT not null,
-  patient_id INT not null,
+  program_enrollment_id VARCHAR(32) not null,
+  patient_id VARCHAR(32) not null,
   program VARCHAR(100) not null,
   workflow VARCHAR(100) not null,
   state VARCHAR(100) not null,

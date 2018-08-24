@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-rw-location</name>
+    <name>delete-non-hiv-data</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -9,11 +9,6 @@
     <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
-        <parameter>
-            <name>openmrs.db.name</name>
-            <default_value/>
-            <description/>
-        </parameter>
     </parameters>
     <log>
 <trans-log-table><connection/>
@@ -72,48 +67,16 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</created_date>
+  <created_date>2018&#x2f;08&#x2f;24 12&#x3a;28&#x3a;35.036</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;25 12&#x3a;36&#x3a;41.332</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+  <modified_date>2018&#x2f;08&#x2f;24 12&#x3a;28&#x3a;35.036</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>OpenMRS</name>
-    <server>&#x24;&#x7b;openmrs.db.host&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;openmrs.db.name&#x7d;</database>
-    <port>&#x24;&#x7b;openmrs.db.port&#x7d;</port>
-    <username>&#x24;&#x7b;openmrs.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;openmrs.db.password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.zeroDateTimeBehavior</code><attribute>convertToNull</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;openmrs.db.port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
-  <connection>
-    <name>Warehouse</name>
+    <name>warehouse</name>
     <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
@@ -126,11 +89,7 @@
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -144,13 +103,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Location</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Write location Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Get ID Prefix</name>
-    <type>GetVariable</type>
+    <name>Execute SQL script</name>
+    <type>ExecSQL</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -159,154 +115,23 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>
-      <field>
-        <name>id_prefix</name>
-        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>432</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Location</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xd;&#xa;&#x2a;	Extracts just about the whole locaiton table&#xd;&#xa;&#x2a;&#x2f;&#xd;&#xa;select	&#xd;&#xa;	location_id,&#xd;&#xa;	name,&#xd;&#xa;	description,&#xd;&#xa;	address1,&#xd;&#xa;	address2,&#xd;&#xa;	city_village,&#xd;&#xa;	state_province,&#xd;&#xa;	country,&#xd;&#xa;	county_district&#xd;&#xa;	&#xd;&#xa;	&#xd;&#xa;from 		location&#xd;&#xa;&#xd;&#xa;where		retired&#x3d;0&#x3b;</sql>
-    <limit>0</limit>
-    <lookup/>
+    <connection>warehouse</connection>
     <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>DELETE from omrs_patient &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;,&#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from omrs_encounter &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;, &#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;AND encounter_type not in &#x28;&#x22;Adult HIV&#x22;,&#x22;ADULT INITIAL VISIT&#x22;, &#x22;ADULT RETURN VISIT&#x22;,&#x22;Exposed Infant&#x22;, &#x22;HOME VISIT&#x22;, &#x22;Patient Transfer&#x22;, &#x22;Pediatric HIV&#x22;, &#x22;PEDIATRIC INITIAL VISIT&#x22;, &#x22;PEDIATRIC RETURN VISIT&#x22;&#x29; &#xd;&#xa;and encounter_type is not null&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from omrs_obs &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;, &#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;AND encounter_type not in &#x28;&#x22;Adult HIV&#x22;,&#x22;ADULT INITIAL VISIT&#x22;, &#x22;ADULT RETURN VISIT&#x22;,&#x22;Exposed Infant&#x22;, &#x22;HOME VISIT&#x22;, &#x22;Patient Transfer&#x22;, &#x22;Pediatric HIV&#x22;, &#x22;PEDIATRIC INITIAL VISIT&#x22;, &#x22;PEDIATRIC RETURN VISIT&#x22;&#x29; &#xd;&#xa;and encounter_type is not null&#xd;&#xa;&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from omrs_obs_group where obs_id not in &#x28;SELECT obs_id from omrs_obs&#x29;&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from omrs_patient_identifier &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;,&#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from omrs_program_enrolment &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;,&#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from omrs_program_state &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;,&#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from omrs_relationship &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;,&#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;&#x3b;&#xd;&#xa;&#xd;&#xa;DELETE from rw_order &#xd;&#xa;where patient_id not in &#xd;&#xa;&#x28;SELECT distinct patient_id &#xd;&#xa;from omrs_program_enrollment &#xd;&#xa;where program in &#x28;&#x22;HIV PROGRAM&#x22;,&#x22;PMTCT Pregnancy&#x22;,&#x22;PMTCT Combined Clinic - Mother&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;, &#x22;PEDIATRIC HIV PRORAM&#x22;,&#x22;PMTCT Combined Clinic - Infant&#x22;&#x29;&#xd;&#xa;&#x29;&#xd;&#xa;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+    </arguments>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>304</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Prefix IDs</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_location_id &#x3d; id_prefix &#x2b; location_id&#x3b;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_location_id</name>
-        <rename>location_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write location Table</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <schema/>
-    <table>rw_location</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>name</column_name>
-          <stream_name>name</stream_name>
-        </field>
-        <field>
-          <column_name>description</column_name>
-          <stream_name>description</stream_name>
-        </field>
-        <field>
-          <column_name>address1</column_name>
-          <stream_name>address1</stream_name>
-        </field>
-        <field>
-          <column_name>address2</column_name>
-          <stream_name>address2</stream_name>
-        </field>
-        <field>
-          <column_name>city_village</column_name>
-          <stream_name>city_village</stream_name>
-        </field>
-        <field>
-          <column_name>state_province</column_name>
-          <stream_name>state_province</stream_name>
-        </field>
-        <field>
-          <column_name>country</column_name>
-          <stream_name>country</stream_name>
-        </field>
-        <field>
-          <column_name>county_district</column_name>
-          <stream_name>county_district</stream_name>
-        </field>
-        <field>
-          <column_name>location_id</column_name>
-          <stream_name>location_id</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>688</xloc>
-      <yloc>96</yloc>
+      <xloc>240</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

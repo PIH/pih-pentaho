@@ -1,48 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>create-schema</name>
+  <name>load-rwanda-data-1-6</name>
     <description/>
     <extended_description/>
     <job_version/>
     <job_status>0</job_status>
   <directory>&#x2f;</directory>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;19 17&#x3a;57&#x3a;14.971</created_date>
+  <created_date>2016&#x2f;10&#x2f;24 16&#x3a;40&#x3a;00.548</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;19 17&#x3a;57&#x3a;14.971</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;24 16&#x3a;40&#x3a;00.548</modified_date>
     <parameters>
+        <parameter>
+            <name>openmrs.db.name</name>
+            <default_value/>
+            <description/>
+        </parameter>
+        <parameter>
+            <name>pih.country</name>
+            <default_value>rwanda</default_value>
+            <description/>
+        </parameter>
     </parameters>
-  <connection>
-    <name>Warehouse</name>
-    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
     <slaveservers>
     </slaveservers>
 <job-log-table><connection/>
@@ -82,77 +61,80 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>144</xloc>
-      <yloc>208</yloc>
+      <xloc>160</xloc>
+      <yloc>160</yloc>
       </entry>
     <entry>
-      <name>Create OMRS Schema</name>
+      <name>Load location table </name>
       <description/>
-      <type>SQL</type>
-      <sql/>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;rwanda&#x5c;hiv-unification&#x5c;SQL&#x5c;omrs_schema_create.sql</sqlfilename>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>208</yloc>
-      </entry>
-    <entry>
-      <name>Drop OMRS Schema</name>
-      <description/>
-      <type>SQL</type>
-      <sql/>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;sql&#x2f;omrs_schema_drop.sql</sqlfilename>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>208</yloc>
-      </entry>
-    <entry>
-      <name>Load Configuration</name>
-      <description/>
-      <type>JOB</type>
+      <type>TRANS</type>
       <specification_method>filename</specification_method>
-      <job_object_id/>
-      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;jobs&#x2f;load-configuration.kjb</filename>
-      <jobname/>
+      <trans_object_id/>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;hiv-unification&#x2f;transforms&#x2f;import-into-rw-location.ktr</filename>
+      <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
       <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
       <set_logfile>N</set_logfile>
       <logfile/>
       <logext/>
       <add_date>N</add_date>
       <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
       <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
       <wait_until_finished>Y</wait_until_finished>
       <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
       <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
+      <logging_remote_work>N</logging_remote_work>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
+      </parameters>      <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>304</xloc>
-      <yloc>208</yloc>
+      <xloc>512</xloc>
+      <yloc>256</yloc>
+      </entry>
+    <entry>
+      <name>Load Orders</name>
+      <description/>
+      <type>TRANS</type>
+      <specification_method>filename</specification_method>
+      <trans_object_id/>
+      <filename>&#x24;&#x7b;PIH_PENTAHO_HOME&#x7d;&#x2f;rwanda&#x2f;hiv-unification&#x2f;transforms&#x2f;import-into-rw-orders.ktr</filename>
+      <transname/>
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile/>
+      <logext/>
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name/>
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <parameters>        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>512</xloc>
+      <yloc>64</yloc>
       </entry>
   </entries>
   <hops>
     <hop>
       <from>START</from>
-      <to>Load Configuration</to>
+      <to>Load location table </to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
@@ -160,25 +142,23 @@
       <unconditional>Y</unconditional>
     </hop>
     <hop>
-      <from>Load Configuration</from>
-      <to>Drop OMRS Schema</to>
+      <from>START</from>
+      <to>Load Orders</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Drop OMRS Schema</from>
-      <to>Create OMRS Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
+      <unconditional>Y</unconditional>
     </hop>
   </hops>
   <notepads>
   </notepads>
+<attributes><group><name>METASTORE.pentaho</name>
+<attribute><key>Default Run Configuration</key>
+<value>&#x7b;&#x22;namespace&#x22;&#x3a;&#x22;pentaho&#x22;,&#x22;id&#x22;&#x3a;&#x22;Default Run Configuration&#x22;,&#x22;name&#x22;&#x3a;&#x22;Default Run Configuration&#x22;,&#x22;description&#x22;&#x3a;&#x22;Defines a default run configuration&#x22;,&#x22;metaStoreName&#x22;&#x3a;null&#x7d;</value>
+</attribute></group><group><name>&#x7b;&#x22;_&#x22;&#x3a;&#x22;Embedded MetaStore Elements&#x22;,&#x22;namespace&#x22;&#x3a;&#x22;pentaho&#x22;,&#x22;type&#x22;&#x3a;&#x22;Default Run Configuration&#x22;&#x7d;</name>
+<attribute><key>Pentaho local</key>
+<value>&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;server&#x22;,&#x22;value&#x22;&#x3a;null&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;clustered&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;name&#x22;,&#x22;value&#x22;&#x3a;&#x22;Pentaho local&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;description&#x22;,&#x22;value&#x22;&#x3a;null&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;readOnly&#x22;,&#x22;value&#x22;&#x3a;&#x22;Y&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;sendResources&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;logRemoteExecutionLocally&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;remote&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;local&#x22;,&#x22;value&#x22;&#x3a;&#x22;Y&#x22;&#x7d;,&#x7b;&#x22;children&#x22;&#x3a;&#x5b;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;showTransformations&#x22;,&#x22;value&#x22;&#x3a;&#x22;N&#x22;&#x7d;&#x5d;,&#x22;id&#x22;&#x3a;&#x22;Pentaho local&#x22;,&#x22;value&#x22;&#x3a;null,&#x22;name&#x22;&#x3a;&#x22;Pentaho local&#x22;,&#x22;owner&#x22;&#x3a;null,&#x22;ownerPermissionsList&#x22;&#x3a;&#x5b;&#x5d;&#x7d;</value>
+</attribute></group></attributes>
 
 </job>

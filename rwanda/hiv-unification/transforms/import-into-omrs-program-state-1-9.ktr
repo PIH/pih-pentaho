@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-omrs-visit</name>
+    <name>import-into-omrs-program-state-1-9</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
     </parameters>
@@ -66,9 +67,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;12&#x2f;09 13&#x3a;40&#x3a;13.376</created_date>
+  <created_date>2016&#x2f;10&#x2f;21 13&#x3a;30&#x3a;05.660</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;12&#x2f;09 13&#x3a;40&#x3a;13.376</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;21 13&#x3a;30&#x3a;05.660</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -137,11 +138,12 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Visit</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Location</from><to>Lookup Visit Type</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Program Concept</from><to>Lookup Workflow Concept</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Workflow Concept</from><to>Lookup State Concept</to><enabled>Y</enabled> </hop>
   <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Write Visit Table</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Visit Type</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Program State Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup State Concept</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Patient State</from><to>Lookup Program Concept</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Get ID Prefix</name>
@@ -156,8 +158,8 @@
            </partitioning>
     <fields>
       <field>
-        <name>id_prefix</name>
-        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <name>aFOSA</name>
+        <variable>&#x24;&#x7b;openmrs.db.name&#x7d;</variable>
         <type>String</type>
         <format/>
         <currency/>
@@ -170,17 +172,17 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>800</xloc>
-      <yloc>176</yloc>
+      <xloc>368</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Visit</name>
+    <name>Import Patient State</name>
     <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -188,7 +190,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extracts all visits&#xa;&#x2a;&#x2f;&#xa;select		visit_id,&#xa;			uuid,&#xa;			location_id,&#xa;			visit_type_id,&#xa;			date&#x28;date_started&#x29; as date_started,&#xa;			date&#x28;date_stopped&#x29; as date_stopped,&#xa;			patient_id,&#xa;			date_created&#xa;from 		visit&#xa;where		voided &#x3d; 0&#xa;order by	uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts all patient states&#xa;  This excludes any that have a null enrollment date or a null state start date&#xa; &#x2a;&#x2f;&#xa;select      ps.patient_state_id as program_state_id,&#xa;			ps.uuid as uuid,&#xa;			pp.patient_program_id as program_enrollment_id,&#xa;			p.person_id as patient_id,&#xa;            pg.concept_id as program_concept_id,&#xa;			pw.concept_id as workflow_concept_id,&#xa;			pws.concept_id as state_concept_id,&#xa;            ps.start_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, start_date&#x29;&#x29; as age_years_at_start,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, start_date&#x29;&#x29; as age_months_at_start,&#xa;			ps.end_date,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, end_date&#x29;&#x29; as age_years_at_end,&#xa;			if &#x28;p.birthdate is null or start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, end_date&#x29;&#x29; as age_months_at_end,&#xd;&#xa;			IF&#x28;lf.fosa_id is null, 0, lf.fosa_id&#x29; fosa_id&#xd;&#xa;from        person p&#xa;inner join  patient_program pp on p.person_id &#x3d; pp.patient_id&#xa;inner join  patient_state ps on ps.patient_program_id &#x3d; pp.patient_program_id&#xa;inner join  program_workflow_state pws on ps.state &#x3d; pws.program_workflow_state_id&#xa;inner join	program_workflow pw on pws.program_workflow_id &#x3d; pw.program_workflow_id &#xa;inner join  program pg on pp.program_id &#x3d; pg.program_id&#xd;&#xa;LEFT JOIN &#xd;&#xa;	&#x28;SELECT max&#x28;person_attribute.person_id&#x29; person_id, value from person_attribute &#xd;&#xa;			LEFT JOIN	&#x28;SELECT max&#x28;date_created&#x29; date_created, person_id from person_attribute&#xd;&#xa;					where voided&#x3d;0&#xd;&#xa;                    and person_attribute_type_id&#x3d;7&#xd;&#xa;                    group by person_id&#xd;&#xa;				&#x29; most_recent_location_date on most_recent_location_date.person_id &#x3d; person_attribute.person_id&#xd;&#xa;			WHERE person_attribute.date_created&#x3d;most_recent_location_date.date_created&#xd;&#xa;			and voided&#x3d;0&#xd;&#xa;            and person_attribute_type_id&#x3d;7&#xd;&#xa;            group by person_attribute.person_id&#xd;&#xa;		&#xd;&#xa;	&#x29; location &#xd;&#xa; on p.person_id &#x3d; location.person_id&#xd;&#xa;left join   location_fosa lf on lf.location_id&#x3d;location.value&#xa;where       pp.voided &#x3d; 0 and p.voided &#x3d; 0 and ps.voided &#x3d; 0&#xa;and			pp.date_enrolled is not null&#xa;and			ps.start_date is not null&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -196,17 +198,17 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>256</xloc>
-      <yloc>176</yloc>
+      <xloc>144</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Lookup Location</name>
+    <name>Lookup Program Concept</name>
     <type>DBLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -219,36 +221,36 @@
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
-      <table>lookup_location</table>
+      <table>lookup_concept</table>
       <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
+      <fail_on_multiple>Y</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>location_id</name>
+        <name>program_concept_id</name>
         <field>source_key</field>
         <condition>&#x3d;</condition>
         <name2/>
       </key>
       <value>
         <name>target_value</name>
-        <rename>location</rename>
+        <rename>program</rename>
         <default/>
         <type>String</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>448</xloc>
-      <yloc>176</yloc>
+      <xloc>496</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Lookup Visit Type</name>
+    <name>Lookup State Concept</name>
     <type>DBLookup</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -261,27 +263,69 @@
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
-      <table>lookup_visit_type</table>
+      <table>lookup_concept</table>
       <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
+      <fail_on_multiple>Y</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>visit_type_id</name>
+        <name>state_concept_id</name>
         <field>source_key</field>
         <condition>&#x3d;</condition>
         <name2/>
       </key>
       <value>
         <name>target_value</name>
-        <rename>visit_type</rename>
+        <rename>state</rename>
         <default/>
         <type>String</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>640</xloc>
-      <yloc>176</yloc>
+      <xloc>896</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Lookup Workflow Concept</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_concept</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>workflow_concept_id</name>
+        <field>source_key</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>workflow</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>704</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -290,7 +334,7 @@
     <name>Prefix IDs</name>
     <type>ScriptValueMod</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -301,29 +345,35 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_visit_id &#x3d; id_prefix &#x2b; visit_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
+        <jsScript_script>var prefixed_program_state_id &#x3d; aFOSA &#x2b; program_state_id&#x3b;&#xa;var prefixed_patient_id &#x3d; aFOSA &#x2b; patient_id&#x3b;&#xa;var prefixed_enrollment_id &#x3d; aFOSA &#x2b; program_enrollment_id&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
-      </field>      <field>        <name>prefixed_visit_id</name>
-        <rename>visit_id</rename>
-        <type>Integer</type>
+      </field>      <field>        <name>prefixed_enrollment_id</name>
+        <rename>program_enrollment_id</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_program_state_id</name>
+        <rename>program_state_id</rename>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>928</xloc>
-      <yloc>176</yloc>
+      <xloc>512</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write Visit Table</name>
+    <name>Write Program State Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -335,7 +385,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>omrs_visit</table>
+    <table>omrs_program_state</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -352,46 +402,66 @@
     <return_field/>
     <fields>
         <field>
+          <column_name>program_state_id</column_name>
+          <stream_name>program_state_id</stream_name>
+        </field>
+        <field>
           <column_name>uuid</column_name>
           <stream_name>uuid</stream_name>
         </field>
         <field>
-          <column_name>date_started</column_name>
-          <stream_name>date_started</stream_name>
-        </field>
-        <field>
-          <column_name>date_stopped</column_name>
-          <stream_name>date_stopped</stream_name>
+          <column_name>program_enrollment_id</column_name>
+          <stream_name>program_enrollment_id</stream_name>
         </field>
         <field>
           <column_name>patient_id</column_name>
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>visit_type</column_name>
-          <stream_name>visit_type</stream_name>
+          <column_name>start_date</column_name>
+          <stream_name>start_date</stream_name>
         </field>
         <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
+          <column_name>age_years_at_start</column_name>
+          <stream_name>age_years_at_start</stream_name>
         </field>
         <field>
-          <column_name>visit_id</column_name>
-          <stream_name>visit_id</stream_name>
+          <column_name>age_months_at_start</column_name>
+          <stream_name>age_months_at_start</stream_name>
         </field>
         <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
+          <column_name>end_date</column_name>
+          <stream_name>end_date</stream_name>
+        </field>
+        <field>
+          <column_name>age_years_at_end</column_name>
+          <stream_name>age_years_at_end</stream_name>
+        </field>
+        <field>
+          <column_name>age_months_at_end</column_name>
+          <stream_name>age_months_at_end</stream_name>
+        </field>
+        <field>
+          <column_name>program</column_name>
+          <stream_name>program</stream_name>
+        </field>
+        <field>
+          <column_name>workflow</column_name>
+          <stream_name>workflow</stream_name>
+        </field>
+        <field>
+          <column_name>state</column_name>
+          <stream_name>state</stream_name>
         </field>
         <field>
           <column_name>fosa_id</column_name>
-          <stream_name>FOSA</stream_name>
+          <stream_name>fosa_id</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1088</xloc>
-      <yloc>176</yloc>
+      <xloc>688</xloc>
+      <yloc>288</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

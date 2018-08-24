@@ -88,12 +88,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -119,12 +119,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -142,15 +142,17 @@
   <hop> <from>Import Relationship B</from><to>Relationship B Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Relationship A</from><to>Relationship A Merge</to><enabled>Y</enabled> </hop>
   <hop> <from>Import Person A Name Lookup</from><to>Relationship A Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Relationship A Merge</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Write Relationship A</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix 2</from><to>Prefix IDs 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Relationship B Merge</from><to>Get ID Prefix 2</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs 2</from><to>Write Relationship B</to><enabled>Y</enabled> </hop>
+  <hop> <from>Relationship A Merge</from><to>Get ID Prefix 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs 3</from><to>Write Relationship A</to><enabled>Y</enabled> </hop>
+  <hop> <from>Relationship B Merge</from><to>Get ID Prefix 2 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs 2 2</from><to>Write Relationship B</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix 3</from><to>Strings cut</to><enabled>Y</enabled> </hop>
+  <hop> <from>Strings cut</from><to>Prefix IDs 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix 2 2</from><to>Strings cut 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Strings cut 2</from><to>Prefix IDs 2 2</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Get ID Prefix</name>
+    <name>Get ID Prefix 2 2</name>
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -162,8 +164,8 @@
            </partitioning>
     <fields>
       <field>
-        <name>id_prefix</name>
-        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <name>aFOSA</name>
+        <variable>&#x24;&#x7b;openmrs.db.name&#x7d;</variable>
         <type>String</type>
         <format/>
         <currency/>
@@ -176,14 +178,14 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>224</yloc>
+      <xloc>672</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Get ID Prefix 2</name>
+    <name>Get ID Prefix 3</name>
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -195,8 +197,8 @@
            </partitioning>
     <fields>
       <field>
-        <name>id_prefix</name>
-        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <name>aFOSA</name>
+        <variable>&#x24;&#x7b;openmrs.db.name&#x7d;</variable>
         <type>String</type>
         <format/>
         <currency/>
@@ -209,8 +211,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>480</yloc>
+      <xloc>672</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -279,7 +281,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts relationships for patients who are person_a&#xa; &#x2a;&#x2f;&#xa;select      r.relationship_id, r.uuid as uuid, &#xa;			p.person_id as patient_id, t.a_is_to_b as patient_role, t.b_is_to_a as related_person_role, rp.uuid as related_person_uuid,&#xa;			r.start_date, r.end_date, r.date_created&#xa;from        relationship r&#xa;inner join  person p on p.person_id &#x3d; r.person_a&#xa;inner join 	patient pa on pa.patient_id &#x3d; p.person_id&#xa;inner join  person rp on rp.person_id &#x3d; r.person_b&#xa;inner join  relationship_type t on t.relationship_type_id &#x3d; r.relationship&#xa;where       a_is_to_b is not null and person_a is not null and person_b is not null&#xa;and         r.voided &#x3d; 0 and p.voided &#x3d; 0 and pa.voided &#x3d; 0 and rp.voided &#x3d; 0&#xa;order by 	rp.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts relationships for patients who are person_a&#xa; &#x2a;&#x2f;&#xa;select      r.relationship_id, r.uuid as uuid, &#xa;			p.person_id as patient_id, t.a_is_to_b as patient_role, t.b_is_to_a as related_person_role, rp.uuid as related_person_uuid,&#xa;			r.date_created&#xa;from        relationship r&#xa;inner join  person p on p.person_id &#x3d; r.person_a&#xa;inner join 	patient pa on pa.patient_id &#x3d; p.person_id&#xa;inner join  person rp on rp.person_id &#x3d; r.person_b&#xa;inner join  relationship_type t on t.relationship_type_id &#x3d; r.relationship&#xa;where       a_is_to_b is not null and person_a is not null and person_b is not null&#xa;and         r.voided &#x3d; 0 and p.voided &#x3d; 0 and pa.voided &#x3d; 0 and rp.voided &#x3d; 0&#xa;order by 	rp.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -305,7 +307,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts relationships for patients who are person_b&#xa; &#x2a;&#x2f;&#xa;select      r.relationship_id, r.uuid as uuid, &#xa;			p.person_id as patient_id, t.b_is_to_a as patient_role, t.a_is_to_b as related_person_role, rp.uuid as related_person_uuid,&#xa;			r.start_date, r.end_date, r.date_created&#xa;from        relationship r&#xa;inner join  person p on p.person_id &#x3d; r.person_b&#xa;inner join 	patient pa on pa.patient_id &#x3d; p.person_id&#xa;inner join  person rp on rp.person_id &#x3d; r.person_a&#xa;inner join  relationship_type t on t.relationship_type_id &#x3d; r.relationship&#xa;where       b_is_to_a is not null and person_a is not null and person_b is not null&#xa;and         r.voided &#x3d; 0 and p.voided &#x3d; 0 and pa.voided &#x3d; 0 and rp.voided &#x3d; 0&#xa;order by 	rp.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts relationships for patients who are person_b&#xa; &#x2a;&#x2f;&#xa;select      r.relationship_id, r.uuid as uuid, &#xa;			p.person_id as patient_id, t.b_is_to_a as patient_role, t.a_is_to_b as related_person_role, rp.uuid as related_person_uuid,&#xa;			r.date_created&#xa;from        relationship r&#xa;inner join  person p on p.person_id &#x3d; r.person_b&#xa;inner join 	patient pa on pa.patient_id &#x3d; p.person_id&#xa;inner join  person rp on rp.person_id &#x3d; r.person_a&#xa;inner join  relationship_type t on t.relationship_type_id &#x3d; r.relationship&#xa;where       b_is_to_a is not null and person_a is not null and person_b is not null&#xa;and         r.voided &#x3d; 0 and p.voided &#x3d; 0 and pa.voided &#x3d; 0 and rp.voided &#x3d; 0&#xa;order by 	rp.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -320,7 +322,7 @@
     </step>
 
   <step>
-    <name>Prefix IDs</name>
+    <name>Prefix IDs 2 2</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -334,29 +336,29 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_relationship_id &#x3d; id_prefix &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
+        <jsScript_script>var prefixed_relationship_id &#x3d; aFOSA &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; aFOSA &#x2b; patient_id&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_relationship_id</name>
         <rename>relationship_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>848</xloc>
-      <yloc>224</yloc>
+      <xloc>896</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Prefix IDs 2</name>
+    <name>Prefix IDs 3</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -370,23 +372,23 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_relationship_id &#x3d; id_prefix &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
+        <jsScript_script>var prefixed_relationship_id &#x3d; aFOSA &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; aFOSA &#x2b; patient_id&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_relationship_id</name>
         <rename>relationship_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>848</xloc>
-      <yloc>480</yloc>
+      <xloc>896</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -448,6 +450,60 @@
     </step>
 
   <step>
+    <name>Strings cut</name>
+    <type>StringCut</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>aFOSA</in_stream_name>
+        <out_stream_name>FOSA</out_stream_name>
+        <cut_from>1</cut_from>
+        <cut_to>5</cut_to>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>784</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Strings cut 2</name>
+    <type>StringCut</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>aFOSA</in_stream_name>
+        <out_stream_name>FOSA</out_stream_name>
+        <cut_from>1</cut_from>
+        <cut_to>5</cut_to>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>784</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Write Relationship A</name>
     <type>TableOutput</type>
     <description/>
@@ -481,10 +537,6 @@
           <stream_name>uuid</stream_name>
         </field>
         <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
-        </field>
-        <field>
           <column_name>relationship_id</column_name>
           <stream_name>relationship_id</stream_name>
         </field>
@@ -505,12 +557,12 @@
           <stream_name>patient_id</stream_name>
         </field>
         <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
-        </field>
-        <field>
           <column_name>date_created</column_name>
           <stream_name>date_created</stream_name>
+        </field>
+        <field>
+          <column_name>fosa_id</column_name>
+          <stream_name>FOSA</stream_name>
         </field>
     </fields>
      <cluster_schema/>
@@ -575,16 +627,12 @@
           <stream_name>person_name</stream_name>
         </field>
         <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
-        </field>
-        <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
-        </field>
-        <field>
           <column_name>date_created</column_name>
           <stream_name>date_created</stream_name>
+        </field>
+        <field>
+          <column_name>fosa_id</column_name>
+          <stream_name>FOSA</stream_name>
         </field>
     </fields>
      <cluster_schema/>

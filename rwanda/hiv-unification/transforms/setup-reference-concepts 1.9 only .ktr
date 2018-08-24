@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-omrs-visit</name>
+    <name>setup-reference-concepts 19 only </name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
     </parameters>
@@ -66,13 +67,34 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;12&#x2f;09 13&#x3a;40&#x3a;13.376</created_date>
+  <created_date>2016&#x2f;10&#x2f;20 11&#x3a;21&#x3a;43.964</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;12&#x2f;09 13&#x3a;40&#x3a;13.376</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;20 11&#x3a;21&#x3a;43.964</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>I think that one of the inputs will just fail and the other one will take over... I think</note>
+      <xloc>372</xloc>
+      <yloc>366</yloc>
+      <width>436</width>
+      <heigth>26</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>OpenMRS</name>
@@ -137,50 +159,13 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Visit</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Location</from><to>Lookup Visit Type</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Write Visit Table</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Visit Type</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
+  <hop> <from>Load Concept Name 2</from><to>Write to lookup_concept</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Get ID Prefix</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>id_prefix</name>
-        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>800</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Visit</name>
+    <name>Load Concept Name 2</name>
     <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
@@ -188,7 +173,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extracts all visits&#xa;&#x2a;&#x2f;&#xa;select		visit_id,&#xa;			uuid,&#xa;			location_id,&#xa;			visit_type_id,&#xa;			date&#x28;date_started&#x29; as date_started,&#xa;			date&#x28;date_stopped&#x29; as date_stopped,&#xa;			patient_id,&#xa;			date_created&#xa;from 		visit&#xa;where		voided &#x3d; 0&#xa;order by	uuid</sql>
+    <sql>select      c.concept_id as source_key, cn.name as target_value&#xa;from        concept c&#xa;left join   concept_name cn on c.concept_id &#x3d; cn.concept_id&#xa;where       cn.concept_name_id &#x3d; &#x28;&#xa;             	select    cn.concept_name_id&#xa;             	from      concept_name cn&#xa;             	where     cn.voided &#x3d; 0&#xa;             	and       cn.concept_id &#x3d; c.concept_id&#xa;             	order by  if&#x28;cn.concept_name_type &#x3d; &#x27;FULLY_SPECIFIED&#x27;, 0, 1&#x29;, if&#x28;cn.locale &#x3d; &#x27;en&#x27;, 0, 1&#x29;, cn.locale_preferred&#xa;             	limit 1&#xa;           	&#x29;&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -196,134 +181,14 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>256</xloc>
-      <yloc>176</yloc>
+      <xloc>208</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Lookup Location</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_location</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>location_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>location</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>448</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Visit Type</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_visit_type</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>visit_type_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>visit_type</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>640</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Prefix IDs</name>
-    <type>ScriptValueMod</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <compatible>N</compatible>
-    <optimizationLevel>9</optimizationLevel>
-    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
-        <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_visit_id &#x3d; id_prefix &#x2b; visit_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
-        <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>      <field>        <name>prefixed_visit_id</name>
-        <rename>visit_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>    </fields>     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>928</xloc>
-      <yloc>176</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Write Visit Table</name>
+    <name>Write to lookup_concept</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -335,12 +200,12 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>omrs_visit</table>
+    <table>lookup_concept</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
+    <specify_fields>N</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
@@ -351,47 +216,11 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
-        <field>
-          <column_name>date_started</column_name>
-          <stream_name>date_started</stream_name>
-        </field>
-        <field>
-          <column_name>date_stopped</column_name>
-          <stream_name>date_stopped</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>visit_type</column_name>
-          <stream_name>visit_type</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>visit_id</column_name>
-          <stream_name>visit_id</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
-        <field>
-          <column_name>fosa_id</column_name>
-          <stream_name>FOSA</stream_name>
-        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>1088</xloc>
-      <yloc>176</yloc>
+      <xloc>832</xloc>
+      <yloc>160</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

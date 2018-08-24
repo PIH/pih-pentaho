@@ -73,6 +73,27 @@
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
+    <notepad>
+      <note>I think that one of the inputs will just fail and the other one will take over... I think</note>
+      <xloc>372</xloc>
+      <yloc>366</yloc>
+      <width>436</width>
+      <heigth>26</heigth>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <fontbold>N</fontbold>
+      <fontitalic>N</fontitalic>
+      <fontcolorred>0</fontcolorred>
+      <fontcolorgreen>0</fontcolorgreen>
+      <fontcolorblue>0</fontcolorblue>
+      <backgroundcolorred>255</backgroundcolorred>
+      <backgroundcolorgreen>205</backgroundcolorgreen>
+      <backgroundcolorblue>112</backgroundcolorblue>
+      <bordercolorred>100</bordercolorred>
+      <bordercolorgreen>100</bordercolorgreen>
+      <bordercolorblue>100</bordercolorblue>
+      <drawshadow>Y</drawshadow>
+    </notepad>
   </notepads>
   <connection>
     <name>OpenMRS</name>
@@ -138,6 +159,7 @@
   </connection>
   <order>
   <hop> <from>Load Concept Name</from><to>Write to lookup_concept</to><enabled>Y</enabled> </hop>
+  <hop> <from>Load Concept Name 2</from><to>Write to lookup_concept</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Load Concept Name</name>
@@ -151,7 +173,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>select      c.concept_id as source_key, cn.name as target_value&#xa;from        concept c&#xa;left join   concept_name cn on c.concept_id &#x3d; cn.concept_id&#xa;where       cn.concept_name_id &#x3d; &#x28;&#xa;             	select    cn.concept_name_id&#xa;             	from      concept_name cn&#xa;             	where     cn.voided &#x3d; 0&#xa;             	and       cn.concept_id &#x3d; c.concept_id&#xa;             	order by  if&#x28;cn.locale &#x3d; &#x27;en&#x27;, 0, 1&#x29;, cn.date_created&#xa;             	limit 1&#xa;           	&#x29;&#x3b;</sql>
+    <sql>select      c.concept_id as source_key, cn.name as target_value&#xa;from        concept c&#xa;left join   concept_name cn on c.concept_id &#x3d; cn.concept_id&#xa;where       cn.concept_name_id &#x3d; &#x28;&#xa;             	select    cn.concept_name_id&#xa;             	from      concept_name cn&#xd;&#xa;				LEFT JOIN concept_name_tag_map ct on ct.concept_name_id&#x3d;cn.concept_name_id&#xa;             	where     cn.voided &#x3d; 0&#xa;             	and       cn.concept_id &#x3d; c.concept_id&#xa;             	order by  if&#x28;cn.locale &#x3d; &#x27;en&#x27;, 0, 1&#x29;, if&#x28;ct.concept_name_tag_id&#x3d;4,0,1&#x29;  cn.date_created&#xa;             	limit 1&#xa;           	&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -199,6 +221,32 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>832</xloc>
       <yloc>160</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Load Concept Name 2</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>OpenMRS</connection>
+    <sql>select      c.concept_id as source_key, cn.name as target_value&#xa;from        concept c&#xa;left join   concept_name cn on c.concept_id &#x3d; cn.concept_id&#xa;where       cn.concept_name_id &#x3d; &#x28;&#xa;             	select    cn.concept_name_id&#xa;             	from      concept_name cn&#xa;             	where     cn.voided &#x3d; 0&#xa;             	and       cn.concept_id &#x3d; c.concept_id&#xa;             	order by  if&#x28;cn.concept_name_type &#x3d; &#x27;FULLY_SPECIFIED&#x27;, 0, 1&#x29;, if&#x28;cn.locale &#x3d; &#x27;en&#x27;, 0, 1&#x29;, cn.locale_preferred&#xa;             	limit 1&#xa;           	&#x29;&#x3b;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>208</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

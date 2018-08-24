@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-omrs-patient</name>
+    <name>import-into-omrs-patient-1-9</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -205,7 +205,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa;  Currently we are excluding birthtime since it is not collected directly, and not available on all system data models yet&#xa; &#x2a;&#x2f;&#xa;select      n.person_id as patient_id,&#xa;			n.uuid as patient_uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.dead,&#xa;            n.death_date,&#xa;			if &#x28;n.birthdate is null or n.death_date is null, null, TIMESTAMPDIFF&#x28;YEAR, n.birthdate, n.death_date&#x29;&#x29; as age_years_at_death,&#xa;			if &#x28;n.birthdate is null or n.death_date is null, null, TIMESTAMPDIFF&#x28;MONTH, n.birthdate, n.death_date&#x29;&#x29; as age_months_at_death,&#xa;            n.cause_of_death as cause_of_death_id,&#xa;			p.date_created&#xd;&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xd;&#xa;&#xd;&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa;  Currently we are excluding birthtime since it is not collected directly, and not available on all system data models yet&#xa; &#x2a;&#x2f;&#xa;select      n.person_id as patient_id,&#xa;			n.uuid as patient_uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.dead,&#xa;            n.death_date,&#xa;			if &#x28;n.birthdate is null or n.death_date is null, null, TIMESTAMPDIFF&#x28;YEAR, n.birthdate, n.death_date&#x29;&#x29; as age_years_at_death,&#xa;			if &#x28;n.birthdate is null or n.death_date is null, null, TIMESTAMPDIFF&#x28;MONTH, n.birthdate, n.death_date&#x29;&#x29; as age_months_at_death,&#xa;            n.cause_of_death as cause_of_death_id,&#xa;			p.date_created,&#xd;&#xa;			lf.fosa_id&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xd;&#xa;LEFT JOIN &#x28;SELECT person_id,value from person_attribute where person_attribute.person_attribute_type_id&#x3d;7&#x29; location &#xd;&#xa; on p.patient_id &#x3d; location.person_id&#xd;&#xa;left join   location_fosa lf on lf.location_id&#x3d;location.value&#xd;&#xa;&#xd;&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -834,7 +834,7 @@
         </field>
         <field>
           <column_name>fosa_id</column_name>
-          <stream_name>FOSA</stream_name>
+          <stream_name>fosa_id</stream_name>
         </field>
     </fields>
      <cluster_schema/>

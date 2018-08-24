@@ -119,7 +119,7 @@
            <schema_name/>
            </partitioning>
     <connection>openmrs</connection>
-    <sql>SELECT COUNT&#x28;obs.person_id&#x29; FROM obs</sql>
+    <sql>SELECT COUNT&#x28;location.location_id&#x29; FROM location</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>

@@ -13,7 +13,7 @@
     <parameters>
         <parameter>
             <name>pih.country</name>
-            <default_value>malawi</default_value>
+            <default_value>rwanda</default_value>
             <description/>
         </parameter>
     </parameters>

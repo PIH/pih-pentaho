@@ -9,6 +9,11 @@
     <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
+        <parameter>
+            <name>openmrs.db.name</name>
+            <default_value/>
+            <description/>
+        </parameter>
     </parameters>
     <log>
 <trans-log-table><connection/>
@@ -140,15 +145,14 @@
   </connection>
   <order>
   <hop> <from>Import Orders</from><to>Lookup Concept</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get ID Prefix</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Location</from><to>Get ID Prefix</to><enabled>Y</enabled> </hop>
   <hop> <from>Lookup Concept</from><to>Lookup Location</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix IDs</from><to>Get FOSA</to><enabled>Y</enabled> </hop>
   <hop> <from>Get FOSA</from><to>Strings cut</to><enabled>Y</enabled> </hop>
-  <hop> <from>Strings cut</from><to>Write Orders Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Lookup Location</from><to>Get FOSA</to><enabled>Y</enabled> </hop>
+  <hop> <from>Strings cut</from><to>Prefix IDs</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs</from><to>Write Orders Table</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Get ID Prefix</name>
+    <name>Get FOSA</name>
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -160,8 +164,8 @@
            </partitioning>
     <fields>
       <field>
-        <name>id_prefix</name>
-        <variable>&#x24;&#x7b;warehouse.db.key_prefix&#x7d;</variable>
+        <name>aFOSA</name>
+        <variable>&#x24;&#x7b;openmrs.db.name&#x7d;</variable>
         <type>String</type>
         <format/>
         <currency/>
@@ -174,7 +178,7 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
+      <xloc>432</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
@@ -305,28 +309,55 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_order_id &#x3d; id_prefix &#x2b; order_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;&#xa;var prefixed_encounter_id &#x3d; encounter_id &#x3d;&#x3d; null &#x3f; null &#x3a; id_prefix &#x2b; encounter_id&#x3b;&#xa;</jsScript_script>
+        <jsScript_script>var prefixed_order_id &#x3d; aFOSA &#x2b; order_id&#x3b;&#xa;var prefixed_patient_id &#x3d; aFOSA &#x2b; patient_id&#x3b;&#xa;var prefixed_encounter_id &#x3d; encounter_id &#x3d;&#x3d; null &#x3f; null &#x3a; aFOSA &#x2b; encounter_id&#x3b;&#xa;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>      <field>        <name>prefixed_order_id</name>
         <rename>order_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>      <field>        <name>prefixed_encounter_id</name>
         <rename>encounter_id</rename>
-        <type>Integer</type>
+        <type>String</type>
         <length>-1</length>
         <precision>-1</precision>
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>480</xloc>
+      <xloc>656</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Strings cut</name>
+    <type>StringCut</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>aFOSA</in_stream_name>
+        <out_stream_name>FOSA</out_stream_name>
+        <cut_from>1</cut_from>
+        <cut_to>5</cut_to>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>528</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
@@ -437,66 +468,6 @@
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>816</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Get FOSA</name>
-    <type>GetVariable</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <name>aFOSA</name>
-        <variable>&#x24;&#x7b;openmrs.db.name&#x7d;</variable>
-        <type>String</type>
-        <format/>
-        <currency/>
-        <decimal/>
-        <group/>
-        <length>-1</length>
-        <precision>-1</precision>
-        <trim_type>none</trim_type>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>560</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Strings cut</name>
-    <type>StringCut</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <fields>
-      <field>
-        <in_stream_name>aFOSA</in_stream_name>
-        <out_stream_name>FOSA</out_stream_name>
-        <cut_from>1</cut_from>
-        <cut_to>5</cut_to>
-      </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
       <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>

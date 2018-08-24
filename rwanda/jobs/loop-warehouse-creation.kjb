@@ -64,10 +64,7 @@
       <pass_export>N</pass_export>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
             <parameter>            <name>openmrs.db.name</name>
-            <stream_name/>
-            <value/>
-            </parameter>            <parameter>            <name>openmrs.db.name</name>
-            <stream_name/>
+            <stream_name>openmrs.db.name</stream_name>
             <value/>
             </parameter>      </parameters>      <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
@@ -82,7 +79,7 @@
       <type>JOB</type>
       <specification_method>filename</specification_method>
       <job_object_id/>
-      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;rwanda&#x5c;hiv-unification&#x5c;Jobs&#x5c;load-from-openmrs-for-hiv-unification.kjb</filename>
+      <filename>C&#x3a;&#x5c;Users&#x5c;PIH&#x5c;Documents&#x5c;GitHub&#x5c;pih-pentaho&#x5c;rwanda&#x5c;hiv-unification&#x5c;Jobs&#x5c;looped-warehouse-creation.kjb</filename>
       <jobname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -101,13 +98,13 @@
       <pass_export>N</pass_export>
       <parameters>        <pass_all_parameters>Y</pass_all_parameters>
             <parameter>            <name>openmrs.db.name</name>
-            <stream_name/>
+            <stream_name>openmrs.db.name</stream_name>
             <value/>
             </parameter>      </parameters>      <set_append_logfile>N</set_append_logfile>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>624</xloc>
+      <xloc>560</xloc>
       <yloc>144</yloc>
       </entry>
     <entry>
@@ -173,7 +170,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>32</xloc>
+      <xloc>224</xloc>
       <yloc>144</yloc>
       </entry>
   </entries>

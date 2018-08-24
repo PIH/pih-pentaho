@@ -1,6 +1,6 @@
 
 CREATE TABLE rw_order (
-  order_id INT not null,
+  order_id VARCHAR(32) not null,
   fosa_id INT not null,
   order_type_id INT,
   concept VARCHAR(100),
@@ -11,26 +11,15 @@ CREATE TABLE rw_order (
   discontinued_date date,
   discontinued_by VARCHAR(255),
   discontinued_reason VARCHAR(1023),
-  patient_id INT,
+  patient_id VARCHAR(32),
   uuid VARCHAR(255),
   discontinued_reason_non_coded VARCHAR(1023),
   urgency VARCHAR(255),
   date_created date,
-  encounter_id INT,
+  encounter_id VARCHAR(32),
   encounter_type VARCHAR(255),
-  location VARCHAR(255),
-  group_id INT,
-  order_index INT,
-  indication VARCHAR(255),
-  route VARCHAR(255),
-  administration_instructions VARCHAR(1023),
-  dose DECIMAL,
-  equivalent_daily_dose DECIMAL,
-  units VARCHAR(255),
-  frequency VARCHAR(255),
-  prn INT,
-  complex VARCHAR(255),
-  quantity DECIMAL
+  location VARCHAR(255)
+  
 );
 
 alter table rw_order add index rw_order_id(order_id);

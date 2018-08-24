@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-omrs-patient</name>
+    <name>import-into-omrs-relationship-1-6</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -9,11 +9,6 @@
     <trans_status>0</trans_status>
     <directory>&#x2f;</directory>
     <parameters>
-        <parameter>
-            <name>openmrs.db.name</name>
-            <default_value/>
-            <description/>
-        </parameter>
     </parameters>
     <log>
 <trans-log-table><connection/>
@@ -72,9 +67,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</created_date>
+  <created_date>2016&#x2f;10&#x2f;21 13&#x3a;30&#x3a;05.660</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016&#x2f;10&#x2f;18 17&#x3a;16&#x3a;32.611</modified_date>
+  <modified_date>2016&#x2f;10&#x2f;21 13&#x3a;30&#x3a;05.660</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -143,25 +138,21 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Import Person Address</from><to>Patient Address Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Patient Address Merge</from><to>Patient Attribute Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Person Attributes</from><to>Row denormaliser</to><enabled>Y</enabled> </hop>
-  <hop> <from>Row denormaliser</from><to>Lookup Health Center</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Health Center</from><to>Select Included Values</to><enabled>Y</enabled> </hop>
-  <hop> <from>Select Included Values</from><to>Patient Attribute Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Preferred Identifier</from><to>Patient Identifier Merge </to><enabled>Y</enabled> </hop>
-  <hop> <from>Patient Identifier Merge </from><to>Patient Address Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Lookup Cause of Death</from><to>Person Name Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Person Name Lookup</from><to>Person Name Merge</to><enabled>Y</enabled> </hop>
-  <hop> <from>Person Name Merge</from><to>Patient Identifier Merge </to><enabled>Y</enabled> </hop>
-  <hop> <from>Import Patient</from><to>Lookup Cause of Death</to><enabled>Y</enabled> </hop>
-  <hop> <from>Get FOSA</from><to>Strings cut</to><enabled>Y</enabled> </hop>
-  <hop> <from>Patient Attribute Merge</from><to>Get FOSA</to><enabled>Y</enabled> </hop>
-  <hop> <from>Strings cut</from><to>Prefix Patient ID</to><enabled>Y</enabled> </hop>
-  <hop> <from>Prefix Patient ID</from><to>Write Patient Table</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Person B Name Lookup</from><to>Relationship B Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Relationship B</from><to>Relationship B Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Relationship A</from><to>Relationship A Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Import Person A Name Lookup</from><to>Relationship A Merge</to><enabled>Y</enabled> </hop>
+  <hop> <from>Relationship A Merge</from><to>Get ID Prefix 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs 3</from><to>Write Relationship A</to><enabled>Y</enabled> </hop>
+  <hop> <from>Relationship B Merge</from><to>Get ID Prefix 2 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Prefix IDs 2 2</from><to>Write Relationship B</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix 3</from><to>Strings cut</to><enabled>Y</enabled> </hop>
+  <hop> <from>Strings cut</from><to>Prefix IDs 3</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get ID Prefix 2 2</from><to>Strings cut 2</to><enabled>Y</enabled> </hop>
+  <hop> <from>Strings cut 2</from><to>Prefix IDs 2 2</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Get FOSA</name>
+    <name>Get ID Prefix 2 2</name>
     <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
@@ -187,67 +178,15 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
-      <yloc>752</yloc>
+      <xloc>672</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Import Patient</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts basic attributes of a patient that are directly accessible from the patient and person tables&#xa;  Currently we are excluding birthtime since it is not collected directly, and not available on all system data models yet&#xa; &#x2a;&#x2f;&#xa;select      n.person_id as patient_id,&#xa;			n.uuid as patient_uuid,&#xa;            n.gender,&#xa;            n.birthdate,&#xa;            n.birthdate_estimated,&#xa;            n.dead,&#xa;            n.death_date,&#xa;			if &#x28;n.birthdate is null or n.death_date is null, null, TIMESTAMPDIFF&#x28;YEAR, n.birthdate, n.death_date&#x29;&#x29; as age_years_at_death,&#xa;			if &#x28;n.birthdate is null or n.death_date is null, null, TIMESTAMPDIFF&#x28;MONTH, n.birthdate, n.death_date&#x29;&#x29; as age_months_at_death,&#xa;            n.cause_of_death as cause_of_death_id,&#xa;			p.date_created&#xd;&#xa;from        patient p&#xa;inner join  person n on p.patient_id &#x3d; n.person_id&#xd;&#xa;&#xd;&#xa;where       p.voided &#x3d; 0&#xa;and         n.voided &#x3d; 0&#xa;order by	n.uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Person Address</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts at most one address for each person, favoring those marked as preferred, followed by those most recently created&#xa;  TODO&#x3a; Consider whether start_date and end_date should factor in&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as patient_uuid,&#xa;            a.country,&#xa;            a.postal_code,&#xa;            a.state_province,&#xa;            a.county_district,&#xa;            a.city_village,&#xa;            a.address1,&#xa;            a.address2&#xa;           &#xa;from        person p&#xa;left join   person_address a on p.person_id &#x3d; a.person_id&#xa;where       a.person_address_id &#x3d; &#x28;&#xa;              select        a.person_address_id&#xa;              from          person_address a&#xa;              where         a.voided &#x3d; 0&#xa;              and           a.person_id &#x3d; p.person_id&#xa;              order by      a.preferred desc, a.date_created desc limit 1&#xa;            &#x29;&#xa;order by 	p.uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
-      <yloc>464</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Person Attributes</name>
-    <type>TableInput</type>
+    <name>Get ID Prefix 3</name>
+    <type>GetVariable</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -256,118 +195,83 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts at most one attribute of each type for each person, favoring those those most recently created&#xa;  This assumes that no more than one non-voided attribute of a given type are intentionally stored for each patient,&#xa;  which is generally the assumption that application code makes within OpenMRS&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as person_uuid,&#xa;            t.name,&#xa;			t.format,&#xa;            a.value&#xa;from        person p&#xa;left join   person_attribute a on p.person_id &#x3d; a.person_id&#xa;left join   person_attribute_type t on a.person_attribute_type_id &#x3d; t.person_attribute_type_id&#xa;where       a.person_attribute_id &#x3d; &#x28;&#xa;              select    a.person_attribute_id&#xa;              from      person_attribute a&#xa;              where     a.voided &#x3d; 0&#xa;              and       a.person_id &#x3d; p.person_id&#xa;              AND       a.person_attribute_type_id &#x3d; t.person_attribute_type_id&#xa;              order by  a.date_created desc limit 1&#xa;            &#x29;&#xa;order by 	p.uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
-      <yloc>608</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Person Name Lookup</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select &#x2a; &#xa;from lookup_person_name&#xa;order by uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import Preferred Identifier</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;  Extracts at most one identifier for each patient, favoring preferred, and then date created&#xa; &#x2a;&#x2f;&#xa;select      p.uuid as patient_uuid,&#xa;            i.identifier&#xa;from        person p&#xa;left join   patient_identifier i on p.person_id &#x3d; i.patient_id&#xa;where       i.patient_identifier_id &#x3d; &#x28;&#xa;              select    i.patient_identifier_id&#xa;              from      patient_identifier i&#xa;              where     i.voided &#x3d; 0&#xa;              and       i.patient_id &#x3d; p.person_id&#xa;              order by  i.preferred desc, i.date_created desc limit 1&#xa;            &#x29;&#xa;order by 	p.uuid</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>112</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Lookup Cause of Death</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>cause_of_death_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>cause_of_death</rename>
-        <default/>
+    <fields>
+      <field>
+        <name>aFOSA</name>
+        <variable>&#x24;&#x7b;openmrs.db.name&#x7d;</variable>
         <type>String</type>
-      </value>
-    </lookup>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>96</yloc>
+      <xloc>672</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Lookup Health Center</name>
-    <type>DBLookup</type>
+    <name>Import Person A Name Lookup</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select uuid, CONCAT_WS&#x28;&#x27; &#x27;, first_name, middle_name, last_name&#x29; as person_name&#xa;from lookup_person_name&#xa;order by uuid</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>464</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Person B Name Lookup</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select uuid, CONCAT_WS&#x28;&#x27; &#x27;, first_name, middle_name, last_name&#x29; as person_name&#xa;from lookup_person_name&#xa;order by uuid</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>464</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import Relationship A</name>
+    <type>TableInput</type>
     <description/>
     <distribute>N</distribute>
     <custom_distribution/>
@@ -376,151 +280,49 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_location</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>health_center_id</name>
-        <field>source_key</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>health_center</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
+    <connection>OpenMRS</connection>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts relationships for patients who are person_a&#xa; &#x2a;&#x2f;&#xa;select      r.relationship_id, r.uuid as uuid, &#xa;			p.person_id as patient_id, t.a_is_to_b as patient_role, t.b_is_to_a as related_person_role, rp.uuid as related_person_uuid,&#xa;			 r.date_created&#xa;from        relationship r&#xa;inner join  person p on p.person_id &#x3d; r.person_a&#xa;inner join 	patient pa on pa.patient_id &#x3d; p.person_id&#xa;inner join  person rp on rp.person_id &#x3d; r.person_b&#xa;inner join  relationship_type t on t.relationship_type_id &#x3d; r.relationship&#xa;where       a_is_to_b is not null and person_a is not null and person_b is not null&#xa;and         r.voided &#x3d; 0 and p.voided &#x3d; 0 and pa.voided &#x3d; 0 and rp.voided &#x3d; 0&#xa;order by 	rp.uuid</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>496</xloc>
-      <yloc>608</yloc>
+      <xloc>224</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Patient Address Merge</name>
-    <type>MergeJoin</type>
+    <name>Import Relationship B</name>
+    <type>TableInput</type>
     <description/>
-    <distribute>Y</distribute>
+    <distribute>N</distribute>
     <custom_distribution/>
     <copies>1</copies>
          <partitioning>
            <method>none</method>
            <schema_name/>
            </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Patient Identifier Merge </step1>
-<step2>Import Person Address</step2>
-    <keys_1>
-      <key>patient_uuid</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_uuid</key>
-    </keys_2>
+    <connection>OpenMRS</connection>
+    <sql>&#x2f;&#x2a;&#xa;  Extracts relationships for patients who are person_b&#xa; &#x2a;&#x2f;&#xa;select      r.relationship_id, r.uuid as uuid, &#xa;			p.person_id as patient_id, t.b_is_to_a as patient_role, t.a_is_to_b as related_person_role, rp.uuid as related_person_uuid,&#xa;			r.date_created&#xa;from        relationship r&#xa;inner join  person p on p.person_id &#x3d; r.person_b&#xa;inner join 	patient pa on pa.patient_id &#x3d; p.person_id&#xa;inner join  person rp on rp.person_id &#x3d; r.person_a&#xa;inner join  relationship_type t on t.relationship_type_id &#x3d; r.relationship&#xa;where       b_is_to_a is not null and person_a is not null and person_b is not null&#xa;and         r.voided &#x3d; 0 and p.voided &#x3d; 0 and pa.voided &#x3d; 0 and rp.voided &#x3d; 0&#xa;order by 	rp.uuid</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>464</yloc>
+      <xloc>224</xloc>
+      <yloc>384</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Patient Attribute Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Patient Address Merge</step1>
-<step2>Select Included Values</step2>
-    <keys_1>
-      <key>patient_uuid</key>
-    </keys_1>
-    <keys_2>
-      <key>person_uuid</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>880</xloc>
-      <yloc>608</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Patient Identifier Merge </name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Person Name Merge</step1>
-<step2>Import Preferred Identifier</step2>
-    <keys_1>
-      <key>patient_uuid</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_uuid</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>336</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Person Name Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>LEFT OUTER</join_type>
-<step1>Lookup Cause of Death</step1>
-<step2>Import Person Name Lookup</step2>
-    <keys_1>
-      <key>patient_uuid</key>
-    </keys_1>
-    <keys_2>
-      <key>uuid</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>528</xloc>
-      <yloc>224</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Prefix Patient ID</name>
+    <name>Prefix IDs 2 2</name>
     <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
@@ -534,8 +336,14 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_person_id &#x3d; aFOSA &#x2b; patient_id&#x3b;&#xa;&#xa;</jsScript_script>
-      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_person_id</name>
+        <jsScript_script>var prefixed_relationship_id &#x3d; aFOSA &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; aFOSA &#x2b; patient_id&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_relationship_id</name>
+        <rename>relationship_id</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
         <type>String</type>
         <length>-1</length>
@@ -543,15 +351,15 @@
         <replace>Y</replace>
       </field>    </fields>     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>624</xloc>
-      <yloc>752</yloc>
+      <xloc>896</xloc>
+      <yloc>400</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Row denormaliser</name>
-    <type>Denormaliser</type>
+    <name>Prefix IDs 3</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -560,81 +368,62 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-      <key_field>name</key_field>
-      <group>
-        <field>
-          <name>person_uuid</name>
-          </field>
-        </group>
-      <fields>
-        <field>
-          <field_name>value</field_name>
-          <key_value>&#x24;&#x7b;patient.attributeType.phoneNumber&#x7d;</key_value>
-          <target_name>phone_number</target_name>
-          <target_type>String</target_type>
-          <target_format/>
-          <target_length>50</target_length>
-          <target_precision>-1</target_precision>
-          <target_decimal_symbol/>
-          <target_grouping_symbol/>
-          <target_currency_symbol/>
-          <target_null_string/>
-          <target_aggregation_type>-</target_aggregation_type>
-          </field>
-        <field>
-          <field_name>value</field_name>
-          <key_value>&#x24;&#x7b;patient.attributeType.mothersName&#x7d;</key_value>
-          <target_name>mothers_name</target_name>
-          <target_type>String</target_type>
-          <target_format/>
-          <target_length>50</target_length>
-          <target_precision>-1</target_precision>
-          <target_decimal_symbol/>
-          <target_grouping_symbol/>
-          <target_currency_symbol/>
-          <target_null_string/>
-          <target_aggregation_type>-</target_aggregation_type>
-          </field>
-        <field>
-          <field_name>value</field_name>
-          <key_value>&#x24;&#x7b;patient.attributeType.fathersName&#x7d;</key_value>
-          <target_name>fathers_name</target_name>
-          <target_type>String</target_type>
-          <target_format/>
-          <target_length>-1</target_length>
-          <target_precision>-1</target_precision>
-          <target_decimal_symbol/>
-          <target_grouping_symbol/>
-          <target_currency_symbol/>
-          <target_null_string/>
-          <target_aggregation_type>-</target_aggregation_type>
-          </field>
-        <field>
-          <field_name>value</field_name>
-          <key_value>&#x24;&#x7b;patient.attributeType.healthCenter&#x7d;</key_value>
-          <target_name>health_center_id</target_name>
-          <target_type>Integer</target_type>
-          <target_format/>
-          <target_length>-1</target_length>
-          <target_precision>-1</target_precision>
-          <target_decimal_symbol/>
-          <target_grouping_symbol/>
-          <target_currency_symbol/>
-          <target_null_string/>
-          <target_aggregation_type>-</target_aggregation_type>
-          </field>
-        </fields>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var prefixed_relationship_id &#x3d; aFOSA &#x2b; relationship_id&#x3b;&#xa;var prefixed_patient_id &#x3d; aFOSA &#x2b; patient_id&#x3b;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_relationship_id</name>
+        <rename>relationship_id</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_patient_id</name>
+        <rename>patient_id</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>896</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Relationship A Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Relationship A</step1>
+<step2>Import Person A Name Lookup</step2>
+    <keys_1>
+      <key>related_person_uuid</key>
+    </keys_1>
+    <keys_2>
+      <key>uuid</key>
+    </keys_2>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>320</xloc>
-      <yloc>608</yloc>
+      <xloc>464</xloc>
+      <yloc>224</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Select Included Values</name>
-    <type>SelectValues</type>
+    <name>Relationship B Merge</name>
+    <type>MergeJoin</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -643,31 +432,19 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <fields>      <field>        <name>person_uuid</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>phone_number</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>mothers_name</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>fathers_name</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>      <field>        <name>health_center</name>
-        <rename/>
-        <length>-2</length>
-        <precision>-2</precision>
-      </field>        <select_unspecified>N</select_unspecified>
-    </fields>     <cluster_schema/>
+<join_type>LEFT OUTER</join_type>
+<step1>Import Relationship B</step1>
+<step2>Import Person B Name Lookup</step2>
+    <keys_1>
+      <key>related_person_uuid</key>
+    </keys_1>
+    <keys_2>
+      <key>uuid</key>
+    </keys_2>
+     <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>672</xloc>
-      <yloc>608</yloc>
+      <xloc>464</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -693,14 +470,41 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>480</xloc>
-      <yloc>752</yloc>
+      <xloc>784</xloc>
+      <yloc>144</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Write Patient Table</name>
+    <name>Strings cut 2</name>
+    <type>StringCut</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <in_stream_name>aFOSA</in_stream_name>
+        <out_stream_name>FOSA</out_stream_name>
+        <cut_from>1</cut_from>
+        <cut_to>5</cut_to>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>784</xloc>
+      <yloc>400</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write Relationship A</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -712,7 +516,7 @@
            </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>omrs_patient</table>
+    <table>omrs_relationship</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -729,100 +533,24 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>patient_uuid</column_name>
-          <stream_name>patient_uuid</stream_name>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
         </field>
         <field>
-          <column_name>gender</column_name>
-          <stream_name>gender</stream_name>
+          <column_name>relationship_id</column_name>
+          <stream_name>relationship_id</stream_name>
         </field>
         <field>
-          <column_name>birthdate</column_name>
-          <stream_name>birthdate</stream_name>
+          <column_name>related_person_role</column_name>
+          <stream_name>related_person_role</stream_name>
         </field>
         <field>
-          <column_name>birthdate_estimated</column_name>
-          <stream_name>birthdate_estimated</stream_name>
+          <column_name>related_person</column_name>
+          <stream_name>person_name</stream_name>
         </field>
         <field>
-          <column_name>dead</column_name>
-          <stream_name>dead</stream_name>
-        </field>
-        <field>
-          <column_name>death_date</column_name>
-          <stream_name>death_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_death</column_name>
-          <stream_name>age_years_at_death</stream_name>
-        </field>
-        <field>
-          <column_name>cause_of_death</column_name>
-          <stream_name>cause_of_death</stream_name>
-        </field>
-        <field>
-          <column_name>identifier</column_name>
-          <stream_name>identifier</stream_name>
-        </field>
-        <field>
-          <column_name>first_name</column_name>
-          <stream_name>first_name</stream_name>
-        </field>
-        <field>
-          <column_name>middle_name</column_name>
-          <stream_name>middle_name</stream_name>
-        </field>
-        <field>
-          <column_name>last_name</column_name>
-          <stream_name>last_name</stream_name>
-        </field>
-        <field>
-          <column_name>country</column_name>
-          <stream_name>country</stream_name>
-        </field>
-        <field>
-          <column_name>postal_code</column_name>
-          <stream_name>postal_code</stream_name>
-        </field>
-        <field>
-          <column_name>state_province</column_name>
-          <stream_name>state_province</stream_name>
-        </field>
-        <field>
-          <column_name>county_district</column_name>
-          <stream_name>county_district</stream_name>
-        </field>
-        <field>
-          <column_name>city_village</column_name>
-          <stream_name>city_village</stream_name>
-        </field>
-        <field>
-          <column_name>address1</column_name>
-          <stream_name>address1</stream_name>
-        </field>
-        <field>
-          <column_name>address2</column_name>
-          <stream_name>address2</stream_name>
-        </field>
-        <field>
-          <column_name>phone_number</column_name>
-          <stream_name>phone_number</stream_name>
-        </field>
-        <field>
-          <column_name>mothers_name</column_name>
-          <stream_name>mothers_name</stream_name>
-        </field>
-        <field>
-          <column_name>fathers_name</column_name>
-          <stream_name>fathers_name</stream_name>
-        </field>
-        <field>
-          <column_name>health_center</column_name>
-          <stream_name>health_center</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_death</column_name>
-          <stream_name>age_months_at_death</stream_name>
+          <column_name>patient_role</column_name>
+          <stream_name>patient_role</stream_name>
         </field>
         <field>
           <column_name>patient_id</column_name>
@@ -839,8 +567,78 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>752</xloc>
-      <yloc>752</yloc>
+      <xloc>1040</xloc>
+      <yloc>224</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Write Relationship B</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <schema/>
+    <table>omrs_relationship</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>relationship_id</column_name>
+          <stream_name>relationship_id</stream_name>
+        </field>
+        <field>
+          <column_name>uuid</column_name>
+          <stream_name>uuid</stream_name>
+        </field>
+        <field>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
+        </field>
+        <field>
+          <column_name>patient_role</column_name>
+          <stream_name>patient_role</stream_name>
+        </field>
+        <field>
+          <column_name>related_person_role</column_name>
+          <stream_name>related_person_role</stream_name>
+        </field>
+        <field>
+          <column_name>related_person</column_name>
+          <stream_name>person_name</stream_name>
+        </field>
+        <field>
+          <column_name>date_created</column_name>
+          <stream_name>date_created</stream_name>
+        </field>
+        <field>
+          <column_name>fosa_id</column_name>
+          <stream_name>FOSA</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>1040</xloc>
+      <yloc>480</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

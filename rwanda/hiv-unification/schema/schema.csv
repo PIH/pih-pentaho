@@ -1,4 +1,4 @@
 type,name
 table,rw_location
-table,rw_order_group
 table,rw_order
+table,patient_encounter_fosa
