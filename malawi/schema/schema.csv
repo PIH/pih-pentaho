@@ -25,6 +25,7 @@
 "procedure","create_rpt_priority_patients"
 "procedure","create_rpt_trace_criteria"
 "procedure","create_rpt_appt_alerts"
+"procedure","create_patients_next_appointment"
 "procedure","create_rpt_patients_expected"
 "procedure","create_rpt_ic3_data"
 "table","mw_lab_tests_recent_period"
