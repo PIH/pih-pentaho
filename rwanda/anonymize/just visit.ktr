@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>calculated-visit</name>
+    <name>just visit</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,35 +427,27 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2018/08/02 11:01:01.636</created_date>
+    <created_date>2018/11/20 22:18:53.409</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2018/08/02 11:01:01.636</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2018/11/20 22:18:53.409</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>warehouse</name>
-    <server>${warehouse.db.host}</server>
+    <name>anonymized</name>
+    <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>${warehouse.db.name}</database>
-    <port>${warehouse.db.port}</port>
-    <username>${warehouse.db.user}</username>
-    <password>${warehouse.db.password}</password>
+    <database>anonymized_20181108</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e49b15af7e8cc0abd5</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
-        <attribute>500</attribute>
-      </attribute>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
-        <attribute>true</attribute>
-      </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
@@ -471,7 +462,62 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>${warehouse.db.port}</attribute>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>warehouse</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>warehouse20181108</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e49b15af7e8cc0abd5</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -501,13 +547,13 @@
   </connection>
   <order>
     <hop>
-      <from>Table input</from>
-      <to>Table output</to>
+      <from>Visits</from>
+      <to>visits_output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Table input</name>
+    <name>Visits</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -518,9 +564,16 @@
       <schema_name/>
     </partitioning>
     <connection>warehouse</connection>
-    <sql>SELECT Distinct patient_id, encounter_date, CONCAT(patient_id,"-",encounter_date) as visit_id
-from omrs_encounter
-</sql>
+    <sql>SELECT 
+  md5(patient_id) as patient_id,
+  encounter_date,
+  CONCAT(md5(patient_id),"-",  
+		adddate( makedate(year(encounter_date),1),
+				INTERVAL (floor(MONTH(encounter_date)/4)) quarter)
+	) as visit_id
+
+FROM rw_calculated_visit
+;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -534,13 +587,13 @@ from omrs_encounter
       </output>
     </remotesteps>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>128</yloc>
+      <xloc>240</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Table output</name>
+    <name>visits_output</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -550,7 +603,7 @@ from omrs_encounter
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>warehouse</connection>
+    <connection>anonymized</connection>
     <schema/>
     <table>rw_calculated_visit</table>
     <commit>1000</commit>
@@ -589,8 +642,8 @@ from omrs_encounter
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>128</yloc>
+      <xloc>544</xloc>
+      <yloc>304</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

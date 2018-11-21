@@ -7,38 +7,399 @@
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>1</trans_status>
-    <directory>&#x2f;</directory>
+    <directory>/</directory>
     <parameters>
     </parameters>
     <log>
-<trans-log-table><connection/>
-<schema/>
-<table/>
-<size_limit_lines/>
-<interval/>
-<timeout_days/>
-<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></trans-log-table>
-<perf-log-table><connection/>
-<schema/>
-<table/>
-<interval/>
-<timeout_days/>
-<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
-<channel-log-table><connection/>
-<schema/>
-<table/>
-<timeout_days/>
-<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
-<step-log-table><connection/>
-<schema/>
-<table/>
-<timeout_days/>
-<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
-<metrics-log-table><connection/>
-<schema/>
-<table/>
-<timeout_days/>
-<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>METRICS_DATE</id><enabled>Y</enabled><name>METRICS_DATE</name></field><field><id>METRICS_CODE</id><enabled>Y</enabled><name>METRICS_CODE</name></field><field><id>METRICS_DESCRIPTION</id><enabled>Y</enabled><name>METRICS_DESCRIPTION</name></field><field><id>METRICS_SUBJECT</id><enabled>Y</enabled><name>METRICS_SUBJECT</name></field><field><id>METRICS_TYPE</id><enabled>Y</enabled><name>METRICS_TYPE</name></field><field><id>METRICS_VALUE</id><enabled>Y</enabled><name>METRICS_VALUE</name></field></metrics-log-table>
+      <trans-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>TRANSNAME</id>
+          <enabled>Y</enabled>
+          <name>TRANSNAME</name>
+        </field>
+        <field>
+          <id>STATUS</id>
+          <enabled>Y</enabled>
+          <name>STATUS</name>
+        </field>
+        <field>
+          <id>LINES_READ</id>
+          <enabled>Y</enabled>
+          <name>LINES_READ</name>
+          <subject/>
+        </field>
+        <field>
+          <id>LINES_WRITTEN</id>
+          <enabled>Y</enabled>
+          <name>LINES_WRITTEN</name>
+          <subject/>
+        </field>
+        <field>
+          <id>LINES_UPDATED</id>
+          <enabled>Y</enabled>
+          <name>LINES_UPDATED</name>
+          <subject/>
+        </field>
+        <field>
+          <id>LINES_INPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_INPUT</name>
+          <subject/>
+        </field>
+        <field>
+          <id>LINES_OUTPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_OUTPUT</name>
+          <subject/>
+        </field>
+        <field>
+          <id>LINES_REJECTED</id>
+          <enabled>Y</enabled>
+          <name>LINES_REJECTED</name>
+          <subject/>
+        </field>
+        <field>
+          <id>ERRORS</id>
+          <enabled>Y</enabled>
+          <name>ERRORS</name>
+        </field>
+        <field>
+          <id>STARTDATE</id>
+          <enabled>Y</enabled>
+          <name>STARTDATE</name>
+        </field>
+        <field>
+          <id>ENDDATE</id>
+          <enabled>Y</enabled>
+          <name>ENDDATE</name>
+        </field>
+        <field>
+          <id>LOGDATE</id>
+          <enabled>Y</enabled>
+          <name>LOGDATE</name>
+        </field>
+        <field>
+          <id>DEPDATE</id>
+          <enabled>Y</enabled>
+          <name>DEPDATE</name>
+        </field>
+        <field>
+          <id>REPLAYDATE</id>
+          <enabled>Y</enabled>
+          <name>REPLAYDATE</name>
+        </field>
+        <field>
+          <id>LOG_FIELD</id>
+          <enabled>Y</enabled>
+          <name>LOG_FIELD</name>
+        </field>
+        <field>
+          <id>EXECUTING_SERVER</id>
+          <enabled>N</enabled>
+          <name>EXECUTING_SERVER</name>
+        </field>
+        <field>
+          <id>EXECUTING_USER</id>
+          <enabled>N</enabled>
+          <name>EXECUTING_USER</name>
+        </field>
+        <field>
+          <id>CLIENT</id>
+          <enabled>N</enabled>
+          <name>CLIENT</name>
+        </field>
+      </trans-log-table>
+      <perf-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>SEQ_NR</id>
+          <enabled>Y</enabled>
+          <name>SEQ_NR</name>
+        </field>
+        <field>
+          <id>LOGDATE</id>
+          <enabled>Y</enabled>
+          <name>LOGDATE</name>
+        </field>
+        <field>
+          <id>TRANSNAME</id>
+          <enabled>Y</enabled>
+          <name>TRANSNAME</name>
+        </field>
+        <field>
+          <id>STEPNAME</id>
+          <enabled>Y</enabled>
+          <name>STEPNAME</name>
+        </field>
+        <field>
+          <id>STEP_COPY</id>
+          <enabled>Y</enabled>
+          <name>STEP_COPY</name>
+        </field>
+        <field>
+          <id>LINES_READ</id>
+          <enabled>Y</enabled>
+          <name>LINES_READ</name>
+        </field>
+        <field>
+          <id>LINES_WRITTEN</id>
+          <enabled>Y</enabled>
+          <name>LINES_WRITTEN</name>
+        </field>
+        <field>
+          <id>LINES_UPDATED</id>
+          <enabled>Y</enabled>
+          <name>LINES_UPDATED</name>
+        </field>
+        <field>
+          <id>LINES_INPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_INPUT</name>
+        </field>
+        <field>
+          <id>LINES_OUTPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_OUTPUT</name>
+        </field>
+        <field>
+          <id>LINES_REJECTED</id>
+          <enabled>Y</enabled>
+          <name>LINES_REJECTED</name>
+        </field>
+        <field>
+          <id>ERRORS</id>
+          <enabled>Y</enabled>
+          <name>ERRORS</name>
+        </field>
+        <field>
+          <id>INPUT_BUFFER_ROWS</id>
+          <enabled>Y</enabled>
+          <name>INPUT_BUFFER_ROWS</name>
+        </field>
+        <field>
+          <id>OUTPUT_BUFFER_ROWS</id>
+          <enabled>Y</enabled>
+          <name>OUTPUT_BUFFER_ROWS</name>
+        </field>
+      </perf-log-table>
+      <channel-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>LOG_DATE</id>
+          <enabled>Y</enabled>
+          <name>LOG_DATE</name>
+        </field>
+        <field>
+          <id>LOGGING_OBJECT_TYPE</id>
+          <enabled>Y</enabled>
+          <name>LOGGING_OBJECT_TYPE</name>
+        </field>
+        <field>
+          <id>OBJECT_NAME</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_NAME</name>
+        </field>
+        <field>
+          <id>OBJECT_COPY</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_COPY</name>
+        </field>
+        <field>
+          <id>REPOSITORY_DIRECTORY</id>
+          <enabled>Y</enabled>
+          <name>REPOSITORY_DIRECTORY</name>
+        </field>
+        <field>
+          <id>FILENAME</id>
+          <enabled>Y</enabled>
+          <name>FILENAME</name>
+        </field>
+        <field>
+          <id>OBJECT_ID</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_ID</name>
+        </field>
+        <field>
+          <id>OBJECT_REVISION</id>
+          <enabled>Y</enabled>
+          <name>OBJECT_REVISION</name>
+        </field>
+        <field>
+          <id>PARENT_CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>PARENT_CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>ROOT_CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>ROOT_CHANNEL_ID</name>
+        </field>
+      </channel-log-table>
+      <step-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>LOG_DATE</id>
+          <enabled>Y</enabled>
+          <name>LOG_DATE</name>
+        </field>
+        <field>
+          <id>TRANSNAME</id>
+          <enabled>Y</enabled>
+          <name>TRANSNAME</name>
+        </field>
+        <field>
+          <id>STEPNAME</id>
+          <enabled>Y</enabled>
+          <name>STEPNAME</name>
+        </field>
+        <field>
+          <id>STEP_COPY</id>
+          <enabled>Y</enabled>
+          <name>STEP_COPY</name>
+        </field>
+        <field>
+          <id>LINES_READ</id>
+          <enabled>Y</enabled>
+          <name>LINES_READ</name>
+        </field>
+        <field>
+          <id>LINES_WRITTEN</id>
+          <enabled>Y</enabled>
+          <name>LINES_WRITTEN</name>
+        </field>
+        <field>
+          <id>LINES_UPDATED</id>
+          <enabled>Y</enabled>
+          <name>LINES_UPDATED</name>
+        </field>
+        <field>
+          <id>LINES_INPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_INPUT</name>
+        </field>
+        <field>
+          <id>LINES_OUTPUT</id>
+          <enabled>Y</enabled>
+          <name>LINES_OUTPUT</name>
+        </field>
+        <field>
+          <id>LINES_REJECTED</id>
+          <enabled>Y</enabled>
+          <name>LINES_REJECTED</name>
+        </field>
+        <field>
+          <id>ERRORS</id>
+          <enabled>Y</enabled>
+          <name>ERRORS</name>
+        </field>
+        <field>
+          <id>LOG_FIELD</id>
+          <enabled>N</enabled>
+          <name>LOG_FIELD</name>
+        </field>
+      </step-log-table>
+      <metrics-log-table>
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
+        <field>
+          <id>ID_BATCH</id>
+          <enabled>Y</enabled>
+          <name>ID_BATCH</name>
+        </field>
+        <field>
+          <id>CHANNEL_ID</id>
+          <enabled>Y</enabled>
+          <name>CHANNEL_ID</name>
+        </field>
+        <field>
+          <id>LOG_DATE</id>
+          <enabled>Y</enabled>
+          <name>LOG_DATE</name>
+        </field>
+        <field>
+          <id>METRICS_DATE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_DATE</name>
+        </field>
+        <field>
+          <id>METRICS_CODE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_CODE</name>
+        </field>
+        <field>
+          <id>METRICS_DESCRIPTION</id>
+          <enabled>Y</enabled>
+          <name>METRICS_DESCRIPTION</name>
+        </field>
+        <field>
+          <id>METRICS_SUBJECT</id>
+          <enabled>Y</enabled>
+          <name>METRICS_SUBJECT</name>
+        </field>
+        <field>
+          <id>METRICS_TYPE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_TYPE</name>
+        </field>
+        <field>
+          <id>METRICS_VALUE</id>
+          <enabled>Y</enabled>
+          <name>METRICS_VALUE</name>
+        </field>
+      </metrics-log-table>
     </log>
     <maxdate>
       <connection/>
@@ -66,86 +427,244 @@
     </slaveservers>
     <clusterschemas>
     </clusterschemas>
-  <created_user>-</created_user>
-  <created_date>2017&#x2f;06&#x2f;01 06&#x3a;07&#x3a;02.756</created_date>
-  <modified_user>-</modified_user>
-  <modified_date>2017&#x2f;06&#x2f;01 06&#x3a;07&#x3a;02.756</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <created_user>-</created_user>
+    <created_date>2017/06/01 06:07:02.756</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2017/06/01 06:07:02.756</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
     <name>Anonymized</name>
-    <server>&#x24;&#x7b;anonymized.db.host&#x7d;</server>
+    <server>${anonymized.db.host}</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>&#x24;&#x7b;anonymized.db.name&#x7d;</database>
-    <port>&#x24;&#x7b;anonymized.db.port&#x7d;</port>
-    <username>&#x24;&#x7b;anonymized.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;anonymized.db.password&#x7d;</password>
+    <database>${anonymized.db.name}</database>
+    <port>${anonymized.db.port}</port>
+    <username>${anonymized.db.user}</username>
+    <password>${anonymized.db.password}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;anonymized.db.port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCompression</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code>
+        <attribute>false</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>${anonymized.db.port}</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
     </attributes>
   </connection>
   <connection>
     <name>Warehouse</name>
-    <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+    <server>${warehouse.db.host}</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
-    <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
-    <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
-    <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
+    <database>${warehouse.db.name}</database>
+    <port>${warehouse.db.port}</port>
+    <username>${warehouse.db.user}</username>
+    <password>${warehouse.db.password}</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;warehouse.db.port&#x7d;</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCompression</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code>
+        <attribute>false</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>${warehouse.db.port}</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
     </attributes>
   </connection>
   <order>
-  <hop> <from>location</from><to>location output</to><enabled>Y</enabled> </hop>
-  <hop> <from>obs</from><to>obs output</to><enabled>Y</enabled> </hop>
-  <hop> <from>patient</from><to>patient output</to><enabled>Y</enabled> </hop>
-  <hop> <from>relationship</from><to>relationship_output</to><enabled>Y</enabled> </hop>
-  <hop> <from>order</from><to>order output</to><enabled>Y</enabled> </hop>
-  <hop> <from>Patient State</from><to>patient_state_output</to><enabled>Y</enabled> </hop>
-  <hop> <from>Program Enrollment</from><to>program_enrollment_output</to><enabled>Y</enabled> </hop>
-  <hop> <from>encounter</from><to>encounter output</to><enabled>Y</enabled> </hop>
+    <hop>
+      <from>location</from>
+      <to>location output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>obs</from>
+      <to>obs output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>patient</from>
+      <to>patient output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>relationship</from>
+      <to>relationship_output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>order</from>
+      <to>order output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Patient State</from>
+      <to>patient_state_output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Program Enrollment</from>
+      <to>program_enrollment_output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>encounter</from>
+      <to>encounter output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Visits</from>
+      <to>visits_output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>pdc_z_score_input</from>
+      <to>pdc_z_score_input output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>onc_diangosis</from>
+      <to>onc diagnosis output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>order group</from>
+      <to>order group output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>last_vl_include_blanks</from>
+      <to>last_vl_include_blanks output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>last_obs_in_period</from>
+      <to>last_obs_in_period_output</to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name>Patient State</name>
@@ -154,25 +673,49 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;program_state_id &#x29;,&#xd;&#xa;  md5&#x28;program_enrollment_id&#x29; ,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  program ,&#xd;&#xa;  workflow ,&#xd;&#xa;  state ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  start_date ,&#xd;&#xa;  age_years_at_start ,&#xd;&#xa;  age_months_at_start,&#xd;&#xa;  end_date ,&#xd;&#xa;  age_years_at_end ,&#xd;&#xa;  age_months_at_end,&#xd;&#xa;  location &#xd;&#xa;FROM omrs_program_state&#xd;&#xa;&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT 
+  md5(program_state_id ),
+  md5(program_enrollment_id) ,
+  md5(patient_id) ,
+  program ,
+  workflow ,
+  state ,
+	md5(uuid) as uuid,
+  adddate( makedate(year(start_date),1),
+		INTERVAL (floor(MONTH(start_date)/4)) quarter) as  start_date ,
+  age_years_at_start ,
+  1+ floor(age_months_at_start/4) as age_months_at_start,
+  adddate( makedate(year(end_date),1),
+		INTERVAL (floor(MONTH(end_date)/4)) quarter) as  end_date  ,
+  age_years_at_end ,
+  1+ floor(age_months_at_end/4) as age_months_at_end,
+  location 
+FROM omrs_program_state
+;
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>608</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>Program Enrollment</name>
     <type>TableInput</type>
@@ -180,25 +723,87 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;program_enrollment_id &#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  program ,&#xd;&#xa;  md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  enrollment_date ,&#xd;&#xa;  age_years_at_enrollment ,&#xd;&#xa;  age_months_at_enrollment,&#xd;&#xa;  location ,&#xd;&#xa;  completion_date ,&#xd;&#xa;  age_years_at_completion ,&#xd;&#xa;  age_months_at_completion,&#xd;&#xa;  outcome &#xd;&#xa;FROM omrs_program_enrollment&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
+    <sql>SELECT 
+  md5(program_enrollment_id ),
+  md5(patient_id) ,
+  program ,
+  md5(uuid) as uuid,
+  adddate( makedate(year(enrollment_date),1),
+		INTERVAL (floor(MONTH(enrollment_date)/4)) quarter) as   enrollment_date ,
+  age_years_at_enrollment ,
+  1+ floor(age_months_at_enrollment/4) as age_months_at_enrollment,
+  location ,
+  adddate( makedate(year(completion_date),1),
+		INTERVAL (floor(MONTH(completion_date)/4)) quarter) as  completion_date  ,
+  age_years_at_completion ,
+  1+ floor(age_months_at_completion/4) as age_months_at_completion,
+  outcome 
+FROM omrs_program_enrollment;
+
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>608</xloc>
       <yloc>48</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
+    </GUI>
+  </step>
+  <step>
+    <name>Visits</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT 
+  md5(patient_id) as patient_id,
+  encounter_date,
+  CONCAT(md5(patient_id),"-",  
+		adddate( makedate(year(encounter_date),1),
+				INTERVAL (floor(MONTH(encounter_date)/4)) quarter)
+	) as visit_id
 
+FROM rw_calculated_visit
+;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>encounter</name>
     <type>TableInput</type>
@@ -206,25 +811,44 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;	md5&#x28;encounter_id&#x29;,&#xd;&#xa;	md5&#x28;patient_id&#x29;,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;	encounter_type,&#xd;&#xa;	form,&#xd;&#xa;	location,&#xd;&#xa;	encounter_date,&#xd;&#xa;	age_years_at_encounter,&#xd;&#xa;	1&#x2b; floor&#x28;age_months_at_encounter&#x2f;4&#x29; as age_months_at_encounter,&#xd;&#xa;	date_created&#xd;&#xa;	&#xd;&#xa;FROM omrs_encounter&#x3b;</sql>
+    <sql>SELECT 
+	md5(encounter_id),
+	md5(patient_id),
+	md5(uuid) as uuid,
+	encounter_type,
+	form,
+	location,
+	adddate( makedate(year(encounter_date),1),
+		INTERVAL (floor(MONTH(encounter_date)/4)) quarter) as encounter_date,
+	age_years_at_encounter,
+	1+ floor(age_months_at_encounter/4) as age_months_at_encounter,
+	adddate( makedate(year(date_created),1),
+		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created
+	
+FROM omrs_encounter;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>144</xloc>
       <yloc>48</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>encounter output</name>
     <type>TableOutput</type>
@@ -232,10 +856,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>omrs_encounter</table>
@@ -254,55 +878,338 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>encounter_id</column_name>
-          <stream_name>md5&#x28;encounter_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>md5&#x28;patient_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_type</column_name>
-          <stream_name>encounter_type</stream_name>
-        </field>
-        <field>
-          <column_name>form</column_name>
-          <stream_name>form</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_date</column_name>
-          <stream_name>encounter_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_encounter</column_name>
-          <stream_name>age_years_at_encounter</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_encounter</column_name>
-          <stream_name>age_months_at_encounter</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
+      <field>
+        <column_name>encounter_id</column_name>
+        <stream_name>md5(encounter_id)</stream_name>
+      </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>md5(patient_id)</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_type</column_name>
+        <stream_name>encounter_type</stream_name>
+      </field>
+      <field>
+        <column_name>form</column_name>
+        <stream_name>form</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_date</column_name>
+        <stream_name>encounter_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_encounter</column_name>
+        <stream_name>age_years_at_encounter</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_encounter</column_name>
+        <stream_name>age_months_at_encounter</stream_name>
+      </field>
+      <field>
+        <column_name>date_created</column_name>
+        <stream_name>date_created</stream_name>
+      </field>
+      <field>
+        <column_name>uuid</column_name>
+        <stream_name>uuid</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>304</xloc>
       <yloc>48</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
+    </GUI>
+  </step>
+  <step>
+    <name>last_obs_in_period</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT 
 
+	md5(patient_id) as patient_id ,
+    concept ,
+    md5(obs_id) as obs_id ,
+    adddate( makedate(year(end_date),1),
+		INTERVAL (floor(MONTH(end_date)/4)) quarter) as end_date,
+    adddate( makedate(year(last_obs_date),1),
+		INTERVAL (floor(MONTH(last_obs_date)/4)) quarter) as last_obs_date,
+    encounter_type ,
+    location ,
+    value_coded ,
+	adddate( makedate(year(value_date),1),
+		INTERVAL (floor(MONTH(value_date)/4)) quarter) as value_date,
+    value_numeric ,
+    value_text ,
+    md5(obs_group_id) as obs_group_id
+FROM rw_last_obs_in_period;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>144</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>last_obs_in_period_output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Anonymized</connection>
+    <schema/>
+    <table>rw_last_obs_in_period</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>patient_id</stream_name>
+      </field>
+      <field>
+        <column_name>concept</column_name>
+        <stream_name>concept</stream_name>
+      </field>
+      <field>
+        <column_name>obs_id</column_name>
+        <stream_name>obs_id</stream_name>
+      </field>
+      <field>
+        <column_name>end_date</column_name>
+        <stream_name>end_date</stream_name>
+      </field>
+      <field>
+        <column_name>last_obs_date</column_name>
+        <stream_name>last_obs_date</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_type</column_name>
+        <stream_name>encounter_type</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>value_coded</column_name>
+        <stream_name>value_coded</stream_name>
+      </field>
+      <field>
+        <column_name>value_date</column_name>
+        <stream_name>value_date</stream_name>
+      </field>
+      <field>
+        <column_name>value_numeric</column_name>
+        <stream_name>value_numeric</stream_name>
+      </field>
+      <field>
+        <column_name>value_text</column_name>
+        <stream_name>value_text</stream_name>
+      </field>
+      <field>
+        <column_name>obs_group_id</column_name>
+        <stream_name>obs_group_id</stream_name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>last_vl_include_blanks</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT 
+    md5(patient_id) as patient_id,
+    concept,
+    md5(obs_id) as obs_id,
+	end_date,
+    adddate(makedate(year(last_obs_date),1), 
+		INTERVAL(floor(MONTH(last_obs_date)/4)) quarter) as last_obs_date,
+    encounter_type ,
+    location,
+    value_coded ,
+	adddate(makedate(year(value_date),1), 
+		INTERVAL(floor(MONTH(value_date)/4)) quarter) as value_date,
+    value_numeric ,
+    value_text ,
+    md5(obs_group_id) as obs_group_id
+FROM rw_last_vl_include_blanks;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>144</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>last_vl_include_blanks output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Anonymized</connection>
+    <schema/>
+    <table>rw_last_vl_include_blanks</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>patient_id</stream_name>
+      </field>
+      <field>
+        <column_name>concept</column_name>
+        <stream_name>concept</stream_name>
+      </field>
+      <field>
+        <column_name>obs_id</column_name>
+        <stream_name>obs_id</stream_name>
+      </field>
+      <field>
+        <column_name>end_date</column_name>
+        <stream_name>end_date</stream_name>
+      </field>
+      <field>
+        <column_name>last_obs_date</column_name>
+        <stream_name>last_obs_date</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_type</column_name>
+        <stream_name>encounter_type</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>value_coded</column_name>
+        <stream_name>value_coded</stream_name>
+      </field>
+      <field>
+        <column_name>value_date</column_name>
+        <stream_name>value_date</stream_name>
+      </field>
+      <field>
+        <column_name>value_numeric</column_name>
+        <stream_name>value_numeric</stream_name>
+      </field>
+      <field>
+        <column_name>value_text</column_name>
+        <stream_name>value_text</stream_name>
+      </field>
+      <field>
+        <column_name>obs_group_id</column_name>
+        <stream_name>obs_group_id</stream_name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>location</name>
     <type>TableInput</type>
@@ -310,25 +1217,42 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;    location_id,&#xd;&#xa;	name,&#xd;&#xa;	description ,&#xd;&#xa;	address1,&#xd;&#xa;	address2,&#xd;&#xa;	address3,&#xd;&#xa;	address4,&#xd;&#xa;	city_village,&#xd;&#xa;	state_province,&#xd;&#xa;	country,&#xd;&#xa;	county_district&#xd;&#xa;FROM rw_location&#x3b;</sql>
+    <sql>SELECT 
+    location_id,
+	name,
+	description ,
+	address1,
+	address2,
+	address3,
+	address4,
+	city_village,
+	state_province,
+	country,
+	county_district
+FROM rw_location;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>144</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>location output</name>
     <type>TableOutput</type>
@@ -336,10 +1260,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>rw_location</table>
@@ -358,59 +1282,64 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>location_id</column_name>
-          <stream_name>location_id</stream_name>
-        </field>
-        <field>
-          <column_name>name</column_name>
-          <stream_name>name</stream_name>
-        </field>
-        <field>
-          <column_name>description</column_name>
-          <stream_name>description</stream_name>
-        </field>
-        <field>
-          <column_name>address1</column_name>
-          <stream_name>address1</stream_name>
-        </field>
-        <field>
-          <column_name>address2</column_name>
-          <stream_name>address2</stream_name>
-        </field>
-        <field>
-          <column_name>address3</column_name>
-          <stream_name>address3</stream_name>
-        </field>
-        <field>
-          <column_name>address4</column_name>
-          <stream_name>address4</stream_name>
-        </field>
-        <field>
-          <column_name>city_village</column_name>
-          <stream_name>city_village</stream_name>
-        </field>
-        <field>
-          <column_name>state_province</column_name>
-          <stream_name>state_province</stream_name>
-        </field>
-        <field>
-          <column_name>country</column_name>
-          <stream_name>country</stream_name>
-        </field>
-        <field>
-          <column_name>county_district</column_name>
-          <stream_name>county_district</stream_name>
-        </field>
+      <field>
+        <column_name>location_id</column_name>
+        <stream_name>location_id</stream_name>
+      </field>
+      <field>
+        <column_name>name</column_name>
+        <stream_name>name</stream_name>
+      </field>
+      <field>
+        <column_name>description</column_name>
+        <stream_name>description</stream_name>
+      </field>
+      <field>
+        <column_name>address1</column_name>
+        <stream_name>address1</stream_name>
+      </field>
+      <field>
+        <column_name>address2</column_name>
+        <stream_name>address2</stream_name>
+      </field>
+      <field>
+        <column_name>address3</column_name>
+        <stream_name>address3</stream_name>
+      </field>
+      <field>
+        <column_name>address4</column_name>
+        <stream_name>address4</stream_name>
+      </field>
+      <field>
+        <column_name>city_village</column_name>
+        <stream_name>city_village</stream_name>
+      </field>
+      <field>
+        <column_name>state_province</column_name>
+        <stream_name>state_province</stream_name>
+      </field>
+      <field>
+        <column_name>country</column_name>
+        <stream_name>country</stream_name>
+      </field>
+      <field>
+        <column_name>county_district</column_name>
+        <stream_name>county_district</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>304</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>obs</name>
     <type>TableInput</type>
@@ -418,25 +1347,53 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;obs_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id&#x29; ,&#xd;&#xa;  md5&#x28;encounter_id&#x29; ,&#xd;&#xa;  obs_date ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  age_years_at_obs ,&#xd;&#xa;  age_months_at_obs,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location ,&#xd;&#xa;  concept ,&#xd;&#xa;  value_coded ,&#xd;&#xa;  value_date,&#xd;&#xa;  value_numeric,&#xd;&#xa;  value_text ,&#xd;&#xa;  comments ,&#xd;&#xa;  md5&#x28;obs_group_id&#x29;,&#xd;&#xa;  date_created&#xd;&#xa;&#xd;&#xa;FROM omrs_obs&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT 
+  md5(obs_id),
+  md5(patient_id) ,
+  md5(encounter_id) ,
+  adddate( makedate(year(obs_date),1),
+		INTERVAL (floor(MONTH(obs_date)/4)) quarter) as obs_date,
+	md5(uuid) as uuid,
+  age_years_at_obs ,
+  1+ floor(age_months_at_obs/4) as age_months_at_obs,  encounter_type ,
+  location ,
+  concept ,
+  value_coded ,
+  adddate( makedate(year(value_date),1),
+		INTERVAL (floor(MONTH(value_date)/4)) quarter) as value_date,
+  value_numeric,
+  value_text ,
+  comments ,
+  md5(obs_group_id),
+  adddate( makedate(year(date_created),1),
+		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created,
+  form
+
+FROM omrs_obs;
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>144</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>obs output</name>
     <type>TableOutput</type>
@@ -444,10 +1401,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>omrs_obs</table>
@@ -466,83 +1423,272 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>obs_id</column_name>
-          <stream_name>md5&#x28;obs_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>md5&#x28;patient_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_id</column_name>
-          <stream_name>md5&#x28;encounter_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_obs</column_name>
-          <stream_name>age_years_at_obs</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_obs</column_name>
-          <stream_name>age_months_at_obs</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_type</column_name>
-          <stream_name>encounter_type</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>concept</column_name>
-          <stream_name>concept</stream_name>
-        </field>
-        <field>
-          <column_name>value_coded</column_name>
-          <stream_name>value_coded</stream_name>
-        </field>
-        <field>
-          <column_name>value_date</column_name>
-          <stream_name>value_date</stream_name>
-        </field>
-        <field>
-          <column_name>value_numeric</column_name>
-          <stream_name>value_numeric</stream_name>
-        </field>
-        <field>
-          <column_name>value_text</column_name>
-          <stream_name>value_text</stream_name>
-        </field>
-        <field>
-          <column_name>comments</column_name>
-          <stream_name>comments</stream_name>
-        </field>
-        <field>
-          <column_name>obs_group_id</column_name>
-          <stream_name>md5&#x28;obs_group_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>obs_date</column_name>
-          <stream_name>obs_date</stream_name>
-        </field>
+      <field>
+        <column_name>obs_id</column_name>
+        <stream_name>md5(obs_id)</stream_name>
+      </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>md5(patient_id)</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_id</column_name>
+        <stream_name>md5(encounter_id)</stream_name>
+      </field>
+      <field>
+        <column_name>date_created</column_name>
+        <stream_name>date_created</stream_name>
+      </field>
+      <field>
+        <column_name>uuid</column_name>
+        <stream_name>uuid</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_obs</column_name>
+        <stream_name>age_years_at_obs</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_obs</column_name>
+        <stream_name>age_months_at_obs</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_type</column_name>
+        <stream_name>encounter_type</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>concept</column_name>
+        <stream_name>concept</stream_name>
+      </field>
+      <field>
+        <column_name>value_coded</column_name>
+        <stream_name>value_coded</stream_name>
+      </field>
+      <field>
+        <column_name>value_date</column_name>
+        <stream_name>value_date</stream_name>
+      </field>
+      <field>
+        <column_name>value_numeric</column_name>
+        <stream_name>value_numeric</stream_name>
+      </field>
+      <field>
+        <column_name>value_text</column_name>
+        <stream_name>value_text</stream_name>
+      </field>
+      <field>
+        <column_name>comments</column_name>
+        <stream_name>comments</stream_name>
+      </field>
+      <field>
+        <column_name>obs_group_id</column_name>
+        <stream_name>md5(obs_group_id)</stream_name>
+      </field>
+      <field>
+        <column_name>obs_date</column_name>
+        <stream_name>obs_date</stream_name>
+      </field>
+      <field>
+        <column_name>form</column_name>
+        <stream_name>form</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>304</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
+  <step>
+    <name>onc diagnosis output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Anonymized</connection>
+    <schema/>
+    <table>rw_onc_diagnosis</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>program_state_id</column_name>
+        <stream_name>md5(program_state_id)</stream_name>
+      </field>
+      <field>
+        <column_name>diagnosis_status_program_enrollment_id</column_name>
+        <stream_name>md5(diagnosis_status_program_enrollment_id)</stream_name>
+      </field>
+      <field>
+        <column_name>program_enrollment_id</column_name>
+        <stream_name>md5(program_enrollment_id)</stream_name>
+      </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>md5(patient_id )</stream_name>
+      </field>
+      <field>
+        <column_name>diagnosis_status_patient_id</column_name>
+        <stream_name>md5(diagnosis_status_patient_id)</stream_name>
+      </field>
+      <field>
+        <column_name>program</column_name>
+        <stream_name>program</stream_name>
+      </field>
+      <field>
+        <column_name>diagnosis_status_program</column_name>
+        <stream_name>diagnosis_status_program</stream_name>
+      </field>
+      <field>
+        <column_name>workflow</column_name>
+        <stream_name>workflow</stream_name>
+      </field>
+      <field>
+        <column_name>diagnosis_status_workflow</column_name>
+        <stream_name>diagnosis_status_workflow</stream_name>
+      </field>
+      <field>
+        <column_name>state</column_name>
+        <stream_name>state</stream_name>
+      </field>
+      <field>
+        <column_name>diagnosis_status</column_name>
+        <stream_name>diagnosis_status</stream_name>
+      </field>
+      <field>
+        <column_name>start_date</column_name>
+        <stream_name>start_date</stream_name>
+      </field>
+      <field>
+        <column_name>diagnosis_status_start_date</column_name>
+        <stream_name>diagnosis_status_start_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_start</column_name>
+        <stream_name>age_years_at_start</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_start</column_name>
+        <stream_name>age_months_at_start</stream_name>
+      </field>
+      <field>
+        <column_name>end_date</column_name>
+        <stream_name>end_date</stream_name>
+      </field>
+      <field>
+        <column_name>diagnosis_status_end_date</column_name>
+        <stream_name>diagnosis_status_end_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_end</column_name>
+        <stream_name>age_years_at_end</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_end</column_name>
+        <stream_name>age_months_at_end</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>304</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>onc_diangosis</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT 
+  md5(program_state_id) ,
+  md5(diagnosis_status_program_enrollment_id) ,
+  md5(program_enrollment_id) ,
+  md5(patient_id ),
+  md5(diagnosis_status_patient_id) ,
+  program ,
+  diagnosis_status_program ,
+  workflow ,
+  diagnosis_status_workflow ,
+  state ,
+  diagnosis_status ,
+  adddate( makedate(year(start_date),1),
+		INTERVAL (floor(MONTH(start_date)/4)) quarter) as start_date ,
+  adddate( makedate(year(diagnosis_status_start_date ),1),
+		INTERVAL (floor(MONTH(diagnosis_status_start_date )/4)) quarter) as diagnosis_status_start_date ,
+  age_years_at_start ,
+  1+ floor(age_months_at_start/4) as age_months_at_start     ,
+  adddate( makedate(year(end_date),1),
+		INTERVAL (floor(MONTH(end_date)/4)) quarter) as   end_date ,
+  adddate( makedate(year( diagnosis_status_end_date),1),
+		INTERVAL (floor(MONTH( diagnosis_status_end_date)/4)) quarter) as   diagnosis_status_end_date ,
+  age_years_at_end ,
+  1+ floor(age_months_at_end /4) as age_months_at_end ,
+  location 
+FROM rw_onc_diagnosis;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>144</xloc>
+      <yloc>368</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>order</name>
     <type>TableInput</type>
@@ -550,25 +1696,182 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;order_id&#x29; ,&#xd;&#xa;  order_type_id ,&#xd;&#xa;  concept ,&#xd;&#xa;  orderer ,&#xd;&#xa;  instructions ,&#xd;&#xa;  start_date ,&#xd;&#xa;  auto_expire_date ,&#xd;&#xa;  discontinued_date,&#xd;&#xa;  discontinued_by ,&#xd;&#xa;  discontinued_reason ,&#xd;&#xa;  patient_id ,&#xd;&#xa;  discontinued_reason_non_coded ,&#xd;&#xa;  urgency ,&#xd;&#xa;  date_created ,&#xd;&#xa;  md5&#x28;encounter_id &#x29;,&#xd;&#xa;  encounter_type ,&#xd;&#xa;  location &#xd;&#xa;FROM rw_order&#x3b;&#xd;&#xa;</sql>
+    <sql>SELECT 
+  md5(order_id) ,
+  order_type_id ,
+  concept ,
+  orderer ,
+  instructions ,
+  adddate( makedate(year(start_date),1),
+		INTERVAL (floor(MONTH(start_date)/4)) quarter) as  start_date ,
+  adddate( makedate(year(auto_expire_date),1),
+		INTERVAL (floor(MONTH(auto_expire_date)/4)) quarter) as  auto_expire_date ,
+  adddate( makedate(year(discontinued_date),1),
+		INTERVAL (floor(MONTH(discontinued_date)/4)) quarter) as  discontinued_date,
+  discontinued_by ,
+  discontinued_reason ,
+  patient_id ,
+  discontinued_reason_non_coded ,
+  urgency ,
+  adddate( makedate(year(date_created),1),
+		INTERVAL (floor(MONTH(date_created)/4)) quarter) as  date_created  ,
+  md5(encounter_id ),
+  encounter_type ,
+  location,
+  md5(group_id),
+  order_index,
+  indication,
+  route,
+  administration_instructions,
+  dose,
+  equivalent_daily_dose,
+  units,
+  frequency,
+  prn,
+  complex,
+  quantity
+FROM rw_order;
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>608</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
+  <step>
+    <name>order group</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT 
+  md5(order_group_id) ,
+  group_type ,
+  cycle_number,
+  adddate( makedate(year(date_created),1),
+		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created,
+  order_set_uuid ,
+  order_set_name ,
+  order_set_description ,
+  indication 
+FROM rw_order_group;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>order group output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Anonymized</connection>
+    <schema/>
+    <table>rw_order_group</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>order_group_id</column_name>
+        <stream_name>md5(order_group_id)</stream_name>
+      </field>
+      <field>
+        <column_name>group_type</column_name>
+        <stream_name>group_type</stream_name>
+      </field>
+      <field>
+        <column_name>cycle_number</column_name>
+        <stream_name>cycle_number</stream_name>
+      </field>
+      <field>
+        <column_name>date_created</column_name>
+        <stream_name>date_created</stream_name>
+      </field>
+      <field>
+        <column_name>order_set_uuid</column_name>
+        <stream_name>order_set_uuid</stream_name>
+      </field>
+      <field>
+        <column_name>order_set_name</column_name>
+        <stream_name>order_set_name</stream_name>
+      </field>
+      <field>
+        <column_name>order_set_description</column_name>
+        <stream_name>order_set_description</stream_name>
+      </field>
+      <field>
+        <column_name>indication</column_name>
+        <stream_name>indication</stream_name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>912</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>order output</name>
     <type>TableOutput</type>
@@ -576,10 +1879,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>rw_order</table>
@@ -598,131 +1901,136 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>order_id</column_name>
-          <stream_name>md5&#x28;order_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>order_type_id</column_name>
-          <stream_name>order_type_id</stream_name>
-        </field>
-        <field>
-          <column_name>concept</column_name>
-          <stream_name>concept</stream_name>
-        </field>
-        <field>
-          <column_name>orderer</column_name>
-          <stream_name>orderer</stream_name>
-        </field>
-        <field>
-          <column_name>instructions</column_name>
-          <stream_name>instructions</stream_name>
-        </field>
-        <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
-        </field>
-        <field>
-          <column_name>auto_expire_date</column_name>
-          <stream_name>auto_expire_date</stream_name>
-        </field>
-        <field>
-          <column_name>discontinued_date</column_name>
-          <stream_name>discontinued_date</stream_name>
-        </field>
-        <field>
-          <column_name>discontinued_by</column_name>
-          <stream_name>discontinued_by</stream_name>
-        </field>
-        <field>
-          <column_name>discontinued_reason</column_name>
-          <stream_name>discontinued_reason</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>patient_id</stream_name>
-        </field>
-        <field>
-          <column_name>discontinued_reason_non_coded</column_name>
-          <stream_name>discontinued_reason_non_coded</stream_name>
-        </field>
-        <field>
-          <column_name>urgency</column_name>
-          <stream_name>urgency</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_id</column_name>
-          <stream_name>md5&#x28;encounter_id &#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>encounter_type</column_name>
-          <stream_name>encounter_type</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>group_id</column_name>
-          <stream_name>md5&#x28;group_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>order_index</column_name>
-          <stream_name>order_index</stream_name>
-        </field>
-        <field>
-          <column_name>indication</column_name>
-          <stream_name>indication</stream_name>
-        </field>
-        <field>
-          <column_name>route</column_name>
-          <stream_name>route</stream_name>
-        </field>
-        <field>
-          <column_name>administration_instructions</column_name>
-          <stream_name>administration_instructions</stream_name>
-        </field>
-        <field>
-          <column_name>dose</column_name>
-          <stream_name>dose</stream_name>
-        </field>
-        <field>
-          <column_name>equivalent_daily_dose</column_name>
-          <stream_name>equivalent_daily_dose</stream_name>
-        </field>
-        <field>
-          <column_name>units</column_name>
-          <stream_name>units</stream_name>
-        </field>
-        <field>
-          <column_name>frequency</column_name>
-          <stream_name>frequency</stream_name>
-        </field>
-        <field>
-          <column_name>prn</column_name>
-          <stream_name>prn</stream_name>
-        </field>
-        <field>
-          <column_name>complex</column_name>
-          <stream_name>complex</stream_name>
-        </field>
-        <field>
-          <column_name>quantity</column_name>
-          <stream_name>quantity</stream_name>
-        </field>
+      <field>
+        <column_name>order_id</column_name>
+        <stream_name>md5(order_id)</stream_name>
+      </field>
+      <field>
+        <column_name>order_type_id</column_name>
+        <stream_name>order_type_id</stream_name>
+      </field>
+      <field>
+        <column_name>concept</column_name>
+        <stream_name>concept</stream_name>
+      </field>
+      <field>
+        <column_name>orderer</column_name>
+        <stream_name>orderer</stream_name>
+      </field>
+      <field>
+        <column_name>instructions</column_name>
+        <stream_name>instructions</stream_name>
+      </field>
+      <field>
+        <column_name>start_date</column_name>
+        <stream_name>start_date</stream_name>
+      </field>
+      <field>
+        <column_name>auto_expire_date</column_name>
+        <stream_name>auto_expire_date</stream_name>
+      </field>
+      <field>
+        <column_name>discontinued_date</column_name>
+        <stream_name>discontinued_date</stream_name>
+      </field>
+      <field>
+        <column_name>discontinued_by</column_name>
+        <stream_name>discontinued_by</stream_name>
+      </field>
+      <field>
+        <column_name>discontinued_reason</column_name>
+        <stream_name>discontinued_reason</stream_name>
+      </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>patient_id</stream_name>
+      </field>
+      <field>
+        <column_name>discontinued_reason_non_coded</column_name>
+        <stream_name>discontinued_reason_non_coded</stream_name>
+      </field>
+      <field>
+        <column_name>urgency</column_name>
+        <stream_name>urgency</stream_name>
+      </field>
+      <field>
+        <column_name>date_created</column_name>
+        <stream_name>date_created</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_id</column_name>
+        <stream_name>md5(encounter_id )</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_type</column_name>
+        <stream_name>encounter_type</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>group_id</column_name>
+        <stream_name>md5(group_id)</stream_name>
+      </field>
+      <field>
+        <column_name>order_index</column_name>
+        <stream_name>order_index</stream_name>
+      </field>
+      <field>
+        <column_name>indication</column_name>
+        <stream_name>indication</stream_name>
+      </field>
+      <field>
+        <column_name>route</column_name>
+        <stream_name>route</stream_name>
+      </field>
+      <field>
+        <column_name>administration_instructions</column_name>
+        <stream_name>administration_instructions</stream_name>
+      </field>
+      <field>
+        <column_name>dose</column_name>
+        <stream_name>dose</stream_name>
+      </field>
+      <field>
+        <column_name>equivalent_daily_dose</column_name>
+        <stream_name>equivalent_daily_dose</stream_name>
+      </field>
+      <field>
+        <column_name>units</column_name>
+        <stream_name>units</stream_name>
+      </field>
+      <field>
+        <column_name>frequency</column_name>
+        <stream_name>frequency</stream_name>
+      </field>
+      <field>
+        <column_name>prn</column_name>
+        <stream_name>prn</stream_name>
+      </field>
+      <field>
+        <column_name>complex</column_name>
+        <stream_name>complex</stream_name>
+      </field>
+      <field>
+        <column_name>quantity</column_name>
+        <stream_name>quantity</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>912</xloc>
       <yloc>208</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>patient</name>
     <type>TableInput</type>
@@ -730,25 +2038,48 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;patient_id&#x29;,&#xd;&#xa;  gender ,&#xd;&#xa;  birthdate,&#xd;&#xa;  birthdate_estimated ,&#xd;&#xa;  country ,&#xd;&#xa;  state_province ,&#xd;&#xa;  county_district,&#xd;&#xa;  md5&#x28;patient_uuid&#x29;,&#xd;&#xa;  dead ,&#xd;&#xa;  death_date ,&#xd;&#xa;  age_years_at_death ,&#xd;&#xa;  age_months_at_death,&#xd;&#xa;  cause_of_death ,&#xd;&#xa;  health_center ,&#xd;&#xa;  date_created &#xd;&#xa;FROM omrs_patient&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
+    <sql>SELECT 
+  md5(patient_id),
+  gender ,
+  adddate( makedate(year(birthdate),1),
+		INTERVAL (floor(MONTH(birthdate)/4)) quarter) as birthdate,  birthdate_estimated ,
+  country ,
+  state_province ,
+  county_district,
+  md5(patient_uuid),
+  dead ,
+  adddate( makedate(year(death_date),1),
+		INTERVAL (floor(MONTH(death_date)/4)) quarter) as death_date ,  age_years_at_death ,
+  1+ floor(age_months_at_death/4) as age_months_at_death,
+  cause_of_death ,
+  health_center ,
+  adddate( makedate(year(date_created),1),
+		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created FROM omrs_patient;
+
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>144</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>patient output</name>
     <type>TableOutput</type>
@@ -756,10 +2087,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>omrs_patient</table>
@@ -778,75 +2109,80 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>md5&#x28;patient_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>gender</column_name>
-          <stream_name>gender</stream_name>
-        </field>
-        <field>
-          <column_name>birthdate</column_name>
-          <stream_name>birthdate</stream_name>
-        </field>
-        <field>
-          <column_name>birthdate_estimated</column_name>
-          <stream_name>birthdate_estimated</stream_name>
-        </field>
-        <field>
-          <column_name>country</column_name>
-          <stream_name>country</stream_name>
-        </field>
-        <field>
-          <column_name>state_province</column_name>
-          <stream_name>state_province</stream_name>
-        </field>
-        <field>
-          <column_name>county_district</column_name>
-          <stream_name>county_district</stream_name>
-        </field>
-        <field>
-          <column_name>patient_uuid</column_name>
-          <stream_name>md5&#x28;patient_uuid&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>dead</column_name>
-          <stream_name>dead</stream_name>
-        </field>
-        <field>
-          <column_name>death_date</column_name>
-          <stream_name>death_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_death</column_name>
-          <stream_name>age_years_at_death</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_death</column_name>
-          <stream_name>age_months_at_death</stream_name>
-        </field>
-        <field>
-          <column_name>cause_of_death</column_name>
-          <stream_name>cause_of_death</stream_name>
-        </field>
-        <field>
-          <column_name>health_center</column_name>
-          <stream_name>health_center</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>md5(patient_id)</stream_name>
+      </field>
+      <field>
+        <column_name>gender</column_name>
+        <stream_name>gender</stream_name>
+      </field>
+      <field>
+        <column_name>birthdate</column_name>
+        <stream_name>birthdate</stream_name>
+      </field>
+      <field>
+        <column_name>birthdate_estimated</column_name>
+        <stream_name>birthdate_estimated</stream_name>
+      </field>
+      <field>
+        <column_name>country</column_name>
+        <stream_name>country</stream_name>
+      </field>
+      <field>
+        <column_name>state_province</column_name>
+        <stream_name>state_province</stream_name>
+      </field>
+      <field>
+        <column_name>county_district</column_name>
+        <stream_name>county_district</stream_name>
+      </field>
+      <field>
+        <column_name>patient_uuid</column_name>
+        <stream_name>md5(patient_uuid)</stream_name>
+      </field>
+      <field>
+        <column_name>dead</column_name>
+        <stream_name>dead</stream_name>
+      </field>
+      <field>
+        <column_name>death_date</column_name>
+        <stream_name>death_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_death</column_name>
+        <stream_name>age_years_at_death</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_death</column_name>
+        <stream_name>age_months_at_death</stream_name>
+      </field>
+      <field>
+        <column_name>cause_of_death</column_name>
+        <stream_name>cause_of_death</stream_name>
+      </field>
+      <field>
+        <column_name>health_center</column_name>
+        <stream_name>health_center</stream_name>
+      </field>
+      <field>
+        <column_name>date_created</column_name>
+        <stream_name>date_created</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>304</xloc>
       <yloc>272</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>patient_state_output</name>
     <type>TableOutput</type>
@@ -854,10 +2190,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>omrs_program_state</table>
@@ -876,71 +2212,187 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>program_state_id</column_name>
-          <stream_name>md5&#x28;program_state_id &#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>program_enrollment_id</column_name>
-          <stream_name>md5&#x28;program_enrollment_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>md5&#x28;patient_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>program</column_name>
-          <stream_name>program</stream_name>
-        </field>
-        <field>
-          <column_name>workflow</column_name>
-          <stream_name>workflow</stream_name>
-        </field>
-        <field>
-          <column_name>state</column_name>
-          <stream_name>state</stream_name>
-        </field>
-        <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_start</column_name>
-          <stream_name>age_years_at_start</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_start</column_name>
-          <stream_name>age_months_at_start</stream_name>
-        </field>
-        <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_end</column_name>
-          <stream_name>age_years_at_end</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_end</column_name>
-          <stream_name>age_months_at_end</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
+      <field>
+        <column_name>program_state_id</column_name>
+        <stream_name>md5(program_state_id )</stream_name>
+      </field>
+      <field>
+        <column_name>program_enrollment_id</column_name>
+        <stream_name>md5(program_enrollment_id)</stream_name>
+      </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>md5(patient_id)</stream_name>
+      </field>
+      <field>
+        <column_name>program</column_name>
+        <stream_name>program</stream_name>
+      </field>
+      <field>
+        <column_name>workflow</column_name>
+        <stream_name>workflow</stream_name>
+      </field>
+      <field>
+        <column_name>state</column_name>
+        <stream_name>state</stream_name>
+      </field>
+      <field>
+        <column_name>start_date</column_name>
+        <stream_name>start_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_start</column_name>
+        <stream_name>age_years_at_start</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_start</column_name>
+        <stream_name>age_months_at_start</stream_name>
+      </field>
+      <field>
+        <column_name>end_date</column_name>
+        <stream_name>end_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_end</column_name>
+        <stream_name>age_years_at_end</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_end</column_name>
+        <stream_name>age_months_at_end</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>uuid</column_name>
+        <stream_name>uuid</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>912</xloc>
       <yloc>304</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
+  <step>
+    <name>pdc_z_score_input</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>SELECT 
+	md5(patient_id) patient_id ,
+    obs_date,
+    weight ,
+    clenhei,
+    lh ,
+    oedema ,
+    sex ,
+    agedays 
+FROM pdc_z_score_input</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>608</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>pdc_z_score_input output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Anonymized</connection>
+    <schema/>
+    <table>pdc_z_score_input</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>patient_id</stream_name>
+      </field>
+      <field>
+        <column_name>obs_date</column_name>
+        <stream_name>obs_date</stream_name>
+      </field>
+      <field>
+        <column_name>weight</column_name>
+        <stream_name>weight</stream_name>
+      </field>
+      <field>
+        <column_name>clenhei</column_name>
+        <stream_name>clenhei</stream_name>
+      </field>
+      <field>
+        <column_name>lh</column_name>
+        <stream_name>lh</stream_name>
+      </field>
+      <field>
+        <column_name>oedema</column_name>
+        <stream_name>oedema</stream_name>
+      </field>
+      <field>
+        <column_name>sex</column_name>
+        <stream_name>agedays</stream_name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>912</xloc>
+      <yloc>448</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step>
     <name>program_enrollment_output</name>
     <type>TableOutput</type>
@@ -948,10 +2400,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>omrs_program_enrollment</table>
@@ -970,63 +2422,68 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>program_enrollment_id</column_name>
-          <stream_name>md5&#x28;program_enrollment_id &#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>md5&#x28;patient_id&#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>program</column_name>
-          <stream_name>program</stream_name>
-        </field>
-        <field>
-          <column_name>enrollment_date</column_name>
-          <stream_name>enrollment_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_enrollment</column_name>
-          <stream_name>age_years_at_enrollment</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_enrollment</column_name>
-          <stream_name>age_months_at_enrollment</stream_name>
-        </field>
-        <field>
-          <column_name>location</column_name>
-          <stream_name>location</stream_name>
-        </field>
-        <field>
-          <column_name>completion_date</column_name>
-          <stream_name>completion_date</stream_name>
-        </field>
-        <field>
-          <column_name>age_years_at_completion</column_name>
-          <stream_name>age_years_at_completion</stream_name>
-        </field>
-        <field>
-          <column_name>age_months_at_completion</column_name>
-          <stream_name>age_months_at_completion</stream_name>
-        </field>
-        <field>
-          <column_name>outcome</column_name>
-          <stream_name>outcome</stream_name>
-        </field>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
+      <field>
+        <column_name>program_enrollment_id</column_name>
+        <stream_name>md5(program_enrollment_id )</stream_name>
+      </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>md5(patient_id)</stream_name>
+      </field>
+      <field>
+        <column_name>program</column_name>
+        <stream_name>program</stream_name>
+      </field>
+      <field>
+        <column_name>enrollment_date</column_name>
+        <stream_name>enrollment_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_enrollment</column_name>
+        <stream_name>age_years_at_enrollment</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_enrollment</column_name>
+        <stream_name>age_months_at_enrollment</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>completion_date</column_name>
+        <stream_name>completion_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_completion</column_name>
+        <stream_name>age_years_at_completion</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_completion</column_name>
+        <stream_name>age_months_at_completion</stream_name>
+      </field>
+      <field>
+        <column_name>outcome</column_name>
+        <stream_name>outcome</stream_name>
+      </field>
+      <field>
+        <column_name>uuid</column_name>
+        <stream_name>uuid</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>912</xloc>
       <yloc>48</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>relationship</name>
     <type>TableInput</type>
@@ -1034,25 +2491,44 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Warehouse</connection>
-    <sql>SELECT &#xd;&#xa;  md5&#x28;relationship_id&#x29;,&#xd;&#xa;  md5&#x28;patient_id &#x29;,&#xd;&#xa;  patient_role ,&#xd;&#xa;  related_person_role ,&#xd;&#xa;	md5&#x28;uuid&#x29; as uuid,&#xd;&#xa;  start_date ,&#xd;&#xa;  end_date ,&#xd;&#xa;  date_created &#xd;&#xa;FROM omrs_relationship&#x3b;&#xd;&#xa;&#xd;&#xa;</sql>
+    <sql>SELECT 
+  md5(relationship_id),
+  md5(patient_id ),
+  patient_role ,
+  related_person_role ,
+	md5(uuid) as uuid,
+  adddate( makedate(year(start_date),1),
+		INTERVAL (floor(MONTH(start_date)/4)) quarter) as start_date,
+   adddate( makedate(year(end_date),1),
+		INTERVAL (floor(MONTH(end_date)/4)) quarter) as  end_date ,
+  adddate( makedate(year(date_created),1),
+		INTERVAL (floor(MONTH(date_created)/4)) quarter) as  date_created 
+FROM omrs_relationship;
+
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>608</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
   <step>
     <name>relationship_output</name>
     <type>TableOutput</type>
@@ -1060,10 +2536,10 @@
     <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
     <connection>Anonymized</connection>
     <schema/>
     <table>omrs_relationship</table>
@@ -1082,51 +2558,110 @@
     <return_keys>N</return_keys>
     <return_field/>
     <fields>
-        <field>
-          <column_name>patient_id</column_name>
-          <stream_name>md5&#x28;patient_id &#x29;</stream_name>
-        </field>
-        <field>
-          <column_name>patient_role</column_name>
-          <stream_name>patient_role</stream_name>
-        </field>
-        <field>
-          <column_name>related_person_role</column_name>
-          <stream_name>related_person_role</stream_name>
-        </field>
-        <field>
-          <column_name>start_date</column_name>
-          <stream_name>start_date</stream_name>
-        </field>
-        <field>
-          <column_name>end_date</column_name>
-          <stream_name>end_date</stream_name>
-        </field>
-        <field>
-          <column_name>date_created</column_name>
-          <stream_name>date_created</stream_name>
-        </field>
-        <field>
-          <column_name>uuid</column_name>
-          <stream_name>uuid</stream_name>
-        </field>
-        <field>
-          <column_name>relationship_id</column_name>
-          <stream_name>md5&#x28;relationship_id&#x29;</stream_name>
-        </field>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>md5(patient_id )</stream_name>
+      </field>
+      <field>
+        <column_name>patient_role</column_name>
+        <stream_name>patient_role</stream_name>
+      </field>
+      <field>
+        <column_name>related_person_role</column_name>
+        <stream_name>related_person_role</stream_name>
+      </field>
+      <field>
+        <column_name>start_date</column_name>
+        <stream_name>start_date</stream_name>
+      </field>
+      <field>
+        <column_name>end_date</column_name>
+        <stream_name>end_date</stream_name>
+      </field>
+      <field>
+        <column_name>date_created</column_name>
+        <stream_name>date_created</stream_name>
+      </field>
+      <field>
+        <column_name>uuid</column_name>
+        <stream_name>uuid</stream_name>
+      </field>
+      <field>
+        <column_name>relationship_id</column_name>
+        <stream_name>md5(relationship_id)</stream_name>
+      </field>
     </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>912</xloc>
       <yloc>128</yloc>
       <draw>Y</draw>
-      </GUI>
-    </step>
-
+    </GUI>
+  </step>
+  <step>
+    <name>visits_output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Anonymized</connection>
+    <schema/>
+    <table>rw_calculated_visit</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>patient_id</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_date</column_name>
+        <stream_name>encounter_date</stream_name>
+      </field>
+      <field>
+        <column_name>visit_id</column_name>
+        <stream_name>visit_id</stream_name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>912</xloc>
+      <yloc>384</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
   <step_error_handling>
   </step_error_handling>
-   <slave-step-copy-partition-distribution>
-</slave-step-copy-partition-distribution>
-   <slave_transformation>N</slave_transformation>
-
+  <slave-step-copy-partition-distribution>
+  </slave-step-copy-partition-distribution>
+  <slave_transformation>N</slave_transformation>
 </transformation>

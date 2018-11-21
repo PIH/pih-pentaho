@@ -97,7 +97,7 @@ CREATE TABLE omrs_visit (
 
 CREATE TABLE omrs_obs_group (
   obs_group_id varchar(32) not null,
-  uuid varchar(64) not null,
+  uuid varchar(64),
   patient_id varchar(32) not null,
   encounter_id varchar(32),
   obs_group_date date,
@@ -126,7 +126,8 @@ CREATE TABLE omrs_obs (
   value_text TEXT,
   comments VARCHAR(255),
   obs_group_id varchar(32),
-  date_created DATE
+  date_created DATE,
+  form varchar(255)
 );
 
 CREATE TABLE omrs_program_enrollment (
@@ -201,7 +202,6 @@ CREATE TABLE rw_onc_diagnosis (
   end_date_difference FLOAT
 );
 
-alter table rw_onc_diagnosis add index rw_onc_diagnosis_program_state_id(program_state_id);
 
 CREATE TABLE rw_order (
   order_id varchar(32) not null,
@@ -223,7 +223,7 @@ CREATE TABLE rw_order (
   encounter_type VARCHAR(255),
   location VARCHAR(255),
   group_id varchar(32),
-  order_index INt,
+  order_index INT,
   indication VARCHAR(255),
   route VARCHAR(255),
   administration_instructions VARCHAR(1023),
@@ -236,7 +236,6 @@ CREATE TABLE rw_order (
   quantity DECIMAL
 );
 
-alter table rw_order add index rw_order_id(order_id);
 
 CREATE TABLE rw_order_group (
   order_group_id varchar(32) not null,
@@ -250,4 +249,49 @@ CREATE TABLE rw_order_group (
   indication VARCHAR(255)
 );
 
-alter table rw_order_group add index rw_order_group_order_group_id(order_group_id);
+
+CREATE TABLE rw_last_vl_include_blanks (
+	patient_id varchar(32),
+    concept VARCHAR(255),
+    obs_id varchar(32),
+    end_date DATE,
+    last_obs_date DATE,
+    encounter_type VARCHAR(255),
+    location VARCHAR(255),
+    value_coded VARCHAR(255),
+    value_date DATE,
+    value_numeric DOUBLE DEFAULT NULL,
+    value_text TEXT,
+    obs_group_id INT
+);
+CREATE TABLE rw_last_obs_in_period (
+	patient_id varchar(32),
+    concept VARCHAR(255),
+    obs_id varchar(32),
+    end_date DATE,
+    last_obs_date DATE,
+    encounter_type VARCHAR(255),
+    location VARCHAR(255),
+    value_coded VARCHAR(255),
+    value_date DATE,
+    value_numeric DOUBLE DEFAULT NULL,
+    value_text TEXT,
+    obs_group_id varchar(32)
+);
+
+CREATE TABLE pdc_z_score_input (
+	patient_id varchar(32),
+    obs_date DATE,
+    weight DOUBLE DEFAULT NULL,
+    clenhei DOUBLE DEFAULT NULL,
+    lh TEXT,
+    oedema INT,
+    sex VARCHAR(8),
+    agedays INT
+);
+
+CREATE TABLE rw_calculated_visit (
+  patient_id VARCHAR(127),
+  encounter_date date,
+  visit_id VARCHAR(127)
+);

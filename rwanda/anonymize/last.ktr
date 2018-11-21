@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>calculated-visit</name>
+    <name>last</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
@@ -428,35 +427,27 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2018/08/02 11:01:01.636</created_date>
+    <created_date>2018/11/20 14:01:44.696</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2018/08/02 11:01:01.636</modified_date>
-    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
+    <modified_date>2018/11/20 14:01:44.696</modified_date>
+    <key_for_session_key/>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
-    <name>warehouse</name>
-    <server>${warehouse.db.host}</server>
+    <name>anonymized</name>
+    <server>localhost</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>${warehouse.db.name}</database>
-    <port>${warehouse.db.port}</port>
-    <username>${warehouse.db.user}</username>
-    <password>${warehouse.db.password}</password>
+    <database>anonymized_20181109</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e49b15af7e8cc0abd5</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
-        <attribute>500</attribute>
-      </attribute>
-      <attribute>
-        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
-        <attribute>true</attribute>
-      </attribute>
       <attribute>
         <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
         <attribute>N</attribute>
@@ -471,7 +462,62 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>${warehouse.db.port}</attribute>
+        <attribute>3306</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
+  <connection>
+    <name>warehouse</name>
+    <server>localhost</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>warehouse20181109</database>
+    <port>3306</port>
+    <username>root</username>
+    <password>Encrypted 2be98afc86aa7f2e49b15af7e8cc0abd5</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>3306</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
@@ -501,46 +547,18 @@
   </connection>
   <order>
     <hop>
-      <from>Table input</from>
-      <to>Table output</to>
+      <from>last_vl_include_blanks</from>
+      <to>last_vl_include_blanks output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>last_obs_in_period</from>
+      <to>last_obs_in_period_output</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>Table input</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>warehouse</connection>
-    <sql>SELECT Distinct patient_id, encounter_date, CONCAT(patient_id,"-",encounter_date) as visit_id
-from omrs_encounter
-</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>128</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output</name>
+    <name>last_vl_include_blanks output</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -550,9 +568,9 @@ from omrs_encounter
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <connection>warehouse</connection>
+    <connection>anonymized</connection>
     <schema/>
-    <table>rw_calculated_visit</table>
+    <table>rw_last_vl_include_blanks</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -573,12 +591,48 @@ from omrs_encounter
         <stream_name>patient_id</stream_name>
       </field>
       <field>
-        <column_name>encounter_date</column_name>
-        <stream_name>encounter_date</stream_name>
+        <column_name>concept</column_name>
+        <stream_name>concept</stream_name>
       </field>
       <field>
-        <column_name>visit_id</column_name>
-        <stream_name>visit_id</stream_name>
+        <column_name>obs_id</column_name>
+        <stream_name>obs_id</stream_name>
+      </field>
+      <field>
+        <column_name>end_date</column_name>
+        <stream_name>end_date</stream_name>
+      </field>
+      <field>
+        <column_name>last_obs_date</column_name>
+        <stream_name>last_obs_date</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_type</column_name>
+        <stream_name>encounter_type</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>value_coded</column_name>
+        <stream_name>value_coded</stream_name>
+      </field>
+      <field>
+        <column_name>value_date</column_name>
+        <stream_name>value_date</stream_name>
+      </field>
+      <field>
+        <column_name>value_numeric</column_name>
+        <stream_name>value_numeric</stream_name>
+      </field>
+      <field>
+        <column_name>value_text</column_name>
+        <stream_name>value_text</stream_name>
+      </field>
+      <field>
+        <column_name>obs_group_id</column_name>
+        <stream_name>obs_group_id</stream_name>
       </field>
     </fields>
     <cluster_schema/>
@@ -589,8 +643,195 @@ from omrs_encounter
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>128</yloc>
+      <xloc>321</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>last_vl_include_blanks</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>warehouse</connection>
+    <sql>SELECT 
+    md5(patient_id) as patient_id,
+    concept,
+    md5(obs_id) as obs_id,
+	end_date,
+    adddate(makedate(year(last_obs_date),1), 
+		INTERVAL(floor(MONTH(last_obs_date)/4)) quarter) as last_obs_date,
+    encounter_type ,
+    location,
+    value_coded ,
+	adddate(makedate(year(value_date),1), 
+		INTERVAL(floor(MONTH(value_date)/4)) quarter) as value_date,
+    value_numeric ,
+    value_text ,
+    md5(obs_group_id) as obs_group_id
+FROM rw_last_vl_include_blanks;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>161</xloc>
+      <yloc>150</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>last_obs_in_period_output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>anonymized</connection>
+    <schema/>
+    <table>rw_last_obs_in_period</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>patient_id</column_name>
+        <stream_name>patient_id</stream_name>
+      </field>
+      <field>
+        <column_name>concept</column_name>
+        <stream_name>concept</stream_name>
+      </field>
+      <field>
+        <column_name>obs_id</column_name>
+        <stream_name>obs_id</stream_name>
+      </field>
+      <field>
+        <column_name>end_date</column_name>
+        <stream_name>end_date</stream_name>
+      </field>
+      <field>
+        <column_name>last_obs_date</column_name>
+        <stream_name>last_obs_date</stream_name>
+      </field>
+      <field>
+        <column_name>encounter_type</column_name>
+        <stream_name>encounter_type</stream_name>
+      </field>
+      <field>
+        <column_name>location</column_name>
+        <stream_name>location</stream_name>
+      </field>
+      <field>
+        <column_name>value_coded</column_name>
+        <stream_name>value_coded</stream_name>
+      </field>
+      <field>
+        <column_name>value_date</column_name>
+        <stream_name>value_date</stream_name>
+      </field>
+      <field>
+        <column_name>value_numeric</column_name>
+        <stream_name>value_numeric</stream_name>
+      </field>
+      <field>
+        <column_name>value_text</column_name>
+        <stream_name>value_text</stream_name>
+      </field>
+      <field>
+        <column_name>obs_group_id</column_name>
+        <stream_name>obs_group_id</stream_name>
+      </field>
+    </fields>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>321</xloc>
+      <yloc>230</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>last_obs_in_period</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>warehouse</connection>
+    <sql>SELECT 
+
+	md5(patient_id) as patient_id ,
+    concept ,
+    md5(obs_id) as obs_id ,
+    adddate( makedate(year(end_date),1),
+		INTERVAL (floor(MONTH(end_date)/4)) quarter) as end_date,
+    adddate( makedate(year(last_obs_date),1),
+		INTERVAL (floor(MONTH(last_obs_date)/4)) quarter) as last_obs_date,
+    encounter_type ,
+    location ,
+    value_coded ,
+	adddate( makedate(year(value_date),1),
+		INTERVAL (floor(MONTH(value_date)/4)) quarter) as value_date,
+    value_numeric ,
+    value_text ,
+    md5(obs_group_id) as obs_group_id
+FROM rw_last_obs_in_period;
+</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>161</xloc>
+      <yloc>230</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

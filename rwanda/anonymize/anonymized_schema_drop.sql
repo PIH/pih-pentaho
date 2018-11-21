@@ -12,3 +12,7 @@ drop table if exists rw_location;
 drop table if exists rw_onc_diagnosis;
 drop table if exists rw_order;
 drop table if exists rw_order_group;
+drop table if exists pdc_z_score_input;
+drop table if exists rw_last_obs_in_period;
+drop table if exists rw_last_vl_include_blanks;
+drop table if exists rw_calculated_visit;
