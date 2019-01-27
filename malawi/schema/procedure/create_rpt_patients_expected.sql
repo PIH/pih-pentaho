@@ -2,7 +2,7 @@
   Get all patients (PID) with appointment date for a given enrollment location 
   and within given window for EID, ART, and NCD programs. 
 *************************************************************************/
-CREATE PROCEDURE create_rpt_patients_expected(IN _startDate DATE, IN _endDate DATE, IN _location VARCHAR(255)) BEGIN
+CREATE PROCEDURE create_rpt_patients_expected(IN _startDate DATE, IN _endDate DATE, IN _location VARCHAR(255), IN _advancedCare TINYINT) BEGIN
 
   DROP TEMPORARY TABLE IF EXISTS rpt_patients_expected;
   CREATE TEMPORARY TABLE rpt_patients_expected (
@@ -60,6 +60,17 @@ CREATE PROCEDURE create_rpt_patients_expected(IN _startDate DATE, IN _endDate DA
         GROUP BY patient_id
         ) appt_temp
   WHERE next_appointment_date >= _startDate
-  AND next_appointment_date <= _endDate;    
+  AND next_appointment_date <= _endDate;   
+
+/*  If the advanced care option is chosen, delete the patients who are
+  not in a state of advanced care from the temporary table.
+*/
+  IF _advancedCare = 1 THEN
+    DELETE FROM rpt_patients_expected where patient_id in 
+      (select patient_id from 
+        (select * from 
+          (select * from omrs_program_state order by start_date desc) 
+      as itable group by patient_id) otable where state <> "In advanced care");
+  END IF;
 
 END
