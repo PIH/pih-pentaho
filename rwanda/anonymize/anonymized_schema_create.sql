@@ -287,7 +287,10 @@ CREATE TABLE pdc_z_score_input (
     lh TEXT,
     oedema INT,
     sex VARCHAR(8),
-    agedays INT
+    agedays INT,
+    zwfl DOUBLE,
+    zwei DOUBLE,
+    zlen DOUBLE
 );
 
 CREATE TABLE rw_calculated_visit (
