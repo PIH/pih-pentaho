@@ -88,13 +88,13 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.zeroDateTimeBehavior</code><attribute>convertToNull</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.zeroDateTimeBehavior</code><attribute>convertToNull</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -120,12 +120,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -190,7 +190,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xd;&#xa;&#x2a;	Extracts all non-voided orders  on non-voided patients&#xd;&#xa;&#x2a;&#x2f;&#xd;&#xa;select		o.order_id,&#xd;&#xa;			o.order_type_id,&#xd;&#xa;			o.concept_id,&#xd;&#xa;			o.orderer,&#xd;&#xa;			o.instructions,&#xd;&#xa;			o.start_date,&#xd;&#xa;			o.auto_expire_date,&#xd;&#xa;			o.discontinued_date,&#xd;&#xa;			o.discontinued_by,&#xd;&#xa;			o.discontinued_reason,&#xd;&#xa;			o.patient_id,&#xd;&#xa;			o.uuid,&#xd;&#xa;			o.discontinued_reason_non_coded,&#xd;&#xa;			o.urgency,&#xd;&#xa;			o.date_created,&#xd;&#xa;			&#xd;&#xa;			e.encounter_id,&#xd;&#xa;			e.encounter_type,&#xd;&#xa;			e.location_id,&#xd;&#xa;&#xd;&#xa;			oeo.group_id,&#xd;&#xa;			oeo.order_index,&#xd;&#xa;			oeo.indication,&#xd;&#xa;			oeo.route,&#xd;&#xa;			oeo.administration_instructions&#xd;&#xa;	&#xd;&#xa;from 		orders o&#xd;&#xa;&#xd;&#xa;inner join 	person p on o.patient_id &#x3d; p.person_id&#xd;&#xa;left join   orderextension_order oeo on o.order_id &#x3d; oeo.order_id&#xd;&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xd;&#xa;&#xd;&#xa;where		o.voided &#x3d; 0 and p.voided &#x3d; 0&#x3b;</sql>
+    <sql>&#x2f;&#x2a;&#xd;&#xa;&#x2a;	Extracts all non-voided orders  on non-voided patients&#xd;&#xa;&#x2a;&#x2f;&#xd;&#xa;select		o.order_id,&#xd;&#xa;			o.order_type_id,&#xd;&#xa;			o.concept_id,&#xd;&#xa;			o.orderer,&#xd;&#xa;			o.instructions,&#xd;&#xa;			o.start_date,&#xd;&#xa;			o.auto_expire_date,&#xd;&#xa;			o.discontinued_date,&#xd;&#xa;			o.discontinued_by,&#xd;&#xa;			o.discontinued_reason,&#xd;&#xa;			o.patient_id,&#xd;&#xa;			o.uuid,&#xd;&#xa;			o.discontinued_reason_non_coded,&#xd;&#xa;			o.urgency,&#xd;&#xa;			o.date_created,&#xa;			if &#x28;p.birthdate is null or o.start_date is null, null, TIMESTAMPDIFF&#x28;YEAR, p.birthdate, o.start_date&#x29;&#x29; as age_years_at_start_date,&#xa;			if &#x28;p.birthdate is null or o.start_date is null, null, TIMESTAMPDIFF&#x28;MONTH, p.birthdate, o.start_date&#x29;&#x29; as age_months_at_start_date,&#xd;&#xa;			&#xd;&#xa;			e.encounter_id,&#xd;&#xa;			e.encounter_type,&#xd;&#xa;			e.location_id,&#xd;&#xa;&#xd;&#xa;			oeo.group_id,&#xd;&#xa;			oeo.order_index,&#xd;&#xa;			oeo.indication,&#xd;&#xa;			oeo.route,&#xd;&#xa;			oeo.administration_instructions,&#xa;&#xa;			oeogns.order_set&#xa;			&#xd;&#xa;	&#xd;&#xa;from 		orders o&#xd;&#xa;&#xd;&#xa;inner join 	person p on o.patient_id &#x3d; p.person_id&#xd;&#xa;left join   orderextension_order oeo on o.order_id &#x3d; oeo.order_id&#xd;&#xa;left join 	encounter e on o.encounter_id &#x3d; e.encounter_id&#xa;left join	&#x28;SELECT oeog.id,oeos.name as order_set FROM Kirehe_db_12_dec_2018.orderextension_order_group oeog left join orderextension_order_set oeos on oeos.id&#x3d;oeog.order_set_id&#x29; oeogns &#xa;on oeogns.id &#x3d; oeo.group_id &#xd;&#xa;&#xd;&#xa;where		o.voided &#x3d; 0 and p.voided &#x3d; 0&#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -303,7 +303,7 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_order_id &#x3d; id_prefix &#x2b; order_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;&#xa;var prefixed_encounter_id &#x3d; encounter_id &#x3d;&#x3d; null &#x3f; null &#x3a; id_prefix &#x2b; encounter_id&#x3b;&#xa;</jsScript_script>
+        <jsScript_script>var prefixed_order_id &#x3d; id_prefix &#x2b; order_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;&#xa;var prefixed_encounter_id &#x3d; encounter_id &#x3d;&#x3d; null &#x3f; null &#x3a; id_prefix &#x2b; encounter_id&#x3b;&#xa;var prefixed_group_id &#x3d; group_id &#x3d;&#x3d; null &#x3f; null &#x3a; id_prefix &#x2b; group_id&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
         <type>Integer</type>
@@ -318,6 +318,12 @@
         <replace>Y</replace>
       </field>      <field>        <name>prefixed_encounter_id</name>
         <rename>encounter_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_group_id</name>
+        <rename>group_id</rename>
         <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -450,6 +456,18 @@
         <field>
           <column_name>location</column_name>
           <stream_name>location</stream_name>
+        </field>
+        <field>
+          <column_name>order_set</column_name>
+          <stream_name>order_set</stream_name>
+        </field>
+        <field>
+          <column_name>age_years_at_start_date</column_name>
+          <stream_name>age_years_at_start_date</stream_name>
+        </field>
+        <field>
+          <column_name>age_months_at_start_date</column_name>
+          <stream_name>age_months_at_start_date</stream_name>
         </field>
     </fields>
      <cluster_schema/>

@@ -88,12 +88,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.zeroDateTimeBehavior</code><attribute>convertToNull</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
@@ -120,12 +120,12 @@
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
-        <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-        <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCompression</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code><attribute>false</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
@@ -188,7 +188,7 @@
            <schema_name/>
            </partitioning>
     <connection>OpenMRS</connection>
-    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all non-voided orders  on non-voided patients&#xd;&#xa;&#x2a;	Do not currently have the patient id on here. That is desirable&#xa;&#x2a;&#x2f;&#xa;select		og.id as order_group_id,&#xd;&#xa;			og.uuid,&#xd;&#xa;			og.group_type,&#xd;&#xa;			og.cycle_number,&#xd;&#xa;			og.date_created,&#xd;&#xa;			&#xd;&#xa;			os.uuid as order_set_uuid,&#xd;&#xa;			os.name as order_set_name,&#xd;&#xa;			os.description as order_set_description,&#xd;&#xa;			os.indication&#xd;&#xa;				&#xd;&#xa;from 		orderextension_order_group og&#xa;left join	orderextension_order_set os on og.order_set_id&#x3d;os.id&#xd;&#xa;&#xd;&#xa;where		og.voided &#x3d; 0 &#x3b;</sql>
+    <sql>&#x2f;&#x2a;&#xa;&#x2a;	Extracts all non-voided orders  on non-voided patients&#xd;&#xa;&#x2a;	Do not currently have the patient id on here. That is desirable&#xa;&#x2a;&#x2f;&#xa;select		og.id as order_group_id,&#xd;&#xa;			og.uuid,&#xd;&#xa;			og.group_type,&#xd;&#xa;			og.cycle_number,&#xd;&#xa;			og.date_created,&#xd;&#xa;			&#xd;&#xa;			os.uuid as order_set_uuid,&#xd;&#xa;			os.name as order_set_name,&#xd;&#xa;			os.description as order_set_description,&#xd;&#xa;			os.indication,&#xa;&#xa;			ooeo.first_start,&#xa;			ooeo.last_start,&#xa;			ooeo.first_discontinued,&#xa;			ooeo.last_discontinued,&#xa;			ooeo.patient_id,&#xa;			if &#x28;ooeo.first_start is null or os.cycle_length is null, null, DATE_ADD&#x28;ooeo.first_start, INTERVAL os.cycle_length DAY&#x29;&#x29; as initially_planned_end&#xd;&#xa;				&#xd;&#xa;from 		orderextension_order_group og&#xa;left join	orderextension_order_set os on og.order_set_id&#x3d;os.id&#xa;left join	&#x28;SELECT min&#x28;start_date&#x29; as  &#x22;first_start&#x22;, max&#x28;start_date&#x29; as &#x22;last_start&#x22;, min&#x28;discontinued_date&#x29; as &#x22;first_discontinued&#x22;, max&#x28;discontinued_date&#x29; as &#x22;last_discontinued&#x22;, &#xa;				oeo.group_id,o.patient_id FROM orders o left join orderextension_order oeo on oeo.order_id&#x3d;o.order_id  group by group_id&#x29; ooeo on ooeo.group_id &#x3d; og.id&#xa;&#xd;&#xa;&#xd;&#xa;where		og.voided &#x3d; 0 and ooeo.patient_id is not null &#x3b;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -217,9 +217,15 @@
     <optimizationLevel>9</optimizationLevel>
     <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_order_group_id &#x3d; id_prefix &#x2b; order_group_id&#x3b;&#xa;</jsScript_script>
+        <jsScript_script>var prefixed_order_group_id &#x3d; id_prefix &#x2b; order_group_id&#x3b;&#xa;var prefixed_patient_id &#x3d; id_prefix &#x2b; patient_id&#x3b;</jsScript_script>
       </jsScript>    </jsScripts>    <fields>      <field>        <name>prefixed_order_group_id</name>
         <rename>order_group_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>      <field>        <name>prefixed_patient_id</name>
+        <rename>patient_id</rename>
         <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -296,6 +302,30 @@
         <field>
           <column_name>indication</column_name>
           <stream_name>indication</stream_name>
+        </field>
+        <field>
+          <column_name>first_start_date</column_name>
+          <stream_name>first_start</stream_name>
+        </field>
+        <field>
+          <column_name>Last_start_date</column_name>
+          <stream_name>last_start</stream_name>
+        </field>
+        <field>
+          <column_name>first_discontinued</column_name>
+          <stream_name>first_discontinued</stream_name>
+        </field>
+        <field>
+          <column_name>last_discontinued</column_name>
+          <stream_name>last_discontinued</stream_name>
+        </field>
+        <field>
+          <column_name>patient_id</column_name>
+          <stream_name>patient_id</stream_name>
+        </field>
+        <field>
+          <column_name>initially_planned_end</column_name>
+          <stream_name>initially_planned_end</stream_name>
         </field>
     </fields>
      <cluster_schema/>

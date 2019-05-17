@@ -29,7 +29,11 @@ CREATE TABLE rw_order (
   frequency VARCHAR(255),
   prn INT,
   complex VARCHAR(255),
-  quantity DECIMAL
+  quantity DECIMAL,
+  order_set VARCHAR(255),
+  age_years_at_start_date Int,
+  age_months_at_start_date Int
+  
 );
 
 alter table rw_order add index rw_order_id(order_id);
