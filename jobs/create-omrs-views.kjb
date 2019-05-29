@@ -1,22 +1,96 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>refresh-warehouse</name>
+  <name>create-omrs-views</name>
   <description />
   <extended_description />
   <job_version />
   <job_status>0</job_status>
   <directory>/</directory>
   <created_user>-</created_user>
-  <created_date>2016/10/24 16:40:00.548</created_date>
+  <created_date>2016/10/19 17:57:14.971</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2016/10/24 16:40:00.548</modified_date>
+  <modified_date>2016/10/19 17:57:14.971</modified_date>
   <parameters>
-    <parameter>
-      <name>pih.country</name>
-      <default_value>malawi</default_value>
-      <description />
-    </parameter>
-  </parameters>
+    </parameters>
+  <connection>
+    <name>Warehouse</name>
+    <server>${warehouse.db.host}</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>${warehouse.db.name}</database>
+    <port>${warehouse.db.port}</port>
+    <username>${warehouse.db.user}</username>
+    <password>${warehouse.db.password}</password>
+    <servername />
+    <data_tablespace />
+    <index_tablespace />
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCompression</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code>
+        <attribute>false</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>${warehouse.db.port}</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <slaveservers>
     </slaveservers>
   <job-log-table>
@@ -310,8 +384,26 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>112</yloc>
+      <xloc>144</xloc>
+      <yloc>208</yloc>
+      <attributes_kjc />
+    </entry>
+    <entry>
+      <name>Create OMRS Views</name>
+      <description />
+      <type>SQL</type>
+      <attributes />
+      <sql />
+      <useVariableSubstitution>F</useVariableSubstitution>
+      <sqlfromfile>T</sqlfromfile>
+      <sqlfilename>${PIH_PENTAHO_HOME}/sql/omrs_view_create.sql</sqlfilename>
+      <sendOneStatement>F</sendOneStatement>
+      <connection>Warehouse</connection>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>0</nr>
+      <xloc>496</xloc>
+      <yloc>208</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -347,156 +439,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>112</xloc>
-      <yloc>224</yloc>
-      <attributes_kjc />
-    </entry>
-    <entry>
-      <name>Recreate OMRS Schema</name>
-      <description />
-      <type>JOB</type>
-      <attributes />
-      <specification_method>filename</specification_method>
-      <job_object_id />
-      <filename>${PIH_PENTAHO_HOME}/jobs/create-omrs-schema.kjb</filename>
-      <jobname />
-      <directory />
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name />
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration />
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
       <xloc>304</xloc>
-      <yloc>224</yloc>
-      <attributes_kjc />
-    </entry>
-    <entry>
-      <name>Load From OpenMRS</name>
-      <description />
-      <type>JOB</type>
-      <attributes />
-      <specification_method>filename</specification_method>
-      <job_object_id />
-      <filename>${PIH_PENTAHO_HOME}/jobs/load-from-openmrs.kjb</filename>
-      <jobname />
-      <directory />
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name />
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration />
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>512</xloc>
-      <yloc>224</yloc>
-      <attributes_kjc />
-    </entry>
-    <entry>
-      <name>Create OMRS Indexes</name>
-      <description />
-      <type>JOB</type>
-      <attributes />
-      <specification_method>filename</specification_method>
-      <job_object_id />
-      <filename>${PIH_PENTAHO_HOME}/jobs/create-omrs-indexes.kjb</filename>
-      <jobname />
-      <directory />
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name />
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>704</xloc>
-      <yloc>224</yloc>
-      <attributes_kjc />
-    </entry>
-    <entry>
-      <name>Create OMRS Views</name>
-      <description />
-      <type>JOB</type>
-      <attributes />
-      <specification_method>filename</specification_method>
-      <job_object_id />
-      <filename>${PIH_PENTAHO_HOME}/jobs/create-omrs-views.kjb</filename>
-      <jobname />
-      <directory />
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <set_logfile>N</set_logfile>
-      <logfile />
-      <logext />
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Nothing</loglevel>
-      <slave_server_name />
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <expand_remote_job>N</expand_remote_job>
-      <create_parent_folder>N</create_parent_folder>
-      <pass_export>N</pass_export>
-      <run_configuration>Pentaho local</run_configuration>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <set_append_logfile>N</set_append_logfile>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>880</xloc>
-      <yloc>224</yloc>
+      <yloc>208</yloc>
       <attributes_kjc />
     </entry>
   </entries>
@@ -512,33 +456,6 @@
     </hop>
     <hop>
       <from>Load Configuration</from>
-      <to>Recreate OMRS Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Recreate OMRS Schema</from>
-      <to>Load From OpenMRS</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load From OpenMRS</from>
-      <to>Create OMRS Indexes</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create OMRS Indexes</from>
       <to>Create OMRS Views</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
@@ -549,20 +466,5 @@
   </hops>
   <notepads>
   </notepads>
-  <attributes>
-    <group>
-      <name>METASTORE.pentaho</name>
-      <attribute>
-        <key>Default Run Configuration</key>
-        <value>{"namespace":"pentaho","id":"Default Run Configuration","name":"Default Run Configuration","description":"Defines a default run configuration","metaStoreName":null}</value>
-      </attribute>
-    </group>
-    <group>
-      <name>{"_":"Embedded MetaStore Elements","namespace":"pentaho","type":"Default Run Configuration"}</name>
-      <attribute>
-        <key>Pentaho local</key>
-        <value>{"children":[{"children":[],"id":"server","value":null},{"children":[],"id":"clustered","value":"N"},{"children":[],"id":"name","value":"Pentaho local"},{"children":[],"id":"description","value":null},{"children":[],"id":"pentaho","value":"N"},{"children":[],"id":"readOnly","value":"Y"},{"children":[],"id":"sendResources","value":"N"},{"children":[],"id":"logRemoteExecutionLocally","value":"N"},{"children":[],"id":"remote","value":"N"},{"children":[],"id":"local","value":"Y"},{"children":[],"id":"showTransformations","value":"N"}],"id":"Pentaho local","value":null,"name":"Pentaho local","owner":null,"ownerPermissionsList":[]}</value>
-      </attribute>
-    </group>
-  </attributes>
+  <attributes />
 </job>
