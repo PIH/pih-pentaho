@@ -18,6 +18,8 @@
 "function","latest_epilepsy_visit"
 "function","latest_mental_health_visit"
 "function","latest_test_result_by_sample_date"
+"function","get_regimen"
+"function","get_regimen_start"
 "procedure","create_rpt_identifiers"
 "procedure","create_rpt_active_eid"
 "procedure","create_rpt_active_art"
