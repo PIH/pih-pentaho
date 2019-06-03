@@ -2302,7 +2302,10 @@ FROM rw_order_group;
     lh ,
     oedema ,
     sex ,
-    agedays 
+    agedays,
+	zwfl,
+	zwei,
+	zlen
 FROM pdc_z_score_input</sql>
     <limit>0</limit>
     <lookup/>
@@ -2378,6 +2381,18 @@ FROM pdc_z_score_input</sql>
       <field>
         <column_name>sex</column_name>
         <stream_name>agedays</stream_name>
+      </field>
+      <field>
+        <column_name>zwfl</column_name>
+        <stream_name>zwfl</stream_name>
+      </field>
+      <field>
+        <column_name>zwei</column_name>
+        <stream_name>zwei</stream_name>
+      </field>
+      <field>
+        <column_name>zlen</column_name>
+        <stream_name>zlen</stream_name>
       </field>
     </fields>
     <cluster_schema/>

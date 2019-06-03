@@ -185,7 +185,7 @@
   <notepads>
     <notepad>
       <note>This is intended to run after the create-schema jobs have successfully run for the OMRS and RW schemas.</note>
-      <xloc>64</xloc>
+      <xloc>80</xloc>
       <yloc>80</yloc>
       <width>723</width>
       <heigth>27</heigth>
