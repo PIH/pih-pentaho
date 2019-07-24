@@ -528,7 +528,7 @@
 <field_a>date_collected_obs</field_a>
 <field_b>encounter_date</field_b>
 <field_c/>
-<value_type>None</value_type>
+<value_type>Date</value_type>
 <value_length>-1</value_length>
 <value_precision>-1</value_precision>
 <remove>N</remove>
