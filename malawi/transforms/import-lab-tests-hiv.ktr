@@ -143,6 +143,36 @@
   <hop> <from>Construct and Result Merge</from><to>Result and Collection Date Merge</to><enabled>Y</enabled> </hop>
   </order>
   <step>
+    <name>Construct and Result Merge</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<join_type>FULL OUTER</join_type>
+<step1>Import HIV Test Constructs</step1>
+<step2>Import HIV Results</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>obs_group_id</key>
+    </keys_2>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>208</xloc>
+      <yloc>64</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Default Test Type</name>
     <type>IfNull</type>
     <description/>
@@ -240,7 +270,7 @@
            <schema_name/>
            </partitioning>
     <connection>Warehouse</connection>
-    <sql>&#x2f;&#x2a;&#xa;	Extract all HIV Test Results&#xa;&#x2a;&#x2f;&#xa;select o.patient_id, o.value_coded as result, o.date_created as date_result_entered, o.obs_group_id from omrs_obs o where o.concept &#x3d; &#x27;Result of HIV test&#x27; order by patient_id, obs_group_id&#xa;</sql>
+    <sql>&#x2f;&#x2a;&#xa;	Extract all HIV Test Results&#xa;&#x2a;&#x2f;&#xa;select	o.patient_id, &#xa;		o.value_coded as result, &#xa;		o.date_created as date_result_entered, &#xa;		o.obs_group_id &#xa;from omrs_obs o &#xa;where o.concept &#x3d; &#x27;Result of HIV test&#x27; &#xa;order by patient_id, obs_group_id&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -250,6 +280,32 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>64</xloc>
       <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Import HIV Test Constructs</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select 	g.patient_id, &#xa;		g.obs_group_id, &#xa;		e.encounter_id, &#xa;		e.encounter_date &#xa;from 	omrs_obs_group g, &#xa;		omrs_encounter e &#xa;where 	g.encounter_id &#x3d; e.encounter_id &#xa;and 	g.concept &#x3d; &#x27;Child HIV serology construct&#x27; &#xa;order by patient_id, obs_group_id&#x3b;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>64</xloc>
+      <yloc>32</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -447,6 +503,39 @@
     </step>
 
   <step>
+    <name>Use Encounter Date If No Collection Date</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+       <calculation><field_name>date_collected</field_name>
+<calc_type>NVL</calc_type>
+<field_a>date_collected_obs</field_a>
+<field_b>encounter_date</field_b>
+<field_c/>
+<value_type>Date</value_type>
+<value_length>-1</value_length>
+<value_precision>-1</value_precision>
+<remove>N</remove>
+<conversion_mask/>
+<decimal_symbol/>
+<grouping_symbol/>
+<currency_symbol/>
+</calculation>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>560</xloc>
+      <yloc>144</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
     <name>Write to Lab Test Table</name>
     <type>TableOutput</type>
     <description/>
@@ -508,95 +597,6 @@
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
       <xloc>1264</xloc>
       <yloc>544</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Use Encounter Date If No Collection Date</name>
-    <type>Calculator</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-       <calculation><field_name>date_collected</field_name>
-<calc_type>NVL</calc_type>
-<field_a>date_collected_obs</field_a>
-<field_b>encounter_date</field_b>
-<field_c/>
-<value_type>Date</value_type>
-<value_length>-1</value_length>
-<value_precision>-1</value_precision>
-<remove>N</remove>
-<conversion_mask/>
-<decimal_symbol/>
-<grouping_symbol/>
-<currency_symbol/>
-</calculation>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>560</xloc>
-      <yloc>144</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Import HIV Test Constructs</name>
-    <type>TableInput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select g.patient_id, g.obs_group_id, e.encounter_id, e.encounter_date from omrs_obs_group g, omrs_encounter e where g.encounter_id &#x3d; e.encounter_id and g.concept &#x3d; &#x27;Child HIV serology construct&#x27; order by patient_id, obs_group_id&#x3b;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>64</xloc>
-      <yloc>32</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Construct and Result Merge</name>
-    <type>MergeJoin</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-<join_type>FULL OUTER</join_type>
-<step1>Import HIV Test Constructs</step1>
-<step2>Import HIV Results</step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>obs_group_id</key>
-    </keys_2>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>208</xloc>
-      <yloc>64</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
