@@ -119,13 +119,13 @@
   </notepads>
   <connection>
     <name>Warehouse</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>openmrs_warehouse_malawi</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+      <server>&#x24;&#x7b;warehouse.db.host&#x7d;</server>
+      <type>MYSQL</type>
+      <access>Native</access>
+      <database>&#x24;&#x7b;warehouse.db.name&#x7d;</database>
+      <port>&#x24;&#x7b;warehouse.db.port&#x7d;</port>
+      <username>&#x24;&#x7b;warehouse.db.user&#x7d;</username>
+      <password>&#x24;&#x7b;warehouse.db.password&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
