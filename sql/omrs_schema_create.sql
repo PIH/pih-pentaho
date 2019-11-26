@@ -78,6 +78,7 @@ CREATE TABLE omrs_encounter (
   encounter_time time,
   provider VARCHAR(255),
   provider_role VARCHAR(255),
+  visit_id INT,
   age_years_at_encounter INT,
   age_months_at_encounter INT,
   date_created DATE,
