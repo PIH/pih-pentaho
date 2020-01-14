@@ -9,3 +9,8 @@ table,rw_selected_periods
 table,rw_last_obs_in_period
 table,rw_calculated_visit
 table,rw_last_vl_include_blanks
+table,rw_payment
+table,rw_refund
+table,rw_bill
+table,rw_insurance_policy
+table,rw_patient_service

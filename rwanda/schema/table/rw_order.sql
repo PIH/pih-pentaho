@@ -23,8 +23,8 @@ CREATE TABLE rw_order (
   indication VARCHAR(255),
   route VARCHAR(255),
   administration_instructions VARCHAR(1023),
-  dose DECIMAL,
-  equivalent_daily_dose DECIMAL,
+  dose float DEFAULT NULL,
+  equivalent_daily_dose DECIMAL(12,2),
   units VARCHAR(255),
   frequency VARCHAR(255),
   prn INT,
@@ -32,7 +32,8 @@ CREATE TABLE rw_order (
   quantity DECIMAL,
   order_set VARCHAR(255),
   age_years_at_start_date Int,
-  age_months_at_start_date Int
+  age_months_at_start_date Int,
+  drug VARCHAR(255)
   
 );
 

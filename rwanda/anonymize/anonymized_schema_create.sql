@@ -214,7 +214,7 @@ CREATE TABLE rw_order (
   discontinued_date date,
   discontinued_by VARCHAR(255),
   discontinued_reason VARCHAR(1023),
-  patient_id INT,
+  patient_id VARCHAR(32),
   uuid VARCHAR(255),
   discontinued_reason_non_coded VARCHAR(1023),
   urgency VARCHAR(255),
@@ -227,13 +227,17 @@ CREATE TABLE rw_order (
   indication VARCHAR(255),
   route VARCHAR(255),
   administration_instructions VARCHAR(1023),
-  dose DECIMAL,
-  equivalent_daily_dose DECIMAL,
+  dose float,
+  equivalent_daily_dose float,
   units VARCHAR(255),
   frequency VARCHAR(255),
   prn INT,
   complex VARCHAR(255),
-  quantity DECIMAL
+  quantity float,
+  order_set VARCHAR(255),
+  age_years_at_start_date float,
+  age_months_at_start_date float,
+  drug varchar(255)
 );
 
 
@@ -290,7 +294,8 @@ CREATE TABLE pdc_z_score_input (
     agedays INT,
     zwfl DOUBLE,
     zwei DOUBLE,
-    zlen DOUBLE
+    zlen DOUBLE,
+    R_id INT
 );
 
 CREATE TABLE rw_calculated_visit (

@@ -687,11 +687,11 @@
   state ,
 	md5(uuid) as uuid,
   adddate( makedate(year(start_date),1),
-		INTERVAL (floor(MONTH(start_date)/4)) quarter) as  start_date ,
+		INTERVAL floor((MONTH(start_date)-1)/3) quarter) as  start_date ,
   age_years_at_start ,
-  1+ floor(age_months_at_start/4) as age_months_at_start,
+  1+ 3*floor((age_months_at_start-1)/3) as age_months_at_start,
   adddate( makedate(year(end_date),1),
-		INTERVAL (floor(MONTH(end_date)/4)) quarter) as  end_date  ,
+		INTERVAL floor((MONTH(end_date)-1)/3) quarter) as  end_date  ,
   age_years_at_end ,
   1+ floor(age_months_at_end/4) as age_months_at_end,
   location 
@@ -734,14 +734,14 @@ FROM omrs_program_state
   program ,
   md5(uuid) as uuid,
   adddate( makedate(year(enrollment_date),1),
-		INTERVAL (floor(MONTH(enrollment_date)/4)) quarter) as   enrollment_date ,
+		INTERVAL floor((MONTH(enrollment_date)-1)/3) quarter) as   enrollment_date ,
   age_years_at_enrollment ,
-  1+ floor(age_months_at_enrollment/4) as age_months_at_enrollment,
+  1+ 3*floor((age_months_at_enrollment-1)/3) as age_months_at_enrollment,
   location ,
   adddate( makedate(year(completion_date),1),
-		INTERVAL (floor(MONTH(completion_date)/4)) quarter) as  completion_date  ,
+		INTERVAL floor((MONTH(completion_date)-1)/3) quarter) as  completion_date  ,
   age_years_at_completion ,
-  1+ floor(age_months_at_completion/4) as age_months_at_completion,
+  1+ 3*floor((age_months_at_completion-1)/3) as age_months_at_completion,
   outcome 
 FROM omrs_program_enrollment;
 
@@ -781,7 +781,7 @@ FROM omrs_program_enrollment;
   encounter_date,
   CONCAT(md5(patient_id),"-",  
 		adddate( makedate(year(encounter_date),1),
-				INTERVAL (floor(MONTH(encounter_date)/4)) quarter)
+				INTERVAL floor((MONTH(encounter_date)-1)/3) quarter)
 	) as visit_id
 
 FROM rw_calculated_visit
@@ -824,11 +824,11 @@ FROM rw_calculated_visit
 	form,
 	location,
 	adddate( makedate(year(encounter_date),1),
-		INTERVAL (floor(MONTH(encounter_date)/4)) quarter) as encounter_date,
+		INTERVAL floor((MONTH(encounter_date)-1)/3) quarter) as encounter_date,
 	age_years_at_encounter,
-	1+ floor(age_months_at_encounter/4) as age_months_at_encounter,
+	1+ 3*floor((age_months_at_encounter-1)/3) as age_months_at_encounter,
 	adddate( makedate(year(date_created),1),
-		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created
+		INTERVAL floor((MONTH(date_created)-1)/3) quarter) as date_created
 	
 FROM omrs_encounter;</sql>
     <limit>0</limit>
@@ -950,14 +950,14 @@ FROM omrs_encounter;</sql>
     concept ,
     md5(obs_id) as obs_id ,
     adddate( makedate(year(end_date),1),
-		INTERVAL (floor(MONTH(end_date)/4)) quarter) as end_date,
+		INTERVAL floor((MONTH(end_date)-1)/3) quarter) as end_date,
     adddate( makedate(year(last_obs_date),1),
-		INTERVAL (floor(MONTH(last_obs_date)/4)) quarter) as last_obs_date,
+		INTERVAL floor((MONTH(last_obs_date)-1)/3) quarter) as last_obs_date,
     encounter_type ,
     location ,
     value_coded ,
 	adddate( makedate(year(value_date),1),
-		INTERVAL (floor(MONTH(value_date)/4)) quarter) as value_date,
+		INTERVAL floor((MONTH(value_date)-1)/3) quarter) as value_date,
     value_numeric ,
     value_text ,
     md5(obs_group_id) as obs_group_id
@@ -1090,12 +1090,12 @@ FROM rw_last_obs_in_period;
     md5(obs_id) as obs_id,
 	end_date,
     adddate(makedate(year(last_obs_date),1), 
-		INTERVAL(floor(MONTH(last_obs_date)/4)) quarter) as last_obs_date,
+		INTERVAL floor((MONTH(last_obs_date)-1)/3) quarter) as last_obs_date,
     encounter_type ,
     location,
     value_coded ,
 	adddate(makedate(year(value_date),1), 
-		INTERVAL(floor(MONTH(value_date)/4)) quarter) as value_date,
+		INTERVAL floor((MONTH(value_date)-1)/3) quarter) as value_date,
     value_numeric ,
     value_text ,
     md5(obs_group_id) as obs_group_id
@@ -1357,21 +1357,21 @@ FROM rw_location;</sql>
   md5(patient_id) ,
   md5(encounter_id) ,
   adddate( makedate(year(obs_date),1),
-		INTERVAL (floor(MONTH(obs_date)/4)) quarter) as obs_date,
+		INTERVAL floor((MONTH(obs_date)-1)/3) quarter) as obs_date,
 	md5(uuid) as uuid,
   age_years_at_obs ,
-  1+ floor(age_months_at_obs/4) as age_months_at_obs,  encounter_type ,
+  1+ 3*floor((age_months_at_obs-1)/3) as age_months_at_obs,  encounter_type ,
   location ,
   concept ,
   value_coded ,
   adddate( makedate(year(value_date),1),
-		INTERVAL (floor(MONTH(value_date)/4)) quarter) as value_date,
+		INTERVAL floor((MONTH(value_date)-1)/3) quarter) as value_date,
   value_numeric,
   value_text ,
   comments ,
   md5(obs_group_id),
   adddate( makedate(year(date_created),1),
-		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created,
+		INTERVAL floor((MONTH(date_created)-1)/3) quarter) as date_created,
   form
 
 FROM omrs_obs;
@@ -1657,17 +1657,17 @@ FROM omrs_obs;
   state ,
   diagnosis_status ,
   adddate( makedate(year(start_date),1),
-		INTERVAL (floor(MONTH(start_date)/4)) quarter) as start_date ,
+		INTERVAL floor((MONTH(start_date)-1)/3) quarter) as start_date ,
   adddate( makedate(year(diagnosis_status_start_date ),1),
-		INTERVAL (floor(MONTH(diagnosis_status_start_date )/4)) quarter) as diagnosis_status_start_date ,
+		INTERVAL floor((MONTH(diagnosis_status_start_date)-1)/3) quarter) as diagnosis_status_start_date ,
   age_years_at_start ,
-  1+ floor(age_months_at_start/4) as age_months_at_start     ,
+  1+ 3*floor((age_months_at_start-1)/3) as age_months_at_start     ,
   adddate( makedate(year(end_date),1),
-		INTERVAL (floor(MONTH(end_date)/4)) quarter) as   end_date ,
+		INTERVAL floor((MONTH(end_date)-1)/3) quarter) as   end_date ,
   adddate( makedate(year( diagnosis_status_end_date),1),
-		INTERVAL (floor(MONTH( diagnosis_status_end_date)/4)) quarter) as   diagnosis_status_end_date ,
+		INTERVAL floor((MONTH(diagnosis_status_end_date)-1)/3) quarter) as   diagnosis_status_end_date ,
   age_years_at_end ,
-  1+ floor(age_months_at_end /4) as age_months_at_end ,
+  1+ 3*floor((age_months_at_end-1) /3) as age_months_at_end ,
   location 
 FROM rw_onc_diagnosis;
 </sql>
@@ -1708,18 +1708,18 @@ FROM rw_onc_diagnosis;
   orderer ,
   instructions ,
   adddate( makedate(year(start_date),1),
-		INTERVAL (floor(MONTH(start_date)/4)) quarter) as  start_date ,
+		INTERVAL floor((MONTH(start_date)-1)/3) quarter) as  start_date ,
   adddate( makedate(year(auto_expire_date),1),
-		INTERVAL (floor(MONTH(auto_expire_date)/4)) quarter) as  auto_expire_date ,
+		INTERVAL floor((MONTH(auto_expire_date)-1)/3) quarter) as  auto_expire_date ,
   adddate( makedate(year(discontinued_date),1),
-		INTERVAL (floor(MONTH(discontinued_date)/4)) quarter) as  discontinued_date,
+		INTERVAL floor((MONTH(discontinued_date)-1)/3) quarter) as  discontinued_date,
   discontinued_by ,
   discontinued_reason ,
-  patient_id ,
+  md5(patient_id) ,
   discontinued_reason_non_coded ,
   urgency ,
   adddate( makedate(year(date_created),1),
-		INTERVAL (floor(MONTH(date_created)/4)) quarter) as  date_created  ,
+		INTERVAL floor((MONTH(date_created)-1)/3) quarter) as  date_created  ,
   md5(encounter_id ),
   encounter_type ,
   location,
@@ -1734,7 +1734,11 @@ FROM rw_onc_diagnosis;
   frequency,
   prn,
   complex,
-  quantity
+  quantity,
+  order_set,
+  age_years_at_start_date,
+  age_months_at_start_date,
+  drug
 FROM rw_order;
 </sql>
     <limit>0</limit>
@@ -1772,7 +1776,7 @@ FROM rw_order;
   group_type ,
   cycle_number,
   adddate( makedate(year(date_created),1),
-		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created,
+		INTERVAL floor((MONTH(date_created)-1)/3) quarter) as date_created,
   order_set_uuid ,
   order_set_name ,
   order_set_description ,
@@ -1943,7 +1947,7 @@ FROM rw_order_group;
       </field>
       <field>
         <column_name>patient_id</column_name>
-        <stream_name>patient_id</stream_name>
+        <stream_name>md5(patient_id)</stream_name>
       </field>
       <field>
         <column_name>discontinued_reason_non_coded</column_name>
@@ -2017,6 +2021,22 @@ FROM rw_order_group;
         <column_name>quantity</column_name>
         <stream_name>quantity</stream_name>
       </field>
+      <field>
+        <column_name>order_set</column_name>
+        <stream_name>order_set</stream_name>
+      </field>
+      <field>
+        <column_name>age_years_at_start_date</column_name>
+        <stream_name>age_years_at_start_date</stream_name>
+      </field>
+      <field>
+        <column_name>age_months_at_start_date</column_name>
+        <stream_name>age_months_at_start_date</stream_name>
+      </field>
+      <field>
+        <column_name>drug</column_name>
+        <stream_name>drug</stream_name>
+      </field>
     </fields>
     <cluster_schema/>
     <remotesteps>
@@ -2047,19 +2067,19 @@ FROM rw_order_group;
   md5(patient_id),
   gender ,
   adddate( makedate(year(birthdate),1),
-		INTERVAL (floor(MONTH(birthdate)/4)) quarter) as birthdate,  birthdate_estimated ,
+		INTERVAL floor((MONTH(birthdate)-1)/3) quarter) as birthdate,  birthdate_estimated ,
   country ,
   state_province ,
   county_district,
   md5(patient_uuid),
   dead ,
   adddate( makedate(year(death_date),1),
-		INTERVAL (floor(MONTH(death_date)/4)) quarter) as death_date ,  age_years_at_death ,
-  1+ floor(age_months_at_death/4) as age_months_at_death,
+		INTERVAL floor((MONTH(death_date)-1)/3) quarter) as death_date ,  age_years_at_death ,
+  1+ 3*floor((age_months_at_death-1)/3) as age_months_at_death,
   cause_of_death ,
   health_center ,
   adddate( makedate(year(date_created),1),
-		INTERVAL (floor(MONTH(date_created)/4)) quarter) as date_created FROM omrs_patient;
+		INTERVAL floor((MONTH(date_created)-1)/3) quarter) as date_created FROM omrs_patient;
 
 </sql>
     <limit>0</limit>
@@ -2305,7 +2325,8 @@ FROM rw_order_group;
     agedays,
 	zwfl,
 	zwei,
-	zlen
+	zlen,
+	R_id
 FROM pdc_z_score_input</sql>
     <limit>0</limit>
     <lookup/>
@@ -2393,6 +2414,10 @@ FROM pdc_z_score_input</sql>
       <field>
         <column_name>zlen</column_name>
         <stream_name>zlen</stream_name>
+      </field>
+      <field>
+        <column_name>R_id</column_name>
+        <stream_name>R_id</stream_name>
       </field>
     </fields>
     <cluster_schema/>
@@ -2518,11 +2543,11 @@ FROM pdc_z_score_input</sql>
   related_person_role ,
 	md5(uuid) as uuid,
   adddate( makedate(year(start_date),1),
-		INTERVAL (floor(MONTH(start_date)/4)) quarter) as start_date,
+		INTERVAL floor((MONTH(start_date)-1)/3) quarter) as start_date,
    adddate( makedate(year(end_date),1),
-		INTERVAL (floor(MONTH(end_date)/4)) quarter) as  end_date ,
+		INTERVAL floor((MONTH(end_date)-1)/3) quarter) as  end_date ,
   adddate( makedate(year(date_created),1),
-		INTERVAL (floor(MONTH(date_created)/4)) quarter) as  date_created 
+		INTERVAL floor((MONTH(date_created)-1)/3) quarter) as  date_created 
 FROM omrs_relationship;
 
 </sql>
