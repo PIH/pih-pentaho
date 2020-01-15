@@ -16,3 +16,9 @@ drop table if exists pdc_z_score_input;
 drop table if exists rw_last_obs_in_period;
 drop table if exists rw_last_vl_include_blanks;
 drop table if exists rw_calculated_visit;
+drop table if exists rw_bill;
+drop table if exists rw_insurance_policy;
+drop table if exists rw_patient_service;
+drop table if exists rw_payment;
+drop table if exists rw_refund;
+

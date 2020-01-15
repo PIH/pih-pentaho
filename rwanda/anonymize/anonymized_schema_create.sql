@@ -305,3 +305,60 @@ CREATE TABLE rw_calculated_visit (
   encounter_date date,
   visit_id VARCHAR(127)
 );
+
+CREATE TABLE rw_bill (
+	patient_id VARCHAR(32),
+    amount decimal(20,2),
+    amount_3rd_part decimal(20,2),
+    amount_insurance decimal(20,2),
+    amount_patient decimal(20,2),
+    is_paid int,
+    created_date datetime default NULL,
+    creator varchar(127),
+    creator_uuid varchar(127),
+    patient_bill_id VARCHAR(32)
+);
+
+CREATE TABLE rw_insurance_policy (
+	patient_id VARCHAR(32),
+    owner varchar(127),
+    coverage_start_date date,
+    expiration_date date,
+    retire_date date,
+    retire_reason varchar(250),
+    third_part_rate decimal(20,2),
+    insurance_company varchar(127),
+    owner_uuid varchar(45)
+);
+
+CREATE TABLE rw_patient_service (
+	patient_id VARCHAR(32),
+	UNIT_PRICE DECIMAL(20,2),
+    quantity decimal(20,2),
+    paid_quantity decimal(20,2),
+    created_date date,
+    is_paid int,
+    service_name varchar(250),
+    patient_bill_id INT
+);
+
+
+CREATE TABLE rw_payment (
+	bill_payment_id VARCHAR(32),
+    `amount_paid` decimal(20,2) NOT NULL,
+	`date_received` datetime DEFAULT NULL,
+    `collector` varchar(127),
+    collector_uuid varchar(127),
+    `is_cash` int,
+    `is_deposit` int,
+    patient_id int,
+    patient_bill_id int
+);
+
+CREATE TABLE rw_refund (
+	bill_payment_id VARCHAR(32),
+    refunded_by varchar(127),
+    amount_refunded decimal(20,2) DEFAULT NULL,
+    refunded_by_person_uuid varchar(127)
+);
+
