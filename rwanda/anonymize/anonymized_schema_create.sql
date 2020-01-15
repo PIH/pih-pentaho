@@ -283,20 +283,22 @@ CREATE TABLE rw_last_obs_in_period (
     obs_group_id varchar(32)
 );
 
-CREATE TABLE pdc_z_score_input (
-	patient_id varchar(32),
-    obs_date DATE,
-    weight DOUBLE DEFAULT NULL,
-    clenhei DOUBLE DEFAULT NULL,
-    lh TEXT,
-    oedema INT,
-    sex VARCHAR(8),
-    agedays INT,
-    zwfl DOUBLE,
-    zwei DOUBLE,
-    zlen DOUBLE,
-    R_id INT
-);
+CREATE TABLE `pdc_z_score_input` (
+  `R_id` int(11) DEFAULT NULL,
+  `patient_id` int(11) DEFAULT NULL,
+  `obs_date` text,
+  `oedema` int(11) DEFAULT NULL,
+  `lh` text,
+  `weight` double DEFAULT NULL,
+  `clenhei` int(11) DEFAULT NULL,
+  `sex` int(11) DEFAULT NULL,
+  `gestatiol_age_at_birth_in_weeks` text,
+  `agedays` int(11) DEFAULT NULL,
+  `zwfl` text,
+  `zwei` text,
+  `zlen` text
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 CREATE TABLE rw_calculated_visit (
   patient_id VARCHAR(127),
