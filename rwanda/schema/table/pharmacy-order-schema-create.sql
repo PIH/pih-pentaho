@@ -1,3 +1,6 @@
+DROP TABLE IF EXISTS rw_order;
+DROP TABLE IF EXISTS rw_order_group;
+
 
 CREATE TABLE rw_order (
   order_type_id INT,
