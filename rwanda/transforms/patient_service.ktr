@@ -612,7 +612,7 @@
       <schema_name/>
     </partitioning>
     <connection>openmrs</connection>
-    <sql>	
+    <sql>
 SELECT 
 	patient_id,
     unit_price,
@@ -620,14 +620,18 @@ SELECT
     paid_quantity,
     patient_service_bill.created_date,
     is_paid,
-    name,
-	patient_bill_id
+    facility_service_price.name,
+	patient_bill_id,
+	service_category.name as category_name
 FROM moh_bill_patient_service_bill patient_service_bill
 LEFT JOIN moh_bill_consommation consommation on consommation.consommation_id=patient_service_bill.consommation_id
 LEFT JOIN moh_bill_beneficiary beneficiary on beneficiary.beneficiary_id=consommation.beneficiary_id
 LEFT JOIN moh_bill_billable_service billable_service on billable_service.billable_service_id=patient_service_bill.billable_service_id
 LEFT JOIN moh_bill_facility_service_price facility_service_price on facility_service_price.facility_service_price_id=billable_service.facility_service_price_id
-where patient_service_bill.voided=0</sql>
+LEFT JOIN moh_bill_service_category service_category on service_category.service_category_id=billable_service.service_category_id
+where patient_service_bill.voided=0
+;
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -753,6 +757,10 @@ where patient_service_bill.voided=0</sql>
       <field>
         <column_name>patient_bill_id</column_name>
         <stream_name>patient_bill_id</stream_name>
+      </field>
+      <field>
+        <column_name>category_name</column_name>
+        <stream_name>category_name</stream_name>
       </field>
     </fields>
     <cluster_schema/>

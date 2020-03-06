@@ -320,7 +320,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>544</xloc>
-      <yloc>160</yloc>
+      <yloc>176</yloc>
     </entry>
     <entry>
       <name>START</name>
@@ -376,7 +376,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>544</xloc>
-      <yloc>240</yloc>
+      <yloc>384</yloc>
     </entry>
     <entry>
       <name>Refund</name>
@@ -412,7 +412,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>544</xloc>
-      <yloc>320</yloc>
+      <yloc>480</yloc>
     </entry>
     <entry>
       <name>Load Configuration</name>
@@ -482,7 +482,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>544</xloc>
-      <yloc>464</yloc>
+      <yloc>80</yloc>
     </entry>
     <entry>
       <name>Bill</name>
@@ -518,7 +518,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>544</xloc>
-      <yloc>384</yloc>
+      <yloc>288</yloc>
     </entry>
   </entries>
   <hops>
