@@ -382,7 +382,7 @@
       <draw>Y</draw>
       <nr>0</nr>
       <xloc>512</xloc>
-      <yloc>0</yloc>
+      <yloc>16</yloc>
     </entry>
     <entry>
       <name>Load Orders</name>

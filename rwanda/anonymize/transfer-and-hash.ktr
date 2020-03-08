@@ -2770,7 +2770,7 @@ FROM rw_bill;
         <stream_name>created_date</stream_name>
       </field>
       <field>
-        <column_name>creator_uuid</column_name>
+        <column_name>patient_bill_id</column_name>
         <stream_name>patient_bill_id</stream_name>
       </field>
     </fields>
@@ -3008,8 +3008,8 @@ FROM rw_patient_service;
         <stream_name>service_name</stream_name>
       </field>
       <field>
-        <column_name>patient_bill</column_name>
-        <stream_name>patient_bill</stream_name>
+        <column_name>patient_bill_id</column_name>
+        <stream_name>patient_bill_id</stream_name>
       </field>
     </fields>
     <cluster_schema/>
@@ -3081,7 +3081,7 @@ FROM rw_payment;
     </partitioning>
     <connection>Anonymized</connection>
     <schema/>
-    <table>rw_bill</table>
+    <table>rw_payment</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>

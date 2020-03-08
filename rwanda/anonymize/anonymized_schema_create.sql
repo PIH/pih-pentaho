@@ -285,7 +285,7 @@ CREATE TABLE rw_last_obs_in_period (
 
 CREATE TABLE `pdc_z_score_input` (
   `R_id` int(11) DEFAULT NULL,
-  `patient_id` int(11) DEFAULT NULL,
+  `patient_id` VARCHAR(32) DEFAULT NULL,
   `obs_date` text,
   `oedema` int(11) DEFAULT NULL,
   `lh` text,
@@ -316,7 +316,8 @@ CREATE TABLE rw_bill (
     created_date datetime default NULL,
     creator varchar(127),
     creator_uuid varchar(127),
-    patient_bill_id VARCHAR(32)
+    patient_bill_id VARCHAR(32),
+    bill_payment_id VARCHAR(32)
 );
 
 CREATE TABLE rw_insurance_policy (
@@ -339,20 +340,20 @@ CREATE TABLE rw_patient_service (
     created_date date,
     is_paid int,
     service_name varchar(250),
-    patient_bill_id INT
+    patient_bill_id varchar(32)
 );
 
 
 CREATE TABLE rw_payment (
 	bill_payment_id VARCHAR(32),
-    `amount_paid` decimal(20,2) NOT NULL,
+    amount_paid decimal(20,2) NOT NULL,
 	`date_received` datetime DEFAULT NULL,
     `collector` varchar(127),
     collector_uuid varchar(127),
     `is_cash` int,
     `is_deposit` int,
-    patient_id int,
-    patient_bill_id int
+    patient_id varchar(32),
+    patient_bill_id varchar(32)
 );
 
 CREATE TABLE rw_refund (
