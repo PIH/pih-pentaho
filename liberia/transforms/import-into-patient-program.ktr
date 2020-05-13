@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-omrs-program-enrollment</name>
+    <name>import-into-program-enrollment</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -615,7 +615,7 @@
     </hop>
     <hop>
       <from>Get ID Prefix</from>
-      <to>Table output</to>
+      <to>write patient programs to table</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -797,7 +797,7 @@ left join location l on pp.location_id = l.location_id;</sql>
     </GUI>
   </step>
   <step>
-    <name>Table output</name>
+    <name>write patient programs to table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -809,7 +809,7 @@ left join location l on pp.location_id = l.location_id;</sql>
     </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>omrs_program_enrollment</table>
+    <table>program_enrollment</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -911,7 +911,7 @@ left join location l on pp.location_id = l.location_id;</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1184</xloc>
+      <xloc>1168</xloc>
       <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>

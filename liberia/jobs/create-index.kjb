@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>create-schema</name>
+  <name>create-index</name>
   <description/>
   <extended_description/>
   <job_version/>
-  <job_status>0</job_status>
   <directory>/</directory>
-  <created_user>-</created_user>
-  <created_date>2016/10/19 17:57:14.971</created_date>
-  <modified_user>-</modified_user>
-  <modified_date>2016/10/19 17:57:14.971</modified_date>
+  <created_user/>
+  <created_date>2020/04/27 15:35:52.258</created_date>
+  <modified_user/>
+  <modified_date>2020/04/27 15:35:52.258</modified_date>
   <parameters>
     </parameters>
   <connection>
@@ -102,12 +101,12 @@
     <timeout_days/>
     <field>
       <id>ID_JOB</id>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <name>ID_JOB</name>
     </field>
     <field>
       <id>CHANNEL_ID</id>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <name>CHANNEL_ID</name>
     </field>
     <field>
@@ -147,7 +146,7 @@
     </field>
     <field>
       <id>LINES_REJECTED</id>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <name>LINES_REJECTED</name>
     </field>
     <field>
@@ -182,7 +181,7 @@
     </field>
     <field>
       <id>LOG_FIELD</id>
-      <enabled>Y</enabled>
+      <enabled>N</enabled>
       <name>LOG_FIELD</name>
     </field>
     <field>
@@ -384,82 +383,26 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>144</xloc>
-      <yloc>208</yloc>
+      <xloc>294</xloc>
+      <yloc>206</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
-      <name>Create OMRS Schema</name>
+      <name>Create Liberia Indexes</name>
       <description/>
       <type>SQL</type>
       <attributes/>
       <sql/>
       <useVariableSubstitution>F</useVariableSubstitution>
       <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>${PIH_PENTAHO_HOME}/liberia/sql/omrs_schema_create.sql</sqlfilename>
+      <sqlfilename>/srv/applications/pih/pih-pentaho/liberia/sql/index_create.sql</sqlfilename>
       <sendOneStatement>F</sendOneStatement>
       <connection>Warehouse</connection>
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>640</xloc>
-      <yloc>208</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Drop OMRS Schema</name>
-      <description/>
-      <type>SQL</type>
-      <attributes/>
-      <sql/>
-      <useVariableSubstitution>F</useVariableSubstitution>
-      <sqlfromfile>T</sqlfromfile>
-      <sqlfilename>${PIH_PENTAHO_HOME}/liberia/sql/omrs_schema_drop.sql</sqlfilename>
-      <sendOneStatement>F</sendOneStatement>
-      <connection>Warehouse</connection>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>464</xloc>
-      <yloc>208</yloc>
-      <attributes_kjc/>
-    </entry>
-    <entry>
-      <name>Setup Functions</name>
-      <description/>
-      <type>TRANS</type>
-      <attributes/>
-      <specification_method>filename</specification_method>
-      <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/transforms/setup-functions.ktr</filename>
-      <transname/>
-      <arg_from_previous>N</arg_from_previous>
-      <params_from_previous>N</params_from_previous>
-      <exec_per_row>N</exec_per_row>
-      <clear_rows>N</clear_rows>
-      <clear_files>N</clear_files>
-      <set_logfile>N</set_logfile>
-      <logfile/>
-      <logext/>
-      <add_date>N</add_date>
-      <add_time>N</add_time>
-      <loglevel>Basic</loglevel>
-      <cluster>N</cluster>
-      <slave_server_name/>
-      <set_append_logfile>N</set_append_logfile>
-      <wait_until_finished>Y</wait_until_finished>
-      <follow_abort_remote>N</follow_abort_remote>
-      <create_parent_folder>N</create_parent_folder>
-      <logging_remote_work>N</logging_remote_work>
-      <run_configuration/>
-      <parameters>
-        <pass_all_parameters>Y</pass_all_parameters>
-      </parameters>
-      <parallel>N</parallel>
-      <draw>Y</draw>
-      <nr>0</nr>
-      <xloc>816</xloc>
-      <yloc>208</yloc>
+      <xloc>614</xloc>
+      <yloc>206</yloc>
       <attributes_kjc/>
     </entry>
     <entry>
@@ -495,8 +438,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>304</xloc>
-      <yloc>208</yloc>
+      <xloc>454</xloc>
+      <yloc>206</yloc>
       <attributes_kjc/>
     </entry>
   </entries>
@@ -512,25 +455,7 @@
     </hop>
     <hop>
       <from>Load Configuration</from>
-      <to>Drop OMRS Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Drop OMRS Schema</from>
-      <to>Create OMRS Schema</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Create OMRS Schema</from>
-      <to>Setup Functions</to>
+      <to>Create Liberia Indexes</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>
