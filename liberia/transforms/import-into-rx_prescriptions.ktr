@@ -655,7 +655,7 @@ LEFT OUTER JOIN (
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
+      <xloc>336</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>
@@ -673,7 +673,7 @@ LEFT OUTER JOIN (
     </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>omrs_rx_prescriptions</table>
+    <table>rx_prescriptions</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -743,7 +743,7 @@ LEFT OUTER JOIN (
       </output>
     </remotesteps>
     <GUI>
-      <xloc>656</xloc>
+      <xloc>912</xloc>
       <yloc>256</yloc>
       <draw>Y</draw>
     </GUI>

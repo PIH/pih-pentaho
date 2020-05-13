@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-omrs-program-statistics</name>
+    <name>import-into-program-statistics</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -662,7 +662,7 @@ left join concept_name cn on pp.outcome_concept_id=cn.concept_id group by p.prog
     </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>omrs_program_statistics</table>
+    <table>program_statistics</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
