@@ -634,7 +634,8 @@ order by p.patient_id;</sql>
 	county_district as traditional_authority, 
 	city_village as village, 
 	dead, 
-	death_date
+	death_date,
+	patient_uuid
 FROM
 	omrs_patient
 ORDER BY

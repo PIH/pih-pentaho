@@ -13,6 +13,7 @@ CREATE TABLE mw_patient (
   village               VARCHAR(255),
   chw                   VARCHAR(100),
   dead                  BOOLEAN,
-  death_date            DATE
+  death_date            DATE,
+  patient_uuid	 	 CHAR(38)
 );
 alter table mw_patient add index mw_patient_id_idx (patient_id);
