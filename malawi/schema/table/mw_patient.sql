@@ -11,7 +11,7 @@ CREATE TABLE mw_patient (
   district              VARCHAR(255),
   traditional_authority VARCHAR(255),
   village               VARCHAR(255),
-  vhw                   VARCHAR(100),
+  chw                   VARCHAR(100),
   dead                  BOOLEAN,
   death_date            DATE
 );
