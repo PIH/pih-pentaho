@@ -1041,7 +1041,7 @@
       <attributes />
       <specification_method>filename</specification_method>
       <trans_object_id />
-      <filename>/home/kmatiya/petl/src/malawi/transforms/import-into-mw-art-followup.ktr</filename>
+      <filename>${PIH_PENTAHO_HOME}/malawi/transforms/import-into-mw-art-followup.ktr</filename>
       <transname />
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
