@@ -81,6 +81,7 @@ CREATE TABLE omrs_encounter (
   age_years_at_encounter INT,
   age_months_at_encounter INT,
   date_created DATE,
+  `visit_id` int(11) DEFAULT NULL,
   created_by VARCHAR(100)
 );
 
@@ -250,7 +251,9 @@ CREATE TABLE rw_order_group (
   order_set_uuid VARCHAR(255),
   order_set_name VARCHAR(255),
   order_set_description VARCHAR(1023),
-  indication VARCHAR(255)
+  indication VARCHAR(255),
+  Order_day_registered char(38) DEFAULT NULL
+
 );
 
 
