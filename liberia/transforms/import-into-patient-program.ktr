@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-mw-patient</name>
-    <description />
-    <extended_description />
-    <trans_version />
+    <name>import-into-program-enrollment</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
     <trans_type>Normal</trans_type>
-    <trans_status>0</trans_status>
     <directory>/</directory>
     <parameters>
     </parameters>
     <log>
       <trans-log-table>
-        <connection />
-        <schema />
-        <table />
-        <size_limit_lines />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <size_limit_lines/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -42,37 +41,37 @@
           <id>LINES_READ</id>
           <enabled>Y</enabled>
           <name>LINES_READ</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_WRITTEN</id>
           <enabled>Y</enabled>
           <name>LINES_WRITTEN</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_UPDATED</id>
           <enabled>Y</enabled>
           <name>LINES_UPDATED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_INPUT</id>
           <enabled>Y</enabled>
           <name>LINES_INPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_OUTPUT</id>
           <enabled>Y</enabled>
           <name>LINES_OUTPUT</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>LINES_REJECTED</id>
           <enabled>Y</enabled>
           <name>LINES_REJECTED</name>
-          <subject />
+          <subject/>
         </field>
         <field>
           <id>ERRORS</id>
@@ -126,11 +125,11 @@
         </field>
       </trans-log-table>
       <perf-log-table>
-        <connection />
-        <schema />
-        <table />
-        <interval />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <interval/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -208,10 +207,10 @@
         </field>
       </perf-log-table>
       <channel-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -274,10 +273,10 @@
         </field>
       </channel-log-table>
       <step-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -350,10 +349,10 @@
         </field>
       </step-log-table>
       <metrics-log-table>
-        <connection />
-        <schema />
-        <table />
-        <timeout_days />
+        <connection/>
+        <schema/>
+        <table/>
+        <timeout_days/>
         <field>
           <id>ID_BATCH</id>
           <enabled>Y</enabled>
@@ -402,9 +401,9 @@
       </metrics-log-table>
     </log>
     <maxdate>
-      <connection />
-      <table />
-      <field />
+      <connection/>
+      <table/>
+      <field/>
       <offset>0.0</offset>
       <maxdiff>0.0</maxdiff>
     </maxdate>
@@ -415,7 +414,7 @@
     <feedback_shown>Y</feedback_shown>
     <feedback_size>50000</feedback_size>
     <using_thread_priorities>Y</using_thread_priorities>
-    <shared_objects_file />
+    <shared_objects_file/>
     <capture_step_performance>N</capture_step_performance>
     <step_performance_capturing_delay>1000</step_performance_capturing_delay>
     <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
@@ -428,14 +427,97 @@
     <clusterschemas>
     </clusterschemas>
     <created_user>-</created_user>
-    <created_date>2016/10/18 17:16:32.611</created_date>
+    <created_date>2016/10/21 13:30:05.660</created_date>
     <modified_user>-</modified_user>
-    <modified_date>2016/10/18 17:16:32.611</modified_date>
+    <modified_date>2016/10/21 13:30:05.660</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA=</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
+  <connection>
+    <name>OpenMRS</name>
+    <server>${openmrs.db.host}</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>${openmrs.db.name}</database>
+    <port>${openmrs.db.port}</port>
+    <username>${openmrs.db.user}</username>
+    <password>${openmrs.db.password}</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
+        <attribute>500</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.rewriteBatchedStatements</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.tcpKeepAlive</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCompression</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.useCursorFetch</code>
+        <attribute>true</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.userServerPrepStmts</code>
+        <attribute>false</attribute>
+      </attribute>
+      <attribute>
+        <code>EXTRA_OPTION_MYSQL.zeroDateTimeBehavior</code>
+        <attribute>convertToNull</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_LOWERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>FORCE_IDENTIFIERS_TO_UPPERCASE</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>IS_CLUSTERED</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>PORT_NUMBER</code>
+        <attribute>${openmrs.db.port}</attribute>
+      </attribute>
+      <attribute>
+        <code>PRESERVE_RESERVED_WORD_CASE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>QUOTE_ALL_FIELDS</code>
+        <attribute>N</attribute>
+      </attribute>
+      <attribute>
+        <code>STREAM_RESULTS</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_BOOLEAN_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>SUPPORTS_TIMESTAMP_DATA_TYPE</code>
+        <attribute>Y</attribute>
+      </attribute>
+      <attribute>
+        <code>USE_POOLING</code>
+        <attribute>N</attribute>
+      </attribute>
+    </attributes>
+  </connection>
   <connection>
     <name>Warehouse</name>
     <server>${warehouse.db.host}</server>
@@ -445,9 +527,9 @@
     <port>${warehouse.db.port}</port>
     <username>${warehouse.db.user}</username>
     <password>${warehouse.db.password}</password>
-    <servername />
-    <data_tablespace />
-    <index_tablespace />
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
     <attributes>
       <attribute>
         <code>EXTRA_OPTION_MYSQL.defaultFetchSize</code>
@@ -517,43 +599,53 @@
   </connection>
   <order>
     <hop>
-      <from>Import CHW</from>
-      <to>CHW Merge</to>
+      <from>Import Patient Program</from>
+      <to>Lookup Location</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Import Patients</from>
-      <to>CHW Merge</to>
+      <from>Lookup Outcome Concept</from>
+      <to>Get ID Prefix</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>CHW Merge</from>
-      <to>Write Malawi Patient Table</to>
+      <from>Lookup Location</from>
+      <to>Lookup Outcome Concept</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get ID Prefix</from>
+      <to>write patient programs to table</to>
       <enabled>Y</enabled>
     </hop>
   </order>
   <step>
-    <name>CHW Merge</name>
-    <type>MergeJoin</type>
-    <description />
+    <name>Get ID Prefix</name>
+    <type>GetVariable</type>
+    <description/>
     <distribute>Y</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <join_type>LEFT OUTER</join_type>
-    <step1>Import Patients</step1>
-    <step2>Import CHW</step2>
-    <keys_1>
-      <key>patient_id</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-    </keys_2>
-    <attributes />
-    <cluster_schema />
+    <fields>
+      <field>
+        <name>id_prefix</name>
+        <variable>${warehouse.db.key_prefix}</variable>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -561,92 +653,41 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>496</xloc>
-      <yloc>208</yloc>
+      <xloc>944</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Import CHW</name>
+    <name>Import Patient Program</name>
     <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select      p.patient_id, r.related_person as chw
-from        omrs_relationship r
-inner join  omrs_patient p on p.patient_id = r.patient_id
-where       r.relationship_id = (
-    select    r.relationship_id
-    from      omrs_relationship r
-    where     r.patient_id = p.patient_id
-    and       r.related_person_role = 'Community Health Worker'
-    order by  if(r.end_date is null, 1, 0) desc, if(r.start_date is null, 0, 1) desc, r.date_created desc
-    limit     1
-)
-order by p.patient_id;</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>160</xloc>
-      <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Import Patients</name>
-    <type>TableInput</type>
-    <description />
+    <description/>
     <distribute>N</distribute>
-    <custom_distribution />
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
-    <connection>Warehouse</connection>
-    <sql>SELECT
-	patient_id, 
-	identifier, 
-	first_name, 
-	last_name, 
-	gender, 
-	birthdate, 
-	birthdate_estimated,
-	phone_number, 
-	state_province as district, 
-	county_district as traditional_authority, 
-	city_village as village, 
-	dead, 
-	death_date,
-	patient_uuid
-FROM
-	omrs_patient
-ORDER BY
-	patient_id;</sql>
+    <connection>OpenMRS</connection>
+    <sql>/*
+this is the custome patiient program script for Liberia
+ */
+
+select pp.patient_program_id as program_enrollment_id, pp.patient_id, pp.program_id, p.name as program_name, pp.date_enrolled,
+pp.date_completed, pp.location_id, l.name as location_name, pp.outcome_concept_id, cn.name as outcome_concept_name, pp.creator, 
+pp.date_created,pp.changed_by,pp.date_changed,pp.voided,pp.voided_by,pp.date_voided,
+pp.void_reason,pp.uuid
+from patient_program pp join program p using (program_id) 
+left join concept_name cn on pp.outcome_concept_id = cn.concept_id 
+left join location l on pp.location_id = l.location_id;</sql>
     <limit>0</limit>
-    <lookup />
+    <lookup/>
     <execute_each_row>N</execute_each_row>
     <variables_active>N</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -654,99 +695,215 @@ ORDER BY
       </output>
     </remotesteps>
     <GUI>
-      <xloc>160</xloc>
-      <yloc>96</yloc>
+      <xloc>144</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Write Malawi Patient Table</name>
-    <type>TableOutput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
+    <name>Lookup Location</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
     <copies>1</copies>
     <partitioning>
       <method>none</method>
-      <schema_name />
+      <schema_name/>
     </partitioning>
     <connection>Warehouse</connection>
-    <schema />
-    <table>mw_patient</table>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_location</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>location_id</name>
+        <field>source_key</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>location</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>416</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Lookup Outcome Concept</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>lookup_concept</table>
+      <orderby/>
+      <fail_on_multiple>Y</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>outcome_concept_id</name>
+        <field>source_key</field>
+        <condition>=</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>target_value</name>
+        <rename>outcome</rename>
+        <default/>
+        <type>String</type>
+      </value>
+    </lookup>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>112</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>write patient programs to table</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Warehouse</connection>
+    <schema/>
+    <table>program_enrollment</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field />
+    <partitioning_field/>
     <partitioning_daily>N</partitioning_daily>
     <partitioning_monthly>Y</partitioning_monthly>
     <tablename_in_field>N</tablename_in_field>
-    <tablename_field />
+    <tablename_field/>
     <tablename_in_table>Y</tablename_in_table>
     <return_keys>N</return_keys>
-    <return_field />
+    <return_field/>
     <fields>
+      <field>
+        <column_name>program_enrollment_id</column_name>
+        <stream_name>program_enrollment_id</stream_name>
+      </field>
       <field>
         <column_name>patient_id</column_name>
         <stream_name>patient_id</stream_name>
       </field>
       <field>
-        <column_name>identifier</column_name>
-        <stream_name>identifier</stream_name>
+        <column_name>program_id</column_name>
+        <stream_name>program_id</stream_name>
       </field>
       <field>
-        <column_name>first_name</column_name>
-        <stream_name>first_name</stream_name>
+        <column_name>program_name</column_name>
+        <stream_name>program_name</stream_name>
       </field>
       <field>
-        <column_name>last_name</column_name>
-        <stream_name>last_name</stream_name>
+        <column_name>date_enrolled</column_name>
+        <stream_name>date_enrolled</stream_name>
       </field>
       <field>
-        <column_name>gender</column_name>
-        <stream_name>gender</stream_name>
+        <column_name>date_completed</column_name>
+        <stream_name>date_completed</stream_name>
       </field>
       <field>
-        <column_name>birthdate</column_name>
-        <stream_name>birthdate</stream_name>
+        <column_name>location_id</column_name>
+        <stream_name>location_id</stream_name>
       </field>
       <field>
-        <column_name>birthdate_estimated</column_name>
-        <stream_name>birthdate_estimated</stream_name>
+        <column_name>location_name</column_name>
+        <stream_name>location_name</stream_name>
       </field>
       <field>
-        <column_name>phone_number</column_name>
-        <stream_name>phone_number</stream_name>
+        <column_name>outcome_concept_id</column_name>
+        <stream_name>outcome_concept_id</stream_name>
       </field>
       <field>
-        <column_name>district</column_name>
-        <stream_name>district</stream_name>
+        <column_name>outcome_concept_name</column_name>
+        <stream_name>outcome_concept_name</stream_name>
       </field>
       <field>
-        <column_name>traditional_authority</column_name>
-        <stream_name>traditional_authority</stream_name>
+        <column_name>creator</column_name>
+        <stream_name>creator</stream_name>
       </field>
       <field>
-        <column_name>village</column_name>
-        <stream_name>village</stream_name>
+        <column_name>date_created</column_name>
+        <stream_name>date_created</stream_name>
       </field>
       <field>
-        <column_name>dead</column_name>
-        <stream_name>dead</stream_name>
+        <column_name>changed_by</column_name>
+        <stream_name>changed_by</stream_name>
       </field>
       <field>
-        <column_name>death_date</column_name>
-        <stream_name>death_date</stream_name>
+        <column_name>date_changed</column_name>
+        <stream_name>date_changed</stream_name>
       </field>
       <field>
-        <column_name>chw</column_name>
-        <stream_name>chw</stream_name>
+        <column_name>voided</column_name>
+        <stream_name>voided</stream_name>
+      </field>
+      <field>
+        <column_name>voided_by</column_name>
+        <stream_name>voided_by</stream_name>
+      </field>
+      <field>
+        <column_name>date_voided</column_name>
+        <stream_name>date_voided</stream_name>
+      </field>
+      <field>
+        <column_name>void_reason</column_name>
+        <stream_name>void_reason</stream_name>
+      </field>
+      <field>
+        <column_name>uuid</column_name>
+        <stream_name>uuid</stream_name>
       </field>
     </fields>
-    <attributes />
-    <cluster_schema />
+    <attributes/>
+    <cluster_schema/>
     <remotesteps>
       <input>
       </input>
@@ -754,8 +911,8 @@ ORDER BY
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>208</yloc>
+      <xloc>1168</xloc>
+      <yloc>112</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -764,5 +921,5 @@ ORDER BY
   <slave-step-copy-partition-distribution>
   </slave-step-copy-partition-distribution>
   <slave_transformation>N</slave_transformation>
-  <attributes />
+  <attributes/>
 </transformation>
