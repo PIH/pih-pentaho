@@ -444,7 +444,7 @@
     <database>${warehouse.db.name}</database>
     <port>${warehouse.db.port}</port>
     <username>${warehouse.db.user}</username>
-    <password>${warehouse.db.password}</password>
+    <password>Encrypted 247b776172656ad1eddcad44c390cabb18bd63c99dbdde</password>
     <servername />
     <data_tablespace />
     <index_tablespace />
@@ -743,6 +743,10 @@ ORDER BY
       <field>
         <column_name>chw</column_name>
         <stream_name>chw</stream_name>
+      </field>
+      <field>
+        <column_name>patient_uuid</column_name>
+        <stream_name>patient_uuid</stream_name>
       </field>
     </fields>
     <attributes />
