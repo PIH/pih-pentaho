@@ -444,7 +444,7 @@
     <database>${warehouse.db.name}</database>
     <port>${warehouse.db.port}</port>
     <username>${warehouse.db.user}</username>
-    <password>Encrypted 247b776172656ad1eddcad44c390cabb18bd63c99dbdde</password>
+    <password>${warehouse.db.password}</password>
     <servername />
     <data_tablespace />
     <index_tablespace />
