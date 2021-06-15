@@ -1448,7 +1448,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>2</nr>
-      <xloc>928</xloc>
+      <xloc>1168</xloc>
       <yloc>800</yloc>
       <attributes_kjc />
     </entry>
@@ -1525,7 +1525,7 @@
       <draw>Y</draw>
       <nr>1</nr>
       <xloc>1168</xloc>
-      <yloc>800</yloc>
+      <yloc>672</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -1563,7 +1563,7 @@
       <draw>Y</draw>
       <nr>2</nr>
       <xloc>1168</xloc>
-      <yloc>672</yloc>
+      <yloc>544</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -1678,6 +1678,44 @@
       <nr>1</nr>
       <xloc>1280</xloc>
       <yloc>336</yloc>
+      <attributes_kjc />
+    </entry>
+    <entry>
+      <name>Load Mental Health Initial</name>
+      <description />
+      <type>TRANS</type>
+      <attributes />
+      <specification_method>filename</specification_method>
+      <trans_object_id />
+      <filename>${PIH_PENTAHO_HOME}/malawi/transforms/import-into-mental-health-initial.ktr</filename>
+      <transname />
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile />
+      <logext />
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name />
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration>Pentaho local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>1</nr>
+      <xloc>928</xloc>
+      <yloc>800</yloc>
       <attributes_kjc />
     </entry>
   </entries>
@@ -1899,26 +1937,8 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Epilepsy Followup</from>
-      <to>Load Mental Health Followup</to>
-      <from_nr>1</from_nr>
-      <to_nr>2</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load ART Followup</from>
       <to>Load EID Initial</to>
-      <from_nr>2</from_nr>
-      <to_nr>1</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Mental Health Followup</from>
-      <to>Load NCD Other Initial</to>
       <from_nr>2</from_nr>
       <to_nr>1</to_nr>
       <enabled>Y</enabled>
@@ -2000,6 +2020,33 @@
     <hop>
       <from>Load EID Followup</from>
       <to>Load ART Viral Load</to>
+      <from_nr>2</from_nr>
+      <to_nr>1</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Epilepsy Followup</from>
+      <to>Load Mental Health Initial</to>
+      <from_nr>1</from_nr>
+      <to_nr>1</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Mental Health Initial</from>
+      <to>Load Mental Health Followup</to>
+      <from_nr>1</from_nr>
+      <to_nr>2</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Mental Health Followup</from>
+      <to>Load NCD Other Initial</to>
       <from_nr>2</from_nr>
       <to_nr>1</to_nr>
       <enabled>Y</enabled>
