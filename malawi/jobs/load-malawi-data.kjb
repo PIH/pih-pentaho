@@ -1182,7 +1182,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>528</xloc>
+      <xloc>736</xloc>
       <yloc>800</yloc>
       <attributes_kjc />
     </entry>
@@ -1220,7 +1220,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>736</xloc>
+      <xloc>528</xloc>
       <yloc>800</yloc>
       <attributes_kjc />
     </entry>
@@ -1334,7 +1334,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>1</nr>
-      <xloc>736</xloc>
+      <xloc>928</xloc>
       <yloc>432</yloc>
       <attributes_kjc />
     </entry>
@@ -1372,8 +1372,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>2</nr>
-      <xloc>912</xloc>
-      <yloc>432</yloc>
+      <xloc>928</xloc>
+      <yloc>544</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -1410,8 +1410,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>1</nr>
-      <xloc>912</xloc>
-      <yloc>544</yloc>
+      <xloc>928</xloc>
+      <yloc>672</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -1448,8 +1448,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>2</nr>
-      <xloc>912</xloc>
-      <yloc>672</yloc>
+      <xloc>928</xloc>
+      <yloc>800</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -1524,7 +1524,7 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>1</nr>
-      <xloc>912</xloc>
+      <xloc>1168</xloc>
       <yloc>800</yloc>
       <attributes_kjc />
     </entry>
@@ -1562,8 +1562,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>2</nr>
-      <xloc>1088</xloc>
-      <yloc>800</yloc>
+      <xloc>1168</xloc>
+      <yloc>672</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -1602,6 +1602,44 @@
       <nr>2</nr>
       <xloc>1424</xloc>
       <yloc>336</yloc>
+      <attributes_kjc />
+    </entry>
+    <entry>
+      <name>Load CKD Initial</name>
+      <description />
+      <type>TRANS</type>
+      <attributes />
+      <specification_method>filename</specification_method>
+      <trans_object_id />
+      <filename>${PIH_PENTAHO_HOME}/malawi/transforms/import-into-mw-ckd-initial.ktr</filename>
+      <transname />
+      <arg_from_previous>N</arg_from_previous>
+      <params_from_previous>N</params_from_previous>
+      <exec_per_row>N</exec_per_row>
+      <clear_rows>N</clear_rows>
+      <clear_files>N</clear_files>
+      <set_logfile>N</set_logfile>
+      <logfile />
+      <logext />
+      <add_date>N</add_date>
+      <add_time>N</add_time>
+      <loglevel>Basic</loglevel>
+      <cluster>N</cluster>
+      <slave_server_name />
+      <set_append_logfile>N</set_append_logfile>
+      <wait_until_finished>Y</wait_until_finished>
+      <follow_abort_remote>N</follow_abort_remote>
+      <create_parent_folder>N</create_parent_folder>
+      <logging_remote_work>N</logging_remote_work>
+      <run_configuration>Pentaho local</run_configuration>
+      <parameters>
+        <pass_all_parameters>Y</pass_all_parameters>
+      </parameters>
+      <parallel>N</parallel>
+      <draw>Y</draw>
+      <nr>2</nr>
+      <xloc>736</xloc>
+      <yloc>432</yloc>
       <attributes_kjc />
     </entry>
   </entries>
@@ -1805,55 +1843,10 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Diabetes Hypertension Followup</from>
-      <to>Load Asthma Followup</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Asthma Followup</from>
-      <to>Load Asthma Initial</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Asthma Initial</from>
-      <to>Load CHF Initial</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load CHF Initial</from>
       <to>Load CHF Followup</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load CHF Followup</from>
-      <to>Load CKD Followup</to>
-      <from_nr>0</from_nr>
-      <to_nr>1</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load CKD Followup</from>
-      <to>Load Epilepsy Initial</to>
-      <from_nr>1</from_nr>
-      <to_nr>2</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>
@@ -1906,6 +1899,60 @@
     <hop>
       <from>Load EID Initial</from>
       <to>Load EID Followup</to>
+      <from_nr>1</from_nr>
+      <to_nr>2</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Diabetes Hypertension Followup</from>
+      <to>Load Asthma Initial</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Asthma Initial</from>
+      <to>Load Asthma Followup</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Asthma Followup</from>
+      <to>Load CHF Initial</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load CHF Followup</from>
+      <to>Load CKD Initial</to>
+      <from_nr>0</from_nr>
+      <to_nr>2</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load CKD Initial</from>
+      <to>Load CKD Followup</to>
+      <from_nr>2</from_nr>
+      <to_nr>1</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load CKD Followup</from>
+      <to>Load Epilepsy Initial</to>
       <from_nr>1</from_nr>
       <to_nr>2</to_nr>
       <enabled>Y</enabled>

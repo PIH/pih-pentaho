@@ -43,6 +43,7 @@ table,mw_asthma_followup
 table,mw_asthma_initial
 table,mw_chf_initial
 table,mw_chf_followup
+table,mw_ckd_initial
 table,mw_ckd_followup
 table,mw_epilepsy_initial
 table,mw_epilepsy_followup
