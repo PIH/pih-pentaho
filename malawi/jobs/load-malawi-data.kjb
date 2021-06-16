@@ -1182,8 +1182,8 @@
       <parallel>N</parallel>
       <draw>Y</draw>
       <nr>0</nr>
-      <xloc>736</xloc>
-      <yloc>800</yloc>
+      <xloc>1168</xloc>
+      <yloc>432</yloc>
       <attributes_kjc />
     </entry>
     <entry>
@@ -1973,24 +1973,6 @@
       <unconditional>N</unconditional>
     </hop>
     <hop>
-      <from>Load Asthma Initial</from>
-      <to>Load Asthma Followup</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
-      <from>Load Asthma Followup</from>
-      <to>Load CHF Initial</to>
-      <from_nr>0</from_nr>
-      <to_nr>0</to_nr>
-      <enabled>Y</enabled>
-      <evaluation>Y</evaluation>
-      <unconditional>N</unconditional>
-    </hop>
-    <hop>
       <from>Load CHF Followup</from>
       <to>Load CKD Initial</to>
       <from_nr>0</from_nr>
@@ -2049,6 +2031,24 @@
       <to>Load NCD Other Initial</to>
       <from_nr>2</from_nr>
       <to_nr>1</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Asthma Initial</from>
+      <to>Load CHF Initial</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>Y</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load NCD OtherFollowup</from>
+      <to>Load Asthma Followup</to>
+      <from_nr>2</from_nr>
+      <to_nr>0</to_nr>
       <enabled>Y</enabled>
       <evaluation>Y</evaluation>
       <unconditional>N</unconditional>

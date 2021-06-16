@@ -23,7 +23,7 @@ CREATE TABLE mw_asthma_followup (
   treatment_inhaled_b_agonist 	varchar(255) DEFAULT NULL,
   treatment_inhaled_steriod 		varchar(255) DEFAULT NULL,
   treatment_oral_steroid 		varchar(255) DEFAULT NULL,
-  treatment_other 			varchar(255) DEFAULT NULL,
+  other_treatment 			varchar(255) DEFAULT NULL,
   comments 				varchar(255) DEFAULT NULL,
   PRIMARY KEY (asthma_followup_visit_id)
 );
