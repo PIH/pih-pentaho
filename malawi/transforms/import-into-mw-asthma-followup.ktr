@@ -1774,8 +1774,8 @@ order by 	patient_id, visit_date, location</sql>
         <stream_name>treatment_oral_steroid</stream_name>
       </field>
       <field>
-        <column_name>treatment_other</column_name>
-        <stream_name>treatment_other</stream_name>
+        <column_name>other_treatment</column_name>
+        <stream_name>other_treatment</stream_name>
       </field>
       <field>
         <column_name>comments</column_name>
@@ -2222,7 +2222,7 @@ order by 	patient_id, visit_date, location</sql>
       <schema_name />
     </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as treatment_other 
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as other_treatment 
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
 where		o.concept = 'Chronic lung disease treatment' AND o.value_coded = 'Other non-coded' and o.encounter_type in ('ASTHMA_FOLLOWUP')
