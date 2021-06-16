@@ -744,6 +744,10 @@ ORDER BY
         <column_name>chw</column_name>
         <stream_name>chw</stream_name>
       </field>
+      <field>
+        <column_name>patient_uuid</column_name>
+        <stream_name>patient_uuid</stream_name>
+      </field>
     </fields>
     <attributes />
     <cluster_schema />
