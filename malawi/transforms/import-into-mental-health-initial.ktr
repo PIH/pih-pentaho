@@ -438,13 +438,13 @@
   </notepads>
   <connection>
     <name>Warehouse</name>
-    <server>localhost</server>
+    <server>${warehouse.db.host}</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>openmrs_neno_warehouse</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc810df8393fa4bfd24feb2ec99</password>
+    <database>${warehouse.db.name}</database>
+    <port>${warehouse.db.port}</port>
+    <username>${warehouse.db.user}</username>
+    <password>${warehouse.db.password}</password>
     <servername />
     <data_tablespace />
     <index_tablespace />
@@ -487,7 +487,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>3306</attribute>
+        <attribute>${warehouse.db.port}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>
