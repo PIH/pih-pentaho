@@ -708,16 +708,6 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from> tobacco Merge </from>
-      <to>salt_or_Fluid restricted  Merge  </to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>salt_or_Fluid restricted  Merge  </from>
-      <to> concern_for_depression_or_anxiety Merge  </to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from> concern_for_depression_or_anxiety Merge  </from>
       <to>aspirin Merge</to>
       <enabled>Y</enabled>
@@ -725,11 +715,6 @@
     <hop>
       <from>aspirin Merge</from>
       <to>diuretic_hctz Merge  </to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Import salt_or_fluid_restricted </from>
-      <to>salt_or_Fluid restricted  Merge  </to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -933,6 +918,21 @@
       <to>Write CHF_FOLLOWUP Table </to>
       <enabled>Y</enabled>
     </hop>
+    <hop>
+      <from> tobacco Merge </from>
+      <to>salt_or_fluid_restricted  Merge </to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import salt_or_fluid_restricted</from>
+      <to>salt_or_fluid_restricted  Merge </to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>salt_or_fluid_restricted  Merge </from>
+      <to> concern_for_depression_or_anxiety Merge  </to>
+      <enabled>Y</enabled>
+    </hop>
   </order>
   <step>
     <name> bb_aten Merge </name>
@@ -984,7 +984,7 @@
       <schema_name />
     </partitioning>
     <join_type>LEFT OUTER</join_type>
-    <step1>salt_or_Fluid restricted  Merge  </step1>
+    <step1>salt_or_fluid_restricted  Merge </step1>
     <step2>Import concern_for_depression_or_anxiety</step2>
     <keys_1>
       <key>patient_id</key>
@@ -1119,8 +1119,8 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>768</xloc>
-      <yloc>752</yloc>
+      <xloc>752</xloc>
+      <yloc>768</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2464,45 +2464,6 @@ order by 	patient_id, visit_date, location</sql>
     <GUI>
       <xloc>2464</xloc>
       <yloc>208</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Import salt_or_fluid_restricted </name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as salt_or_fluid_restricted 
-
-
-from		omrs_encounter e
-inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Salt or fluid restricted'   and e.encounter_type in ('CHF_FOLLOWUP')
-group by 	e.patient_id, e.encounter_date, e.location
-order by 	patient_id, visit_date, location</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1360</xloc>
-      <yloc>720</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -4097,44 +4058,6 @@ order by 	patient_id, visit_date, location</sql>
     </GUI>
   </step>
   <step>
-    <name>salt_or_Fluid restricted  Merge  </name>
-    <type>MergeJoin</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <join_type>LEFT OUTER</join_type>
-    <step1> tobacco Merge </step1>
-    <step2>Import salt_or_fluid_restricted </step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_2>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1152</xloc>
-      <yloc>752</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>spo2 Merge</name>
     <type>MergeJoin</type>
     <description />
@@ -4321,6 +4244,81 @@ order by 	patient_id, visit_date, location</sql>
     <GUI>
       <xloc>272</xloc>
       <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>salt_or_fluid_restricted  Merge </name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1> tobacco Merge </step1>
+    <step2>Import salt_or_fluid_restricted</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1136</xloc>
+      <yloc>768</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Import salt_or_fluid_restricted</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as salt_or_fluid_restricted
+from		omrs_encounter e
+inner join 	omrs_obs o on e.encounter_id = o.encounter_id
+where		o.concept = 'Salt or fluid restricted'   and e.encounter_type in ('CHF_FOLLOWUP')
+group by 	e.patient_id, e.encounter_date, e.location
+order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1328</xloc>
+      <yloc>704</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
