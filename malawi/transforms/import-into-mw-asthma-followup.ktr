@@ -717,23 +717,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>treatment_oral_steroid Merge</from>
-      <to>treatment_other  Merge </to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>treatment_other  Merge </from>
-      <to>comments Merge</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>comments Merge</from>
       <to>next_appointment_date Merge</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>import treatment_other </from>
-      <to>treatment_other  Merge </to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -749,6 +734,21 @@
     <hop>
       <from>next_appointment_date Merge</from>
       <to>Write Asthma Followup Visit Table</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>treatment_oral_steroid Merge</from>
+      <to>other_treatment Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>other_treatment Merge</from>
+      <to>comments Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>import other_treatment</from>
+      <to>other_treatment Merge</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -1846,7 +1846,7 @@ order by 	patient_id, visit_date, location</sql>
       <schema_name />
     </partitioning>
     <join_type>LEFT OUTER</join_type>
-    <step1>treatment_other  Merge </step1>
+    <step1>other_treatment Merge</step1>
     <step2>import comments</step2>
     <keys_1>
       <key>patient_id</key>
@@ -2211,43 +2211,6 @@ order by 	patient_id, visit_date, location</sql>
     </GUI>
   </step>
   <step>
-    <name>import treatment_other </name>
-    <type>TableInput</type>
-    <description />
-    <distribute>Y</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as other_treatment 
-from		omrs_encounter e
-inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Chronic lung disease treatment' AND o.value_coded = 'Other non-coded' and o.encounter_type in ('ASTHMA_FOLLOWUP')
-group by 	e.patient_id, e.encounter_date, e.location
-order by 	patient_id, visit_date, location</sql>
-    <limit>0</limit>
-    <lookup />
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>N</lazy_conversion_active>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1083</xloc>
-      <yloc>614</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>inhaler_use_frequency_weekly Merge</name>
     <type>MergeJoin</type>
     <description />
@@ -2590,44 +2553,6 @@ order by 	patient_id, visit_date, location</sql>
     </GUI>
   </step>
   <step>
-    <name>treatment_other  Merge </name>
-    <type>MergeJoin</type>
-    <description />
-    <distribute>N</distribute>
-    <custom_distribution />
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name />
-    </partitioning>
-    <join_type>LEFT OUTER</join_type>
-    <step1>treatment_oral_steroid Merge</step1>
-    <step2>import treatment_other </step2>
-    <keys_1>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_1>
-    <keys_2>
-      <key>patient_id</key>
-      <key>visit_date</key>
-      <key>location</key>
-    </keys_2>
-    <attributes />
-    <cluster_schema />
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>1280</xloc>
-      <yloc>704</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>weight Merge</name>
     <type>MergeJoin</type>
     <description />
@@ -2662,6 +2587,81 @@ order by 	patient_id, visit_date, location</sql>
     <GUI>
       <xloc>272</xloc>
       <yloc>272</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>other_treatment Merge</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1>treatment_oral_steroid Merge</step1>
+    <step2>import other_treatment</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1248</xloc>
+      <yloc>720</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>import other_treatment</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as other_treatment
+from		omrs_encounter e
+inner join 	omrs_obs o on e.encounter_id = o.encounter_id
+where		o.concept = 'Chronic lung disease treatment' AND o.value_coded = 'Other non-coded' and o.encounter_type in ('ASTHMA_FOLLOWUP')
+group by 	e.patient_id, e.encounter_date, e.location
+order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1056</xloc>
+      <yloc>624</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
