@@ -25,5 +25,6 @@ CREATE TABLE mw_asthma_followup (
   treatment_oral_steroid 		varchar(255) DEFAULT NULL,
   other_treatment 			varchar(255) DEFAULT NULL,
   comments 				varchar(255) DEFAULT NULL,
+  next_appointment_date		date,
   PRIMARY KEY (asthma_followup_visit_id)
 );
