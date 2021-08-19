@@ -621,18 +621,8 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Import Side Effects</from>
-      <to>Side Effects Merge</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>TB Status Merge</from>
-      <to>Side Effects Merge</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Side Effects Merge</from>
-      <to>Pill Count Merge</to>
+      <from>Import No Side Effect</from>
+      <to>No Side Effect Merge</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
@@ -741,7 +731,67 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
+      <from>TB Status Merge</from>
+      <to>Pill Count Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
       <from>Condoms Given Merge</from>
+      <to>No Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>No Side Effect Merge</from>
+      <to>Peripheral Neuropathy Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Peripheral Neuropathy Side Effect</from>
+      <to>Peripheral Neuropathy Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Peripheral Neuropathy Side Effect Merge</from>
+      <to>Hepatitis Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Hepatitis Side Effect</from>
+      <to>Hepatitis Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Hepatitis Side Effect Merge</from>
+      <to>Skin Rash Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Skin Rash Side Effect</from>
+      <to>Skin Rash Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Skin Rash Side Effect Merge</from>
+      <to>Lipodystrophy Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Lipodystrophy Side Effect</from>
+      <to>Lipodystrophy Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Lipodystrophy Side Effect Merge</from>
+      <to>Other Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Import Other Side Effect</from>
+      <to>Other Side Effect Merge</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Other Side Effect Merge</from>
       <to>Write ART Visit Table</to>
       <enabled>Y</enabled>
     </hop>
@@ -1141,7 +1191,7 @@
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as art_regimen
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Malawi Antiretroviral drugs received'
+where		o.concept = 'Malawi Antiretroviral drugs received' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1178,7 +1228,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as arvs_given_to
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Responsible person present'
+where		o.concept = 'Responsible person present' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1215,7 +1265,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_date as next_appointment_date
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Appointment date'
+where		o.concept = 'Appointment date' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1252,7 +1302,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as condoms_given
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Number of Condoms dispensed'
+where		o.concept = 'Number of Condoms dispensed' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1289,7 +1339,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as depo_given
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Depo-Provera given'
+where		o.concept = 'Depo-Provera given' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1326,7 +1376,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as diastolic_bp
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Diastolic blood pressure'
+where		o.concept = 'Diastolic blood pressure' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1363,7 +1413,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as doses_missed
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Number of HIV drug doses missed'
+where		o.concept = 'Number of HIV drug doses missed' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1442,7 +1492,7 @@ order by 	patient_id, visit_date, location
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as hiv_preventive_therapy
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'HIV Preventive Therapy'
+where		o.concept = 'HIV Preventive Therapy' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1479,7 +1529,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as height
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Height (cm)'
+where		o.concept = 'Height (cm)' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1516,7 +1566,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as art_drugs_received
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Malawi Antiretroviral drugs received'
+where		o.concept = 'Malawi Antiretroviral drugs received' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1553,7 +1603,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as arvs_given
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Number of antiretrovirals given'
+where		o.concept = 'Number of antiretrovirals given' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1590,7 +1640,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as pill_count
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Amount of drug brought to clinic'
+where		o.concept = 'Amount of drug brought to clinic' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1627,7 +1677,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as pregnant_or_lactating
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Pregnant/Lactating'
+where		o.concept = 'Pregnant/Lactating' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1650,7 +1700,7 @@ order by 	patient_id, visit_date, location</sql>
     </GUI>
   </step>
   <step>
-    <name>Import Side Effects</name>
+    <name>Import No Side Effect</name>
     <type>TableInput</type>
     <description />
     <distribute>Y</distribute>
@@ -1661,28 +1711,10 @@ order by 	patient_id, visit_date, location</sql>
       <schema_name />
     </partitioning>
     <connection>Warehouse</connection>
-    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location,  
-		CASE
-        WHEN o.value_coded = "No" THEN o.value_coded
-    	END AS no_side_effect,
-		CASE
-        WHEN o.value_coded = "Peripheral neuropathy" THEN o.value_coded
-    	END AS peripheral_neuropathy_side_effect,
-		CASE
-        WHEN o.value_coded = "Hepatitis" THEN o.value_coded
-    	END AS hepatitis_side_effect,
-		CASE
-        WHEN o.value_coded = "Skin rash" THEN o.value_coded
-    	END AS skin_rash_side_effect,
-		CASE
-		WHEN o.value_coded = "Lipodystrophy" THEN o.value_coded
-    	END AS lipodystrophy_side_effect,	
-		CASE
-		WHEN o.value_coded = "Other" THEN o.value_coded
-    	END AS other_side_effect	
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location,o.value_coded AS no_side_effect
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Malawi ART side effects'
+where		o.concept = 'Malawi ART side effects' and o.value_coded = "No"
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1699,8 +1731,8 @@ order by 	patient_id, visit_date, location</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>96</xloc>
-      <yloc>624</yloc>
+      <xloc>672</xloc>
+      <yloc>464</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1719,7 +1751,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as systolic_bp
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Systolic blood pressure'
+where		o.concept = 'Systolic blood pressure' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1756,7 +1788,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded as tb_status
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'TB status'
+where		o.concept = 'TB status' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1793,7 +1825,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as therapy_pills
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Amount dispensed'
+where		o.concept = 'Amount dispensed' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1830,7 +1862,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as weight
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Weight (kg)'
+where		o.concept = 'Weight (kg)' and e.encounter_type in ('ART_FOLLOWUP')
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1902,7 +1934,7 @@ order by 	patient_id, visit_date, location</sql>
       <schema_name />
     </partitioning>
     <join_type>LEFT OUTER</join_type>
-    <step1>Side Effects Merge</step1>
+    <step1>TB Status Merge</step1>
     <step2>Import Pill Count</step2>
     <keys_1>
       <key>patient_id</key>
@@ -1967,7 +1999,7 @@ order by 	patient_id, visit_date, location</sql>
     </GUI>
   </step>
   <step>
-    <name>Side Effects Merge</name>
+    <name>No Side Effect Merge</name>
     <type>MergeJoin</type>
     <description />
     <distribute>N</distribute>
@@ -1978,8 +2010,8 @@ order by 	patient_id, visit_date, location</sql>
       <schema_name />
     </partitioning>
     <join_type>LEFT OUTER</join_type>
-    <step1>TB Status Merge</step1>
-    <step2>Import Side Effects</step2>
+    <step1>Condoms Given Merge</step1>
+    <step2>Import No Side Effect</step2>
     <keys_1>
       <key>patient_id</key>
       <key>visit_date</key>
@@ -1999,8 +2031,8 @@ order by 	patient_id, visit_date, location</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>272</xloc>
-      <yloc>752</yloc>
+      <xloc>832</xloc>
+      <yloc>496</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2076,7 +2108,7 @@ order by 	patient_id, visit_date, location</sql>
     </remotesteps>
     <GUI>
       <xloc>272</xloc>
-      <yloc>640</yloc>
+      <yloc>752</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -2299,8 +2331,383 @@ order by 	patient_id, visit_date, location</sql>
       </output>
     </remotesteps>
     <GUI>
+      <xloc>1344</xloc>
+      <yloc>464</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Peripheral Neuropathy Side Effect Merge</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1>No Side Effect Merge</step1>
+    <step2>Import Peripheral Neuropathy Side Effect</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
       <xloc>832</xloc>
-      <yloc>704</yloc>
+      <yloc>608</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Hepatitis Side Effect Merge</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1>Peripheral Neuropathy Side Effect Merge</step1>
+    <step2>Import Hepatitis Side Effect</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>736</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Skin Rash Side Effect Merge</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1>Hepatitis Side Effect Merge</step1>
+    <step2>Import Skin Rash Side Effect</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1040</xloc>
+      <yloc>736</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Lipodystrophy Side Effect Merge</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1>Skin Rash Side Effect Merge</step1>
+    <step2>Import Lipodystrophy Side Effect</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1040</xloc>
+      <yloc>592</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Import Peripheral Neuropathy Side Effect</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded AS peripheral_neuropathy_side_effect
+from		omrs_encounter e
+inner join 	omrs_obs o on e.encounter_id = o.encounter_id
+where		o.concept = 'Malawi ART side effects' and o.value_coded = "Peripheral neuropathy"
+group by 	e.patient_id, e.encounter_date, e.location
+order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>688</xloc>
+      <yloc>544</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Import Hepatitis Side Effect</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location,  o.value_coded AS hepatitis_side_effect
+from		omrs_encounter e
+inner join 	omrs_obs o on e.encounter_id = o.encounter_id
+where		o.concept = 'Malawi ART side effects' and o.value_coded = "Hepatitis"
+group by 	e.patient_id, e.encounter_date, e.location
+order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>672</xloc>
+      <yloc>688</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Import Skin Rash Side Effect</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_coded AS skin_rash_side_effect
+from		omrs_encounter e
+inner join 	omrs_obs o on e.encounter_id = o.encounter_id
+where		o.concept = 'Malawi ART side effects' and o.value_coded = "Skin rash"
+group by 	e.patient_id, e.encounter_date, e.location
+order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>944</xloc>
+      <yloc>672</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Import Lipodystrophy Side Effect</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location,  o.value_coded AS lipodystrophy_side_effect
+from		omrs_encounter e
+inner join 	omrs_obs o on e.encounter_id = o.encounter_id
+where		o.concept = 'Malawi ART side effects' and o.value_coded = "Lipodystrophy"
+group by 	e.patient_id, e.encounter_date, e.location
+order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>944</xloc>
+      <yloc>528</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Other Side Effect Merge</name>
+    <type>MergeJoin</type>
+    <description />
+    <distribute>N</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <join_type>LEFT OUTER</join_type>
+    <step1>Lipodystrophy Side Effect Merge</step1>
+    <step2>Import Other Side Effect</step2>
+    <keys_1>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_1>
+    <keys_2>
+      <key>patient_id</key>
+      <key>visit_date</key>
+      <key>location</key>
+    </keys_2>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>1152</xloc>
+      <yloc>464</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Import Other Side Effect</name>
+    <type>TableInput</type>
+    <description />
+    <distribute>Y</distribute>
+    <custom_distribution />
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name />
+    </partitioning>
+    <connection>Warehouse</connection>
+    <sql>select		e.patient_id, e.encounter_date as visit_date, e.location,  o.value_coded AS other_side_effect
+from		omrs_encounter e
+inner join 	omrs_obs o on e.encounter_id = o.encounter_id
+where		o.concept = 'Malawi ART side effects' and o.value_coded = "other"
+group by 	e.patient_id, e.encounter_date, e.location
+order by 	patient_id, visit_date, location</sql>
+    <limit>0</limit>
+    <lookup />
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+    <attributes />
+    <cluster_schema />
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>960</xloc>
+      <yloc>432</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
