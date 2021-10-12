@@ -1185,7 +1185,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as height
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Height (cm)' and o.encounter_type in ('ASTHMA_FOLLOWUP')
+where		o.concept = 'Height (cm)'
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -1630,7 +1630,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_numeric as weight
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Weight (kg)' and o.encounter_type in ('ASTHMA_FOLLOWUP')
+where		o.concept = 'Weight (kg)'
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
@@ -2118,7 +2118,7 @@ order by 	patient_id, visit_date, location</sql>
     <sql>select		e.patient_id, e.encounter_date as visit_date, e.location, o.value_date as next_appointment_date
 from		omrs_encounter e
 inner join 	omrs_obs o on e.encounter_id = o.encounter_id
-where		o.concept = 'Appointment date' and o.encounter_type in ('ASTHMA_FOLLOWUP')
+where		o.concept = 'Appointment date'
 group by 	e.patient_id, e.encounter_date, e.location
 order by 	patient_id, visit_date, location</sql>
     <limit>0</limit>
