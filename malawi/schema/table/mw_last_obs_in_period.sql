@@ -7,7 +7,7 @@ CREATE TABLE mw_last_obs_in_period (
     location VARCHAR(255),
     value_coded VARCHAR(255),
     value_date DATE,
-    value_numeric DOUBLE DEFAULT NULL,
+    value_numeric DECIMAL(10,2) DEFAULT NULL,
     value_text TEXT,
     obs_group_id INT
 );

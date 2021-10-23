@@ -8,7 +8,7 @@ CREATE TABLE mw_lab_tests (
   date_result_received DATE,
   date_result_entered  DATE,
   result_coded         VARCHAR(100),
-  result_numeric       DOUBLE,
+  result_numeric       DECIMAL(10,2),
   result_exception     VARCHAR(100)
 );
 alter table mw_lab_tests add index mw_lab_tests_patient_idx (patient_id);

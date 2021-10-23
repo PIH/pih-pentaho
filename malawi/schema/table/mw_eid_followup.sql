@@ -3,7 +3,7 @@ CREATE TABLE mw_eid_followup (
   patient_id int NOT NULL,
   visit_date date DEFAULT NULL,
   location varchar(255) DEFAULT NULL,
-  muac double DEFAULT NULL,
+  muac decimal(10,2) DEFAULT NULL,
   wasting_or_malnutrition varchar(255) DEFAULT NULL,
   breast_feeding varchar(255) DEFAULT NULL,
   mother_status varchar(255) DEFAULT NULL,
