@@ -1748,7 +1748,7 @@ FROM rw_onc_diagnosis;
   md5(encounter_id ),
   encounter_type ,
   location,
-  md5(group_id),
+  md5(order_group_id),
   order_index,
   indication,
   route,
@@ -2000,7 +2000,7 @@ FROM rw_order_group;
       </field>
       <field>
         <column_name>group_id</column_name>
-        <stream_name>md5(group_id)</stream_name>
+        <stream_name>md5(order_group_id)</stream_name>
       </field>
       <field>
         <column_name>order_index</column_name>

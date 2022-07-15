@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <job>
-  <name>load-rwanda-data</name>
+  <name>load-rwanda-data-omrs2</name>
   <description/>
   <extended_description/>
   <job_version/>
@@ -390,7 +390,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/rwanda/transforms/import-into-rw-orders.ktr</filename>
+      <filename>C:\Users\PIH\Documents\GitHub\pih-pentaho\rwanda\transforms\import-into-rw-orders-omrs2.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -410,7 +410,7 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration/>
+      <run_configuration>Pentaho local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
@@ -426,7 +426,7 @@
       <type>TRANS</type>
       <specification_method>filename</specification_method>
       <trans_object_id/>
-      <filename>${PIH_PENTAHO_HOME}/rwanda/transforms/import-into-rw-ordergroups.ktr</filename>
+      <filename>C:\Users\PIH\Documents\GitHub\pih-pentaho\rwanda\transforms\import-into-rw-ordergroups-omrs2.ktr</filename>
       <transname/>
       <arg_from_previous>N</arg_from_previous>
       <params_from_previous>N</params_from_previous>
@@ -446,7 +446,7 @@
       <follow_abort_remote>N</follow_abort_remote>
       <create_parent_folder>N</create_parent_folder>
       <logging_remote_work>N</logging_remote_work>
-      <run_configuration/>
+      <run_configuration>Pentaho local</run_configuration>
       <parameters>
         <pass_all_parameters>Y</pass_all_parameters>
       </parameters>
@@ -1116,6 +1116,15 @@
     <hop>
       <from>Load Configuration</from>
       <to>Bill</to>
+      <from_nr>0</from_nr>
+      <to_nr>0</to_nr>
+      <enabled>N</enabled>
+      <evaluation>Y</evaluation>
+      <unconditional>N</unconditional>
+    </hop>
+    <hop>
+      <from>Load Configuration</from>
+      <to>Load onc Diagnosis</to>
       <from_nr>0</from_nr>
       <to_nr>0</to_nr>
       <enabled>Y</enabled>

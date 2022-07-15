@@ -497,7 +497,7 @@
     <type>MYSQL</type>
     <access>Native</access>
     <database>${warehouse.db.name}</database>
-    <port>3306</port>
+    <port>${warehouse.db.port}</port>
     <username>${warehouse.db.user}</username>
     <password>${warehouse.db.password}</password>
     <servername/>
@@ -518,7 +518,7 @@
       </attribute>
       <attribute>
         <code>PORT_NUMBER</code>
-        <attribute>3306</attribute>
+        <attribute>${warehouse.db.port}</attribute>
       </attribute>
       <attribute>
         <code>PRESERVE_RESERVED_WORD_CASE</code>

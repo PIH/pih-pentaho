@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-rw-orders</name>
+    <name>import-into-rw-ordergroups-omrs2</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -600,38 +600,18 @@
   </connection>
   <order>
     <hop>
-      <from>Import Orders</from>
-      <to>Lookup Concept</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Get ID Prefix</from>
       <to>Prefix IDs</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Prefix IDs</from>
-      <to>Write Orders Table</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Lookup Location</from>
+      <from>Import Order Group</from>
       <to>Get ID Prefix</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Lookup Concept</from>
-      <to>Lookup indication</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Lookup indication</from>
-      <to>Lookup route</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Lookup route</from>
-      <to>Lookup Location</to>
+      <from>Prefix IDs</from>
+      <to>Write Order Group Table</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -668,13 +648,13 @@
       </output>
     </remotesteps>
     <GUI>
-      <xloc>816</xloc>
-      <yloc>96</yloc>
+      <xloc>336</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Import Orders</name>
+    <name>Import Order Group</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -687,57 +667,46 @@
     <connection>OpenMRS</connection>
     <sql>/*
 *	Extracts all non-voided orders  on non-voided patients
+*	Do not currently have the patient id on here. That is desirable
 */
-select		o.order_id,
-			o.order_type_id,
-			o.concept_id,
-			o.orderer,
-			o.instructions,
-			o.start_date,
-			o.auto_expire_date,
-			o.discontinued_date,
-			o.discontinued_by,
-			o.discontinued_reason,
-			o.patient_id,
-			o.uuid,
-			o.discontinued_reason_non_coded,
-			o.urgency,
-			o.date_created,
-			if (p.birthdate is null or o.start_date is null, null, TIMESTAMPDIFF(YEAR, p.birthdate, o.start_date)) as age_years_at_start_date,
-			if (p.birthdate is null or o.start_date is null, null, TIMESTAMPDIFF(MONTH, p.birthdate, o.start_date)) as age_months_at_start_date,
+select		og.order_group_id,
+			og.uuid,
+			orderextension_order_group.cycle_number,
+			og.date_created,
 			
-			e.encounter_id,
-			e.encounter_type,
-			e.location_id,
+			os.uuid as order_set_uuid,
+			os.name as order_set_name,
+			os.description as order_set_description,
+			os.category as indication, #indication
 
-			oeo.group_id,
-			oeo.order_index,
-			oeo.indication,
-			oeo.route,
-			oeo.administration_instructions,
-
-			oeogns.order_set,
-			drug_order.dose,
-			drug_order.units,
-			drug_order.frequency,
-			drug_order.prn,
-			drug_order.complex,
-			drug_order.quantity,
-			drug_order.equivalent_daily_dose,
-			drug.name as drug_name
-			
-	
-from 		orders o
-
-inner join 	person p on o.patient_id = p.person_id
-left join   orderextension_order oeo on o.order_id = oeo.order_id
-left join 	encounter e on o.encounter_id = e.encounter_id
-left join	(SELECT oeog.id,oeos.name as order_set FROM orderextension_order_group oeog left join orderextension_order_set oeos on oeos.id=oeog.order_set_id) oeogns 
-on oeogns.id = oeo.group_id 
-LEFT JOIN   drug_order on drug_order.order_id=o.order_id
-LEFT JOIN   drug on drug.drug_id=drug_order.drug_inventory_id
-
-where		o.voided = 0 and p.voided = 0;</sql>
+			first_start,
+            last_start,
+			first_discontinued,
+			last_discontinued,
+            new.patient_id,
+			if (new.first_start is null or orderextension_order_set.cycle_length is null, null, DATE_ADD(new.first_start, INTERVAL orderextension_order_set.cycle_length DAY)) as initially_planned_end
+				
+from 		order_group og
+left join	order_set os on og.order_set_id=os.order_set_id
+left join	(SELECT min(date_activated) as  "first_start", 
+				max(date_activated) as "last_start", 
+				order_group_id,
+                patient_id 
+                FROM  orders   
+                where order_action="NEW"
+                group by order_group_id
+			) new on new.order_group_id = og.order_group_id
+left join 	(SELECT min(date_activated) as "first_discontinued", 
+				max(date_activated) as "last_discontinued", 
+				order_group_id,
+                patient_id 
+                FROM  orders   
+                where order_action="DISCONTINUE"
+                group by order_group_id
+			) discontinued on discontinued.order_group_id = og.order_group_id
+LEFT JOIN orderextension_order_group on orderextension_order_group.id=og.order_group_id
+LEFT JOIN orderextension_order_set on orderextension_order_set.id=os.order_set_id
+where		og.voided = 0 and new.patient_id is not null ;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -751,196 +720,8 @@ where		o.voided = 0 and p.voided = 0;</sql>
       </output>
     </remotesteps>
     <GUI>
-      <xloc>144</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Lookup Concept</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>concept_id</name>
-        <field>source_key</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>concept</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>288</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Lookup Location</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_location</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>location_id</name>
-        <field>source_key</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>location</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Lookup indication</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>indication</name>
-        <field>source_key</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>indication_word</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>400</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Lookup route</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>N</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>Warehouse</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>lookup_concept</table>
-      <orderby/>
-      <fail_on_multiple>Y</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>route</name>
-        <field>source_key</field>
-        <condition>=</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>target_value</name>
-        <rename>route_word</rename>
-        <default/>
-        <type>String</type>
-      </value>
-    </lookup>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>528</xloc>
-      <yloc>96</yloc>
+      <xloc>160</xloc>
+      <yloc>48</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -948,7 +729,7 @@ where		o.voided = 0 and p.voided = 0;</sql>
     <name>Prefix IDs</name>
     <type>ScriptValueMod</type>
     <description/>
-    <distribute>N</distribute>
+    <distribute>Y</distribute>
     <custom_distribution/>
     <copies>1</copies>
     <partitioning>
@@ -961,40 +742,22 @@ where		o.voided = 0 and p.voided = 0;</sql>
       <jsScript>
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
-        <jsScript_script>var prefixed_order_id = id_prefix + order_id;
-var prefixed_patient_id = id_prefix + patient_id;
-var prefixed_encounter_id = encounter_id == null ? null : id_prefix + encounter_id;
-var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScript_script>
+        <jsScript_script>var prefixed_order_group_id = id_prefix + order_group_id;
+var prefixed_patient_id = id_prefix + patient_id;</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
       <field>
+        <name>prefixed_order_group_id</name>
+        <rename>order_group_id</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>Y</replace>
+      </field>
+      <field>
         <name>prefixed_patient_id</name>
         <rename>patient_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-      <field>
-        <name>prefixed_order_id</name>
-        <rename>order_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-      <field>
-        <name>prefixed_encounter_id</name>
-        <rename>encounter_id</rename>
-        <type>Integer</type>
-        <length>-1</length>
-        <precision>-1</precision>
-        <replace>Y</replace>
-      </field>
-      <field>
-        <name>prefixed_group_id</name>
-        <rename>group_id</rename>
         <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1009,13 +772,13 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </output>
     </remotesteps>
     <GUI>
-      <xloc>960</xloc>
-      <yloc>96</yloc>
+      <xloc>336</xloc>
+      <yloc>128</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
   <step>
-    <name>Write Orders Table</name>
+    <name>Write Order Group Table</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -1027,11 +790,11 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
     </partitioning>
     <connection>Warehouse</connection>
     <schema/>
-    <table>rw_order</table>
+    <table>rw_order_group</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
+    <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -1044,140 +807,60 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
     <return_field/>
     <fields>
       <field>
-        <column_name>order_id</column_name>
-        <stream_name>order_id</stream_name>
-      </field>
-      <field>
-        <column_name>order_type_id</column_name>
-        <stream_name>order_type_id</stream_name>
-      </field>
-      <field>
-        <column_name>orderer</column_name>
-        <stream_name>orderer</stream_name>
-      </field>
-      <field>
-        <column_name>instructions</column_name>
-        <stream_name>instructions</stream_name>
-      </field>
-      <field>
-        <column_name>start_date</column_name>
-        <stream_name>start_date</stream_name>
-      </field>
-      <field>
-        <column_name>auto_expire_date</column_name>
-        <stream_name>auto_expire_date</stream_name>
-      </field>
-      <field>
-        <column_name>discontinued_date</column_name>
-        <stream_name>discontinued_date</stream_name>
-      </field>
-      <field>
-        <column_name>discontinued_by</column_name>
-        <stream_name>discontinued_by</stream_name>
-      </field>
-      <field>
-        <column_name>discontinued_reason</column_name>
-        <stream_name>discontinued_reason</stream_name>
-      </field>
-      <field>
-        <column_name>patient_id</column_name>
-        <stream_name>patient_id</stream_name>
+        <column_name>order_group_id</column_name>
+        <stream_name>order_group_id</stream_name>
       </field>
       <field>
         <column_name>uuid</column_name>
         <stream_name>uuid</stream_name>
       </field>
       <field>
-        <column_name>discontinued_reason_non_coded</column_name>
-        <stream_name>discontinued_reason_non_coded</stream_name>
-      </field>
-      <field>
-        <column_name>urgency</column_name>
-        <stream_name>urgency</stream_name>
+        <column_name>cycle_number</column_name>
+        <stream_name>cycle_number</stream_name>
       </field>
       <field>
         <column_name>date_created</column_name>
         <stream_name>date_created</stream_name>
       </field>
       <field>
-        <column_name>encounter_id</column_name>
-        <stream_name>encounter_id</stream_name>
+        <column_name>order_set_uuid</column_name>
+        <stream_name>order_set_uuid</stream_name>
       </field>
       <field>
-        <column_name>encounter_type</column_name>
-        <stream_name>encounter_type</stream_name>
+        <column_name>order_set_name</column_name>
+        <stream_name>order_set_name</stream_name>
       </field>
       <field>
-        <column_name>order_group_id</column_name>
-        <stream_name>group_id</stream_name>
-      </field>
-      <field>
-        <column_name>order_index</column_name>
-        <stream_name>order_index</stream_name>
+        <column_name>order_set_description</column_name>
+        <stream_name>order_set_description</stream_name>
       </field>
       <field>
         <column_name>indication</column_name>
-        <stream_name>indication_word</stream_name>
+        <stream_name>indication</stream_name>
       </field>
       <field>
-        <column_name>route</column_name>
-        <stream_name>route_word</stream_name>
+        <column_name>first_start_date</column_name>
+        <stream_name>first_start</stream_name>
       </field>
       <field>
-        <column_name>administration_instructions</column_name>
-        <stream_name>administration_instructions</stream_name>
+        <column_name>Last_start_date</column_name>
+        <stream_name>last_start</stream_name>
       </field>
       <field>
-        <column_name>concept</column_name>
-        <stream_name>concept</stream_name>
+        <column_name>first_discontinued</column_name>
+        <stream_name>first_discontinued</stream_name>
       </field>
       <field>
-        <column_name>location</column_name>
-        <stream_name>location</stream_name>
+        <column_name>last_discontinued</column_name>
+        <stream_name>last_discontinued</stream_name>
       </field>
       <field>
-        <column_name>order_set</column_name>
-        <stream_name>order_set</stream_name>
+        <column_name>patient_id</column_name>
+        <stream_name>patient_id</stream_name>
       </field>
       <field>
-        <column_name>age_years_at_start_date</column_name>
-        <stream_name>age_years_at_start_date</stream_name>
-      </field>
-      <field>
-        <column_name>age_months_at_start_date</column_name>
-        <stream_name>age_months_at_start_date</stream_name>
-      </field>
-      <field>
-        <column_name>dose</column_name>
-        <stream_name>dose</stream_name>
-      </field>
-      <field>
-        <column_name>units</column_name>
-        <stream_name>units</stream_name>
-      </field>
-      <field>
-        <column_name>prn</column_name>
-        <stream_name>prn</stream_name>
-      </field>
-      <field>
-        <column_name>complex</column_name>
-        <stream_name>complex</stream_name>
-      </field>
-      <field>
-        <column_name>quantity</column_name>
-        <stream_name>quantity</stream_name>
-      </field>
-      <field>
-        <column_name>equivalent_daily_dose</column_name>
-        <stream_name>equivalent_daily_dose</stream_name>
-      </field>
-      <field>
-        <column_name>frequency</column_name>
-        <stream_name>frequency</stream_name>
-      </field>
-      <field>
-        <column_name>drug</column_name>
-        <stream_name>drug_name</stream_name>
+        <column_name>initially_planned_end</column_name>
+        <stream_name>initially_planned_end</stream_name>
       </field>
     </fields>
     <cluster_schema/>
@@ -1188,8 +871,8 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </output>
     </remotesteps>
     <GUI>
-      <xloc>1104</xloc>
-      <yloc>96</yloc>
+      <xloc>336</xloc>
+      <yloc>208</yloc>
       <draw>Y</draw>
     </GUI>
   </step>

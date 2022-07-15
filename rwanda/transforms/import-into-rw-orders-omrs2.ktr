@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <transformation>
   <info>
-    <name>import-into-rw-orders</name>
+    <name>import-into-rw-orders-omrs2</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -687,57 +687,67 @@
     <connection>OpenMRS</connection>
     <sql>/*
 *	Extracts all non-voided orders  on non-voided patients
+*   as of creating this, only new and discontinue order_actions existed. It will not handle changed orders appropriately
 */
 select		o.order_id,
 			o.order_type_id,
 			o.concept_id,
 			o.orderer,
 			o.instructions,
-			o.start_date,
+			o.date_activated as start_date, #was start_date, but now need to modify by different order types
 			o.auto_expire_date,
-			o.discontinued_date,
-			o.discontinued_by,
-			o.discontinued_reason,
+			discontinue_orders.discontinue_date,
+			discontinue_orders.discontinue_by,
+			discontinue_orders.discontinue_reason,
 			o.patient_id,
 			o.uuid,
-			o.discontinued_reason_non_coded,
+			discontinue_orders.discontinue_reason_non_coded,
 			o.urgency,
 			o.date_created,
-			if (p.birthdate is null or o.start_date is null, null, TIMESTAMPDIFF(YEAR, p.birthdate, o.start_date)) as age_years_at_start_date,
-			if (p.birthdate is null or o.start_date is null, null, TIMESTAMPDIFF(MONTH, p.birthdate, o.start_date)) as age_months_at_start_date,
+			if (p.birthdate is null or o.date_activated is null, null, TIMESTAMPDIFF(YEAR, p.birthdate, o.date_activated)) as age_years_at_start_date,
+			if (p.birthdate is null or o.date_activated is null, null, TIMESTAMPDIFF(MONTH, p.birthdate, o.date_activated)) as age_months_at_start_date,
 			
 			e.encounter_id,
 			e.encounter_type,
 			e.location_id,
 
-			oeo.group_id,
-			oeo.order_index,
-			oeo.indication,
-			oeo.route,
-			oeo.administration_instructions,
+			o.order_group_id,
+##			oeo.order_index, #this was never used
+			o.order_reason, #was indication
+			drug_order.route,
+			o.comment_to_fulfiller,#administration_instructions,
 
-			oeogns.order_set,
+			order_set.name as order_set,
 			drug_order.dose,
-			drug_order.units,
+			drug_order.dose_units,
 			drug_order.frequency,
-			drug_order.prn,
-			drug_order.complex,
+			drug_order.as_needed, #prn
+#			drug_order.complex, #was included but never changed
 			drug_order.quantity,
-			drug_order.equivalent_daily_dose,
+#			drug_order.equivalent_daily_dose, #was included but not used
 			drug.name as drug_name
 			
 	
 from 		orders o
 
 inner join 	person p on o.patient_id = p.person_id
-left join   orderextension_order oeo on o.order_id = oeo.order_id
 left join 	encounter e on o.encounter_id = e.encounter_id
-left join	(SELECT oeog.id,oeos.name as order_set FROM orderextension_order_group oeog left join orderextension_order_set oeos on oeos.id=oeog.order_set_id) oeogns 
-on oeogns.id = oeo.group_id 
 LEFT JOIN   drug_order on drug_order.order_id=o.order_id
 LEFT JOIN   drug on drug.drug_id=drug_order.drug_inventory_id
+LEFT JOIN   order_group on order_group.order_group_id=o.order_group_id
+left join	order_set on order_set.order_set_id=order_group.order_set_id
 
-where		o.voided = 0 and p.voided = 0;</sql>
+
+#			o.discontinued_date,
+#			o.discontinued_by,
+#			o.discontinued_reason,
+LEFT JOIN (SELECT date_activated as discontinue_date, order_reason as discontinue_reason, creator as discontinue_by,  order_reason_non_coded as discontinue_reason_non_coded, previous_order_id
+	from orders where voided=0 and order_action="DISCONTINUE"
+    ) discontinue_orders on discontinue_orders.previous_order_id=o.order_id
+
+where		o.voided = 0 and p.voided = 0
+and order_action="NEW";
+</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -872,7 +882,7 @@ where		o.voided = 0 and p.voided = 0;</sql>
       <fail_on_multiple>Y</fail_on_multiple>
       <eat_row_on_failure>N</eat_row_on_failure>
       <key>
-        <name>indication</name>
+        <name>order_reason</name>
         <field>source_key</field>
         <condition>=</condition>
         <name2/>
@@ -964,7 +974,7 @@ where		o.voided = 0 and p.voided = 0;</sql>
         <jsScript_script>var prefixed_order_id = id_prefix + order_id;
 var prefixed_patient_id = id_prefix + patient_id;
 var prefixed_encounter_id = encounter_id == null ? null : id_prefix + encounter_id;
-var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScript_script>
+var prefixed_group_id = order_group_id == null ? null : id_prefix + order_group_id;</jsScript_script>
       </jsScript>
     </jsScripts>
     <fields>
@@ -994,7 +1004,7 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </field>
       <field>
         <name>prefixed_group_id</name>
-        <rename>group_id</rename>
+        <rename>order_group_id</rename>
         <type>Integer</type>
         <length>-1</length>
         <precision>-1</precision>
@@ -1069,15 +1079,15 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </field>
       <field>
         <column_name>discontinued_date</column_name>
-        <stream_name>discontinued_date</stream_name>
+        <stream_name>discontinue_date</stream_name>
       </field>
       <field>
         <column_name>discontinued_by</column_name>
-        <stream_name>discontinued_by</stream_name>
+        <stream_name>discontinue_by</stream_name>
       </field>
       <field>
         <column_name>discontinued_reason</column_name>
-        <stream_name>discontinued_reason</stream_name>
+        <stream_name>discontinue_reason</stream_name>
       </field>
       <field>
         <column_name>patient_id</column_name>
@@ -1089,7 +1099,7 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </field>
       <field>
         <column_name>discontinued_reason_non_coded</column_name>
-        <stream_name>discontinued_reason_non_coded</stream_name>
+        <stream_name>discontinue_reason_non_coded</stream_name>
       </field>
       <field>
         <column_name>urgency</column_name>
@@ -1109,11 +1119,7 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </field>
       <field>
         <column_name>order_group_id</column_name>
-        <stream_name>group_id</stream_name>
-      </field>
-      <field>
-        <column_name>order_index</column_name>
-        <stream_name>order_index</stream_name>
+        <stream_name>order_group_id</stream_name>
       </field>
       <field>
         <column_name>indication</column_name>
@@ -1125,7 +1131,7 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </field>
       <field>
         <column_name>administration_instructions</column_name>
-        <stream_name>administration_instructions</stream_name>
+        <stream_name>comment_to_fulfiller</stream_name>
       </field>
       <field>
         <column_name>concept</column_name>
@@ -1153,23 +1159,15 @@ var prefixed_group_id = group_id == null ? null : id_prefix + group_id;</jsScrip
       </field>
       <field>
         <column_name>units</column_name>
-        <stream_name>units</stream_name>
+        <stream_name>dose_units</stream_name>
       </field>
       <field>
         <column_name>prn</column_name>
-        <stream_name>prn</stream_name>
-      </field>
-      <field>
-        <column_name>complex</column_name>
-        <stream_name>complex</stream_name>
+        <stream_name>as_needed</stream_name>
       </field>
       <field>
         <column_name>quantity</column_name>
         <stream_name>quantity</stream_name>
-      </field>
-      <field>
-        <column_name>equivalent_daily_dose</column_name>
-        <stream_name>equivalent_daily_dose</stream_name>
       </field>
       <field>
         <column_name>frequency</column_name>

@@ -18,7 +18,7 @@ CREATE TABLE rw_order (
   encounter_id INT,
   encounter_type VARCHAR(255),
   location VARCHAR(255),
-  group_id INT,
+  order_group_id INT,
   order_index INT,
   indication VARCHAR(255),
   route VARCHAR(255),
